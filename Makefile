@@ -1,4 +1,5 @@
 PWD=$(shell pwd)
+NODE_IMAGE=node:20.12.2
 IMAGE_NAME=oca-frontend
 CONTAINER_NAME=oca-frontend-app
 
@@ -9,11 +10,11 @@ run-prod:
 	npm run build
 	npm run start
 
-docker-build:
-	docker build -t $(IMAGE_NAME) .
-
 docker-run-dev:
-	docker run --name $(CONTAINER_NAME) -p 3000:3000 -v $(PWD):/app -d $(IMAGE_NAME)
+	docker run -it -p 3000:3000 --name $(IMAGE_NAME) -w /app -v $(PWD):/app $(NODE_IMAGE) npm run dev
+
+docker-build-prod:
+	docker build -t $(IMAGE_NAME) -f Dockerfile .
 
 docker-run-prod:
 	docker run --name $(CONTAINER_NAME) -p 3000:3000 -d $(IMAGE_NAME)
