@@ -23,9 +23,10 @@ export const Name = styled.span`
   font-weight: bold;
 `;
 
-export const Description = styled.p`
-  margin: 0;
-  font-size: 1rem;
+export const Description = styled.span`
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #858585;
 `;
 
 export const LinksContainer = styled.div`
