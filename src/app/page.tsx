@@ -1,9 +1,11 @@
 "use client";
 
+import { Wrapper } from "./globalStyles";
+
 export default function Home() {
   return (
-    <div>
+    <Wrapper>
       <h1>OCA</h1>
-    </div>
+    </Wrapper>
   );
 }
