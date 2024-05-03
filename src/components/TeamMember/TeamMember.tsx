@@ -1,4 +1,4 @@
-import { TeamMemberInterface } from "@/interfaces/TeamMemberInterface";
+import { ITeamMember } from "@/interfaces/TeamMember";
 import {
   Container,
   InfoContainer,
@@ -9,7 +9,7 @@ import {
   Name,
 } from "./TeamMember.styles";
 
-const TeamMember = ({ data }: { data: TeamMemberInterface }) => {
+const TeamMember = ({ data }: { data: ITeamMember }) => {
   const { name, avatar, role, github, linkedin, lattes } = data;
 
   return (
