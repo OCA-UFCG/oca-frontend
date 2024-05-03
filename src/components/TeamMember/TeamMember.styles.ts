@@ -1,13 +1,15 @@
 import styled from "styled-components";
+import Image from "next/image";
 
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  width: fit-content;
+  width: 250px;
   gap: 1rem;
+
 `;
 
-export const Avatar = styled.img`
+export const Avatar = styled(Image)`
   border-radius: 50%;
   height: 5rem;
   width: 5rem;

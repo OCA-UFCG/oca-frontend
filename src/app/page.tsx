@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <Wrapper>
       <Header />
-      <TeamMembers />
       <Sponsors />
+      <TeamMembers />
     </Wrapper>
   );
 }

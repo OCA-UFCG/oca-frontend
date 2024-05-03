@@ -14,7 +14,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
 
   return (
     <Container>
-      <Avatar src={avatar || "avatar.svg"} alt="Profile picture" />
+      <Avatar src={avatar || "avatar.svg"} alt="Profile picture" width={50} height={50}/>
       <InfoContainer>
         <Name>{name}</Name>
         <Description>{role}</Description>
