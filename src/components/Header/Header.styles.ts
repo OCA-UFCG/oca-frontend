@@ -8,11 +8,20 @@ export const Wrapper = styled.div`
     width: 100%;
     padding: 1rem 0;
 
+    @media screen and (max-width: 800px) {
+        gap: 2rem;
+        flex-flow: column;
+    }
+
 `
 
 export const LogoImage = styled(Image)`
     height: 4rem;
     width: fit-content;
+
+    @media screen and (max-width: 800px) {
+        display: none
+    }
 `
 
 export const Navbar = styled.nav`
@@ -22,6 +31,11 @@ export const Navbar = styled.nav`
 export const NavList = styled.ul`
     display: flex;
     gap: 2rem;
+    
+    @media screen and (max-width: 800px) {
+        gap: 1rem;
+        flex-flow: column;
+    }
 
 `
 

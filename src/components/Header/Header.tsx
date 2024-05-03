@@ -38,6 +38,7 @@ const Header = () => {
                         </NavItem>))}
                 </NavList>
             </Navbar>
+            <div>pt-br|en</div> {/* TODO: ADD language component */}
         </Wrapper>
     );
 };
