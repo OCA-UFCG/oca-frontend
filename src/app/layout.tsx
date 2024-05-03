@@ -6,7 +6,7 @@ import { GlobalStyles } from "@/app/globalStyles";
 import ThemeBody from "./ThemeBody";
 
 
-export const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Observatório da Caatinga",

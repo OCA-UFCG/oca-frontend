@@ -32,6 +32,7 @@ export const GlobalStyles = createGlobalStyle`
     font: inherit;
     vertical-align: baseline;
     font-family: 'lato', monospace;
+    color: ${({ theme }) => theme.colors.black}
   }
 
   /* HTML5 display-role reset for older browsers */
@@ -41,6 +42,7 @@ export const GlobalStyles = createGlobalStyle`
   }
   body {
       line-height: 1;
+      width: 100%;
   }
   ol, ul {
       list-style: none;
@@ -57,16 +59,20 @@ export const GlobalStyles = createGlobalStyle`
       border-collapse: collapse;
       border-spacing: 0;
   }
+    a {
+    color: inherit;
+    text-decoration: inherit; /* no underline */
+  }
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.main`
   display: flex;
   flex-flow: column;
   align-items: center;
-  justify-content: center;
   width: 100vw;
   max-width: 1900px;
   min-height: 100vh;
-
+  box-sizing: border-box;
+  padding: 0 1rem 0 1rem;
   transition: 0.3s;
 `;
