@@ -19,11 +19,11 @@ const Header = () => {
         },
         {
             name: "Nosso time",
-            href: "#nosso-time"
+            href: "#teamMembers"
         },
         {
             name: "Apoiadores",
-            href: "#apoiadores"
+            href: "#sponsors"
         },
     ]
 
