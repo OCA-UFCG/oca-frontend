@@ -4,16 +4,12 @@ import Sponsor from "../Sponsor";
 const Sponsors = () => {
   const sponsors = [
     {
-      name: "Bristol",
-      logo: "https://drive.google.com/thumbnail?id=19puh-yvYK-JTcYKyTl4oaZXQWRss7Vrd",
-    },
-    {
       name: "Cemaden",
       logo: "https://drive.google.com/thumbnail?id=1vU139aIwQhEI87AB_VgitF7vQb7F1ovb",
     },
     {
       name: "Embrapa",
-      logo: "https://drive.google.com/thumbnail?id=11DzzYXPiLGkxE5ofZqIhDpFVcQH7qRpn",
+      logo: "https://drive.google.com/thumbnail?id=11BcUGnqLcKs4b9y8f5PFzJoPDf8I14I0",
     },
     {
       name: "Inpe",
@@ -21,15 +17,11 @@ const Sponsors = () => {
     },
     {
       name: "Insa",
-      logo: "https://drive.google.com/thumbnail?id=1Clzr7BGWniro2Oh7rd3jEkG7rD_HGerc",
-    },
-    {
-      name: "lisboa",
-      logo: "https://drive.google.com/thumbnail?id=1ty9D212kZlJgbZJa4y4L3jOoxMiOrO7P",
+      logo: "https://drive.google.com/thumbnail?id=1JGujfYROAcG5b1CUweT3nkBM9ftWXJ4R",
     },
     {
       name: "MMA",
-      logo: "https://drive.google.com/thumbnail?id=1x70gB8NkmqWaEfrKzpK3gs0PpUBZEMJs",
+      logo: "https://drive.google.com/thumbnail?id=1avptpwxYt1jFgifgoow3swkcrmqOwQ0I",
     },
     {
       name: "UEPB",
@@ -47,23 +39,21 @@ const Sponsors = () => {
       name: "UFPE",
       logo: "https://drive.google.com/thumbnail?id=1fUlnOG94sj52kLnURvgg5c_9bpCBzjTo",
     },
+    {
+      name: "Universidade de Lisboa",
+      logo: "https://drive.google.com/thumbnail?id=1mAwbhgpyHxKfiRRBPEvYLkLlHh9WyWt5",
+    },
+    {
+      name: "University of Bristol",
+      logo: "https://drive.google.com/thumbnail?id=1-FbK9NC-4BJZlwMrDp6u6D7vf_fTPEcT",
+    },
   ];
-
-  const sortedSponsors = sponsors.sort((a, b) => {
-    if (a.name.toLowerCase() < b.name.toLowerCase()) {
-      return -1; // a vem antes de b
-    } else if (a.name.toLowerCase() > b.name.toLowerCase()) {
-      return 1; // a vem depois de b
-    } else {
-      return 0; // a e b são iguais
-    }
-  });
 
   return (
     <>
       <Title>Parceiros</Title>
       <Container>
-        {sortedSponsors.map((sponsor, index) => (
+        {sponsors.map((sponsor, index) => (
           <Sponsor key={index} data={sponsor} />
         ))}
       </Container>

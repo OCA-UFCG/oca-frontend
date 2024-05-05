@@ -6,7 +6,7 @@ const Sponsor = ({ data }: { data: ISponsor }) => {
 
   return (
     <Container>
-      <Logo src={logo || "logo.svg"} alt={name} width={125} height={75}/>
+      <Logo src={logo || "logo.svg"} alt={name} width={125} height={125}/>
     </Container>
   );
 };
