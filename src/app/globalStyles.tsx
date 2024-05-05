@@ -2,7 +2,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 
-
 export const GlobalStyles = createGlobalStyle`
   html {
     display: flex;
@@ -75,4 +74,5 @@ export const Wrapper = styled.main`
   box-sizing: border-box;
   padding: 0 1rem 0 1rem;
   transition: 0.3s;
+  gap: 5rem;
 `;
