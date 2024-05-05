@@ -18,6 +18,8 @@ export const Background = styled.div<{ retracted: string }>`
   height: 100vh;
   background-color: #00000060;
   position: fixed;
+  left: 0;
+  top: 0;
 
   @keyframes fadeOut {
     0% {
@@ -56,7 +58,9 @@ export const ModalWrapper = styled.div<{ retracted: string }>`
   background-size: 50rem;
   border-radius: 6px;
 
-  min-height: 30rem;
+
+  height: fit-content;
+  max-height: 40rem;
   padding: 1rem;
   box-sizing: border-box;
   width: 100%;
@@ -66,6 +70,7 @@ export const ModalWrapper = styled.div<{ retracted: string }>`
 
   @media screen and (max-width: 400px) {
     max-width: 92vw;
+
   }
 `;
 

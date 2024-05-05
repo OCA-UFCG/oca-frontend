@@ -1,19 +1,14 @@
 "use client";
 
-import Header from "@/components/Header/Header";
 import { Wrapper } from "./globalStyles";
-import MenuModal from "@/components/MenuModal/MenuModal";
+import HeaderSection from "@/components/Header/Section/HeaderSection";
 
 export default function Home() {
 
 
   return (
     <Wrapper>
-      <Header />
-      <MenuModal>
-        <h1>OCA</h1>
-      </MenuModal>
-
+      <HeaderSection />
     </Wrapper>
   );
 }

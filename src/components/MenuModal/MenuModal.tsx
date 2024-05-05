@@ -1,4 +1,4 @@
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useCallback, useRef, useState } from "react";
 import {
   ContentWrapper,
   Background,
@@ -16,6 +16,7 @@ const MenuModal = ({
   children,
   hasBackground = true,
   startRetracted = true,
+  ...props
 }: {
   children?: ReactNode;
   hasBackground?: boolean;
@@ -24,25 +25,26 @@ const MenuModal = ({
   const [retracted, setRetracted] = useState<boolean>(startRetracted);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = useCallback((event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setRetracted(true);
       document.removeEventListener("click", handleClickOutside);
     }
-  };
+  }, []);
 
-  const switchRetract = () => {
+  const switchRetract = useCallback(() => {
     if (retracted) {
       document.addEventListener("click", handleClickOutside);
     } else {
       document.removeEventListener("click", handleClickOutside);
     }
 
-    setRetracted((previous) => !previous);
-  };
+    console.log("oi", retracted)
+    setRetracted(previous => !previous);
+  }, [handleClickOutside, retracted]);
 
   return (
-    <>
+    <div {...props}>
       <a onClick={switchRetract}>
         <MenuImage src={MenuIcon} alt="" />
       </a>
@@ -56,7 +58,7 @@ const MenuModal = ({
         </HeadWrapper>
         <ContentWrapper>{children}</ContentWrapper>
       </ModalWrapper>
-    </>
+    </div>
   );
 };
 

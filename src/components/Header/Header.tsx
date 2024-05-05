@@ -6,7 +6,7 @@ interface Section {
   href: string;
 }
 
-const Header = () => {
+const Header = (props: any) => {
   const sections: Section[] = [
     {
       name: "Sobre nós",
@@ -27,7 +27,7 @@ const Header = () => {
   ];
 
   return (
-    <Wrapper>
+    <Wrapper {...props}>
       <LogoImage src={Logo} alt="" />
       <Navbar>
         <NavList>
@@ -38,7 +38,7 @@ const Header = () => {
           ))}
         </NavList>
       </Navbar>
-      <div>pt-br|en</div> {/* TODO: ADD language component */}
+      <div>pt-br</div> {/* TODO: ADD language component */}
     </Wrapper>
   );
 };
