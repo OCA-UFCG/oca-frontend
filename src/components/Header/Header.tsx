@@ -10,7 +10,7 @@ const Header = (props: any) => {
   const sections: Section[] = [
     {
       name: "Sobre nós",
-      href: "#about",
+      href: "#sobre-nos",
     },
     {
       name: "Mapas e Visualizações",

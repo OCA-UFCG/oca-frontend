@@ -39,22 +39,21 @@ const MenuModal = ({
       document.removeEventListener("click", handleClickOutside);
     }
 
-    console.log("oi", retracted)
     setRetracted(previous => !previous);
   }, [handleClickOutside, retracted]);
 
   return (
     <div {...props}>
-      <a onClick={switchRetract}>
+      <div onClick={switchRetract}>
         <MenuImage src={MenuIcon} alt="" />
-      </a>
+      </div>
       {hasBackground && <Background retracted={retracted.toString()} />}
       <ModalWrapper retracted={retracted.toString()} ref={modalRef}>
         <HeadWrapper>
           <OcaImage src={OcaLogo} alt="" />
-          <a onClick={switchRetract}>
+          <div onClick={switchRetract}>
             <RetractImage src={RetractIcon} alt="" />
-          </a>
+          </div>
         </HeadWrapper>
         <ContentWrapper>{children}</ContentWrapper>
       </ModalWrapper>
