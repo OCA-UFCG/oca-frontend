@@ -29,7 +29,7 @@ const Footer = () => {
         ))}
         <Divider />
         {channels.map(({ name, href, icon }, index) => (
-          <Channels key={index} href={href}>
+          <Channels target="_blank" key={index} href={href}>
             <img src={icon} alt={name} />
           </Channels>
         ))}

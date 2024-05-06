@@ -33,7 +33,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           {socialMedias.map(
             ({ name, href, icon }: ISocialMedia, index: number) =>
               href && (
-                <Medias key={index} href={href}>
+                <Medias target="_blank" key={index} href={href}>
                   <img src={icon} alt={name} />
                 </Medias>
               )
