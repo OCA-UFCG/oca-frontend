@@ -1,13 +1,13 @@
 "use client";
 
-import Header from "@/components/Header/Header";
 import { Wrapper } from "./globalStyles";
+import HeaderSection from "@/components/Header/Section/HeaderSection";
 
 export default function Home() {
+
   return (
     <Wrapper>
-      <Header />
-      <h1>OCA</h1>
+      <HeaderSection />
     </Wrapper>
   );
 }
