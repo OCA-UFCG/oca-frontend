@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const SponsorsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

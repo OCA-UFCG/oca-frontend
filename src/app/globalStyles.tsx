@@ -1,8 +1,6 @@
 "use client";
 import styled, { createGlobalStyle } from "styled-components";
 
-
-
 export const GlobalStyles = createGlobalStyle`
   html {
     display: flex;
@@ -77,8 +75,13 @@ export const Wrapper = styled.main`
   transition: 0.3s;
 `;
 
-export const SessionTitle = styled.h2`
-  font-size: 2rem;
+export const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const SectionTitle = styled.h2`
+  font-size: 1.75rem;
   text-align: center;
-  margin: 1rem;
 `;
