@@ -1,5 +1,6 @@
 import { ISponsor } from "@/interfaces/Sponsor";
-import { Wrapper, Title } from "./Sponsors.styles";
+import { SessionTitle } from "@/app/globalStyles";
+import { Wrapper } from "./Sponsors.styles";
 import Sponsor from "../Sponsor";
 
 const Sponsors = () => {
@@ -52,7 +53,7 @@ const Sponsors = () => {
 
   return (
     <section id="sponsors">
-      <Title>Parceiros</Title>
+      <SessionTitle>Parceiros</SessionTitle>
       <Wrapper>
         {sponsors.map((sponsor, index) => (
           <Sponsor key={index} data={sponsor} />

@@ -76,3 +76,9 @@ export const Wrapper = styled.main`
   padding: 0 1rem 0 1rem;
   transition: 0.3s;
 `;
+
+export const SessionTitle = styled.h2`
+  font-size: 2rem;
+  text-align: center;
+  margin: 1rem;
+`;

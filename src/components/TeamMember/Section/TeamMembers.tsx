@@ -1,5 +1,6 @@
 import { ITeamMember } from "@/interfaces/TeamMember";
-import { Wrapper, Title } from "./TeamMembers.styles";
+import { SessionTitle } from "@/app/globalStyles";
+import { Wrapper } from "./TeamMembers.styles";
 import TeamMember from "../TeamMember";
 
 const TeamMembers = () => {
@@ -146,7 +147,7 @@ const TeamMembers = () => {
 
   return (
     <section id="teamMembers">
-      <Title>Nossa equipe</Title>
+      <SessionTitle>Nossa equipe</SessionTitle>
       <Wrapper>
         {teamMembers.map((teamMember, i) => (
           <TeamMember key={i} data={teamMember} />
