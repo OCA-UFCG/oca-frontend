@@ -11,5 +11,4 @@ export const LogoImage = styled(Image)`
   width: fit-content;
   height: fit-content;
   max-width: 6rem;
-  border-radius: 50%;
 `;

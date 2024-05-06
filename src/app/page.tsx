@@ -1,15 +1,15 @@
 "use client";
 
 import { Wrapper } from "./globalStyles";
-
-import Header from "@/components/Header/Header";
+import HeaderSection from "@/components/Header/Section/HeaderSection";
 import SponsorsSection from "@/components/Sponsor/Section/Sponsors";
 import TeamMembersSection from "@/components/TeamMember/Section/TeamMembers";
 
 export default function Home() {
+
   return (
     <Wrapper>
-      <Header />
+      <HeaderSection />
       <SponsorsSection />
       <TeamMembersSection />
     </Wrapper>

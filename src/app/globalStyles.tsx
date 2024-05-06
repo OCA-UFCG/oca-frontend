@@ -10,6 +10,8 @@ export const GlobalStyles = createGlobalStyle`
     background-size: 100vw;
     background-repeat: repeat;
   }
+
+  
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -39,8 +41,10 @@ export const GlobalStyles = createGlobalStyle`
       display: block;
   }
   body {
-      line-height: 1;
-      width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
   ol, ul {
       list-style: none;
@@ -82,6 +86,7 @@ export const Section = styled.section`
 `;
 
 export const SectionTitle = styled.h2`
-  font-size: 1.75rem;
+  font-size: 1.5rem;
+  font-weight: bold;
   text-align: center;
 `;
