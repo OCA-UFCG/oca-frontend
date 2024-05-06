@@ -1,10 +1,6 @@
 "use client";
 import styled, { createGlobalStyle } from "styled-components";
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 export const GlobalStyles = createGlobalStyle`
   html {
     display: flex;

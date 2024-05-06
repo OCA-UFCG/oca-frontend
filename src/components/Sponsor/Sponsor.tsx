@@ -1,4 +1,4 @@
-import { ISponsor } from "@/interfaces";
+import { ISponsor } from "@/utils/interfaces";
 import { Wrapper, LogoImage } from "./Sponsor.styles";
 
 const Sponsor = ({ data }: { data: ISponsor }) => {

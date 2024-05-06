@@ -6,38 +6,10 @@ import {
   Sections,
   Channels,
 } from "./Footer.styles";
-
-interface IOCAChannel {
-  name: string;
-  href: string;
-  icon: string;
-}
-
-interface ISection {
-  name: string;
-  href: string;
-}
+import { ISection, IOCAChannel } from "@/utils/interfaces";
+import { sections } from "@/utils/constants";
 
 const Footer = () => {
-  const sections: ISection[] = [
-    {
-      name: "Voltar ao topo",
-      href: "#root",
-    },
-    {
-      name: "Sobre nós",
-      href: "#about",
-    },
-    {
-      name: "Parceiros",
-      href: "#sponsors",
-    },
-    {
-      name: "Nossa Equipe",
-      href: "#teamMembers",
-    },
-  ];
-
   const channels: IOCAChannel[] = [
     {
       name: "GitHub",

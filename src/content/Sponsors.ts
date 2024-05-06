@@ -1,4 +1,4 @@
-import { ISponsor } from "@/interfaces";
+import { ISponsor } from "@/utils/interfaces";
 
 export const sponsorsContent: ISponsor[] = [
   {

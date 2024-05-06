@@ -1,4 +1,4 @@
-import { ITeamMember } from "@/interfaces";
+import { ITeamMember } from "@/utils/interfaces";
 
 export const teamMembers: ITeamMember[] = [
   {

@@ -17,3 +17,14 @@ export interface ISocialMedia {
   icon: string;
   href: string | undefined;
 }
+
+export interface IOCAChannel {
+  name: string;
+  href: string;
+  icon: string;
+}
+
+export interface ISection {
+  name: string;
+  href: string;
+}

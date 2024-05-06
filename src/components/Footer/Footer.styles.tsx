@@ -4,8 +4,10 @@ import Link from "next/link";
 
 export const Wrapper = styled.footer`
   display: flex;
-  background-color: #8f4456;
+  padding: 2rem;
+  box-sizing: border-box;
   justify-content: space-between;
+  background-color: ${({ theme }) => theme.colors.maroon};
 
   position: relative;
   width: 100vw;
@@ -18,16 +20,14 @@ export const Wrapper = styled.footer`
 
 export const Divider = styled.hr`
   width: 100%;
-  border: 1px solid #fff;
+  border: 1px solid ${({ theme }) => theme.colors.white};
 `;
 
 export const LogoImage = styled(Image)`
   filter: brightness(0) invert(1);
-  padding: 2rem;
 `;  
 
 export const References = styled.div`
-  padding: 2rem;
   display: flex;
 
   gap: 0.5rem;
@@ -43,7 +43,8 @@ export const References = styled.div`
 export const Sections = styled(Link)`
   color: #fff;
   cursor: pointer;
-  font-size: 14px;
+  transition: 0.2s;
+  font-size: 0.9rem;
 
   &:hover {
     opacity: 0.6;
@@ -51,6 +52,8 @@ export const Sections = styled(Link)`
 `;  
 
 export const Channels = styled(Link)`
+  display: flex;
+  gap: 0.5rem;
   transition: 0.2s;
 
   img {
@@ -60,7 +63,7 @@ export const Channels = styled(Link)`
     filter: brightness(0) invert(1);
   }
 
-  &:hover {
+  img:hover {
     opacity: 0.6;
   }
 `;

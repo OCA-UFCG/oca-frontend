@@ -1,4 +1,4 @@
-import { ITeamMember, ISocialMedia } from "@/interfaces";
+import { ITeamMember, ISocialMedia } from "@/utils/interfaces";
 import {
   Wrapper,
   Avatar,
