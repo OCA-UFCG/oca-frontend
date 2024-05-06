@@ -10,7 +10,7 @@ export const Wrapper = styled.footer`
   background-color: ${({ theme }) => theme.colors.maroon};
 
   position: relative;
-  width: 100vw;
+  width: 100%;
 
   @media (max-width: 600px) {
     align-items: center;
@@ -41,7 +41,7 @@ export const References = styled.div`
 `;
 
 export const Sections = styled(Link)`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
   transition: 0.2s;
   font-size: 0.9rem;

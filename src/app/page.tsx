@@ -7,13 +7,14 @@ import TeamMembersSection from "@/components/TeamMember/Section/TeamMembers";
 import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
-
   return (
-    <Wrapper id="root">
-      <HeaderSection />
-      <SponsorsSection />
-      <TeamMembersSection />
+    <>
+      <Wrapper id="root">
+        <HeaderSection />
+        <SponsorsSection />
+        <TeamMembersSection />
+      </Wrapper>
       <Footer />
-    </Wrapper>
+    </>
   );
 }
