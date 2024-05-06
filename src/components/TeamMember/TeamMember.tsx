@@ -1,42 +1,46 @@
-import { ITeamMember } from "@/interfaces/TeamMember";
+import { ITeamMember, ISocialMedia } from "@/interfaces";
 import {
-  Container,
-  InfoContainer,
-  LinksContainer,
-  SocialMedia,
-  Description,
+  Wrapper,
   Avatar,
+  Details,
   Name,
+  Role,
+  Networks,
+  Medias,
 } from "./TeamMember.styles";
 
 const TeamMember = ({ data }: { data: ITeamMember }) => {
   const { name, avatar, role, github, linkedin, lattes } = data;
 
+  const socialMedias: ISocialMedia[] = [
+    { name: "github", href: github, icon: "github.svg" },
+    { name: "linkedin", href: linkedin, icon: "linkedin.svg" },
+    { name: "lattes", href: lattes, icon: "lattes.svg" },
+  ];
+
   return (
-    <Container>
-      <Avatar src={avatar || "avatar.svg"} alt="Profile picture" />
-      <InfoContainer>
+    <Wrapper>
+      <Avatar
+        src={avatar || "avatar.svg"}
+        alt="Profile picture"
+        width={50}
+        height={50}
+      />
+      <Details>
         <Name>{name}</Name>
-        <Description>{role}</Description>
-        <LinksContainer>
-          {github && (
-            <SocialMedia target="_blank" href={github}>
-              <img src="github.svg" alt="github" />
-            </SocialMedia>
+        <Role>{role}</Role>
+        <Networks>
+          {socialMedias.map(
+            ({ name, href, icon }: ISocialMedia, index: number) =>
+              href && (
+                <Medias key={index} href={href}>
+                  <img src={icon} alt={name} />
+                </Medias>
+              )
           )}
-          {linkedin && (
-            <SocialMedia target="_blank" href={linkedin}>
-              <img src="linkedin.svg" alt="linkedin" />
-            </SocialMedia>
-          )}
-          {lattes && (
-            <SocialMedia target="_blank" href={lattes}>
-              <img src="lattes.svg" alt="lattes" />
-            </SocialMedia>
-          )}
-        </LinksContainer>
-      </InfoContainer>
-    </Container>
+        </Networks>
+      </Details>
+    </Wrapper>
   );
 };
 

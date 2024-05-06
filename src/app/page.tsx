@@ -2,12 +2,16 @@
 
 import { Wrapper } from "./globalStyles";
 import HeaderSection from "@/components/Header/Section/HeaderSection";
+import SponsorsSection from "@/components/Sponsor/Section/Sponsors";
+import TeamMembersSection from "@/components/TeamMember/Section/TeamMembers";
 
 export default function Home() {
 
   return (
     <Wrapper>
       <HeaderSection />
+      <SponsorsSection />
+      <TeamMembersSection />
     </Wrapper>
   );
 }
