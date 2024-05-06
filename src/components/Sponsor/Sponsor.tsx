@@ -1,4 +1,4 @@
-import { ISponsor } from "@/interfaces/Sponsor";
+import { ISponsor } from "@/interfaces";
 import { Wrapper, LogoImage } from "./Sponsor.styles";
 
 const Sponsor = ({ data }: { data: ISponsor }) => {
@@ -6,7 +6,13 @@ const Sponsor = ({ data }: { data: ISponsor }) => {
 
   return (
     <Wrapper>
-      <LogoImage src={logo || "logo.svg"} alt={name} title={name} width={125} height={125}/>
+      <LogoImage
+        src={logo}
+        alt={name}
+        title={name}
+        width={125}
+        height={125}
+      />
     </Wrapper>
   );
 };

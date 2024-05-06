@@ -1,4 +1,4 @@
-import { ITeamMember } from "@/interfaces/TeamMember";
+import { ITeamMember, ISocialMedia } from "@/interfaces";
 import {
   Wrapper,
   Avatar,
@@ -8,12 +8,6 @@ import {
   Networks,
   Medias,
 } from "./TeamMember.styles";
-
-interface ISocialMedia {
-  name: string;
-  icon: string;
-  href: string | undefined;
-}
 
 const TeamMember = ({ data }: { data: ITeamMember }) => {
   const { name, avatar, role, github, linkedin, lattes } = data;

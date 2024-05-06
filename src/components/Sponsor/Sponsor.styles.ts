@@ -10,5 +10,5 @@ export const Wrapper = styled.div`
 export const LogoImage = styled(Image)`
   width: fit-content;
   height: fit-content;
-  border-radius: 50%;
+  max-width: 6rem;
 `;

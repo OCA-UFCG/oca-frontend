@@ -1,7 +1,10 @@
 "use client";
 import styled, { createGlobalStyle } from "styled-components";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 export const GlobalStyles = createGlobalStyle`
   html {
     display: flex;
@@ -11,6 +14,8 @@ export const GlobalStyles = createGlobalStyle`
     background-size: 100vw;
     background-repeat: repeat;
   }
+
+  
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -40,8 +45,10 @@ export const GlobalStyles = createGlobalStyle`
       display: block;
   }
   body {
-      line-height: 1;
-      width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
   ol, ul {
       list-style: none;
@@ -75,4 +82,16 @@ export const Wrapper = styled.main`
   padding: 0 1rem 0 1rem;
   transition: 0.3s;
   gap: 5rem;
+`;
+
+export const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const SectionTitle = styled.h2`
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
 `;

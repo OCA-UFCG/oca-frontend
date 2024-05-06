@@ -5,9 +5,8 @@ import Link from "next/link";
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 250px;
+  width: 16rem;
   gap: 1rem;
-
 `;
 
 export const Avatar = styled(Image)`
