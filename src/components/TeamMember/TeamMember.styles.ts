@@ -28,7 +28,7 @@ export const Name = styled.span`
 export const Role = styled.span`
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
-  color: #858585;
+  color: ${({ theme }) => theme.colors.gray};
 `;
 
 export const Networks = styled.div`

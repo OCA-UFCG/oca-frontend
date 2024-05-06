@@ -4,7 +4,26 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ["drive.google.com", "servicosweb.cnpq.br", "avatars.githubusercontent.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "drive.google.com",
+        port: "",
+        pathname: "**",
+      },
+      {
+        protocol: "http",
+        hostname: "servicosweb.cnpq.br",
+        port: "",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        port: "",
+        pathname: "**",
+      },
+    ],
   },
 };
 

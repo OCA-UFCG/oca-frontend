@@ -11,9 +11,9 @@ export const MenuImage = styled(Image)`
 `;
 
 export const Background = styled.div<{ retracted: string }>`
+  display: ${({ retracted }) => (retracted === "true" ? "none" : "flex")};
   animation: ${(props) => (props.retracted === "true" ? "fadeOut" : "fadeIn")}
     0.5s forwards;
-
   width: 100vw;
   height: 100vh;
   background-color: #00000060;
@@ -58,7 +58,6 @@ export const ModalWrapper = styled.div<{ retracted: string }>`
   background-size: 50rem;
   border-radius: 6px;
 
-
   height: fit-content;
   max-height: 40rem;
   padding: 1rem;
@@ -66,11 +65,10 @@ export const ModalWrapper = styled.div<{ retracted: string }>`
   width: 100%;
   max-width: 24rem;
   box-shadow: 0px 0px 4px 1px #c8c8c8;
-  z-index: 1;
+  z-index: 10;
 
   @media screen and (max-width: 400px) {
     max-width: 92vw;
-
   }
 `;
 

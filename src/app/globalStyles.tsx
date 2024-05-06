@@ -71,12 +71,14 @@ export const Wrapper = styled.main`
   display: flex;
   flex-flow: column;
   align-items: center;
-  width: 100vw;
+  width: 100%;
+  padding: 0 1rem 0 1rem;
+
   max-width: 1900px;
   min-height: 100vh;
   box-sizing: border-box;
-  padding: 0 1rem 0 1rem;
   transition: 0.3s;
+  gap: 5rem;
 `;
 
 export const Section = styled.section`
