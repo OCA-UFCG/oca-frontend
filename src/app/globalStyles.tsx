@@ -10,6 +10,7 @@ export const GlobalStyles = createGlobalStyle`
     background-image: url("background.png");
     background-size: 100vw;
     background-repeat: repeat;
+    min-height: 100vh;
   }
 
   
@@ -68,15 +69,22 @@ export const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export const Wrapper = styled.main`
+export const ContentContainer = styled.div`
+  width: 100%;
+  padding: 0 1rem 0 1rem;
+  box-sizing: border-box;
+  max-width: 1900px;
+  min-height: 100vh;
+
+
+`
+
+export const Main = styled.main`
   display: flex;
   flex-flow: column;
   align-items: center;
   width: 100%;
-  padding: 0 1rem 0 1rem;
 
-  max-width: 1900px;
-  min-height: 100vh;
   box-sizing: border-box;
   transition: 0.3s;
   gap: 5rem;
