@@ -129,11 +129,12 @@ export const LinkButton = styled(Link)`
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  text-decoration: none;
   font-size: 14px;
 
   &:hover {
     opacity: 0.7;
-    transform: scale(0.95);
+    transform: scale(0.97);
   }
 `;
 
