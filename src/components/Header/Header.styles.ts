@@ -49,12 +49,15 @@ export const NavItem = styled.li`
   transition: 0.3s;
   line-height: 1.5rem;
   font-weight: bold;
+    list-style: none;
   border-bottom: thin solid transparent;
   border-left: thin solid transparent;
 
   a {
     display: block;
+    text-decoration: none;
     width: 100%;
+    font-style: none;
   }
 
   &:hover {

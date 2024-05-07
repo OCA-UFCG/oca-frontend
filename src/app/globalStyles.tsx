@@ -49,7 +49,8 @@ export const GlobalStyles = createGlobalStyle`
     width: 100%;
   }
   ol, ul {
-      list-style: none;
+    margin-left: 1rem;
+
   }
   blockquote, q {
       quotes: none;
@@ -63,9 +64,14 @@ export const GlobalStyles = createGlobalStyle`
       border-collapse: collapse;
       border-spacing: 0;
   }
-    a {
+  a {
     color: inherit;
-    text-decoration: inherit; /* no underline */
+    font-weight: bold;
+  }
+  p, li {
+    margin-bottom: 1rem;
+    text-align: justify;
+    line-height: 1.5rem;
   }
 `;
 
