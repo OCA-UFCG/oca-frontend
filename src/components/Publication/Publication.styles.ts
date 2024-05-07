@@ -25,9 +25,6 @@ export const Card = styled.a`
     transform: scale(0.97);
   }
 
-  @media screen and (min-width: 900px){
-    width: 100rem;
-  }
 `;
 
 export const Type = styled.span`
