@@ -47,7 +47,6 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: 'lato', monospace;
     color: ${({ theme }) => theme.colors.black}
   }
 
@@ -92,6 +91,9 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const ContentContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   width: 100%;
   padding: 0 1rem 3rem 1rem;
   box-sizing: border-box;
@@ -104,6 +106,7 @@ export const Main = styled.main`
   flex-flow: column;
   align-items: center;
   width: 100%;
+  max-width: 1400px;
 
   box-sizing: border-box;
   transition: 0.3s;
@@ -146,5 +149,5 @@ export const LogoSection = styled.div`
 
 export const OcaImage = styled(Image)`
   width: fit-content;
-  height: 18rem;
+  height: 20rem;
 `;

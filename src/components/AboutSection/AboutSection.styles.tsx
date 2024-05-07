@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 1300px;
   gap: 3rem;
 
   @media screen and (max-width: 980px) {

@@ -5,7 +5,6 @@ export const TeamMembersContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   padding: 1rem;
-  max-width: 1350px;
   gap: 2rem 1rem;
 
   @media screen and (max-width: 600px) {
