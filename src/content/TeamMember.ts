@@ -128,7 +128,7 @@ export const teamMembers: ITeamMember[] = [
     avatar: "https://avatars.githubusercontent.com/u/217297?v=4",
     lattes: "http://lattes.cnpq.br/3273998433544268",
     github: "https://github.com/thiagomanel",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/thiago-silva-2382165/",
   },
   {
     name: "Ulisses Alencar",
