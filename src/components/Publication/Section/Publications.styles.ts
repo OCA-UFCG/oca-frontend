@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const TeamMembersContainer = styled.div`
+export const PublicationsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 1200px;
   padding: 1rem;
-  max-width: 1350px;
   gap: 1rem;
 `;

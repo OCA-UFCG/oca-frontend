@@ -12,7 +12,7 @@ export const teamMembers: ITeamMember[] = [
   {
     name: "Aldrin Pérez Marin",
     role: "Pesquisador",
-    avatar: "",
+    avatar: "https://drive.google.com/thumbnail?id=1BFZuGhEKfq8XNQknpCxDu0SN8N9Cpucf",
     lattes: "http://lattes.cnpq.br/9814607951325299",
     github: "",
     linkedin: "",
@@ -128,7 +128,7 @@ export const teamMembers: ITeamMember[] = [
     avatar: "https://avatars.githubusercontent.com/u/217297?v=4",
     lattes: "http://lattes.cnpq.br/3273998433544268",
     github: "https://github.com/thiagomanel",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/thiago-silva-2382165/",
   },
   {
     name: "Ulisses Alencar",

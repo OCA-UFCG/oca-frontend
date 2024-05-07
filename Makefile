@@ -2,7 +2,7 @@ PWD=$(shell pwd)
 NODE_IMAGE=node:20.12.2
 IMAGE_NAME=oca-frontend
 CONTAINER_NAME=oca-frontend-app
-HOST_PORT=80
+HOST_PORT=3000
 CONTAINER_PORT=3000
 
 run-dev:

@@ -78,7 +78,7 @@ export const GlobalStyles = createGlobalStyle`
 
 export const ContentContainer = styled.div`
   width: 100%;
-  padding: 0 1rem 0 1rem;
+  padding: 0 1rem 3rem 1rem;
   box-sizing: border-box;
   max-width: 1900px;
   min-height: 100vh;
@@ -94,7 +94,7 @@ export const Main = styled.main`
 
   box-sizing: border-box;
   transition: 0.3s;
-  gap: 5rem;
+  gap: 3rem;
 `;
 
 export const Section = styled.section`

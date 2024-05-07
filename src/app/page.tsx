@@ -1,5 +1,6 @@
 "use client";
 
+import PublicationsSection from "@/components/Publication/Section/Publications";
 import SponsorsSection from "@/components/Sponsor/Section/Sponsors";
 import TeamMembersSection from "@/components/TeamMember/Section/TeamMembers";
 import AboutSection from "@/components/AboutSection/AboutSection";
@@ -13,6 +14,7 @@ export default function Home() {
         <OcaImage src={OcaLogo} alt="The oca logo" />
       </LogoSection>
       <AboutSection />
+      <PublicationsSection />
       <SponsorsSection />
       <TeamMembersSection />
     </>

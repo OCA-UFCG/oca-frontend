@@ -7,6 +7,8 @@ declare module "styled-components" {
         white: string;
         black: string;
         gray: string;
+        orange: string;
+        yellow: string;
     }
 
     export interface DefaultTheme {
@@ -17,10 +19,12 @@ declare module "styled-components" {
 
 export const theme: DefaultTheme = {
     colors: {
-        green: "green",
+        green: "#7E8951",
         maroon: "#8f4456",
         white: "white",
         black: "#1e1e1e",
         gray: "#858585",
+        orange: "#AA633B",
+        yellow: "#CEA15B",   
     }
 }
