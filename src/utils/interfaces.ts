@@ -28,3 +28,9 @@ export interface ISection {
   name: string;
   href: string;
 }
+
+export interface IPublication {
+  title: string;
+  type: string;
+  href: string;
+}
