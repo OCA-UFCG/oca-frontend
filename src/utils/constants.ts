@@ -3,7 +3,11 @@ import { ISection } from "./interfaces";
 export const sections: ISection[] = [
   {
     name: "Sobre nós",
-    href: "/#about",
+    href: "/",
+  },
+  {
+    name: "Nossa história",
+    href: "/about",
   },
   {
     name: "Mapas e Visualizações",

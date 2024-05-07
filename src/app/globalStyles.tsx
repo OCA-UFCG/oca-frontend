@@ -20,8 +20,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     
     ::-webkit-scrollbar-thumb {
-      background: ${({ theme }) => theme.colors.green};
-      border-radius: 10px;
+      background: ${({ theme }) => theme.colors.green}75;
       scroll-padding: 1rem;
       background-clip: padding-box;
     }

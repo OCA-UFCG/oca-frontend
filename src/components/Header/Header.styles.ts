@@ -33,14 +33,13 @@ export const NavList = styled.ul`
   display: flex;
   align-items: flex-end;
   gap: 2rem;
-  
+
   @media screen and (max-width: 800px) {
     box-sizing: border-box;
     padding: 1rem 0;
     flex-flow: column;
     gap: 0.5rem;
     align-items: flex-start;
-
   }
 `;
 
@@ -48,9 +47,10 @@ export const NavItem = styled.li`
   transition: 0.3s;
   line-height: 1.5rem;
   font-weight: bold;
-    list-style: none;
+  list-style: none;
   border-bottom: thin solid transparent;
   border-left: thin solid transparent;
+  margin: 0;
 
   a {
     display: block;
@@ -65,7 +65,7 @@ export const NavItem = styled.li`
 
   @media screen and (min-width: 801px) {
     &:hover {
-      translate: 0 -0.5rem;
+      translate: 0 -0.25rem;
       border-bottom: thin solid ${({ theme }) => theme.colors.black};
     }
   }

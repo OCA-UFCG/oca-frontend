@@ -9,7 +9,7 @@ const About = () => {
   return (
     <ContentWrapper>
       <OcaImage src={OcaLogo} alt="oi" />
-      <SectionTitle>Quem somos nós</SectionTitle>
+      <SectionTitle>Nossa história</SectionTitle>
       <article>
         <p>
           O Observatório da Caatinga e Desertificação surge a partir de um

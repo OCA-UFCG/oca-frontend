@@ -7,7 +7,9 @@ import Link from "next/link";
 const Header = (props: any) => {
   return (
     <Wrapper {...props}>
-      <LogoImage src={Logo} alt="" />
+      <Link href="/">
+        <LogoImage src={Logo} alt="" />
+      </Link>
       <Navbar>
         <NavList>
           {sections.map(({ href, name }: ISection, index: number) => (
@@ -17,7 +19,7 @@ const Header = (props: any) => {
           ))}
         </NavList>
       </Navbar>
-      <div>pt-br</div> {/* TODO: ADD language component */}
+      <div style={{ cursor: "not-allowed" }}>pt-br</div> {/* TODO: ADD language component */}
     </Wrapper>
   );
 };
