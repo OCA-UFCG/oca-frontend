@@ -12,6 +12,19 @@ export const GlobalStyles = createGlobalStyle`
     background-size: 100vw;
     background-repeat: repeat;
     min-height: 100vh;
+
+    ::-webkit-scrollbar {
+      height: 0.5rem;
+      width: 0.5rem;
+      padding: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: ${({ theme }) => theme.colors.green};
+      border-radius: 10px;
+      scroll-padding: 1rem;
+      background-clip: padding-box;
+    }
   }
 
   
@@ -74,6 +87,8 @@ export const GlobalStyles = createGlobalStyle`
     text-align: justify;
     line-height: 1.5rem;
   }
+
+  
 `;
 
 export const ContentContainer = styled.div`
@@ -82,9 +97,7 @@ export const ContentContainer = styled.div`
   box-sizing: border-box;
   max-width: 1900px;
   min-height: 100vh;
-
-
-`
+`;
 
 export const Main = styled.main`
   display: flex;
@@ -128,9 +141,9 @@ export const LogoSection = styled.div`
   display: flex;
   align-items: center;
   height: 50vh;
-`
+`;
 
 export const OcaImage = styled(Image)`
-    width: fit-content;
-    height: 18rem;
+  width: fit-content;
+  height: 18rem;
 `;

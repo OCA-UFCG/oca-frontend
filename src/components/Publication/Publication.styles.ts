@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { getRandomColor } from "@/utils/themes";
 
-export const Card = styled.div`
-  width: 16rem;
-  height: 10rem;
+export const Card = styled.a`
+  max-width: 16rem;
+  width: 100%;
+  text-decoration: none;
+  height: fit-content;
   padding: 1rem;
 
   background-color: ${({ theme }) =>
@@ -20,7 +22,11 @@ export const Card = styled.div`
   transition: 0.25s;
 
   &:hover {
-    transform: scale(0.95);
+    transform: scale(0.97);
+  }
+
+  @media screen and (min-width: 900px){
+    width: 100rem;
   }
 `;
 
@@ -32,10 +38,11 @@ export const Type = styled.span`
   padding-top: 0.3rem;
 `;
 
-export const Content = styled.a`
+export const CardTitle = styled.span`
   color: white;
   font-size: 1.25rem;
   font-weight: bold;
+  width: 16rem;
   padding-top: 0.5rem;
   transition: 0.25s;
   text-decoration: none;
