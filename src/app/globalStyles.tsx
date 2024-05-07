@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
@@ -121,4 +122,15 @@ export const LinkButton = styled(Link)`
     opacity: 0.7;
     transform: scale(0.95);
   }
+`;
+
+export const LogoSection = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50vh;
+`
+
+export const OcaImage = styled(Image)`
+    width: fit-content;
+    height: 18rem;
 `;
