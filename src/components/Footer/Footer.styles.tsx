@@ -43,6 +43,7 @@ export const References = styled.div`
 export const Sections = styled(Link)`
   color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
+  text-decoration: none;
   transition: 0.2s;
   font-size: 0.9rem;
 
@@ -55,6 +56,7 @@ export const Channels = styled(Link)`
   display: flex;
   gap: 0.5rem;
   transition: 0.2s;
+  text-decoration: none;
 
   img {
     cursor: pointer;

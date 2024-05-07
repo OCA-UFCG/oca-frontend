@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import Image from "next/image";
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
@@ -9,6 +11,7 @@ export const GlobalStyles = createGlobalStyle`
     background-image: url("background.png");
     background-size: 100vw;
     background-repeat: repeat;
+    min-height: 100vh;
   }
 
   
@@ -47,7 +50,8 @@ export const GlobalStyles = createGlobalStyle`
     width: 100%;
   }
   ol, ul {
-      list-style: none;
+    margin-left: 1rem;
+
   }
   blockquote, q {
       quotes: none;
@@ -61,24 +65,36 @@ export const GlobalStyles = createGlobalStyle`
       border-collapse: collapse;
       border-spacing: 0;
   }
-    a {
+  a {
     color: inherit;
-    text-decoration: inherit; /* no underline */
+    font-weight: bold;
+  }
+  p, li {
+    margin-bottom: 1rem;
+    text-align: justify;
+    line-height: 1.5rem;
   }
 `;
 
-export const Wrapper = styled.main`
+export const ContentContainer = styled.div`
+  width: 100%;
+  padding: 0 1rem 3rem 1rem;
+  box-sizing: border-box;
+  max-width: 1900px;
+  min-height: 100vh;
+
+
+`
+
+export const Main = styled.main`
   display: flex;
   flex-flow: column;
   align-items: center;
   width: 100%;
-  padding: 0 1rem 0 1rem;
 
-  max-width: 1900px;
-  min-height: 100vh;
   box-sizing: border-box;
   transition: 0.3s;
-  gap: 5rem;
+  gap: 3rem;
 `;
 
 export const Section = styled.section`
@@ -91,4 +107,30 @@ export const SectionTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
+`;
+
+export const LinkButton = styled(Link)`
+  background-color: ${({ theme }) => theme.colors.maroon};
+  color: ${({ theme }) => theme.colors.white};
+  padding: 0.5rem 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+
+  &:hover {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+`;
+
+export const LogoSection = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50vh;
+`
+
+export const OcaImage = styled(Image)`
+    width: fit-content;
+    height: 18rem;
 `;

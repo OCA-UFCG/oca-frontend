@@ -1,22 +1,22 @@
 "use client";
 
-import { Wrapper } from "./globalStyles";
-import HeaderSection from "@/components/Header/Section/HeaderSection";
 import PublicationsSection from "@/components/Publication/Section/Publications";
 import SponsorsSection from "@/components/Sponsor/Section/Sponsors";
 import TeamMembersSection from "@/components/TeamMember/Section/TeamMembers";
-import Footer from "@/components/Footer/Footer";
+import AboutSection from "@/components/AboutSection/AboutSection";
+import { LogoSection, OcaImage } from "./globalStyles";
+import OcaLogo from "@/../public/logo-oca-full.svg";
 
 export default function Home() {
   return (
     <>
-      <Wrapper id="root">
-        <HeaderSection />
-        <PublicationsSection />
-        <SponsorsSection />
-        <TeamMembersSection />
-      </Wrapper>
-      <Footer />
+      <LogoSection>
+        <OcaImage src={OcaLogo} alt="The oca logo" />
+      </LogoSection>
+      <AboutSection />
+      <PublicationsSection />
+      <SponsorsSection />
+      <TeamMembersSection />
     </>
   );
 }

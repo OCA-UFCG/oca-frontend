@@ -38,4 +38,5 @@ export const Content = styled.a`
   font-weight: bold;
   padding-top: 0.5rem;
   transition: 0.25s;
+  text-decoration: none;
 `;

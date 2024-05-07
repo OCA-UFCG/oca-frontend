@@ -20,6 +20,7 @@ export const Background = styled.div<{ retracted: string }>`
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 2;
 
   @keyframes fadeOut {
     0% {
@@ -43,7 +44,7 @@ export const Background = styled.div<{ retracted: string }>`
 `;
 
 export const ModalWrapper = styled.div<{ retracted: string }>`
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 50%;
   bottom: 50%;
@@ -62,7 +63,7 @@ export const ModalWrapper = styled.div<{ retracted: string }>`
   max-height: 40rem;
   padding: 1rem;
   box-sizing: border-box;
-  width: 100%;
+  min-width: 20rem;
   max-width: 24rem;
   box-shadow: 0px 0px 4px 1px #c8c8c8;
   z-index: 10;

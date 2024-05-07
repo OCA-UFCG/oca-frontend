@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Lato } from "next/font/google";
 
-import StyledComponentsRegistry from '@/lib/registry'
+import StyledComponentsRegistry from "@/lib/registry";
 import { GlobalStyles } from "@/app/globalStyles";
 import ThemeBody from "./ThemeBody";
 
-
-const inter = Inter({ subsets: ["latin"] });
+const lato = Lato({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Observatório da Caatinga",
@@ -22,7 +21,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <link rel="icon" href="/favicon.ico" sizes="any" />
 
-      <ThemeBody className={inter.className}>
+      <ThemeBody className={lato.className}>
         <StyledComponentsRegistry>
           <GlobalStyles />
           {children}
