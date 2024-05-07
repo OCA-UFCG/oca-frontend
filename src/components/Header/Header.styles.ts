@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
 
   @media screen and (max-width: 800px) {
-    gap: 2rem;
+    gap: 1rem;
     flex-flow: column;
   }
 `;
@@ -33,13 +33,12 @@ export const NavList = styled.ul`
   display: flex;
   align-items: flex-end;
   gap: 2rem;
-
+  
   @media screen and (max-width: 800px) {
+    box-sizing: border-box;
     padding: 1rem 0;
-    gap: 1rem;
     flex-flow: column;
-    width: 100%;
-    gap: 1.5rem;
+    gap: 0.5rem;
     align-items: flex-start;
 
   }
