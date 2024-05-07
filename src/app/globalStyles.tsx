@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
@@ -91,4 +92,19 @@ export const SectionTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
+`;
+
+export const LinkButton = styled(Link)`
+  background-color: ${({ theme }) => theme.colors.maroon};
+  color: ${({ theme }) => theme.colors.white};
+  padding: 0.5rem 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+
+  &:hover {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
 `;
