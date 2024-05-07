@@ -6,6 +6,10 @@ export const sections: ISection[] = [
     href: "/#about",
   },
   {
+    name: "Publicações",
+    href: "/#publications",
+  },
+  {
     name: "Mapas e Visualizações",
     href: "/#maps",
   },
