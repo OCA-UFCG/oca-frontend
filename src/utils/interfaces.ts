@@ -1,6 +1,7 @@
 export interface ISponsor {
   name: string;
   logo: string;
+  link: string;
 }
 
 export interface ITeamMember {

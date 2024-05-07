@@ -8,9 +8,11 @@ const SponsorsSection = () => {
     <Section id="sponsors">
       <SectionTitle>Parceiros</SectionTitle>
       <SponsorsContainer>
-        {sponsorsContent.map((sponsor, index) => (
-          <Sponsor key={index} data={sponsor} />
-        ))}
+        {sponsorsContent
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((sponsor, index) => (
+            <Sponsor key={index} data={sponsor} />
+          ))}
       </SponsorsContainer>
     </Section>
   );
