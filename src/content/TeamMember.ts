@@ -12,7 +12,7 @@ export const teamMembers: ITeamMember[] = [
   {
     name: "Aldrin Pérez Marin",
     role: "Pesquisador",
-    avatar: "",
+    avatar: "https://drive.google.com/thumbnail?id=1BFZuGhEKfq8XNQknpCxDu0SN8N9Cpucf",
     lattes: "http://lattes.cnpq.br/9814607951325299",
     github: "",
     linkedin: "",
