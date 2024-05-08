@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 `;
 
 export const HeaderModal = styled(MenuModal)`
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 1000px) {
     display: none;
   }
 `;
@@ -20,14 +20,14 @@ export const HeaderModal = styled(MenuModal)`
 export const LogoImage = styled(Image)`
   max-width: 8rem;
   height: fit-content;
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 1000px) {
     display: none;
   }
 `;
 
 export const MainHeader = styled(Header)`
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     display: none;
   }
 `

@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     gap: 1rem;
     flex-flow: column;
   }
@@ -18,13 +18,13 @@ export const LogoImage = styled(Image)`
   height: 4rem;
   width: fit-content;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     display: none;
   }
 `;
 
 export const Navbar = styled.nav`
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     width: 100%;
   }
 `;
@@ -34,7 +34,7 @@ export const NavList = styled.ul`
   align-items: flex-end;
   gap: 2rem;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     box-sizing: border-box;
     padding: 1rem 0;
     flex-flow: column;
@@ -62,14 +62,14 @@ export const NavItem = styled.li`
     opacity: 0.6;
   }
 
-  @media screen and (min-width: 801px) {
+  @media screen and (min-width: 1001px) {
     &:hover {
       translate: 0 -0.25rem;
       border-bottom: thin solid ${({ theme }) => theme.colors.black};
     }
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     width: 100%;
 
     &:hover {
