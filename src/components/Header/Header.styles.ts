@@ -38,7 +38,7 @@ export const NavList = styled.ul`
     box-sizing: border-box;
     padding: 1rem 0;
     flex-flow: column;
-    gap: 0.5rem;
+    gap: 1rem;
     align-items: flex-start;
   }
 `;
@@ -46,7 +46,6 @@ export const NavList = styled.ul`
 export const NavItem = styled.li`
   transition: 0.3s;
   line-height: 1.5rem;
-  font-weight: bold;
   list-style: none;
   border-bottom: thin solid transparent;
   border-left: thin solid transparent;

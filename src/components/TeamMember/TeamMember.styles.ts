@@ -23,17 +23,16 @@ export const Details = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 800px) {
+  @media (max-width: 600px) {
     align-items: center;
     height: 100%;
   }
 `;
 
 export const Name = styled.span`
-  font-size: 1.2rem;
   font-weight: bold;
 
-  @media (max-width: 800px) {
+  @media (max-width: 600px) {
     flex: 2;
     min-width: 7rem;
     text-align: center;
