@@ -2,20 +2,29 @@ import { ITeamMember } from "@/utils/interfaces";
 
 export const teamMembers: ITeamMember[] = [
   {
+    name: "Aldrin Pérez Marin",
+    role: "Coordenador",
+    avatar: "https://drive.google.com/thumbnail?id=1BFZuGhEKfq8XNQknpCxDu0SN8N9Cpucf",
+    lattes: "http://lattes.cnpq.br/9814607951325299",
+    github: "",
+    linkedin: "",
+  },
+  {
+    name: "John Elton",
+    role: "Coordenador",
+    avatar:
+      "http://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4215941U6",
+    lattes: "http://lattes.cnpq.br/7756258383405207",
+    github: "",
+    linkedin: "",
+  },
+  {
     name: "Abraão Araujo",
     role: "Desenvolvedor",
     avatar: "https://avatars.githubusercontent.com/u/98324254?v=4",
     github: "https://github.com/abraaovalentim",
     linkedin: "https://www.linkedin.com/in/abra%C3%A3o-valentim-a71a31206/",
     lattes: "",
-  },
-  {
-    name: "Aldrin Pérez Marin",
-    role: "Pesquisador",
-    avatar: "https://drive.google.com/thumbnail?id=1BFZuGhEKfq8XNQknpCxDu0SN8N9Cpucf",
-    lattes: "http://lattes.cnpq.br/9814607951325299",
-    github: "",
-    linkedin: "",
   },
   {
     name: "Bruce Silva",
@@ -76,15 +85,6 @@ export const teamMembers: ITeamMember[] = [
     avatar:
       "https://drive.google.com/thumbnail?id=1vD5kzeygIbWKQ2tB9b4Xt3HTNdpfcLN8",
     lattes: "http://lattes.cnpq.br/7450404697631705",
-    github: "",
-    linkedin: "",
-  },
-  {
-    name: "John Elton",
-    role: "Pesquisador",
-    avatar:
-      "http://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4215941U6",
-    lattes: "http://lattes.cnpq.br/7756258383405207",
     github: "",
     linkedin: "",
   },
