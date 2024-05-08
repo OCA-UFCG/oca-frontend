@@ -1,12 +1,12 @@
 import { sponsorsContent } from "@/content/Sponsors";
-import { Section, SectionTitle } from "@/app/globalStyles";
-import { SponsorsContainer } from "./Sponsors.styles";
+import { SectionTitle } from "@/app/globalStyles";
+import { SponsorsContainer, Wrapper } from "./Sponsors.styles";
 import Sponsor from "../Sponsor";
 
 const SponsorsSection = () => {
   return (
-    <Section id="sponsors">
-      <SectionTitle>Parceiros</SectionTitle>
+    <Wrapper id="sponsors">
+      <SectionTitle variation="white">Parceiros</SectionTitle>
       <SponsorsContainer>
         {sponsorsContent
           .sort((a, b) => a.name.localeCompare(b.name))
@@ -14,7 +14,7 @@ const SponsorsSection = () => {
             <Sponsor key={index} data={sponsor} />
           ))}
       </SponsorsContainer>
-    </Section>
+    </Wrapper>
   );
 };
 

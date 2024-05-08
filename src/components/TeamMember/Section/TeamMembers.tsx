@@ -5,7 +5,7 @@ import TeamMember from "../TeamMember";
 
 const TeamMembersSection = () => {
   return (
-    <Section id="teamMembers">
+    <Section full="false" id="teamMembers">
       <SectionTitle>Nossa equipe</SectionTitle>
       <TeamMembersContainer>
         {teamMembers.map((teamMember, i) => (

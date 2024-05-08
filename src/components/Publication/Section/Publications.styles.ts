@@ -7,11 +7,12 @@ export const PublicationsContainer = styled.div`
   padding: 1rem;
   gap: 1rem;
   
+  
   @media screen and (max-width: 800px) {
     position: relative;
     justify-content: flex-start;
     align-items: center;
-    max-width: calc(100vw - 1rem);
+    max-width: calc(100vw);
     padding: 0 1rem;
     box-sizing: border-box;
     height: fit-content;

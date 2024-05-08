@@ -4,6 +4,9 @@ import Image from "next/image";
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
+  :root {
+    --main-section-width: 1400px;
+  }
   html {
     display: flex;
     flex-direction: column;
@@ -94,9 +97,8 @@ export const ContentContainer = styled.div`
   flex-flow: column;
   align-items: center;
   width: 100%;
-  padding: 0 1rem 3rem 1rem;
+  padding: 0 0rem 3rem 0rem;
   box-sizing: border-box;
-  max-width: 1900px;
   min-height: 100vh;
 `;
 
@@ -105,23 +107,27 @@ export const Main = styled.main`
   flex-flow: column;
   align-items: center;
   width: 100%;
-  max-width: 1400px;
 
   box-sizing: border-box;
   transition: 0.3s;
   gap: 3rem;
 `;
 
-export const Section = styled.section`
+export const Section = styled.section<{ full?: string }>`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+  padding: 0;
+  box-sizing: border-box;
+  max-width: ${({ full }) =>
+    full !== "false" ? "100%" : "var(--main-section-width)"};
 `;
 
-export const SectionTitle = styled.h2`
+export const SectionTitle = styled.h2<{ variation?: "black" | "white" }>`
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
+  color: ${({ theme, variation }) => theme.colors[variation || "black"]};
 `;
 
 export const LinkButton = styled(Link)`
