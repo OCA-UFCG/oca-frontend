@@ -11,8 +11,7 @@ export const TeamMembersContainer = styled.div`
     justify-content: space-between;
     align-items: stretch;
     height: max-content;
-    width: calc(100vw - 1rem);
-    padding: 0 1rem;
+    width: 100%;
     box-sizing: border-box;
     flex-wrap: nowrap;
     overflow: scroll;

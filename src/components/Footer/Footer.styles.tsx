@@ -9,12 +9,12 @@ export const Wrapper = styled.footer`
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.maroon};
 
+  gap: 1rem;
   position: relative;
   width: 100%;
+  align-items: center;
 
   @media (max-width: 600px) {
-    gap: 1rem;
-    align-items: center;
     flex-direction: column;
   }
 `;
