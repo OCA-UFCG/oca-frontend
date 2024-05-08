@@ -137,6 +137,7 @@ export const LinkButton = styled(Link)`
   padding: 0.5rem 2rem;
   font-weight: bold;
   cursor: pointer;
+  width: fit-content;
   transition: 0.3s;
   text-decoration: none;
   font-size: 14px;
