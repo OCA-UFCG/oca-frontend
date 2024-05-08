@@ -29,7 +29,7 @@ export const sponsorsContent: ISponsor[] = [
   {
     name: "Ministério do Meio Ambiente e Mudança do Clima",
     logo: "https://drive.google.com/thumbnail?id=1avptpwxYt1jFgifgoow3swkcrmqOwQ0I",
-    link: "https://www.climatefoundation.org/?gad_source=1&gclid=CjwKCAjwouexBhAuEiwAtW_ZxwCU__agx_a4kfLYH9qDpQ8Mt9vFTbanFDB3b8bFa2eMr1gZ3RFJexoC0ecQAvD_BwE",
+    link: "https://www.gov.br/mma/pt-br",
   },
   {
     name: "Universidade Estadual da Paraíba",
@@ -54,6 +54,6 @@ export const sponsorsContent: ISponsor[] = [
   {
     name: "Universidade de Bristol",
     logo: "https://drive.google.com/thumbnail?id=1-FbK9NC-4BJZlwMrDp6u6D7vf_fTPEcT",
-    link: "https://www.aber.ac.uk/en/study-with-us/study-aber/?gad_source=1&gclid=CjwKCAjwouexBhAuEiwAtW_ZxxWaamyZbJpPRfz2e9x7ZnSPTnyuaF7KIZFkzYz3eTXyi532LZJzpxoCwT4QAvD_BwE",
+    link: "https://www.bristol.ac.uk/",
   },
 ];
