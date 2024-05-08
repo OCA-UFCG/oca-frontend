@@ -9,8 +9,6 @@ import ThemeBody from "./ThemeBody";
 const NEXT_PUBLIC_GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 const lato = Lato({ weight: "400", subsets: ["latin"] });
 
-console.log("NEXT_PUBLIC_GA_ID", NEXT_PUBLIC_GA_ID);
-
 export const metadata: Metadata = {
   title: "Observatório da Caatinga",
   description: "Observatório da Caatinga",
