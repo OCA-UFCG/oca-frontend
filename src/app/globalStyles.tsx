@@ -119,6 +119,7 @@ export const Section = styled.section<{ full?: string }>`
   gap: 1.5rem;
   padding: 0;
   box-sizing: border-box;
+  width: 100%;
   max-width: ${({ full }) =>
     full !== "false" ? "100%" : "var(--main-section-width)"};
 `;
