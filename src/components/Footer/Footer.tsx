@@ -4,7 +4,8 @@ import {
   LogoImage,
   References,
   Sections,
-  Channels,
+  SocialMedia,
+  SocialMediasContainer,
 } from "./Footer.styles";
 import { ISection, IOCAChannel } from "@/utils/interfaces";
 import { sections } from "@/utils/constants";
@@ -15,6 +16,11 @@ const Footer = () => {
       name: "GitHub",
       href: "https://github.com/OCA-UFCG",
       icon: "github.svg",
+    },
+    {
+      name: "White instagram icon with a camera drawing",
+      href: "https://www.instagram.com/observatorio.caatinga/",
+      icon: "instagram.svg",
     },
   ];
 
@@ -28,11 +34,13 @@ const Footer = () => {
           </Sections>
         ))}
         <Divider />
-        {channels.map(({ name, href, icon }, index) => (
-          <Channels target="_blank" key={index} href={href}>
-            <img src={icon} alt={name} />
-          </Channels>
-        ))}
+        <SocialMediasContainer>
+          {channels.map(({ name, href, icon }, index) => (
+            <SocialMedia target="_blank" key={index} href={href}>
+              <img src={icon} alt={name} />
+            </SocialMedia>
+          ))}
+        </SocialMediasContainer>
       </References>
     </Wrapper>
   );
