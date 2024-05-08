@@ -28,7 +28,7 @@ const AboutSection = () => {
           elementos são essenciais para construir uma sociedade mais inclusiva e
           justa.{" "}
         </p>
-        <LinkButton href="/about">Ler mais</LinkButton>
+        <LinkButton href="/about">Saiba mais</LinkButton>
       </TextContainer>
       <CactusImage src={Cactus} alt="" />
     </Wrapper>

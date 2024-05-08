@@ -6,8 +6,10 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 1300px;
   gap: 3rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  max-width: var(--main-section-width);
 
   @media screen and (max-width: 980px) {
     align-items: center;

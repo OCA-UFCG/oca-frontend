@@ -13,6 +13,7 @@ export const Wrapper = styled.footer`
   width: 100%;
 
   @media (max-width: 600px) {
+    gap: 1rem;
     align-items: center;
     flex-direction: column;
   }
@@ -58,14 +59,14 @@ export const Channels = styled(Link)`
   transition: 0.2s;
   text-decoration: none;
 
+  &:hover {
+    opacity: 0.6;
+  }
+
   img {
     cursor: pointer;
     max-width: 1.75rem;
     max-height: 1.75rem;
     filter: brightness(0) invert(1);
-  }
-
-  img:hover {
-    opacity: 0.6;
   }
 `;

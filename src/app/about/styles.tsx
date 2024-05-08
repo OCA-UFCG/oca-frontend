@@ -7,8 +7,9 @@ export const ContentWrapper = styled.div`
     align-items: center;
     gap: 2rem;
     width: 100%;
-    max-width: 1100px;
-    padding-bottom: 1rem;
+    max-width: var(--main-section-width);
+    padding: 0 1rem 1rem;
+    box-sizing: border-box;
 `
 
 

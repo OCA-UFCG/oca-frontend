@@ -1,13 +1,14 @@
 import { IPublication } from "@/utils/interfaces";
-import { Card, Type, Content } from "./Publication.styles";
+import { Card, Type, CardTitle } from "./Publication.styles";
 
 const Publication = ({ data }: { data: IPublication }) => {
   const { title, href, type } = data;
+  const maxContentLength = 100
 
   return (
-    <Card>
+    <Card href={href} target="_blank" title={title}>
       <Type>{type}</Type>
-      <Content href={href} target="_blank">{title}</Content>
+      <CardTitle>{title.length > maxContentLength ? title.slice(0, maxContentLength) + '...' : title}</CardTitle>
     </Card>
   );
 };

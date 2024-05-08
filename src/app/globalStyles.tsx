@@ -4,6 +4,9 @@ import Image from "next/image";
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
+  :root {
+    --main-section-width: 1400px;
+  }
   html {
     display: flex;
     flex-direction: column;
@@ -12,6 +15,18 @@ export const GlobalStyles = createGlobalStyle`
     background-size: 100vw;
     background-repeat: repeat;
     min-height: 100vh;
+
+    ::-webkit-scrollbar {
+      height: 0.5rem;
+      width: 0.5rem;
+      padding: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: ${({ theme }) => theme.colors.green}75;
+      scroll-padding: 1rem;
+      background-clip: padding-box;
+    }
   }
 
   
@@ -34,7 +49,6 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: 'lato', monospace;
     color: ${({ theme }) => theme.colors.black}
   }
 
@@ -74,17 +88,19 @@ export const GlobalStyles = createGlobalStyle`
     text-align: justify;
     line-height: 1.5rem;
   }
+
+  
 `;
 
 export const ContentContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   width: 100%;
-  padding: 0 1rem 3rem 1rem;
+  padding: 0 0rem 3rem 0rem;
   box-sizing: border-box;
-  max-width: 1900px;
   min-height: 100vh;
-
-
-`
+`;
 
 export const Main = styled.main`
   display: flex;
@@ -97,16 +113,22 @@ export const Main = styled.main`
   gap: 3rem;
 `;
 
-export const Section = styled.section`
+export const Section = styled.section<{ full?: string }>`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: ${({ full }) =>
+    full !== "false" ? "100%" : "var(--main-section-width)"};
 `;
 
-export const SectionTitle = styled.h2`
+export const SectionTitle = styled.h2<{ variation?: "black" | "white" }>`
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
+  color: ${({ theme, variation }) => theme.colors[variation || "black"]};
 `;
 
 export const LinkButton = styled(Link)`
@@ -116,11 +138,12 @@ export const LinkButton = styled(Link)`
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  text-decoration: none;
   font-size: 14px;
 
   &:hover {
     opacity: 0.7;
-    transform: scale(0.95);
+    transform: scale(0.97);
   }
 `;
 
@@ -128,9 +151,9 @@ export const LogoSection = styled.div`
   display: flex;
   align-items: center;
   height: 50vh;
-`
+`;
 
 export const OcaImage = styled(Image)`
-    width: fit-content;
-    height: 18rem;
+  width: fit-content;
+  height: 20rem;
 `;

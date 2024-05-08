@@ -7,7 +7,8 @@ export const Wrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: 1rem;
+  box-sizing: border-box;
 `;
 
 export const HeaderModal = styled(MenuModal)`

@@ -5,7 +5,7 @@ import Publication from "../Publication";
 
 const PublicationsSection = () => {
   return (
-    <Section id="publications">
+    <Section full={"false"} id="publications">
       <SectionTitle>Publicações do observatório</SectionTitle>
       <PublicationsContainer>
         {publicationsContent.map((publications, index) => (
