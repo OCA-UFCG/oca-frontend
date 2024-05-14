@@ -11,6 +11,7 @@ export const Wrapper = styled(Section)`
   display: flex;
   flex-flow: column;
   align-items: center;
+  overflow: hidden;
 `;
 
 export const TagsContainer = styled.div`
@@ -20,6 +21,19 @@ export const TagsContainer = styled.div`
   justify-content: center;
   align-items: center;
   max-width: 600px;
+
+  @media screen and (max-width: 700px) {
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 100vw;
+    padding: 0 1rem 0.5rem 1rem;
+    box-sizing: border-box;
+    height: fit-content;
+    flex-wrap: nowrap;
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    overflow-y: hidden;
+  }
 `;
 
 export const Tag = styled.span<{ active?: string }>`
@@ -32,6 +46,7 @@ export const Tag = styled.span<{ active?: string }>`
   border: 2px solid ${({ theme }) => theme.colors.white};
   border-radius: 2px;
   transition: 0.3s;
+  text-wrap: nowrap;
   cursor: ${({ active }) => (active === "true" ? "not-allowed" : "pointer")};
   background-color: ${({ theme, active }) =>
     active === "false" ? "transparent" : theme.colors.white};
