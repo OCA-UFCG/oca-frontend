@@ -56,22 +56,4 @@ export const EEImages: IEEImage = {
     description:
       "It is afefeofepijf epokeojkfepo j long established fact that a reader wilde de e de del be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it loo",
   },
-  gpp1: {
-    id: "gpp1",
-    name: "GPPfefe",
-    imageId: "projects/ee-abraao-oca/assets/Index_Degradacao",
-    posterUrl:
-      "https://drive.google.com/uc?export=view&id=1rWotBs8JZg4QJT3yOGI_EoCgWAtVsCfP",
-    description:
-      "It is afefeofepijf epokeojkfepo j long established fact that a reader wilde de e de del be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it loo",
-  },
-  gpp2: {
-    id: "gpp2",
-    name: "GPPfefez",
-    imageId: "projects/ee-abraao-oca/assets/Index_Degradacao",
-    posterUrl:
-      "https://drive.google.com/uc?export=view&id=1rWotBs8JZg4QJT3yOGI_EoCgWAtVsCfP",
-    description:
-      "It is afefeofepijf epokeojkfepo j long established fact that a reader wilde de e de del be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it loo",
-  },
 };
