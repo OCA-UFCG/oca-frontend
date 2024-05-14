@@ -7,7 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{tsx,ts,json}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "@next/third-parties": "^14.2.3",
@@ -24,6 +31,8 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.2",
     "husky": "^8.0.3",
+    "lint-staged": "^15.2.2",
+    "prettier": "3.2.5",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.7.1"
   }
