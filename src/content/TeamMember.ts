@@ -136,7 +136,7 @@ export const teamMembers: ITeamMember[] = [
     avatar:
       "https://drive.google.com/thumbnail?id=1EByN4WwlCQDBsF56YmxJeuKaPbuH6p8e",
     lattes: "http://lattes.cnpq.br/2503559135868130",
-    github: "",
-    linkedin: "",
+    github: "https://github.com/ulissesaalencar",
+    linkedin: "https://www.linkedin.com/in/ulisses-alencar-855051171/",
   },
 ];
