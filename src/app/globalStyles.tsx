@@ -125,7 +125,7 @@ export const Section = styled.section<{ full?: string }>`
 `;
 
 export const SectionTitle = styled.h2<{ variation?: "black" | "white" }>`
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: bold;
   text-align: center;
   color: ${({ theme, variation }) => theme.colors[variation || "black"]};
@@ -137,7 +137,9 @@ export const LinkButton = styled(Link)`
   padding: 0.5rem 2rem;
   font-weight: bold;
   cursor: pointer;
-  width: fit-content;
+  width: 100%;
+  text-align: center;
+  max-width: 12rem;
   transition: 0.3s;
   text-decoration: none;
   font-size: 14px;
