@@ -35,3 +35,13 @@ export interface IPublication {
   type: string;
   href: string;
 }
+
+export interface IEEImage {
+  [id: string]: IEEInfo;
+}
+
+export interface IEEInfo {
+  name: string;
+  imageId: string;
+  description: string;
+}
