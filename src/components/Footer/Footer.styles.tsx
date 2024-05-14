@@ -9,12 +9,12 @@ export const Wrapper = styled.footer`
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.maroon};
 
+  gap: 1rem;
   position: relative;
   width: 100%;
+  align-items: center;
 
   @media (max-width: 600px) {
-    gap: 1rem;
-    align-items: center;
     flex-direction: column;
   }
 `;
@@ -53,7 +53,12 @@ export const Sections = styled(Link)`
   }
 `;  
 
-export const Channels = styled(Link)`
+export const SocialMediasContainer = styled.div`
+  display: flex;
+  gap: 1rem;  
+`
+
+export const SocialMedia = styled(Link)`
   display: flex;
   gap: 0.5rem;
   transition: 0.2s;

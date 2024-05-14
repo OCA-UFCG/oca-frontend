@@ -51,7 +51,7 @@ export const ModalWrapper = styled.div<{ retracted: string }>`
   margin: auto 0;
   transition: transform 0.5s ease-out;
   transform: translate(
-    ${(props) => (props.retracted === "true" ? "-100%" : "1rem")}
+    ${(props) => (props.retracted === "true" ? "-110%" : "1rem")}
   );
 
   background-color: ${({ theme }) => theme.colors.white};
