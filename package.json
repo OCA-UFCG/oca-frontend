@@ -19,6 +19,7 @@
   "dependencies": {
     "@google/earthengine": "^0.1.402",
     "@next/third-parties": "^14.2.3",
+    "@types/google-earth": "^0.0.8",
     "maplibre-gl": "^4.2.0",
     "next": "14.2.2",
     "react": "^18",
@@ -27,7 +28,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.1.1",
-    "@types/node": "^20",
+    "@types/node": "^20.12.12",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8.57.0",

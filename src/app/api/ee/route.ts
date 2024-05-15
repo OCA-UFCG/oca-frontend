@@ -1,6 +1,7 @@
 import ee from "@google/earthengine";
 import { NextResponse } from "next/server";
 import { EEImages } from "@/utils/constants";
+import { IMapId } from "@/utils/interfaces";
 
 export async function GET() {
   try {
@@ -8,10 +9,20 @@ export async function GET() {
 
     await authenticate(key);
 
-    const image = ee.Image(EEImages.gpp_21.imageId);
-    const mapId = await getMapId(image);
+    const imagesUrl: { [key: string]: string } = {};
 
-    return NextResponse.json({ mapId }, { status: 200 });
+    const getUrls = async () => {
+      for (const key in EEImages) {
+        const image = ee.Image(EEImages[key].imageId);
+        const mapId: IMapId = (await getMapId(image)) as IMapId;
+        const url = mapId.urlFormat;
+        imagesUrl[key] = url;
+      }
+    };
+
+    await getUrls();
+
+    return NextResponse.json({ imagesUrl }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error }, { status: 404 });
   }
@@ -19,25 +30,21 @@ export async function GET() {
 
 function authenticate(key: string) {
   return new Promise<void>((resolve, reject) => {
-    try {
-      ee.data.authenticateViaPrivateKey(
-        JSON.parse(key),
-        () =>
-          ee.initialize(
-            null,
-            null,
-            () => resolve(),
-            (error: any) => reject(new Error(error)),
-          ),
-        (error: any) => reject(new Error(error)),
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    ee.data.authenticateViaPrivateKey(
+      JSON.parse(key),
+      () =>
+        ee.initialize(
+          null,
+          null,
+          () => resolve(),
+          (error: any) => reject(new Error(error)),
+        ),
+      (error: any) => reject(new Error(error)),
+    );
   });
 }
 
-function getMapId(image: ee.Image) {
+function getMapId(image: any) {
   return new Promise((resolve, reject) => {
     image.getMapId(null, (obj: any, error: any) =>
       error ? reject(new Error(error)) : resolve(obj),

@@ -19,12 +19,11 @@ const MapPage = () => {
 
       const asyncfunction = async () => {
         const response = await fetch("/api/ee");
-        const { mapId } = await response.json();
-        console.log(mapId);
+        const { imagesUrl } = await response.json();
 
         map.addSource("source", {
           type: "raster",
-          tiles: [mapId.urlFormat],
+          tiles: [imagesUrl.carbono],
           tileSize: 256,
         });
 

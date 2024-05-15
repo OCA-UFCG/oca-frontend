@@ -45,3 +45,9 @@ export interface IEEInfo {
   imageId: string;
   description: string;
 }
+
+export interface IMapId {
+  mapid: string;
+  token: string;
+  urlFormat: string;
+}
