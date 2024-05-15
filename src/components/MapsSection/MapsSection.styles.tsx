@@ -58,13 +58,35 @@ export const Tag = styled.span<{ active?: string }>`
   }
 `;
 
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  height: 350px;
+  box-sizing: border-box;
+  border: 3px solid ${({ theme }) => theme.colors.white};
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.green};
+  gap: 1rem;
+
+  img {
+    filter: invert(100%);
+  }
+
+  span {
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
 export const MapPoster = styled(Image)`
   max-width: 600px;
   width: 100%;
-  height: fit-content;
+  height: 350px;
   box-sizing: border-box;
   border: 3px solid ${({ theme }) => theme.colors.white};
-  height: 350px;
   border-radius: 8px;
   object-fit: cover;
 `;

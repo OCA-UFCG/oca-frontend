@@ -27,6 +27,24 @@ export const GlobalStyles = createGlobalStyle`
       scroll-padding: 1rem;
       background-clip: padding-box;
     }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(360deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    @keyframes wordFade {
+      0%, 100% {
+          opacity: 0;
+      }
+      20%, 80% {
+          opacity: 1;
+      }
+    }
   }
 
   
@@ -159,4 +177,10 @@ export const LogoSection = styled.div`
 export const OcaImage = styled(Image)`
   width: fit-content;
   height: 20rem;
+`;
+
+export const SpinningIcon = styled(Image)`
+  width: 4rem;
+  height: 4rem;
+  animation: spin 2s linear infinite;
 `;
