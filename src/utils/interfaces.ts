@@ -35,3 +35,9 @@ export interface IPublication {
   type: string;
   href: string;
 }
+
+export interface IVisuMenuItems {
+  id: string;
+  name: string;
+  value: string;
+}
