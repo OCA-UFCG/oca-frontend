@@ -17,24 +17,25 @@ const MapPage = () => {
         zoom: 3.6,
       });
 
-      const asyncfunction = async () => {
-        const response = await fetch("/api/ee");
-        const { imagesUrl } = await response.json();
+      const asyncfunction = async (nameImage: string) => {
+        const response = await fetch(`/api/ee?name=${nameImage}`);
+        const { url } = await response.json();
 
-        map.addSource("source", {
+        map.addSource(nameImage, {
           type: "raster",
-          tiles: [imagesUrl.carbono],
+          tiles: [url],
           tileSize: 256,
         });
 
         map.addLayer({
           type: "raster",
-          source: "source",
-          id: "layer",
+          source: nameImage,
+          id: nameImage,
         });
       };
 
-      asyncfunction();
+      const nameImage = "carbono";
+      asyncfunction(nameImage);
 
       return () => {
         map.remove();

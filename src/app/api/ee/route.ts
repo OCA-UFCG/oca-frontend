@@ -2,27 +2,21 @@ import ee from "@google/earthengine";
 import { NextResponse } from "next/server";
 import { EEImages } from "@/utils/constants";
 import { IMapId } from "@/utils/interfaces";
+import type { NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     const key = process.env.NEXT_PUBLIC_EE || "";
 
     await authenticate(key);
 
-    const imagesUrl: { [key: string]: string } = {};
+    const name = req.nextUrl.searchParams.get("name") || "null";
 
-    const getUrls = async () => {
-      for (const key in EEImages) {
-        const image = ee.Image(EEImages[key].imageId);
-        const mapId: IMapId = (await getMapId(image)) as IMapId;
-        const url = mapId.urlFormat;
-        imagesUrl[key] = url;
-      }
-    };
+    const image = ee.Image(EEImages[name].imageId);
+    const mapId: IMapId = (await getMapId(image)) as IMapId;
+    const url = mapId.urlFormat;
 
-    await getUrls();
-
-    return NextResponse.json({ imagesUrl }, { status: 200 });
+    return NextResponse.json({ url }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error }, { status: 404 });
   }
