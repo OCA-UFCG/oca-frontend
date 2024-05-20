@@ -41,3 +41,15 @@ export interface IVisuMenuItems {
   name: string;
   value: string;
 }
+
+export interface IEEImage {
+  [id: string]: IEEInfo;
+}
+
+export interface IEEInfo {
+  name: string;
+  id: string;
+  imageId: string;
+  posterUrl: string;
+  description: string;
+}
