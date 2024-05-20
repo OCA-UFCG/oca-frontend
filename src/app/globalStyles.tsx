@@ -27,6 +27,24 @@ export const GlobalStyles = createGlobalStyle`
       scroll-padding: 1rem;
       background-clip: padding-box;
     }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(360deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    @keyframes wordFade {
+      0%, 100% {
+          opacity: 0;
+      }
+      20%, 80% {
+          opacity: 1;
+      }
+    }
   }
 
   
@@ -125,7 +143,7 @@ export const Section = styled.section<{ full?: string }>`
 `;
 
 export const SectionTitle = styled.h2<{ variation?: "black" | "white" }>`
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: bold;
   text-align: center;
   color: ${({ theme, variation }) => theme.colors[variation || "black"]};
@@ -137,7 +155,9 @@ export const LinkButton = styled(Link)`
   padding: 0.5rem 2rem;
   font-weight: bold;
   cursor: pointer;
-  width: fit-content;
+  width: 100%;
+  text-align: center;
+  max-width: 12rem;
   transition: 0.3s;
   text-decoration: none;
   font-size: 14px;
@@ -157,4 +177,10 @@ export const LogoSection = styled.div`
 export const OcaImage = styled(Image)`
   width: fit-content;
   height: 20rem;
+`;
+
+export const SpinningIcon = styled(Image)`
+  width: 4rem;
+  height: 4rem;
+  animation: spin 2s linear infinite;
 `;
