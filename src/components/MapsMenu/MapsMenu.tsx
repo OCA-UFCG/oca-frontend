@@ -1,21 +1,44 @@
 import MenuModal from "../MenuModal/MenuModal";
 import { VisuItem } from "./VisuItem/VisuItem";
-import { ContentWrapper, Form, Title } from "./MapsMenu.styles";
+import {
+  ContentWrapper,
+  Form,
+  ItemWrapper,
+  QuestionMarkImg,
+  Title,
+} from "./MapsMenu.styles";
+import { useEffect, useState } from "react";
+import QuestionMarkIcon from "@/../public/questionMark.svg";
 
-const MapsMenu = () => {
+const MapsMenu = ({ initialValue }: { initialValue: string }) => {
+  const [checked, setChecked] = useState<boolean>(false);
+  console.log(initialValue);
+  const onItemChange = (e: any) => {
+    console.log(e);
+    setChecked((previous) => !previous);
+  };
+
+  useEffect(() => {
+    console.log(checked);
+  }, [checked]);
+
   return (
     <MenuModal>
       <ContentWrapper>
-        <Title>Visualizações Disponíveis</Title>
+        <Title onClick={onItemChange}>Visualizações Disponíveis</Title>
         <Form>
-          <VisuItem
-            mainInfo={{ id: "oi", name: "olaa", value: "oiii" }}
-            subItems={[
-              { id: "oi1", name: "ol2aa", value: "oi123ii" },
-              { id: "oi2", name: "o1laa", value: "oii123i" },
-            ]}
-          />
-          <VisuItem mainInfo={{ id: "oii", name: "oliaa", value: "oiiii" }} />
+          <ItemWrapper>
+            <VisuItem
+              mainInfo={{ id: "oi", name: "olaa", value: "oiii" }}
+              onChange={onItemChange}
+            />
+            <QuestionMarkImg
+              src={QuestionMarkIcon}
+              alt={QuestionMarkIcon}
+              height={16}
+              width={16}
+            />
+          </ItemWrapper>
         </Form>
       </ContentWrapper>
     </MenuModal>

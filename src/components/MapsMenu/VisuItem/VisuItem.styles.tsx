@@ -11,49 +11,57 @@ export const Wrapper = styled.div`
 export const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  width: 100%;
 `;
 
 export const Input = styled.input`
+  cursor: pointer;
+
   &[type="radio"] {
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
 
     font: inherit;
-    color: currentColor;
+    color: ${({ theme }) => theme.colors.black};
     width: 1rem;
     height: 1rem;
-    border: 0.2rem solid currentColor;
+
+    border: 0.15rem solid ${({ theme }) => theme.colors.black};
     border-radius: 50%;
-    transform: translateY(0.15rem);
 
     display: grid;
     place-content: center;
   }
 
+  &[type="radio"]:checked + label {
+    color: ${({ theme }) => theme.colors.green};
+    font-weight: bold;
+  }
+
+  &[type="radio"]:checked {
+    border: 0.15rem solid ${({ theme }) => theme.colors.green};
+  }
+
   &[type="radio"]::before {
     content: "";
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.51rem;
+    height: 0.51rem;
     border-radius: 50%;
-    transform: scale(0);
     transition: 120ms transform ease-in-out;
-    background-color: CanvasText;
+    background-color: transparent;
   }
 
   &[type="radio"]:checked::before {
+    background-color: ${({ theme }) => theme.colors.green};
     transform: scale(1);
-  }
-
-  &[type="radio"]:focus {
-    outline: max(2px, 0.15em) solid currentColor;
-    outline-offset: max(2px, 0.15em);
   }
 `;
 
 export const Label = styled.label`
   font-size: 1rem;
+  width: 100%;
 `;
 
 export const SubItemsContainer = styled.div`
