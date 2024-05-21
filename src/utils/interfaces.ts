@@ -42,7 +42,9 @@ export interface IEEImage {
 
 export interface IEEInfo {
   name: string;
+  id: string;
   imageId: string;
+  posterUrl?: string;
   description: string;
 }
 
@@ -51,3 +53,5 @@ export interface IMapId {
   token: string;
   urlFormat: string;
 }
+ 
+
