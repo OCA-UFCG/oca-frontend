@@ -21,7 +21,7 @@ const MapTiff = ({
         new maplibregl.Map({
           container: mapContainer.current,
           style:
-            "https://api.maptiler.com/maps/62c23275-4909-4d2b-a4e5-b810038e77df/style.json?key=71L2QPZ0FHRofxg3QtVC",
+            "https://api.maptiler.com/maps/90585aab-74e0-4f04-a270-7912969a5eb5/style.json?key=71L2QPZ0FHRofxg3QtVC",
           center: [-55, -15],
           zoom: 3.6,
         }),
@@ -48,21 +48,33 @@ const MapTiff = ({
         });
       }
 
-      map?.addLayer({
-        type: "raster",
-        source: nameImage + yearImage,
-        id: nameImage + yearImage,
-      });
+      const layers = map?.getStyle().layers || [];
+      let firstSymbolId;
+      for (let i = 0; i < layers.length; i++) {
+        if (layers[i].type === "symbol") {
+          firstSymbolId = layers[i].id;
+          break;
+        }
+      }
+
+      map?.addLayer(
+        {
+          type: "raster",
+          source: nameImage + yearImage,
+          id: nameImage + yearImage,
+        },
+        firstSymbolId,
+      );
     };
 
-    loadLayer(
-      nameImage,
-      yearImage !== undefined && yearImage !== "" ? yearImage : "general",
-    );
+    yearImage =
+      yearImage !== undefined && yearImage !== "" ? yearImage : "general";
+
+    loadLayer(nameImage, yearImage);
 
     return () => {
-      if (map?.getLayer(nameImage)) {
-        map?.removeLayer(nameImage);
+      if (map?.getLayer(nameImage + yearImage)) {
+        map?.removeLayer(nameImage + yearImage);
       }
     };
   }, [nameImage, yearImage, map]);
