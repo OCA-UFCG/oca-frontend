@@ -1,4 +1,4 @@
-import { IEEImage, ISection } from "./interfaces";
+import { IEEImage, IEEInfo, ISection } from "./interfaces";
 
 export const sections: ISection[] = [
   {
@@ -136,4 +136,20 @@ export const EEImages: IEEImage = {
     maxScale: 70.63015,
     pallete: ["black", "cyan"],
   },
+};
+
+export const defaultEEInfo: IEEInfo = {
+  id: "default",
+  name: "--",
+  description: "--",
+  imageData: {
+    general: {
+      default: true,
+      posterUrl: "/defaultMapsPoster.png",
+      imageId: "",
+    },
+  },
+  minScale: 0,
+  maxScale: 1,
+  pallete: ["black", "white"],
 };

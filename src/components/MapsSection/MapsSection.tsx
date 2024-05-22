@@ -59,7 +59,7 @@ const MapsSection = ({ eeInfos = {} }: { eeInfos: IEEImage }) => {
           alt=""
           width={500}
           height={400}
-          src={currentVisu.posterUrl}
+          src={""} // TO-DO: Fix maps section use of IEEInfos new interface
         />
       )}
       <VisuName>{capitalize(currentVisu.name)}</VisuName>
