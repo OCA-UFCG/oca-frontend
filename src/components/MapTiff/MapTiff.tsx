@@ -5,7 +5,13 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useRef, useState } from "react";
 import { Wrapper } from "./MapTiff.styles";
 
-const MapTiff = ({ nameImage = "degradacao" }: { nameImage: string }) => {
+const MapTiff = ({
+  nameImage,
+  yearImage,
+}: {
+  nameImage: string;
+  yearImage?: string;
+}) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
 
@@ -28,12 +34,14 @@ const MapTiff = ({ nameImage = "degradacao" }: { nameImage: string }) => {
   }, []);
 
   useEffect(() => {
-    const loadLayer = async (nameImage: string) => {
-      if (!map?.getSource(nameImage)) {
-        const response = await fetch(`/api/ee?name=${nameImage}`);
+    const loadLayer = async (nameImage: string, yearImage: string) => {
+      if (!map?.getSource(nameImage + yearImage)) {
+        const response = await fetch(
+          `/api/ee?nameImage=${nameImage}&yearImage=${yearImage}`,
+        );
         const { url } = await response.json();
 
-        map?.addSource(nameImage, {
+        map?.addSource(nameImage + yearImage, {
           type: "raster",
           tiles: [url],
           tileSize: 256,
@@ -42,19 +50,22 @@ const MapTiff = ({ nameImage = "degradacao" }: { nameImage: string }) => {
 
       map?.addLayer({
         type: "raster",
-        source: nameImage,
-        id: nameImage,
+        source: nameImage + yearImage,
+        id: nameImage + yearImage,
       });
     };
 
-    loadLayer(nameImage);
+    loadLayer(
+      nameImage,
+      yearImage !== undefined && yearImage !== "" ? yearImage : "general",
+    );
 
     return () => {
       if (map?.getLayer(nameImage)) {
         map?.removeLayer(nameImage);
       }
     };
-  }, [nameImage, map]);
+  }, [nameImage, yearImage, map]);
 
   useEffect(() => {
     map?.addControl(new maplibregl.NavigationControl(), "bottom-left");

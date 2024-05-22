@@ -10,10 +10,18 @@ export async function GET(req: NextRequest) {
 
     await authenticate(key);
 
-    const name = req.nextUrl.searchParams.get("name") || "null";
+    const nameImage = req.nextUrl.searchParams.get("nameImage") || "undefined";
+    const yearImage = req.nextUrl.searchParams.get("yearImage") || "undefined";
 
-    const image = ee.Image(EEImages[name].imageId);
-    const mapId: IMapId = (await getMapId(image)) as IMapId;
+    const visParams = {
+      min: EEImages[nameImage].minScale ?? 0,
+      max: EEImages[nameImage].maxScale ?? 1,
+      palette: EEImages[nameImage].pallete ?? ["black", "white"],
+    };
+
+    const imageId = EEImages[nameImage].imageData[yearImage]?.imageId;
+    const image = ee.Image(imageId);
+    const mapId: IMapId = (await getMapId(image, visParams)) as IMapId;
     const url = mapId.urlFormat;
 
     return NextResponse.json({ url }, { status: 200 });
@@ -38,9 +46,9 @@ function authenticate(key: string) {
   });
 }
 
-function getMapId(image: any) {
+function getMapId(image: any, visParams?: any) {
   return new Promise((resolve, reject) => {
-    image.getMapId(null, (obj: any, error: any) =>
+    image.getMapId(visParams, (obj: any, error: any) =>
       error ? reject(new Error(error)) : resolve(obj),
     );
   });

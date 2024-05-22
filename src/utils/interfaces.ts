@@ -41,11 +41,19 @@ export interface IEEImage {
 }
 
 export interface IEEInfo {
-  name: string;
   id: string;
-  imageId: string;
-  posterUrl?: string;
+  name: string;
   description: string;
+  imageData: {
+    [year: string]: {
+      default?: boolean;
+      imageId: string;
+      posterUrl: string;
+    };
+  };
+  minScale?: number;
+  maxScale?: number;
+  pallete?: string[];
 }
 
 export interface IMapId {
@@ -53,5 +61,3 @@ export interface IMapId {
   token: string;
   urlFormat: string;
 }
- 
-
