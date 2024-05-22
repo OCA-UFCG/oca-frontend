@@ -9,36 +9,56 @@ import {
 } from "./MapsMenu.styles";
 import { useEffect, useState } from "react";
 import QuestionMarkIcon from "@/../public/questionMark.svg";
+import { IEEInfo, IFormItem } from "@/utils/interfaces";
 
-const MapsMenu = ({ initialValue }: { initialValue: string }) => {
-  const [checked, setChecked] = useState<boolean>(false);
-  console.log(initialValue);
-  const onItemChange = (e: any) => {
-    console.log(e);
-    setChecked((previous) => !previous);
+const MapsMenu = ({
+  initialValue,
+  options,
+  onSelectChange,
+  onQuestionSelect,
+}: {
+  initialValue: string;
+  options: IEEInfo[];
+  onSelectChange: (newItem: string) => void;
+  onQuestionSelect: (newItem: string) => void;
+}) => {
+  const [formValues, setFormValues] = useState<IFormItem[]>([]);
+
+  const onItemChange = (newValue: string) => {
+    onSelectChange(newValue);
+    setFormValues(() =>
+      Object.values(options).map((item) => ({
+        id: item.id,
+        name: item.name,
+        checked: item.id === newValue,
+      })),
+    );
   };
 
   useEffect(() => {
-    console.log(checked);
-  }, [checked]);
+    onItemChange(initialValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <MenuModal>
       <ContentWrapper>
-        <Title onClick={onItemChange}>Visualizações Disponíveis</Title>
+        <Title>Visualizações Disponíveis</Title>
         <Form>
-          <ItemWrapper>
-            <VisuItem
-              mainInfo={{ id: "oi", name: "olaa", value: "oiii" }}
-              onChange={onItemChange}
-            />
-            <QuestionMarkImg
-              src={QuestionMarkIcon}
-              alt={QuestionMarkIcon}
-              height={16}
-              width={16}
-            />
-          </ItemWrapper>
+          {formValues.map((item: IFormItem) => {
+            return (
+              <ItemWrapper key={item.id}>
+                <VisuItem info={item} onChange={onItemChange} />
+                <QuestionMarkImg
+                  onClick={() => onQuestionSelect(item.id)}
+                  src={QuestionMarkIcon}
+                  alt={QuestionMarkIcon}
+                  height={16}
+                  width={16}
+                />
+              </ItemWrapper>
+            );
+          })}
         </Form>
       </ContentWrapper>
     </MenuModal>

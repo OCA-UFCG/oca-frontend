@@ -3,13 +3,13 @@ import { Input, ItemWrapper, Label } from "./VisuItem.styles";
 import { capitalize } from "@/utils/functions";
 
 export const VisuItem = ({
-  mainInfo,
+  info,
   onChange,
 }: {
-  mainInfo: IVisuMenuItems;
-  onChange: (e: any) => void;
+  info: IVisuMenuItems;
+  onChange: (newValue: string) => void;
 }) => {
-  const { name, value, id } = mainInfo;
+  const { id, name, checked } = info;
 
   return (
     <ItemWrapper>
@@ -17,8 +17,9 @@ export const VisuItem = ({
         type="radio"
         id={id}
         name={name}
-        value={value}
-        onChange={onChange}
+        checked={checked}
+        value={id}
+        onChange={() => onChange(id)}
       />
       <Label htmlFor={id}>{capitalize(name)}</Label>
     </ItemWrapper>

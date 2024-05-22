@@ -39,7 +39,7 @@ export interface IPublication {
 export interface IVisuMenuItems {
   id: string;
   name: string;
-  value: string;
+  checked: boolean;
 }
 
 export interface IEEImage {
@@ -52,4 +52,10 @@ export interface IEEInfo {
   imageId: string;
   posterUrl: string;
   description: string;
+}
+
+export interface IFormItem {
+  id: string;
+  name: string;
+  checked: boolean;
 }
