@@ -4,13 +4,14 @@ export const teamMembers: ITeamMember[] = [
   {
     name: "Aldrin Pérez Marin",
     role: "Coordenador",
-    avatar: "https://drive.google.com/thumbnail?id=1BFZuGhEKfq8XNQknpCxDu0SN8N9Cpucf",
+    avatar:
+      "https://drive.google.com/thumbnail?id=1BFZuGhEKfq8XNQknpCxDu0SN8N9Cpucf",
     lattes: "http://lattes.cnpq.br/9814607951325299",
     github: "",
     linkedin: "",
   },
   {
-    name: "John Elton",
+    name: "John Cunha",
     role: "Coordenador",
     avatar:
       "http://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4215941U6",
@@ -27,7 +28,7 @@ export const teamMembers: ITeamMember[] = [
     lattes: "",
   },
   {
-    name: "Bruce Silva",
+    name: "Bruce Kelly",
     role: "Pesquisador",
     avatar:
       "https://drive.google.com/thumbnail?id=1A104wAPsH4JENbocXf6CUR0ewDu9J20Y",
@@ -86,7 +87,7 @@ export const teamMembers: ITeamMember[] = [
       "https://drive.google.com/thumbnail?id=1vD5kzeygIbWKQ2tB9b4Xt3HTNdpfcLN8",
     lattes: "http://lattes.cnpq.br/7450404697631705",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/isabel-macedo-9201001b3/",
   },
   {
     name: "Laisa Daiana",
