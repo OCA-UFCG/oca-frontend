@@ -51,6 +51,7 @@ export interface IEEInfo {
       posterUrl: string;
     };
   };
+  thumbnail: string;
   minScale?: number;
   maxScale?: number;
   pallete?: string[];

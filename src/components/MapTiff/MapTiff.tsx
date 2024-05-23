@@ -16,9 +16,11 @@ const MapTiff = ({ data }: { data: IMapInfo }) => {
       const newMap = new maplibregl.Map({
         container: mapContainer.current,
         style:
-          "https://api.maptiler.com/maps/90585aab-74e0-4f04-a270-7912969a5eb5/style.json?key=71L2QPZ0FHRofxg3QtVC",
+          "https://api.maptiler.com/maps/basic-v2/style.json?key=71L2QPZ0FHRofxg3QtVC",
         center: [-55, -15],
         zoom: 3.6,
+        maxZoom: 10,
+        minZoom: 3.6,
       });
 
       newMap.on("load", () => {
