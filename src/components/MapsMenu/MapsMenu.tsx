@@ -9,7 +9,8 @@ import {
 } from "./MapsMenu.styles";
 import { useEffect, useState } from "react";
 import QuestionMarkIcon from "@/../public/questionMark.svg";
-import { IEEInfo, IFormItem } from "@/utils/interfaces";
+import { IEEInfo, IFormItem, IImageData } from "@/utils/interfaces";
+import DateInput from "../DateInput/DateInput";
 
 const MapsMenu = ({
   initialValue,
@@ -23,15 +24,23 @@ const MapsMenu = ({
   onQuestionSelect: (newItem: string) => void;
 }) => {
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
+  const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
 
   const onItemChange = (newValue: string) => {
     onSelectChange(newValue);
     setFormValues(() =>
-      Object.values(options).map((item) => ({
-        id: item.id,
-        name: item.name,
-        checked: item.id === newValue,
-      })),
+      Object.values(options).map((item) => {
+        if (item.id === newValue) {
+          setcurrentImageData(item.imageData);
+        }
+
+        return {
+          id: item.id,
+          name: item.name,
+          checked: item.id === newValue,
+          imageData: item.imageData,
+        };
+      }),
     );
   };
 
@@ -60,6 +69,10 @@ const MapsMenu = ({
             );
           })}
         </Form>
+        <DateInput
+          dates={currentImagedata}
+          onChange={() => console.log("dateee")}
+        />
       </ContentWrapper>
     </MenuModal>
   );

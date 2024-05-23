@@ -65,7 +65,11 @@ export const EEImages: IEEImage = {
 export const defaultEEInfo: IEEInfo = {
   id: "default",
   name: "--",
-  imageId: "",
-  posterUrl: "/defaultMapsPoster.png",
   description: "--",
+  imageData: {
+    general: {
+      imageId: "",
+      posterUrl: "/defaultMapsPoster.png",
+    },
+  },
 };

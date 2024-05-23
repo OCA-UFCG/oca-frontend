@@ -47,15 +47,28 @@ export interface IEEImage {
 }
 
 export interface IEEInfo {
-  name: string;
   id: string;
-  imageId: string;
-  posterUrl: string;
+  name: string;
   description: string;
+  imageData: IImageData;
+  minScale?: number;
+  maxScale?: number;
+  pallete?: string[];
 }
 
 export interface IFormItem {
   id: string;
   name: string;
   checked: boolean;
+  imageData: IImageData;
+}
+
+export interface IImageData {
+  [year: string]: IImageProps;
+}
+
+export interface IImageProps {
+  default?: boolean;
+  imageId: string;
+  posterUrl: string;
 }
