@@ -21,7 +21,8 @@ export async function GET(req: NextRequest) {
     };
 
     const imageId = EEImages[name].imageData[year]?.imageId;
-    const image = ee.Image(imageId);
+    const rawImage = ee.Image(imageId);
+    const image = rawImage.selfMask();
     const mapId: IMapId = (await getMapId(image, visParams)) as IMapId;
     const url = mapId.urlFormat;
 
