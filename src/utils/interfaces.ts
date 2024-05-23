@@ -48,10 +48,9 @@ export interface IEEInfo {
     [year: string]: {
       default: boolean;
       imageId: string;
-      posterUrl: string;
     };
   };
-  thumbnail: string;
+  posterUrl: string;
   minScale?: number;
   maxScale?: number;
   pallete?: string[];

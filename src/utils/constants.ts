@@ -36,18 +36,17 @@ export const EEImages: IEEImage = {
     imageData: {
       general: {
         default: true,
-        posterUrl:
-          "https://drive.google.com/uc?export=view&id=1rWotBs8JZg4QJT3yOGI_EoCgWAtVsCfP",
         imageId: "projects/ee-ocaufcg/assets/carbono_g_kg",
       },
     },
-    thumbnail:
+    posterUrl:
       "https://drive.google.com/uc?export=view&id=11hNFuxDETLN-nqnMo9E-2_fivvrsmd4g",
     minScale: 1.92015,
     maxScale: 70.63015,
     pallete: ["green", "yellow", "red"],
   },
 };
+
 export const defaultEEInfo: IEEInfo = {
   id: "default",
   name: "--",
@@ -55,11 +54,10 @@ export const defaultEEInfo: IEEInfo = {
   imageData: {
     general: {
       default: true,
-      posterUrl: "/defaultMapsPoster.png",
       imageId: "",
     },
   },
-  thumbnail: "",
+  posterUrl: "/defaultMapsPoster.png",
   minScale: 0,
   maxScale: 1,
   pallete: ["black", "white"],
