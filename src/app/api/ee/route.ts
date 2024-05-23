@@ -10,13 +10,14 @@ export async function GET(req: NextRequest) {
 
     await authenticate(key);
 
-    const name = req.nextUrl.searchParams.get("name") || "undefined";
-    const year = req.nextUrl.searchParams.get("year") || "undefined";
+    const name = req.nextUrl.searchParams.get("name") || "";
+    const year = req.nextUrl.searchParams.get("year") || "";
 
+    const imageInfo = EEImages[name];
     const visParams = {
-      min: EEImages[name].minScale ?? 0,
-      max: EEImages[name].maxScale ?? 1,
-      palette: EEImages[name].pallete ?? ["black", "white"],
+      min: imageInfo?.minScale ?? 0,
+      max: imageInfo?.maxScale ?? 1,
+      palette: imageInfo?.pallete ?? ["black", "white"],
     };
 
     const imageId = EEImages[name].imageData[year]?.imageId;

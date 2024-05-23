@@ -46,7 +46,7 @@ export interface IEEInfo {
   description: string;
   imageData: {
     [year: string]: {
-      default?: boolean;
+      default: boolean;
       imageId: string;
       posterUrl: string;
     };
