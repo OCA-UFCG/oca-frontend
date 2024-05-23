@@ -61,3 +61,8 @@ export interface IMapId {
   token: string;
   urlFormat: string;
 }
+
+export interface IMapInfo {
+  name: string;
+  year: string;
+}

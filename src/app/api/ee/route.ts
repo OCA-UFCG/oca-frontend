@@ -6,20 +6,20 @@ import type { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
-    const key = process.env.NEXT_PUBLIC_EE || "";
+    const key = process.env.NEXT_PUBLIC_GEE_PRIVATE_KEY || "";
 
     await authenticate(key);
 
-    const nameImage = req.nextUrl.searchParams.get("nameImage") || "undefined";
-    const yearImage = req.nextUrl.searchParams.get("yearImage") || "undefined";
+    const name = req.nextUrl.searchParams.get("name") || "undefined";
+    const year = req.nextUrl.searchParams.get("year") || "undefined";
 
     const visParams = {
-      min: EEImages[nameImage].minScale ?? 0,
-      max: EEImages[nameImage].maxScale ?? 1,
-      palette: EEImages[nameImage].pallete ?? ["black", "white"],
+      min: EEImages[name].minScale ?? 0,
+      max: EEImages[name].maxScale ?? 1,
+      palette: EEImages[name].pallete ?? ["black", "white"],
     };
 
-    const imageId = EEImages[nameImage].imageData[yearImage]?.imageId;
+    const imageId = EEImages[name].imageData[year]?.imageId;
     const image = ee.Image(imageId);
     const mapId: IMapId = (await getMapId(image, visParams)) as IMapId;
     const url = mapId.urlFormat;

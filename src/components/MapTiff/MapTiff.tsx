@@ -2,54 +2,48 @@
 
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Wrapper } from "./MapTiff.styles";
+import { IMapInfo } from "@/utils/interfaces";
 
-const MapTiff = ({
-  nameImage,
-  yearImage,
-}: {
-  nameImage: string;
-  yearImage?: string;
-}) => {
+const MapTiff = ({ data }: { data: IMapInfo }) => {
+  const { name, year } = data;
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
 
-  useEffect(() => {
+  const loadMap = useCallback(() => {
     if (mapContainer.current) {
-      setMap(
-        new maplibregl.Map({
-          container: mapContainer.current,
-          style:
-            "https://api.maptiler.com/maps/90585aab-74e0-4f04-a270-7912969a5eb5/style.json?key=71L2QPZ0FHRofxg3QtVC",
-          center: [-55, -15],
-          zoom: 3.6,
-        }),
-      );
+      const newMap = new maplibregl.Map({
+        container: mapContainer.current,
+        style:
+          "https://api.maptiler.com/maps/90585aab-74e0-4f04-a270-7912969a5eb5/style.json?key=71L2QPZ0FHRofxg3QtVC",
+        center: [-55, -15],
+        zoom: 3.6,
+      });
 
-      return () => {
-        map?.remove();
-      };
+      newMap.on("load", () => {
+        newMap.addControl(new maplibregl.NavigationControl(), "bottom-left");
+      });
+
+      setMap(newMap);
     }
   }, []);
 
-  useEffect(() => {
-    const loadLayer = async (nameImage: string, yearImage: string) => {
-      if (!map?.getSource(nameImage + yearImage)) {
-        const response = await fetch(
-          `/api/ee?nameImage=${nameImage}&yearImage=${yearImage}`,
-        );
+  const loadLayer = useCallback(
+    async (name: string, year: string) => {
+      if (!map?.getSource(name + year)) {
+        const response = await fetch(`/api/ee?name=${name}&year=${year}`);
         const { url } = await response.json();
 
-        map?.addSource(nameImage + yearImage, {
+        map?.addSource(name + year, {
           type: "raster",
           tiles: [url],
           tileSize: 256,
         });
       }
 
-      const layers = map?.getStyle().layers || [];
       let firstSymbolId;
+      const layers = map?.getStyle().layers || [];
       for (let i = 0; i < layers.length; i++) {
         if (layers[i].type === "symbol") {
           firstSymbolId = layers[i].id;
@@ -60,28 +54,31 @@ const MapTiff = ({
       map?.addLayer(
         {
           type: "raster",
-          source: nameImage + yearImage,
-          id: nameImage + yearImage,
+          source: name + year,
+          id: name + year,
         },
         firstSymbolId,
       );
-    };
-
-    yearImage =
-      yearImage !== undefined && yearImage !== "" ? yearImage : "general";
-
-    loadLayer(nameImage, yearImage);
-
-    return () => {
-      if (map?.getLayer(nameImage + yearImage)) {
-        map?.removeLayer(nameImage + yearImage);
-      }
-    };
-  }, [nameImage, yearImage, map]);
+    },
+    [map],
+  );
 
   useEffect(() => {
-    map?.addControl(new maplibregl.NavigationControl(), "bottom-left");
-  }, [map]);
+    if (!map) {
+      loadMap();
+    }
+
+    if (name) {
+      const yearStr = year || "general";
+      loadLayer(name, yearStr);
+
+      return () => {
+        if (map?.getLayer(name + yearStr)) {
+          map?.removeLayer(name + yearStr);
+        }
+      };
+    }
+  }, [name, year, map, loadLayer, loadMap]);
 
   return <Wrapper ref={mapContainer} />;
 };
