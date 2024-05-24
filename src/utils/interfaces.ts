@@ -48,12 +48,12 @@ export interface IEEInfo {
     [year: string]: {
       default: boolean;
       imageId: string;
+      pallete?: string[];
     };
   };
   posterUrl: string;
   minScale?: number;
   maxScale?: number;
-  pallete?: string[];
 }
 
 export interface IMapId {

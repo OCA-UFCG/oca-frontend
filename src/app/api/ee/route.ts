@@ -14,15 +14,16 @@ export async function GET(req: NextRequest) {
     const year = req.nextUrl.searchParams.get("year") || "";
 
     const imageInfo = EEImages[name];
+    const imageId = EEImages[name].imageData[year]?.imageId;
+    const imageParams = EEImages[name].imageData[year]?.pallete;
+
     const visParams = {
       min: imageInfo?.minScale ?? 0,
       max: imageInfo?.maxScale ?? 1,
-      palette: imageInfo?.pallete ?? ["black", "white"],
+      palette: imageParams ?? ["black", "white"],
     };
 
-    const imageId = EEImages[name].imageData[year]?.imageId;
-    const rawImage = ee.Image(imageId);
-    const image = rawImage.selfMask();
+    const image = ee.Image(imageId).selfMask();
     const mapId: IMapId = (await getMapId(image, visParams)) as IMapId;
     const url = mapId.urlFormat;
 
