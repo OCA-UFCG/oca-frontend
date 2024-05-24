@@ -19,7 +19,7 @@ run-prod:
 	npm run start
 
 docker-run-dev:
-	docker run -p $(HOST_PORT):$(CONTAINER_PORT) --name $(IMAGE_NAME) -v node_modules -v $(PWD):/app $(IMAGE_NAME)
+	docker run -p 3000:$(CONTAINER_PORT) --name $(IMAGE_NAME) -v node_modules -v $(PWD):/app $(IMAGE_NAME)
 
 docker-build-prod:
 	docker build -t $(IMAGE_NAME) -f Dockerfile.production .
