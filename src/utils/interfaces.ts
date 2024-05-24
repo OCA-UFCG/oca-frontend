@@ -64,5 +64,5 @@ export interface IMapId {
 
 export interface IMapInfo {
   name: string;
-  year: string;
+  year?: string;
 }
