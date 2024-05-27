@@ -12,11 +12,13 @@ import {
 } from "./DateInput.styles";
 
 const DateInput = ({
+  mapId,
   dates,
   onChange,
 }: {
+  mapId: string;
   dates: IImageData;
-  onChange: (year: string) => void;
+  onChange: (name: string, year: string) => void;
 }) => {
   const [currentDate, setCurrentDate] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -24,19 +26,20 @@ const DateInput = ({
   const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newDate = Object.keys(dates)[Number(event.target.value) - 1];
     setCurrentDate(newDate);
-    onChange(newDate);
+    onChange(mapId, newDate);
   };
 
   useEffect(() => {
     const dateKeys: string[] = Object.keys(dates);
 
     dateKeys.map((date: string, index: number) => {
-      if (dates[date].default && !("general" in dates)) {
+      if (dates[date].default) {
+        onChange(mapId, date);
         setCurrentDate(date);
         if (inputRef.current) inputRef.current.value = [index + 1].toString();
       }
     });
-  }, [setCurrentDate, dates]);
+  }, [dates, mapId, onChange]);
 
   return (
     <Wrapper disabled={("general" in dates).toString()}>

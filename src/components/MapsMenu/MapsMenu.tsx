@@ -1,5 +1,9 @@
-import MenuModal from "../MenuModal/MenuModal";
-import { VisuItem } from "../VisuItem/VisuItem";
+import MenuModal from "@/components/MenuModal/MenuModal";
+import { VisuItem } from "@/components/VisuItem/VisuItem";
+import { useEffect, useState } from "react";
+import QuestionMarkIcon from "@/../public/questionMark.svg";
+import { IEEInfo, IFormItem, IImageData } from "@/utils/interfaces";
+import DateInput from "@/components/DateInput/DateInput";
 import {
   ContentWrapper,
   Form,
@@ -7,10 +11,6 @@ import {
   QuestionMarkImg,
   Title,
 } from "./MapsMenu.styles";
-import { useEffect, useState } from "react";
-import QuestionMarkIcon from "@/../public/questionMark.svg";
-import { IEEInfo, IFormItem, IImageData } from "@/utils/interfaces";
-import DateInput from "../DateInput/DateInput";
 
 const MapsMenu = ({
   initialValue,
@@ -20,17 +20,18 @@ const MapsMenu = ({
 }: {
   initialValue: string;
   options: IEEInfo[];
-  onSelectChange: (newItem: string) => void;
+  onSelectChange: (name: string, year: string) => void;
   onQuestionSelect: (newItem: string) => void;
 }) => {
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
+  const [currentName, setCurrentName] = useState<string>("");
 
   const onItemChange = (newValue: string) => {
-    onSelectChange(newValue);
     setFormValues(() =>
       Object.values(options).map((item) => {
         if (item.id === newValue) {
+          setCurrentName(item.id);
           setcurrentImageData(item.imageData);
         }
 
@@ -70,8 +71,9 @@ const MapsMenu = ({
           })}
         </Form>
         <DateInput
+          mapId={currentName}
           dates={currentImagedata}
-          onChange={() => console.log("dateee")}
+          onChange={onSelectChange}
         />
       </ContentWrapper>
     </MenuModal>
