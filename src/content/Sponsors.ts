@@ -56,4 +56,9 @@ export const sponsorsContent: ISponsor[] = [
     logo: "https://drive.google.com/thumbnail?id=1-FbK9NC-4BJZlwMrDp6u6D7vf_fTPEcT",
     link: "https://www.bristol.ac.uk/",
   },
+  {
+    name: "Nufuturo",
+    logo: "https://drive.google.com/thumbnail?id=1BuY317BEqhxr_PpE2uObBWrDSBt8Zo4z",
+    link: "https://www.linkedin.com/company/nufuturo-ufcg",
+  },
 ];
