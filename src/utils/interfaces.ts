@@ -51,9 +51,20 @@ export interface IEEInfo {
   name: string;
   description: string;
   imageData: IImageData;
+  posterUrl: string;
   minScale?: number;
   maxScale?: number;
-  pallete?: string[];
+}
+
+export interface IMapId {
+  mapid: string;
+  token: string;
+  urlFormat: string;
+}
+
+export interface IMapInfo {
+  name: string;
+  year?: string;
 }
 
 export interface IFormItem {
@@ -70,5 +81,5 @@ export interface IImageData {
 export interface IImageProps {
   default?: boolean;
   imageId: string;
-  posterUrl: string;
+  pallete?: string[];
 }
