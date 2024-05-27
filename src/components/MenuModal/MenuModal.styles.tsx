@@ -96,5 +96,5 @@ export const RetractImage = styled(Image)`
 `;
 
 export const ContentWrapper = styled.div`
-  padding: 1rem 0;
+  padding: 1rem 0 0.5rem;
 `;

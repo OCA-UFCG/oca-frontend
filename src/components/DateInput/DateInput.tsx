@@ -6,6 +6,9 @@ import {
   DateInfo,
   CalendarImage,
   RangeInput,
+  DateList,
+  InputWrapper,
+  DateItem,
 } from "./DateInput.styles";
 
 const DateInput = ({
@@ -44,14 +47,21 @@ const DateInput = ({
         width={20}
       />
       <DateInfo>{dates?.general ? "--" : currentDate}</DateInfo>
-      <RangeInput
-        disabled={"general" in dates}
-        type="range"
-        ref={inputRef}
-        min={1}
-        max={Object.keys(dates).length}
-        onChange={handleRangeChange}
-      />
+      <InputWrapper>
+        <RangeInput
+          disabled={"general" in dates}
+          type="range"
+          ref={inputRef}
+          min={1}
+          max={Object.keys(dates).length}
+          onChange={handleRangeChange}
+        />
+        <DateList>
+          {Object.keys(dates).map((date: string) => (
+            <DateItem key={date} />
+          ))}
+        </DateList>
+      </InputWrapper>
     </Wrapper>
   );
 };

@@ -1,5 +1,5 @@
 import MenuModal from "../MenuModal/MenuModal";
-import { VisuItem } from "./VisuItem/VisuItem";
+import { VisuItem } from "../VisuItem/VisuItem";
 import {
   ContentWrapper,
   Form,
