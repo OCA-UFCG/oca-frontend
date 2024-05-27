@@ -15,7 +15,7 @@ export const sections: ISection[] = [
   },
   {
     name: "Mapas e Visualizações",
-    href: "/#maps",
+    href: "/#maps-visu",
   },
   {
     name: "Parceiros",
