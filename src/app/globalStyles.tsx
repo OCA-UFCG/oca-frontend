@@ -128,7 +128,9 @@ export const GlobalStyles = createGlobalStyle`
     text-align: justify;
     line-height: 1.5rem;
   }
-
+  details {
+    display: none;
+  }
   
 `;
 
