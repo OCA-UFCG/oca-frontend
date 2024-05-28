@@ -4,6 +4,9 @@ import Image from "next/image";
 export const MenuImage = styled(Image)`
   transition: 0.2s;
   cursor: pointer;
+  width: 2.25rem;
+  height: 2.25rem;
+  box-shadow: 0px 0px 4px #cdcdcd;
 
   &:hover {
     transform: scale(1.05);
@@ -67,6 +70,10 @@ export const ModalWrapper = styled.div<{ retracted: string }>`
   max-width: 24rem;
   box-shadow: 0px 0px 4px 1px #c8c8c8;
   z-index: 10;
+
+  details {
+    display: none;
+  }
 
   @media screen and (max-width: 400px) {
     max-width: 92vw;

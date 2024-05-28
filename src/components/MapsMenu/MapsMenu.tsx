@@ -51,7 +51,7 @@ const MapsMenu = ({
   }, []);
 
   return (
-    <MenuModal>
+    <MenuModal hasBackground={false}>
       <ContentWrapper>
         <Title>Visualizações Disponíveis</Title>
         <Form>
