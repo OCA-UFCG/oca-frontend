@@ -110,6 +110,15 @@ export const GlobalStyles = createGlobalStyle`
   
 `;
 
+export const MapWrapper = styled.main`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh;
+`;
+
 export const ContentContainer = styled.div`
   display: flex;
   flex-flow: column;
