@@ -24,9 +24,7 @@ export const Divider = styled.hr`
   border: 1px solid ${({ theme }) => theme.colors.white};
 `;
 
-export const LogoImage = styled(Image)`
-  filter: brightness(0) invert(1);
-`;  
+export const LogoImage = styled(Image)``;
 
 export const References = styled.div`
   display: flex;
@@ -51,12 +49,12 @@ export const Sections = styled(Link)`
   &:hover {
     opacity: 0.6;
   }
-`;  
+`;
 
 export const SocialMediasContainer = styled.div`
   display: flex;
-  gap: 1rem;  
-`
+  gap: 1rem;
+`;
 
 export const SocialMedia = styled(Link)`
   display: flex;

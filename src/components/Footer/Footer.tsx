@@ -1,3 +1,6 @@
+import { ISection, IOCAChannel } from "@/utils/interfaces";
+import { sections } from "@/utils/constants";
+import OcaLogo from "@/../public/logo-oca-full-white.svg";
 import {
   Wrapper,
   Divider,
@@ -7,8 +10,6 @@ import {
   SocialMedia,
   SocialMediasContainer,
 } from "./Footer.styles";
-import { ISection, IOCAChannel } from "@/utils/interfaces";
-import { sections } from "@/utils/constants";
 
 const Footer = () => {
   const channels: IOCAChannel[] = [
@@ -26,7 +27,7 @@ const Footer = () => {
 
   return (
     <Wrapper>
-      <LogoImage src="logo-oca-full.svg" alt="Logo" width={150} height={150} />
+      <LogoImage src={OcaLogo} alt={OcaLogo} width={150} height={150} />
       <References>
         {sections.map(({ href, name }: ISection, index: number) => (
           <Sections key={index} href={href}>
