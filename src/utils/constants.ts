@@ -117,23 +117,31 @@ export const EEImages: IEEImage = {
     maxScale: 4.2,
   },
 
-  // carbono: {
-  //   id: "carbono",
-  //   name: "Carbono Orgânico do Solo",
-  //   description:
-  //     "Refere-se à quantidade de carbono presente na matéria orgânica do solo. Este carbono desempenha um papel crucial na saúde do solo, influenciando diretamente sua estrutura. Ele contribui para evitar a compactação do solo e melhora a retenção de nutrientes e água. Solos com baixos níveis de carbono orgânico tendem a perder fertilidade ao longo do tempo.",
-  //   imageData: {
-  //     general: {
-  //       default: true,
-  //       imageId: "projects/ee-ocaufcg/assets/carbono_g_kg",
-  //       pallete: ["#a50d00", "#fd9649", "#fedf99", "#12f007", "#125b07", "#202f1c"],
-  //     },
-  //   },
-  //   posterUrl:
-  //     "https://drive.google.com/uc?export=view&id=11hNFuxDETLN-nqnMo9E-2_fivvrsmd4g", // TODO update
-  //   minScale: 1.90,
-  //   maxScale: 70.65,
-  // },
+  carbono: {
+    id: "carbono",
+    name: "Carbono Orgânico do Solo",
+    description:
+      "Refere-se à quantidade de carbono presente na matéria orgânica do solo. Este carbono desempenha um papel crucial na saúde do solo, influenciando diretamente sua estrutura. Ele contribui para evitar a compactação do solo e melhora a retenção de nutrientes e água. Solos com baixos níveis de carbono orgânico tendem a perder fertilidade ao longo do tempo.",
+    imageData: {
+      general: {
+        default: true,
+        imageId: "projects/ee-ocaufcg/assets/carbono_g_kg",
+        pallete: [
+          "#a50d00",
+          "#fd9649",
+          "#fedf99",
+          "#12f007",
+          "#125b07",
+          "#202f1c",
+        ],
+        colorNumbers: [4, 1, 2, 2, 6, 55],
+      },
+    },
+    posterUrl:
+      "https://drive.google.com/uc?export=view&id=11hNFuxDETLN-nqnMo9E-2_fivvrsmd4g", // TODO update
+    minScale: 1.9,
+    maxScale: 70.65,
+  },
 
   degradacao: {
     id: "degradacao",

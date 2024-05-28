@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { EEImages } from "@/utils/constants";
 import { IMapId } from "@/utils/interfaces";
 import type { NextRequest } from "next/server";
+import { formatPalette } from "@/utils/functions";
 
 export async function GET(req: NextRequest) {
   try {
@@ -15,7 +16,12 @@ export async function GET(req: NextRequest) {
 
     const imageInfo = EEImages[name];
     const imageId = EEImages[name].imageData[year]?.imageId;
-    const imageParams = EEImages[name].imageData[year]?.pallete;
+    let imageParams = EEImages[name].imageData[year]?.pallete || [];
+    const colorNumbers = EEImages[name].imageData[year]?.colorNumbers || null;
+
+    if (colorNumbers) {
+      imageParams = formatPalette(imageParams, colorNumbers);
+    }
 
     const visParams = {
       min: imageInfo?.minScale ?? 0,
