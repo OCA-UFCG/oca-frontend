@@ -47,10 +47,10 @@ export const RangeInput = styled.input`
   }
   &::-webkit-slider-runnable-track {
     width: 100%;
-    height: 4px;
+    height: 8px;
     cursor: pointer;
     box-shadow: 0px 0px 0px ${({ theme }) => theme.colors.black};
-    background: ${({ theme }) => theme.colors.black};
+    background: ${({ theme }) => theme.colors.black}70;
     border-radius: 48px;
     border: 0px solid ${({ theme }) => theme.colors.black};
   }
@@ -63,16 +63,15 @@ export const RangeInput = styled.input`
     background: ${({ theme }) => theme.colors.orange};
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -6px;
+    margin-top: -4px;
   }
   &:focus::-webkit-slider-runnable-track {
     background: ${({ theme }) => theme.colors.black};
   }
   &::-moz-range-track {
     width: 100%;
-    height: 4px;
+    height: 8px;
     cursor: pointer;
-    animate: 0.2s;
     box-shadow: 0px 0px 0px ${({ theme }) => theme.colors.black};
     background: ${({ theme }) => theme.colors.black};
     border-radius: 48px;
@@ -91,7 +90,6 @@ export const RangeInput = styled.input`
     width: 100%;
     height: 4px;
     cursor: pointer;
-    animate: 0.2s;
     background: transparent;
     border-color: transparent;
     color: transparent;
@@ -133,17 +131,19 @@ export const DateList = styled.ul`
   display: flex;
   justify-content: space-between;
   position: relative;
-  transform: translate(-10px, -9px);
+  transform: translate(-10px, 3px);
+  opacity: 0.7;
   z-index: -2;
 `;
 
 export const DateItem = styled.li`
   position: relative;
   list-style: none;
-  width: 4px;
+  width: 2px;
   height: 8px;
   border-radius: 2px;
-  margin: 0 4px;
+  margin: 0 7px;
   padding: 0;
   background-color: ${({ theme }) => theme.colors.black};
+  pointer-events: none;
 `;

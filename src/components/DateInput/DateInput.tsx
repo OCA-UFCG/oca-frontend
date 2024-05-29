@@ -1,4 +1,4 @@
-import { IImageData } from "@/utils/interfaces";
+import { IImageData, IMapInfo } from "@/utils/interfaces";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import calendarIcon from "@/../public/calendar.svg";
 import {
@@ -13,12 +13,14 @@ import {
 
 const DateInput = ({
   mapId,
+  initialYear,
   dates,
   onChange,
 }: {
   mapId: string;
+  initialYear?: string;
   dates: IImageData;
-  onChange: (name: string, year: string) => void;
+  onChange: (newValues: IMapInfo) => void;
 }) => {
   const [currentDate, setCurrentDate] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -26,20 +28,24 @@ const DateInput = ({
   const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newDate = Object.keys(dates)[Number(event.target.value) - 1];
     setCurrentDate(newDate);
-    onChange(mapId, newDate);
+    onChange({ name: mapId, year: newDate });
   };
 
   useEffect(() => {
     const dateKeys: string[] = Object.keys(dates);
+    const updateFields = (year: string) => {
+      onChange({ name: mapId, year: year });
+      setCurrentDate(year);
+      if (inputRef.current)
+        inputRef.current.value = [dateKeys.indexOf(year) + 1].toString();
+    };
 
-    dateKeys.map((date: string, index: number) => {
-      if (dates[date].default) {
-        onChange(mapId, date);
-        setCurrentDate(date);
-        if (inputRef.current) inputRef.current.value = [index + 1].toString();
-      }
-    });
-  }, [dates, mapId, onChange]);
+    if (initialYear && initialYear in dates) {
+      updateFields(initialYear);
+    } else {
+      dateKeys.map((date: string) => dates[date].default && updateFields(date));
+    }
+  }, [dates, initialYear, mapId]);
 
   return (
     <Wrapper disabled={("general" in dates).toString()}>

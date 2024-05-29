@@ -37,11 +37,13 @@ const MapTiff = ({ data }: { data: IMapInfo }) => {
         const response = await fetch(`/api/ee?name=${name}&year=${year}`);
         const { url } = await response.json();
 
-        map?.addSource(name + year, {
-          type: "raster",
-          tiles: [url],
-          tileSize: 256,
-        });
+        if (!map?.getSource(name + year)) {
+          map?.addSource(name + year, {
+            type: "raster",
+            tiles: [url],
+            tileSize: 256,
+          });
+        }
       }
 
       let firstSymbolId;

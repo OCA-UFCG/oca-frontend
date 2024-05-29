@@ -2,7 +2,7 @@ import MenuModal from "@/components/MenuModal/MenuModal";
 import { VisuItem } from "@/components/VisuItem/VisuItem";
 import { useEffect, useState } from "react";
 import QuestionMarkIcon from "@/../public/questionMark.svg";
-import { IEEInfo, IFormItem, IImageData } from "@/utils/interfaces";
+import { IEEInfo, IFormItem, IImageData, IMapInfo } from "@/utils/interfaces";
 import DateInput from "@/components/DateInput/DateInput";
 import {
   ContentWrapper,
@@ -13,14 +13,14 @@ import {
 } from "./MapsMenu.styles";
 
 const MapsMenu = ({
-  initialValue,
+  initialValues,
   options,
   onSelectChange,
   onQuestionSelect,
 }: {
-  initialValue: string;
+  initialValues: IMapInfo;
   options: IEEInfo[];
-  onSelectChange: (name: string, year: string) => void;
+  onSelectChange: (newValues: IMapInfo) => void;
   onQuestionSelect: (newItem: string) => void;
 }) => {
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
@@ -46,12 +46,12 @@ const MapsMenu = ({
   };
 
   useEffect(() => {
-    onItemChange(initialValue);
+    onItemChange(initialValues.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <MenuModal hasBackground={false}>
+    <MenuModal hasBackground={false} startRetracted={false}>
       <ContentWrapper>
         <Title>Visualizações Disponíveis</Title>
         <Form>
@@ -72,6 +72,7 @@ const MapsMenu = ({
         </Form>
         <DateInput
           mapId={currentName}
+          initialYear={initialValues?.year}
           dates={currentImagedata}
           onChange={onSelectChange}
         />
