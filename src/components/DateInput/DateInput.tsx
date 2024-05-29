@@ -45,6 +45,7 @@ const DateInput = ({
     } else {
       dateKeys.map((date: string) => dates[date].default && updateFields(date));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dates, initialYear, mapId]);
 
   return (
