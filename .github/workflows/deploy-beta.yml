@@ -1,0 +1,23 @@
+name: CI/CD OCA
+
+on:
+  push:
+    branches: ["main"] 
+              
+jobs:
+  build:
+    runs-on: oca-self-hosted-runner
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stop existing container
+        run: sudo docker rm -f ${{ vars.CONTAINER_NAME_BETA }} || true 
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v
+ 
+      - name: Run new container
+        run: sudo docker run --name ${{ vars.CONTAINER_NAME_BETA }} -p ${{ vars.HOST_PORT_BETA }}:${{ vars.CONTAINER_PORT }} -d ${{ vars.DOCKER_IMAGE }}:latest
+
+      - name: Prune unused Docker images
+        run: sudo docker system prune -f

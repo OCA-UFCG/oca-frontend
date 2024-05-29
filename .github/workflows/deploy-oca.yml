@@ -1,0 +1,20 @@
+name: CI/CD OCA
+
+on:
+  push:
+    tags: ["*"] 
+              
+jobs:
+  build:
+    runs-on: oca-self-hosted-runner
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stop existing container
+        run: sudo docker rm -f ${{ vars.CONTAINER_NAME_PROD }} || true 
+        
+      - name: Run new container
+        run: sudo docker run --name ${{ vars.CONTAINER_NAME_PROD }} -p ${{ vars.HOST_PORT_PROD }}:${{ vars.CONTAINER_PORT }} -d ${{ vars.DOCKER_IMAGE }}:latest
+
+      - name: Prune unused Docker images
+        run: sudo docker system prune -f
