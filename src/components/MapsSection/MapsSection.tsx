@@ -64,7 +64,7 @@ const MapsSection = ({ eeInfos = {} }: { eeInfos: IEEImage }) => {
       )}
       <VisuName>{capitalize(currentVisu.name)}</VisuName>
       <Description>{currentVisu.description}</Description>
-      <LinkButton href={`/map?visu=${currentVisu.id}`}>Visualizar</LinkButton>
+      <LinkButton href={`/map?name=${currentVisu.id}`}>Visualizar</LinkButton>
     </Wrapper>
   );
 };

@@ -26,14 +26,13 @@ export const MenuWrapper = styled.div`
   align-items: center;
   z-index: 1;
   pointer-events: auto;
-  cursor: pointer;
 `;
 
 export const HomeImage = styled(Image)`
   transition: 0.2s;
   cursor: pointer;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: auto;
   box-shadow: 0px 0px 4px #cdcdcd;
 
   &:hover {
@@ -54,10 +53,12 @@ export const NameContainer = styled.div`
 `;
 
 export const VisuName = styled.h1`
+  font-size: 1.1rem;
   font-weight: bold;
 `;
 export const QuestionImage = styled(Image)`
   transition: 0.2s;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.6;
