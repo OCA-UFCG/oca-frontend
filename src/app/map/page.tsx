@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { Suspense, useCallback, useState } from "react";
 import { IMapInfo } from "@/utils/interfaces";
 import MapTiff from "@/components/MapTiff/MapTiff";
 import MapTemplate from "@/templates/mapTemplate";
@@ -20,6 +20,12 @@ import {
 } from "./styles";
 import Link from "next/link";
 import { capitalize } from "@/utils/functions";
+
+const MapPageWrapper = () => (
+  <Suspense fallback={<div>Carregando...</div>}>
+    <MapPage />
+  </Suspense>
+);
 
 const MapPage = () => {
   const searchParams = useSearchParams();
@@ -73,6 +79,7 @@ const MapPage = () => {
               {capitalize(EEImages[imageData.name]?.name || "undefined")}
             </VisuName>
             <QuestionImage
+              title={`Sobre ${EEImages[imageData.name]?.name}`}
               src={QuestionIcon}
               alt={QuestionIcon}
               height={20}
@@ -85,4 +92,4 @@ const MapPage = () => {
   );
 };
 
-export default MapPage;
+export default MapPageWrapper;
