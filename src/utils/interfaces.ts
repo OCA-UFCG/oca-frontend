@@ -49,7 +49,7 @@ export interface IEEInfo {
       default: boolean;
       imageId: string;
       pallete?: string[];
-      colorNumbers?: number[];
+      pixelsLimit?: number[];
     };
   };
   posterUrl: string;

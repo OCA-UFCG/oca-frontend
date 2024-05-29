@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { EEImages } from "@/utils/constants";
 import { IMapId } from "@/utils/interfaces";
 import type { NextRequest } from "next/server";
-import { formatPalette } from "@/utils/functions";
 
 export async function GET(req: NextRequest) {
   try {
@@ -16,11 +15,23 @@ export async function GET(req: NextRequest) {
 
     const imageInfo = EEImages[name];
     const imageId = EEImages[name].imageData[year]?.imageId;
-    let imageParams = EEImages[name].imageData[year]?.pallete || [];
-    const colorNumbers = EEImages[name].imageData[year]?.colorNumbers || null;
+    const imageParams = EEImages[name].imageData[year]?.pallete;
+    let image = ee.Image(imageId).selfMask();
+    const pixelsLimit = EEImages[name].imageData[year]?.pixelsLimit || null;
 
-    if (colorNumbers) {
-      imageParams = formatPalette(imageParams, colorNumbers);
+    if (pixelsLimit) {
+      let categorizedImage = image.where(image.lte(pixelsLimit[0]), 1);
+      for (let i = 1; i < pixelsLimit.length; i++) {
+        categorizedImage = categorizedImage.where(
+          image.gt(pixelsLimit[i - 1]).and(image.lte(pixelsLimit[i])),
+          i + 1,
+        );
+      }
+      categorizedImage = categorizedImage.where(
+        image.gt(pixelsLimit[pixelsLimit.length - 1]),
+        pixelsLimit.length + 1,
+      );
+      image = categorizedImage;
     }
 
     const visParams = {
@@ -29,7 +40,6 @@ export async function GET(req: NextRequest) {
       palette: imageParams ?? ["black", "white"],
     };
 
-    const image = ee.Image(imageId).selfMask();
     const mapId: IMapId = (await getMapId(image, visParams)) as IMapId;
     const url = mapId.urlFormat;
 

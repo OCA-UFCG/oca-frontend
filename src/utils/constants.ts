@@ -134,13 +134,13 @@ export const EEImages: IEEImage = {
           "#125b07",
           "#202f1c",
         ],
-        colorNumbers: [4, 1, 2, 2, 6, 55],
+        pixelsLimit: [5, 6, 8, 10, 16],
       },
     },
     posterUrl:
       "https://drive.google.com/uc?export=view&id=11hNFuxDETLN-nqnMo9E-2_fivvrsmd4g", // TODO update
-    minScale: 1.9,
-    maxScale: 70.65,
+    minScale: 1,
+    maxScale: 6,
   },
 
   degradacao: {

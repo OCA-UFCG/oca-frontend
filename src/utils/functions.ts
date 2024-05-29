@@ -7,18 +7,3 @@ export const capitalize = (inputString: string): string => {
 
   return capitalizedWords.join(" ");
 };
-
-export const formatPalette = (
-  originalPallete: string[],
-  colorNumbers: number[],
-): string[] => {
-  const pallete: string[] = [];
-
-  for (let i = 0; i < originalPallete.length; i++) {
-    for (let j = 0; j < colorNumbers[i]; j++) {
-      pallete.push(originalPallete[i]);
-    }
-  }
-
-  return pallete;
-};
