@@ -33,8 +33,8 @@ export const HomeImage = styled(Image)`
   cursor: pointer;
   width: 2rem;
   height: auto;
-  box-shadow: 0px 0px 4px #cdcdcd;
-
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
   &:hover {
     transform: scale(1.05);
   }
@@ -50,6 +50,8 @@ export const NameContainer = styled.div`
   padding: 0.25rem 1rem;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 `;
 
 export const VisuName = styled.h1`

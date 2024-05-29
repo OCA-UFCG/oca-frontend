@@ -68,6 +68,7 @@ const MapsMenu = ({
                 <VisuItem info={item} onChange={onItemChange} />
                 <QuestionMarkImg
                   onClick={() => onQuestionSelect(item.id)}
+                  title={`Sobre ${item.name}`}
                   src={QuestionMarkIcon}
                   alt={QuestionMarkIcon}
                   height={16}

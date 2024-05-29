@@ -6,7 +6,8 @@ export const MenuImage = styled(Image)`
   cursor: pointer;
   width: 2rem;
   height: auto;
-  box-shadow: 0px 0px 4px #cdcdcd;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 
   &:hover {
     transform: scale(1.05);
@@ -63,7 +64,7 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
   box-sizing: border-box;
   min-width: 20rem;
   max-width: 24rem;
-  box-shadow: 0px 0px 4px 1px #c8c8c8;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
   z-index: 10;
 
   @media screen and (max-width: 400px) {
