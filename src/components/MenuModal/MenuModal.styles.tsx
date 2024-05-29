@@ -83,7 +83,7 @@ export const HeadWrapper = styled.div`
 `;
 
 export const OcaImage = styled(Image)`
-  max-width: 5.5rem;
+  max-width: 6.5rem;
   height: fit-content;
 `;
 
