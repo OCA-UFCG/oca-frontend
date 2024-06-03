@@ -14,30 +14,45 @@ export async function GET(req: NextRequest) {
     const year = req.nextUrl.searchParams.get("year") || "";
 
     const imageInfo = EEImages[name];
-    const imageId = EEImages[name].imageData[year]?.imageId;
-    const imageParams = EEImages[name].imageData[year]?.pallete;
+    const { imageId, imageParams } = imageInfo.imageData[year];
     let image = ee.Image(imageId).selfMask();
-    const pixelsLimit = EEImages[name].imageData[year]?.pixelsLimit || null;
 
-    if (pixelsLimit) {
-      let categorizedImage = image.where(image.lte(pixelsLimit[0]), 1);
-      for (let i = 1; i < pixelsLimit.length; i++) {
-        categorizedImage = categorizedImage.where(
-          image.gt(pixelsLimit[i - 1]).and(image.lte(pixelsLimit[i])),
-          i + 1,
-        );
+    const filteredImageParams = imageParams.filter(
+      (imageParam) => imageParam.pixelLimit,
+    );
+
+    if (filteredImageParams.length > 0) {
+      let categorizedImage = image.where(
+        image.lte(filteredImageParams[0].pixelLimit),
+        1,
+      );
+
+      let lastIndex = filteredImageParams.length - 1;
+      for (let index = 1; index < filteredImageParams.length; index++) {
+        if (!filteredImageParams[index].pixelLimit && index < lastIndex) {
+          lastIndex = index;
+        } else {
+          categorizedImage = categorizedImage.where(
+            image
+              .gt(filteredImageParams[index - 1].pixelLimit)
+              .and(image.lte(filteredImageParams[index].pixelLimit)),
+            index + 1,
+          );
+        }
       }
+
       categorizedImage = categorizedImage.where(
-        image.gt(pixelsLimit[pixelsLimit.length - 1]),
-        pixelsLimit.length + 1,
+        image.gt(filteredImageParams[lastIndex].pixelLimit),
+        lastIndex + 2,
       );
       image = categorizedImage;
     }
 
+    const palette = imageParams.map((imageParam) => imageParam.color);
     const visParams = {
       min: imageInfo?.minScale ?? 0,
       max: imageInfo?.maxScale ?? 1,
-      palette: imageParams ?? ["black", "white"],
+      palette,
     };
 
     const mapId: IMapId = (await getMapId(image, visParams)) as IMapId;
