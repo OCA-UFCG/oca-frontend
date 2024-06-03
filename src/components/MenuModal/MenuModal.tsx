@@ -65,9 +65,9 @@ const MenuModal = ({
         position={position}
       >
         <HeadWrapper>
-          <OcaImage src={OcaLogo} alt="" />
+          {hasIcon && <OcaImage src={OcaLogo} alt="" />}
           <div onClick={switchRetract}>
-            <RetractImage src={RetractIcon} alt="" />
+            <RetractImage src={RetractIcon} alt="" position={position} />
           </div>
         </HeadWrapper>
         <ContentWrapper>{children}</ContentWrapper>

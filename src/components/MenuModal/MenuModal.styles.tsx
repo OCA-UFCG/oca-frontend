@@ -46,13 +46,41 @@ export const Background = styled.div<{ retracted: string }>`
 export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
   ${(props) => {
     if (props.position === "left") {
-      const transform = props.retracted === "true" ? "-110%" : "1rem";
+      const transform =
+        props.retracted === "true" ? "translate(-110%)" : "translate(1rem)";
+      const transformSmall =
+        props.retracted === "true"
+          ? "translate(-50rem)"
+          : "translate(-50%, -33%)";
 
-      return `left: 0; transform: translate(${transform});`;
+      return `
+        left: 0; 
+        transform: translate(${transform});
+
+        @media screen and (max-width: 600px) {
+          top: 50%;
+          left: 50%;
+          transform: ${transformSmall};
+        }
+      `;
     } else {
-      const transform = props.retracted === "true" ? "110%" : "-1rem";
+      const transform =
+        props.retracted === "true" ? "translate(110%)" : "translate(-1rem)";
+      const transformSmall =
+        props.retracted === "true"
+          ? "translate(-50rem)"
+          : "translate(-50%, 11%)";
 
-      return `right: 0; transform: translate(${transform});`;
+      return `
+        right: 0; 
+        transform: ${transform};
+
+        @media screen and (max-width: 600px) {
+          bottom: 0;
+          left: 50%;
+          transform: ${transformSmall};
+        }
+      `;
     }
   }}
 
@@ -91,7 +119,15 @@ export const OcaImage = styled(Image)`
   height: fit-content;
 `;
 
-export const RetractImage = styled(Image)`
+export const RetractImage = styled(Image)<{ position: string }>`
+  ${(props) => {
+    if (props.position === "right") {
+      return `
+        transform: rotate(180deg);
+      `;
+    }
+  }}
+
   max-width: 1.25rem;
   height: fit-content;
   transition: 0.2s;

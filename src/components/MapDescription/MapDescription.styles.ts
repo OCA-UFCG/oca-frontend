@@ -19,4 +19,6 @@ export const Description = styled.p`
   font-size: 1rem;
   text-align: center;
   margin-top: 0.5rem;
+  overflow-y: scroll;
+  max-height: 12rem;
 `;
