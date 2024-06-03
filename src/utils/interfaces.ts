@@ -48,8 +48,11 @@ export interface IEEInfo {
     [year: string]: {
       default: boolean;
       imageId: string;
-      pallete?: string[];
-      pixelsLimit?: number[];
+      imageParams: {
+        color: string;
+        pixelLimit?: number;
+        label: string;
+      }[];
     };
   };
   posterUrl: string;

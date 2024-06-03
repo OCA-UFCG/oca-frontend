@@ -37,12 +37,12 @@ export const EEImages: IEEImage = {
   //     "2004": {
   //       default: true,
   //       imageId: "projects/ee-ocaufcg/assets/Index_Aridez_1975_2004",
-  //       pallete: ["#d7191b", "#fe7f00", "#c6e8ac", "#2c83b9"],
+  //       imageParams: ["#d7191b", "#fe7f00", "#c6e8ac", "#2c83b9"],
   //     },
   //     "2020": {
   //       default: false,
   //       imageId: "projects/ee-ocaufcg/assets/Index_Aridez_1990_2020_cemaden",
-  //       pallete: ["#d7191b", "#fe7f00", "#c6e8ac", "#2c83b9"],
+  //       imageParams: ["#d7191b", "#fe7f00", "#c6e8ac", "#2c83b9"],
   //     }
   //   },
   //   posterUrl:
@@ -60,7 +60,12 @@ export const EEImages: IEEImage = {
       general: {
         default: true,
         imageId: "projects/ee-ocaufcg/assets/SPEI_12_13",
-        pallete: ["#53a7d4", "#f3d7cb", "#f38657", "#ca0020"],
+        imageParams: [
+          { color: "#53a7d4", label: "" },
+          { color: "#f3d7cb", label: "" },
+          { color: "#f38657", label: "" },
+          { color: "#ca0020", label: "" },
+        ],
       },
     },
     posterUrl:
@@ -78,12 +83,12 @@ export const EEImages: IEEImage = {
   //     "1985": {
   //       default: true,
   //       imageId: "projects/ee-ocaufcg/assets/Mapbiomas_cf_1985_br",
-  //       pallete: ["#ffffff", "#e31a96"],
+  //       imageParams: ["#ffffff", "#e31a96"],
   //     },
   //     "2022": {
   //       default: false,
   //       imageId: "projects/ee-ocaufcg/assets/Mapbiomas_cf_2022_br",
-  //       pallete: ["#ffffff", "#005924"],
+  //       imageParams: ["#ffffff", "#005924"],
   //     },
   //   },
   //   posterUrl:
@@ -101,13 +106,13 @@ export const EEImages: IEEImage = {
       general: {
         default: true,
         imageId: "projects/ee-ocaufcg/assets/GPP_MODIS_Brasil_2021",
-        pallete: [
-          "#a50d00",
-          "#fd9649",
-          "#fedf99",
-          "#12f007",
-          "#125b07",
-          "#202f1c",
+        imageParams: [
+          { color: "#a50d00", label: "" },
+          { color: "#fd9649", label: "" },
+          { color: "#fedf99", label: "" },
+          { color: "#12f007", label: "" },
+          { color: "#125b07", label: "" },
+          { color: "#202f1c", label: "" },
         ],
       },
     },
@@ -126,15 +131,14 @@ export const EEImages: IEEImage = {
       general: {
         default: true,
         imageId: "projects/ee-ocaufcg/assets/carbono_g_kg",
-        pallete: [
-          "#a50d00",
-          "#fd9649",
-          "#fedf99",
-          "#12f007",
-          "#125b07",
-          "#202f1c",
+        imageParams: [
+          { color: "#a50d00", pixelLimit: 5, label: "< 5" },
+          { color: "#fd9649", pixelLimit: 6, label: "5 - 8" },
+          { color: "#fedf99", pixelLimit: 8, label: "6 - 8" },
+          { color: "#12f007", pixelLimit: 10, label: "8 - 10" },
+          { color: "#125b07", pixelLimit: 16, label: "10 - 16" },
+          { color: "#202f1c", label: "> 16" },
         ],
-        pixelsLimit: [5, 6, 8, 10, 16],
       },
     },
     posterUrl:
@@ -152,13 +156,13 @@ export const EEImages: IEEImage = {
       general: {
         default: true,
         imageId: "projects/ee-ocaufcg/assets/Index_Degradacao",
-        pallete: [
-          "#a50d00",
-          "#fd9649",
-          "#fedf99",
-          "#12f007",
-          "#125b07",
-          "#202f1c",
+        imageParams: [
+          { color: "#a50d00", label: "" },
+          { color: "#fd9649", label: "" },
+          { color: "#fedf99", label: "" },
+          { color: "#12f007", label: "" },
+          { color: "#125b07", label: "" },
+          { color: "#202f1c", label: "" },
         ],
       },
     },
@@ -177,7 +181,10 @@ export const defaultEEInfo: IEEInfo = {
     general: {
       default: true,
       imageId: "",
-      pallete: ["black", "white"],
+      imageParams: [
+        { color: "#white", label: "" },
+        { color: "#black", label: "" },
+      ],
     },
   },
   posterUrl: "/defaultMapsPoster.png",

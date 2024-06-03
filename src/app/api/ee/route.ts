@@ -14,30 +14,42 @@ export async function GET(req: NextRequest) {
     const year = req.nextUrl.searchParams.get("year") || "";
 
     const imageInfo = EEImages[name];
-    const imageId = EEImages[name].imageData[year]?.imageId;
-    const imageParams = EEImages[name].imageData[year]?.pallete;
+    const { imageId, imageParams } = imageInfo.imageData[year];
     let image = ee.Image(imageId).selfMask();
-    const pixelsLimit = EEImages[name].imageData[year]?.pixelsLimit || null;
 
-    if (pixelsLimit) {
-      let categorizedImage = image.where(image.lte(pixelsLimit[0]), 1);
-      for (let i = 1; i < pixelsLimit.length; i++) {
+    const filteredImageParams = imageParams.filter(
+      (imageParam) => imageParam.pixelLimit,
+    );
+
+    if (filteredImageParams.length > 0) {
+      let categorizedImage = image.where(
+        image.lte(filteredImageParams[0].pixelLimit),
+        1,
+      );
+
+      for (let index = 1; index < filteredImageParams.length; index++) {
         categorizedImage = categorizedImage.where(
-          image.gt(pixelsLimit[i - 1]).and(image.lte(pixelsLimit[i])),
-          i + 1,
+          image
+            .gt(filteredImageParams[index - 1].pixelLimit)
+            .and(image.lte(filteredImageParams[index].pixelLimit)),
+          index + 1,
         );
       }
+
       categorizedImage = categorizedImage.where(
-        image.gt(pixelsLimit[pixelsLimit.length - 1]),
-        pixelsLimit.length + 1,
+        image.gt(
+          filteredImageParams[filteredImageParams.length - 1].pixelLimit,
+        ),
+        filteredImageParams.length + 1,
       );
       image = categorizedImage;
     }
 
+    const palette = imageParams.map((imageParam) => imageParam.color);
     const visParams = {
       min: imageInfo?.minScale ?? 0,
       max: imageInfo?.maxScale ?? 1,
-      palette: imageParams ?? ["black", "white"],
+      palette,
     };
 
     const mapId: IMapId = (await getMapId(image, visParams)) as IMapId;
