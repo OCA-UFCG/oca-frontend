@@ -50,7 +50,17 @@ export interface IEEInfo {
   id: string;
   name: string;
   description: string;
-  imageData: IImageData;
+  imageData: {
+    [year: string]: {
+      default: boolean;
+      imageId: string;
+      imageParams: {
+        color: string;
+        pixelLimit?: number;
+        label: string;
+      }[];
+    };
+  };
   posterUrl: string;
   minScale?: number;
   maxScale?: number;

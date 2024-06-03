@@ -14,16 +14,44 @@ export async function GET(req: NextRequest) {
     const year = req.nextUrl.searchParams.get("year") || "";
 
     const imageInfo = EEImages[name];
-    const imageId = EEImages[name].imageData[year]?.imageId;
-    const imageParams = EEImages[name].imageData[year]?.pallete;
+    const { imageId, imageParams } = imageInfo.imageData[year];
+    let image = ee.Image(imageId).selfMask();
 
+    const filteredImageParams = imageParams.filter(
+      (imageParam) => imageParam.pixelLimit,
+    );
+
+    if (filteredImageParams.length > 0) {
+      let categorizedImage = image.where(
+        image.lte(filteredImageParams[0].pixelLimit),
+        1,
+      );
+
+      for (let index = 1; index < filteredImageParams.length; index++) {
+        categorizedImage = categorizedImage.where(
+          image
+            .gt(filteredImageParams[index - 1].pixelLimit)
+            .and(image.lte(filteredImageParams[index].pixelLimit)),
+          index + 1,
+        );
+      }
+
+      categorizedImage = categorizedImage.where(
+        image.gt(
+          filteredImageParams[filteredImageParams.length - 1].pixelLimit,
+        ),
+        filteredImageParams.length + 1,
+      );
+      image = categorizedImage;
+    }
+
+    const palette = imageParams.map((imageParam) => imageParam.color);
     const visParams = {
       min: imageInfo?.minScale ?? 0,
       max: imageInfo?.maxScale ?? 1,
-      palette: imageParams ?? ["black", "white"],
+      palette,
     };
 
-    const image = ee.Image(imageId).selfMask();
     const mapId: IMapId = (await getMapId(image, visParams)) as IMapId;
     const url = mapId.urlFormat;
 
