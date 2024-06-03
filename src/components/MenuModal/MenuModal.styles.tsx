@@ -43,16 +43,24 @@ export const Background = styled.div<{ retracted: string }>`
   }
 `;
 
-export const ModalWrapper = styled.div<{ retracted: string }>`
+export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
+  ${(props) => {
+    if (props.position === "left") {
+      const transform = props.retracted === "true" ? "-110%" : "1rem";
+
+      return `left: 0; transform: translate(${transform});`;
+    } else {
+      const transform = props.retracted === "true" ? "110%" : "-1rem";
+
+      return `right: 0; transform: translate(${transform});`;
+    }
+  }}
+
   position: fixed;
-  left: 0;
   top: 50%;
   bottom: 50%;
   margin: auto 0;
   transition: transform 0.5s ease-out;
-  transform: translate(
-    ${(props) => (props.retracted === "true" ? "-110%" : "1rem")}
-  );
 
   background-color: ${({ theme }) => theme.colors.white};
   background-image: url("background.png");

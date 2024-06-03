@@ -39,7 +39,8 @@ const DateInput = ({
         if (inputRef.current) inputRef.current.value = [index + 1].toString();
       }
     });
-  }, [dates, mapId, onChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dates, mapId]);
 
   return (
     <Wrapper disabled={("general" in dates).toString()}>

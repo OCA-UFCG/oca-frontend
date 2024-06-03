@@ -26,6 +26,7 @@ const MapsMenu = ({
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
   const [currentName, setCurrentName] = useState<string>("");
+  const [retracted, setRetracted] = useState<boolean>(false);
 
   const onItemChange = (newValue: string) => {
     setFormValues(() =>
@@ -51,7 +52,13 @@ const MapsMenu = ({
   }, []);
 
   return (
-    <MenuModal>
+    <MenuModal
+      hasIcon={true}
+      hasBackground={false}
+      position="left"
+      retracted={retracted}
+      setRetracted={setRetracted}
+    >
       <ContentWrapper>
         <Title>Visualizações Disponíveis</Title>
         <Form>
