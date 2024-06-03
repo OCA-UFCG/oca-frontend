@@ -27,23 +27,20 @@ export async function GET(req: NextRequest) {
         1,
       );
 
-      let lastIndex = filteredImageParams.length - 1;
       for (let index = 1; index < filteredImageParams.length; index++) {
-        if (!filteredImageParams[index].pixelLimit && index < lastIndex) {
-          lastIndex = index;
-        } else {
-          categorizedImage = categorizedImage.where(
-            image
-              .gt(filteredImageParams[index - 1].pixelLimit)
-              .and(image.lte(filteredImageParams[index].pixelLimit)),
-            index + 1,
-          );
-        }
+        categorizedImage = categorizedImage.where(
+          image
+            .gt(filteredImageParams[index - 1].pixelLimit)
+            .and(image.lte(filteredImageParams[index].pixelLimit)),
+          index + 1,
+        );
       }
 
       categorizedImage = categorizedImage.where(
-        image.gt(filteredImageParams[lastIndex].pixelLimit),
-        lastIndex + 2,
+        image.gt(
+          filteredImageParams[filteredImageParams.length - 1].pixelLimit,
+        ),
+        filteredImageParams.length + 1,
       );
       image = categorizedImage;
     }
