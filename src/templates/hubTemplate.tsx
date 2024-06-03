@@ -1,10 +1,10 @@
 "use client";
 
 import HeaderSection from "@/components/Header/Section/HeaderSection";
-import { ContentContainer, Main } from "./globalStyles";
+import { ContentContainer, Main } from "@/app/globalStyles";
 import Footer from "@/components/Footer/Footer";
 
-const Template = ({ children }: React.PropsWithChildren) => {
+const HubTemplate = ({ children }: React.PropsWithChildren) => {
   return (
     <>
       <ContentContainer>
@@ -16,4 +16,4 @@ const Template = ({ children }: React.PropsWithChildren) => {
   );
 };
 
-export default Template;
+export default HubTemplate;

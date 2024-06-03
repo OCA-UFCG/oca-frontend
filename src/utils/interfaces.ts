@@ -36,6 +36,12 @@ export interface IPublication {
   href: string;
 }
 
+export interface IVisuMenuItems {
+  id: string;
+  name: string;
+  checked: boolean;
+}
+
 export interface IEEImage {
   [id: string]: IEEInfo;
 }
@@ -69,4 +75,21 @@ export interface IMapId {
 export interface IMapInfo {
   name: string;
   year?: string;
+}
+
+export interface IFormItem {
+  id: string;
+  name: string;
+  checked: boolean;
+  imageData: IImageData;
+}
+
+export interface IImageData {
+  [year: string]: IImageProps;
+}
+
+export interface IImageProps {
+  default?: boolean;
+  imageId: string;
+  pallete?: string[];
 }

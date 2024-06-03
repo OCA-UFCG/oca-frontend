@@ -10,10 +10,11 @@ import AboutSection from "@/components/AboutSection/AboutSection";
 import MapsSection from "@/components/MapsSection/MapsSection";
 
 import { EEImages } from "@/utils/constants";
+import Template from "@/templates/hubTemplate";
 
 export default function Home() {
   return (
-    <>
+    <Template>
       <LogoSection>
         <OcaImage src={OcaLogo} alt="The oca logo" />
       </LogoSection>
@@ -22,6 +23,6 @@ export default function Home() {
       <PublicationsSection />
       <SponsorsSection />
       <TeamMembersSection />
-    </>
+    </Template>
   );
 }
