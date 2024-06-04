@@ -44,57 +44,13 @@ export const Background = styled.div<{ retracted: string }>`
 `;
 
 export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
-  ${(props) => {
-    if (props.position === "left") {
-      const transform =
-        props.retracted === "true" ? "translate(-110%)" : "translate(1rem)";
-      const transformSmall =
-        props.retracted === "true"
-          ? "translate(-50rem)"
-          : "translate(-50%, -33%)";
-
-      return `
-        left: 0; 
-        transform: ${transform};
-
-        @media screen and (max-width: 600px) {
-          top: 50%;
-          left: 50%;
-          transform: ${transformSmall};
-        }
-      `;
-    } else {
-      const transform =
-        props.retracted === "true" ? "translate(110%)" : "translate(-1rem)";
-      const transformSmall =
-        props.retracted === "true"
-          ? "translate(-50rem)"
-          : "translate(-50%, 11%)";
-
-      return `
-        right: 0; 
-        transform: ${transform};
-
-        @media screen and (max-width: 600px) {
-          bottom: 0;
-          left: 50%;
-          transform: ${transformSmall};
-        }
-      `;
-    }
-  }}
-
   position: fixed;
   top: 50%;
-  bottom: 50%;
-  margin: auto 0;
   transition: transform 0.5s ease-out;
-
   background-color: ${({ theme }) => theme.colors.white};
   background-image: url("background.png");
   background-size: 50rem;
   border-radius: 6px;
-
   height: fit-content;
   max-height: 40rem;
   padding: 1rem;
@@ -107,6 +63,40 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
   @media screen and (max-width: 400px) {
     max-width: 92vw;
   }
+
+  ${(props) => {
+    const { position, retracted } = props;
+    const isLeft = position === "left";
+
+    const transformExpanded = isLeft ? "translateX(1rem)" : "translateX(-1rem)";
+    const transformRetracted = isLeft
+      ? "translateX(-110%)"
+      : "translateX(110%)";
+    const transform =
+      retracted === "true" ? transformRetracted : transformExpanded;
+
+    const transformSmallExpanded = "translateX(-50%)";
+    const transformSmallRetracted = isLeft
+      ? "translateX(-50rem)"
+      : "translateX(50rem)";
+    const transformSmall =
+      retracted === "true" ? transformSmallRetracted : transformSmallExpanded;
+
+    return `
+      ${isLeft ? "left: 0;" : "right: 0;"}
+      transform: ${transform};
+
+      @media screen and (max-width: 750px) {
+        ${isLeft ? "top: 9%;" : "top: 57%;"}
+        left: 50%;
+        transform: ${transformSmall};
+      }
+
+      @media screen and (max-height: 800px) {
+        ${isLeft ? "top: 9%;" : "top: 68%;"}
+      }        
+    `;
+  }}
 `;
 
 export const HeadWrapper = styled.div`
