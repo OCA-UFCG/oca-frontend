@@ -46,11 +46,14 @@ export const Background = styled.div<{ retracted: string }>`
 export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
   position: fixed;
   top: 50%;
+  bottom: 50%;
+  margin: auto 0;
   transition: transform 0.5s ease-out;
   background-color: ${({ theme }) => theme.colors.white};
   background-image: url("background.png");
   background-size: 50rem;
   border-radius: 6px;
+
   height: fit-content;
   max-height: 40rem;
   padding: 1rem;
@@ -72,27 +75,24 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
     const transformRetracted = isLeft
       ? "translateX(-110%)"
       : "translateX(110%)";
-    const transform =
-      retracted === "true" ? transformRetracted : transformExpanded;
 
     const transformSmallExpanded = "translateX(-50%)";
     const transformSmallRetracted = isLeft
       ? "translateX(-50rem)"
       : "translateX(50rem)";
-    const transformSmall =
-      retracted === "true" ? transformSmallRetracted : transformSmallExpanded;
 
     return `
       ${isLeft ? "left: 0;" : "right: 0;"}
-      transform: ${transform};
+      transform: ${retracted === "true" ? transformRetracted : transformExpanded};
 
       @media screen and (max-width: 750px) {
-        ${isLeft ? "top: 9%;" : "top: 57%;"}
         left: 50%;
-        transform: ${transformSmall};
+        margin: 0 0;
+        ${isLeft ? "top: 9%;" : "top: 57%;"}
+        transform: ${retracted === "true" ? transformSmallRetracted : transformSmallExpanded};
       }
 
-      @media screen and (max-height: 800px) {
+      @media screen and (max-width: 750px) and (max-height: 800px) {
         ${isLeft ? "top: 9%;" : "top: 68%;"}
       }        
     `;
@@ -110,14 +110,6 @@ export const OcaImage = styled(Image)`
 `;
 
 export const RetractImage = styled(Image)<{ position: string }>`
-  ${(props) => {
-    if (props.position === "right") {
-      return `
-        transform: rotate(180deg);
-      `;
-    }
-  }}
-
   max-width: 1.25rem;
   height: fit-content;
   transition: 0.2s;
@@ -127,6 +119,16 @@ export const RetractImage = styled(Image)<{ position: string }>`
     transform: scale(0.9);
     opacity: 0.4;
   }
+
+  ${(props) =>
+    props.position === "right" &&
+    `
+      transform: rotate(180deg);
+
+      &:hover {
+        transform: rotate(180deg) scale(0.9);
+      }
+  `}
 `;
 
 export const ContentWrapper = styled.div`

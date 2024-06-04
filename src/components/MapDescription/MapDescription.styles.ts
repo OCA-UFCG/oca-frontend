@@ -22,7 +22,7 @@ export const Description = styled.p`
   overflow-y: scroll;
   max-height: 12rem;
 
-  @media screen and (max-height: 800px) {
+  @media screen and (max-width: 750px) and (max-height: 800px) {
     max-height: 5rem;
   }
 `;

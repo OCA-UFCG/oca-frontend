@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useRef } from "react";
+import { ReactNode, useCallback, useEffect, useRef } from "react";
 import {
   ContentWrapper,
   Background,
@@ -37,25 +37,22 @@ const MenuModal = ({
         !modalRef.current.contains(event.target as Node)
       ) {
         setRetracted(true);
-        document.removeEventListener("click", handleClickOutside);
       }
     },
     [setRetracted],
   );
 
-  const switchRetract = useCallback(() => {
-    if (retracted) {
-      document.addEventListener("click", handleClickOutside);
-    } else {
-      document.removeEventListener("click", handleClickOutside);
-    }
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
 
-    setRetracted(!retracted);
-  }, [handleClickOutside, setRetracted, retracted]);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [handleClickOutside]);
 
   return (
     <div {...props}>
-      <div onClick={switchRetract}>
+      <div onClick={() => setRetracted(!retracted)}>
         {hasIcon && <MenuImage src={MenuIcon} alt="" />}
       </div>
       {hasBackground && <Background retracted={retracted.toString()} />}
@@ -66,7 +63,7 @@ const MenuModal = ({
       >
         <HeadWrapper>
           {hasIcon && <OcaImage src={OcaLogo} alt="" />}
-          <div onClick={switchRetract}>
+          <div onClick={() => setRetracted(!retracted)}>
             <RetractImage src={RetractIcon} alt="" position={position} />
           </div>
         </HeadWrapper>
