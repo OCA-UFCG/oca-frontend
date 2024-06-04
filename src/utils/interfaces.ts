@@ -46,6 +46,13 @@ export interface IEEImage {
   [id: string]: IEEInfo;
 }
 
+export interface IImageParam {
+  color: string;
+  pixelLimit?: number;
+  label: string;
+  extraInfo?: string[];
+}
+
 export interface IEEInfo {
   id: string;
   name: string;
@@ -54,13 +61,10 @@ export interface IEEInfo {
     [year: string]: {
       default: boolean;
       imageId: string;
-      imageParams: {
-        color: string;
-        pixelLimit?: number;
-        label: string;
-      }[];
+      imageParams: IImageParam[];
     };
   };
+  measurementUnit: string;
   posterUrl: string;
   minScale?: number;
   maxScale?: number;
