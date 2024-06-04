@@ -143,7 +143,8 @@ export const EEImages: IEEImage = {
         ],
       },
     },
-    measurementUnit: "classes",
+    extraInfo: ["Base de dados: MODIS (Terra | Aqua)", "Período: 2021"],
+    measurementUnit: "g/kg",
     posterUrl:
       "https://drive.google.com/uc?export=view&id=11hNFuxDETLN-nqnMo9E-2_fivvrsmd4g", // TODO update
     minScale: 1,
@@ -160,12 +161,12 @@ export const EEImages: IEEImage = {
         default: true,
         imageId: "projects/ee-ocaufcg/assets/Index_Degradacao",
         imageParams: [
-          { color: "#a50d00", label: "" },
-          { color: "#fd9649", label: "" },
-          { color: "#fedf99", label: "" },
-          { color: "#12f007", label: "" },
-          { color: "#125b07", label: "" },
-          { color: "#202f1c", label: "" },
+          { color: "#a50d00", label: "Degradação Crítico" },
+          { color: "#fd9649", label: "Degradação severo" },
+          { color: "#fedf99", label: "Degradação moderado" },
+          { color: "#12f007", label: "Degradação bom" },
+          { color: "#125b07", label: "Degradação Ótimo" },
+          { color: "#202f1c", label: "Degradação Excelente" },
         ],
       },
     },

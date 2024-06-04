@@ -6,34 +6,72 @@ import {
   Wrapper,
   ColorLabel,
   Color,
+  Measurement,
+  HeaderContainer,
+  SubtractImage,
+  MetaInfo,
+  MetaInfoContainer,
+  ContentContainer,
 } from "./MapLegend.styles";
 import { EEImages } from "@/utils/constants";
+import SubtractIcon from "@/../public/subtract-icon.svg";
+import { useState } from "react";
+import { capitalize } from "@/utils/functions";
 
 interface MapLegendProps {
-  title: string;
-  legendData: IImageParam[];
-  measurementUnit: string;
+  visuId: string;
+  year: string;
 }
 
-export const MapLegend = ({
-  title = "Carbono Orgânico do Solo",
-  legendData = EEImages.carbono.imageData.general.imageParams,
-  measurementUnit = EEImages.carbono.measurementUnit,
-}: MapLegendProps) => {
+export const MapLegend = ({ visuId, year = "general" }: MapLegendProps) => {
+  const [retracted, setRetracted] = useState<string>("open");
+
+  const { name, imageData, measurementUnit, extraInfo } = EEImages[visuId];
+
   return (
     <Wrapper>
-      <Title>{title}</Title>
-      <DataLegendContainer>
-        <p>{measurementUnit}</p>
-        {legendData.map((data: IImageParam) => {
-          return (
-            <DataContainer key={data.color}>
-              <Color color={data.color} />
-              <ColorLabel>{data.label}</ColorLabel>
-            </DataContainer>
-          );
-        })}
-      </DataLegendContainer>
+      <HeaderContainer
+        onClick={() =>
+          setRetracted((previous) =>
+            previous === "retracted" ? "open" : "retracted",
+          )
+        }
+      >
+        <Title>{name}</Title>
+        <SubtractImage
+          retracted={retracted}
+          src={SubtractIcon}
+          alt={SubtractIcon}
+          height={16}
+          width={16}
+        />
+      </HeaderContainer>
+      <ContentContainer retracted={retracted}>
+        <DataLegendContainer>
+          {imageData[year].imageParams.map(({ color, label }: IImageParam) => {
+            return (
+              <DataContainer
+                key={color}
+                title={`${label} ${measurementUnit !== "classes" && measurementUnit}`}
+              >
+                <Color color={color} />
+                <ColorLabel>{capitalize(label)}</ColorLabel>
+
+                <Measurement>
+                  {measurementUnit !== "classes" ? measurementUnit : ""}
+                </Measurement>
+              </DataContainer>
+            );
+          })}
+        </DataLegendContainer>
+        {extraInfo && (
+          <MetaInfoContainer>
+            {extraInfo.map((info: string) => (
+              <MetaInfo key={info}>{info}</MetaInfo>
+            ))}
+          </MetaInfoContainer>
+        )}
+      </ContentContainer>
     </Wrapper>
   );
 };

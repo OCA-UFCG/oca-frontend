@@ -50,7 +50,6 @@ export interface IImageParam {
   color: string;
   pixelLimit?: number;
   label: string;
-  extraInfo?: string[];
 }
 
 export interface IEEInfo {
@@ -64,6 +63,7 @@ export interface IEEInfo {
       imageParams: IImageParam[];
     };
   };
+  extraInfo?: string[];
   measurementUnit: string;
   posterUrl: string;
   minScale?: number;
