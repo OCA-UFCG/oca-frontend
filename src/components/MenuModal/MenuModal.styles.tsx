@@ -55,7 +55,7 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
 
       return `
         left: 0; 
-        transform: translate(${transform});
+        transform: ${transform};
 
         @media screen and (max-width: 600px) {
           top: 50%;
