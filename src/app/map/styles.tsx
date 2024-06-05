@@ -66,3 +66,8 @@ export const QuestionImage = styled(Image)`
     opacity: 0.6;
   }
 `;
+
+export const MapLegendContainer = styled.div`
+  margin: auto 0.5rem 0.5rem auto;
+  z-index: 2;
+`;

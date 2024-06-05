@@ -13,6 +13,7 @@ import {
   HeaderWrapper,
   HomeImage,
   MapContainer,
+  MapLegendContainer,
   MenuWrapper,
   NameContainer,
   QuestionImage,
@@ -20,6 +21,8 @@ import {
 } from "./styles";
 import Link from "next/link";
 import { capitalize } from "@/utils/functions";
+import MapDescription from "@/components/MapDescription/MapDescription";
+import { MapLegend } from "@/components/MapLegend/MapLegend";
 
 const MapPageWrapper = () => (
   <Suspense fallback={<div>Carregando...</div>}>
@@ -33,6 +36,9 @@ const MapPage = () => {
   const pathname = usePathname();
   const name = searchParams?.get("name");
   const year = searchParams?.get("year");
+  const [description, setDescription] = useState<IEEInfo>(EEImages.degradacao);
+  const [openDescriptionModal, setOpenDescriptionModal] =
+    useState<boolean>(false);
 
   const [imageData, setImageData] = useState<IMapInfo>({
     name: name ?? "",
@@ -41,6 +47,7 @@ const MapPage = () => {
 
   const createQueryString = useCallback(
     (newData: IMapInfo) => {
+      console.log("dado novooo", newData);
       const params = new URLSearchParams(searchParams.toString());
 
       params.set("name", newData.name);
@@ -56,8 +63,18 @@ const MapPage = () => {
     createQueryString(newImageData);
   };
 
+  const handleSetDescription = useCallback((name: string) => {
+    setDescription(EEImages[name]);
+    setOpenDescriptionModal(false);
+  }, []);
+
   return (
     <MapTemplate>
+      <MapDescription
+        imageData={description}
+        retracted={openDescriptionModal}
+        setRetracted={setOpenDescriptionModal}
+      />
       <MapContainer>
         <MapTiff data={imageData} />
       </MapContainer>
@@ -67,7 +84,7 @@ const MapPage = () => {
             initialValues={imageData}
             options={Object.values(EEImages)}
             onSelectChange={handleVisuChange}
-            onQuestionSelect={() => console.log("TCHAUUU")}
+            onQuestionSelect={(name: string) => handleSetDescription(name)}
           />
           <Link href="/">
             <HomeImage src={HomeIcon} alt={HomeIcon} height={16} width={16} />
@@ -78,16 +95,21 @@ const MapPage = () => {
             <VisuName>
               {capitalize(EEImages[imageData.name]?.name || "undefined")}
             </VisuName>
-            <QuestionImage
-              title={`Sobre ${EEImages[imageData.name]?.name}`}
-              src={QuestionIcon}
-              alt={QuestionIcon}
-              height={20}
-              width={20}
-            />
+            <div onClick={() => handleSetDescription(imageData.name)}>
+              <QuestionImage
+                title={`Sobre ${EEImages[imageData.name]?.name}`}
+                src={QuestionIcon}
+                alt={QuestionIcon}
+                height={20}
+                width={20}
+              />
+            </div>
           </NameContainer>
         )}
       </HeaderWrapper>
+      <MapLegendContainer>
+        <MapLegend visuId={imageData.name} year={imageData.year || "general"} />
+      </MapLegendContainer>
     </MapTemplate>
   );
 };

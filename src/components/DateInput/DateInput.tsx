@@ -33,18 +33,16 @@ const DateInput = ({
   useEffect(() => {
     const dateKeys: string[] = Object.keys(dates);
 
-    // const updateFields = (year: string) => {
-    //   onChange({ name: mapId, year: year });
-    //   setCurrentDate(year);
-    //   if (inputRef.current)
-    //     inputRef.current.value = [dateKeys.indexOf(year) + 1].toString();
-    // };
+    const updateFields = (year: string) => {
+      onChange({ name: mapId, year: year });
+      setCurrentDate(year);
+      if (inputRef.current)
+        inputRef.current.value = [dateKeys.indexOf(year) + 1].toString();
+    };
 
-    dateKeys.map((date: string, index: number) => {
+    dateKeys.map((date: string) => {
       if (dates[date].default) {
-        onChange(mapId, date);
-        setCurrentDate(date);
-        if (inputRef.current) inputRef.current.value = [index + 1].toString();
+        updateFields(date);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

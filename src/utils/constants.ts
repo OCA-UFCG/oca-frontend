@@ -28,28 +28,39 @@ export const sections: ISection[] = [
 ];
 
 export const EEImages: IEEImage = {
-  // aridez: {
-  //   id: "aridez",
-  //   name: "Índice de Aridez",
-  //   description:
-  //     "O Índice de Aridez fornece uma medida concisa da relação entre precipitação e evaporação potencial em uma região específica. Essa métrica é fundamental para compreender o balanço hídrico e orientar decisões em recursos hídricos, agricultura e gestão ambiental. Índice inferior a 0,65 indica Área Suscetível à Desertificação (ASD).",
-  //   imageData: {
-  //     "2004": {
-  //       default: true,
-  //       imageId: "projects/ee-ocaufcg/assets/Index_Aridez_1975_2004",
-  //       imageParams: ["#d7191b", "#fe7f00", "#c6e8ac", "#2c83b9"],
-  //     },
-  //     "2020": {
-  //       default: false,
-  //       imageId: "projects/ee-ocaufcg/assets/Index_Aridez_1990_2020_cemaden",
-  //       imageParams: ["#d7191b", "#fe7f00", "#c6e8ac", "#2c83b9"],
-  //     }
-  //   },
-  //   posterUrl:
-  //     "https://drive.google.com/uc?export=view&id=1a9t9OJLs0H9cP4yKJWx5Zw5pQ5QJj2L3", // TODO update
-  //   minScale: 2,
-  //   maxScale: 5,
-  // },
+  aridez: {
+    id: "aridez",
+    name: "Índice de Aridez",
+    description:
+      "O Índice de Aridez fornece uma medida concisa da relação entre precipitação e evaporação potencial em uma região específica. Essa métrica é fundamental para compreender o balanço hídrico e orientar decisões em recursos hídricos, agricultura e gestão ambiental. Índice inferior a 0,65 indica Área Suscetível à Desertificação (ASD).",
+    posterUrl:
+      "https://drive.google.com/uc?export=view&id=1a9t9OJLs0H9cP4yKJWx5Zw5pQ5QJj2L3",
+    minScale: 2,
+    maxScale: 5,
+    measurementUnit: "classes",
+    imageData: {
+      "2004": {
+        default: true,
+        imageId: "projects/ee-ocaufcg/assets/Index_Aridez_1975_2004",
+        imageParams: [
+          { color: "#d7191b", label: "Árido" },
+          { color: "#fe7f00", label: "Semiárido" },
+          { color: "#c6e8ac", label: "Subúmido seco" },
+          { color: "#2c83b9", label: "Úmido" },
+        ],
+      },
+      "2020": {
+        default: false,
+        imageId: "projects/ee-ocaufcg/assets/Index_Aridez_1990_2020_cemaden",
+        imageParams: [
+          { color: "#d7191b", label: "Árido" },
+          { color: "#fe7f00", label: "Semiárido" },
+          { color: "#c6e8ac", label: "Subúmido seco" },
+          { color: "#2c83b9", label: "Úmido" },
+        ],
+      },
+    },
+  },
 
   spei: {
     id: "spei",

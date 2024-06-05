@@ -3,15 +3,15 @@ import MenuModal from "../MenuModal/MenuModal";
 import { ContentWrapper, Title, Description } from "./MapDescription.styles";
 
 const MapDescription = ({
-  data,
+  imageData,
   retracted,
   setRetracted = () => {},
 }: {
-  data: IEEInfo;
+  imageData: IEEInfo;
   retracted: boolean;
   setRetracted: (retracted: boolean) => void;
 }) => {
-  const { name, description } = data;
+  const { name, description } = imageData;
 
   return (
     <MenuModal
