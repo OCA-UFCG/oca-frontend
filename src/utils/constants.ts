@@ -162,9 +162,9 @@ export const EEImages: IEEImage = {
         imageId: "projects/ee-ocaufcg/assets/Index_Degradacao",
         imageParams: [
           { color: "#a50d00", label: "Degradação Crítico" },
-          { color: "#fd9649", label: "Degradação severo" },
-          { color: "#fedf99", label: "Degradação moderado" },
-          { color: "#12f007", label: "Degradação bom" },
+          { color: "#fd9649", label: "Degradação Severo" },
+          { color: "#fedf99", label: "Degradação Moderada" },
+          { color: "#12f007", label: "Degradação Bom" },
           { color: "#125b07", label: "Degradação Ótimo" },
           { color: "#202f1c", label: "Degradação Excelente" },
         ],
