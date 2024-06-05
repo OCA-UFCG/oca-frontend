@@ -66,7 +66,6 @@ export const DataContainer = styled.div`
   display: flex;
   gap: 0.75rem;
   align-items: center;
-  opacity: 0.7;
   width: 100%;
 
   &:hover {
@@ -80,13 +79,14 @@ export const DataContainer = styled.div`
 export const ColorLabel = styled.span`
   font-weight: bold;
   font-size: 0.8rem;
+  opacity: 0.8;
 `;
 
 export const Measurement = styled.span`
   flex-grow: 1;
   text-align: end;
   font-size: 0.75rem;
-  opacity: 0.8;
+  opacity: 0.9;
 `;
 
 export const MetaInfoContainer = styled.div`

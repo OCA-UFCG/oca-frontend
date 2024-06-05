@@ -34,7 +34,7 @@ export const EEImages: IEEImage = {
     description:
       "O Índice de Aridez fornece uma medida concisa da relação entre precipitação e evaporação potencial em uma região específica. Essa métrica é fundamental para compreender o balanço hídrico e orientar decisões em recursos hídricos, agricultura e gestão ambiental. Índice inferior a 0,65 indica Área Suscetível à Desertificação (ASD).",
     posterUrl:
-      "https://drive.google.com/uc?export=view&id=1a9t9OJLs0H9cP4yKJWx5Zw5pQ5QJj2L3",
+      "https://drive.google.com/uc?export=view&id=1a9t9OJLs0H9cP4yKJWx5Zw5pQ5QJj2L3", // TODO update
     minScale: 2,
     maxScale: 5,
     measurementUnit: "classes",
@@ -67,72 +67,73 @@ export const EEImages: IEEImage = {
     name: "Índice de Seca",
     description:
       "O índice seca disponibilizado nesta plataforma refere-se a frequência de ocorrência de seca longa (12 meses) severa (<-1.3) para o SPEI (Standardized Precipitation Evapotranspiration Index).",
+    posterUrl:
+      "https://drive.google.com/uc?export=view&id=18Wj_V5UQpX4ttfwyjW7vsne2uucPZSGd",
+    minScale: 1,
+    maxScale: 5,
+    measurementUnit: "%",
     imageData: {
       general: {
         default: true,
         imageId: "projects/ee-ocaufcg/assets/SPEI_12_13",
         imageParams: [
-          { color: "#53a7d4", label: "" },
-          { color: "#f3d7cb", label: "" },
-          { color: "#f38657", label: "" },
-          { color: "#ca0020", label: "" },
+          { color: "#045f93", pixelLimit: 5, label: "<= 5" },
+          { color: "#53a7d4", pixelLimit: 10, label: "5 - 10" },
+          { color: "#f3d7cb", pixelLimit: 15, label: "10 - 15" },
+          { color: "#f38657", pixelLimit: 20, label: "15 - 20" },
+          { color: "#ca0020", label: "> 20" },
         ],
       },
     },
-    measurementUnit: "classes",
-    posterUrl:
-      "https://drive.google.com/uc?export=view&id=18Wj_V5UQpX4ttfwyjW7vsne2uucPZSGd",
-    minScale: 0.2,
-    maxScale: 32.25,
   },
 
-  // cf: {
-  //   id: "cf",
-  //   name: "Vegetação Nativa",
-  //   description:
-  //     "Indica as áreas que atualmente possuem vegetação nativa, além de fornecer informações sobre o período em que a vegetação foi removida em locais onde não há mais vegetação nativa presente.",
-  //   imageData: {
-  //     "1985": {
-  //       default: true,
-  //       imageId: "projects/ee-ocaufcg/assets/Mapbiomas_cf_1985_br",
-  //       imageParams: ["#ffffff", "#e31a96"],
-  //     },
-  //     "2022": {
-  //       default: false,
-  //       imageId: "projects/ee-ocaufcg/assets/Mapbiomas_cf_2022_br",
-  //       imageParams: ["#ffffff", "#005924"],
-  //     },
-  //   },
-  //   posterUrl:
-  //     "https://drive.google.com/uc?export=view&id=1a9t9OJLs0H9cP4yKJWx5Zw5pQ5QJj2L3", // TODO update
-  //   minScale: 0,
-  //   maxScale: 1,
-  // },
+  cf: {
+    id: "cf",
+    name: "Vegetação Nativa",
+    description:
+      "Indica as áreas que atualmente possuem vegetação nativa, além de fornecer informações sobre o período em que a vegetação foi removida em locais onde não há mais vegetação nativa presente.",
+    posterUrl:
+      "https://drive.google.com/uc?export=view&id=1a9t9OJLs0H9cP4yKJWx5Zw5pQ5QJj2L3", // TODO update
+    minScale: 0,
+    maxScale: 3,
+    measurementUnit: "classes",
+    imageData: {
+      general: {
+        default: true,
+        imageId: "projects/ee-ocaufcg/assets/Mapbiomas_cf_2022_1985_br_end",
+        imageParams: [
+          { color: "#ffffff", label: "Não floresta" },
+          { color: "#e31a96", label: "Supressão Florestal" },
+          { color: "#005924", label: "Formação Florestal" },
+        ],
+      },
+    },
+  },
 
   gpp: {
     id: "gpp",
     name: "Produtividade Primária Bruta",
     description:
       "Refere-se ao total de carbono fixado pela vegetação através da fotossíntese. Quanto maior a GPP, mais ativa é a fotossíntese da vegetação, resultando em maior biomassa, incluindo troncos, galhos e folhas, e maior absorção de carbono da atmosfera.",
+    posterUrl:
+      "https://drive.google.com/uc?export=view&id=12vNg-j5-jSQwiZVsIJAcpb-8UEf3szvQ",
+    minScale: 0.7,
+    maxScale: 4.2,
+    measurementUnit: "g/kg",
     imageData: {
       general: {
         default: true,
         imageId: "projects/ee-ocaufcg/assets/GPP_MODIS_Brasil_2021",
         imageParams: [
-          { color: "#a50d00", label: "" },
-          { color: "#fd9649", label: "" },
-          { color: "#fedf99", label: "" },
-          { color: "#12f007", label: "" },
-          { color: "#125b07", label: "" },
-          { color: "#202f1c", label: "" },
+          { color: "#a50d00", pixelLimit: 0.7, label: "<= 0.7" },
+          { color: "#fd9649", pixelLimit: 1.3, label: "0.7 - 1.3" },
+          { color: "#fedf99", pixelLimit: 1.8, label: "1.3 - 1.8" },
+          { color: "#12f007", pixelLimit: 2.4, label: "1.8 - 2.4" },
+          { color: "#125b07", pixelLimit: 2.9, label: "2.4 - 2.9" },
+          { color: "#202f1c", label: ">2.9" },
         ],
       },
     },
-    measurementUnit: "g/kg",
-    posterUrl:
-      "https://drive.google.com/uc?export=view&id=12vNg-j5-jSQwiZVsIJAcpb-8UEf3szvQ",
-    minScale: 0.85,
-    maxScale: 4.2,
   },
 
   carbono: {
@@ -172,12 +173,12 @@ export const EEImages: IEEImage = {
         default: true,
         imageId: "projects/ee-ocaufcg/assets/Index_Degradacao",
         imageParams: [
-          { color: "#a50d00", label: "Degradação Crítico" },
-          { color: "#fd9649", label: "Degradação Severo" },
-          { color: "#fedf99", label: "Degradação Moderada" },
-          { color: "#12f007", label: "Degradação Bom" },
-          { color: "#125b07", label: "Degradação Ótimo" },
-          { color: "#202f1c", label: "Degradação Excelente" },
+          { color: "#a50d00", label: "Crítico" },
+          { color: "#fd9649", label: "Severo" },
+          { color: "#fedf99", label: "Moderado" },
+          { color: "#12f007", label: "Bom" },
+          { color: "#125b07", label: "Ótimo" },
+          { color: "#202f1c", label: "Excelente" },
         ],
       },
     },
