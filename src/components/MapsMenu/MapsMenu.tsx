@@ -34,7 +34,6 @@ const MapsMenu = ({
   const onItemChange = (newValue: string) => {
     setFormValues(() =>
       Object.values(options).map((item) => {
-        console.log(newValue, item.id);
         if (item.id === newValue) {
           setCurrentName(item.id);
           setcurrentImageData(item.imageData);

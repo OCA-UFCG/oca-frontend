@@ -17,7 +17,7 @@ export const MenuImage = styled(Image)`
 export const Background = styled.div<{ retracted: string }>`
   display: ${({ retracted }) => (retracted === "true" ? "none" : "flex")};
   animation: ${(props) => (props.retracted === "true" ? "fadeOut" : "fadeIn")}
-    0.5s forwards;
+    0.5s ease-in-out;
   width: 100vw;
   height: 100vh;
   background-color: #00000060;

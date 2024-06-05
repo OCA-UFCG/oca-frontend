@@ -47,10 +47,14 @@ const MapPage = () => {
   const [isDescRetracted, setIsDescRetracted] = useState<boolean>(true);
   const handleDescUpdate = useCallback(
     (name: string) => {
+      if (name === descriptionInfo.id) {
+        setIsDescRetracted(!isDescRetracted);
+      } else {
+        setIsDescRetracted(false);
+      }
       setDescriptionInfo(EEImages[name]);
-      setIsDescRetracted(false);
     },
-    [setIsDescRetracted, setDescriptionInfo],
+    [setIsDescRetracted, setDescriptionInfo, isDescRetracted, descriptionInfo],
   );
 
   const [isMenuRetracted, setIsmenuRetracted] = useState<boolean>(false);

@@ -30,23 +30,23 @@ const DateInput = ({
     onChange({ name: mapId, year: newDate });
   };
 
+  const dateKeys: string[] = Object.keys(dates);
+
+  const updateFields = (year: string) => {
+    if (inputRef.current)
+      inputRef.current.value = [dateKeys.indexOf(year) + 1].toString();
+    setCurrentDate(year);
+    onChange({ name: mapId, year: year });
+  };
+
   useEffect(() => {
-    const dateKeys: string[] = Object.keys(dates);
-
-    const updateFields = (year: string) => {
-      onChange({ name: mapId, year: year });
-      setCurrentDate(year);
-      if (inputRef.current)
-        inputRef.current.value = [dateKeys.indexOf(year) + 1].toString();
-    };
-
     dateKeys.map((date: string) => {
       if (dates[date].default) {
         updateFields(date);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dates, mapId]);
+  }, [mapId]);
 
   return (
     <Wrapper disabled={("general" in dates).toString()}>

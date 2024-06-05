@@ -30,7 +30,6 @@ const MapsSection = ({ eeInfos = {} }: { eeInfos: IEEImage }) => {
       setCurrentVisu(eeInfos[keys[0]]);
     }
 
-    console.log(eeInfos[keys[0]]);
     setLoading(false);
   }, [eeInfos]);
 
