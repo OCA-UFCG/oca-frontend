@@ -68,6 +68,7 @@ export const EEImages: IEEImage = {
         ],
       },
     },
+    measurementUnit: "classes",
     posterUrl:
       "https://drive.google.com/uc?export=view&id=18Wj_V5UQpX4ttfwyjW7vsne2uucPZSGd",
     minScale: 0.2,
@@ -116,6 +117,7 @@ export const EEImages: IEEImage = {
         ],
       },
     },
+    measurementUnit: "g/kg",
     posterUrl:
       "https://drive.google.com/uc?export=view&id=12vNg-j5-jSQwiZVsIJAcpb-8UEf3szvQ",
     minScale: 0.85,
@@ -141,6 +143,8 @@ export const EEImages: IEEImage = {
         ],
       },
     },
+    extraInfo: ["Base de dados: MODIS (Terra | Aqua)", "Período: 2021"],
+    measurementUnit: "g/kg",
     posterUrl:
       "https://drive.google.com/uc?export=view&id=11hNFuxDETLN-nqnMo9E-2_fivvrsmd4g", // TODO update
     minScale: 1,
@@ -157,15 +161,16 @@ export const EEImages: IEEImage = {
         default: true,
         imageId: "projects/ee-ocaufcg/assets/Index_Degradacao",
         imageParams: [
-          { color: "#a50d00", label: "" },
-          { color: "#fd9649", label: "" },
-          { color: "#fedf99", label: "" },
-          { color: "#12f007", label: "" },
-          { color: "#125b07", label: "" },
-          { color: "#202f1c", label: "" },
+          { color: "#a50d00", label: "Degradação Crítico" },
+          { color: "#fd9649", label: "Degradação Severo" },
+          { color: "#fedf99", label: "Degradação Moderada" },
+          { color: "#12f007", label: "Degradação Bom" },
+          { color: "#125b07", label: "Degradação Ótimo" },
+          { color: "#202f1c", label: "Degradação Excelente" },
         ],
       },
     },
+    measurementUnit: "classes",
     posterUrl:
       "https://drive.google.com/uc?export=view&id=1e0b3_oasG0EGx5eoLgqAtMVpbWsOWgAB",
     minScale: 1,
@@ -187,6 +192,7 @@ export const defaultEEInfo: IEEInfo = {
       ],
     },
   },
+  measurementUnit: "classes",
   posterUrl: "/defaultMapsPoster.png",
   minScale: 0,
   maxScale: 1,

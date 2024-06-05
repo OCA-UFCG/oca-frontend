@@ -37,6 +37,28 @@ export const GlobalStyles = createGlobalStyle`
       }
     }
 
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        display: none;
+      }
+      100% {
+        opacity: 1;
+        display: flex; /* Show element after animation */
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        display: none;
+      }
+    }
+
     @keyframes wordFade {
       0%, 100% {
           opacity: 0;
