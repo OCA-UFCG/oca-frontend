@@ -1,4 +1,4 @@
-import { IImageParam } from "@/utils/interfaces";
+import { IEEInfo, IImageParam } from "@/utils/interfaces";
 import {
   DataLegendContainer,
   DataContainer,
@@ -13,20 +13,19 @@ import {
   MetaInfoContainer,
   ContentContainer,
 } from "./MapLegend.styles";
-import { EEImages } from "@/utils/constants";
 import SubtractIcon from "@/../public/subtract-icon.svg";
 import { useState } from "react";
 import { capitalize } from "@/utils/functions";
 
 interface MapLegendProps {
-  visuId: string;
+  imageInfo: IEEInfo;
   year: string;
 }
 
-export const MapLegend = ({ visuId, year = "general" }: MapLegendProps) => {
+export const MapLegend = ({ imageInfo, year = "general" }: MapLegendProps) => {
   const [retracted, setRetracted] = useState<string>("open");
 
-  const { name, imageData, measurementUnit, extraInfo } = EEImages[visuId];
+  const { name, imageData, measurementUnit, extraInfo } = imageInfo;
 
   return (
     <Wrapper>
@@ -48,11 +47,11 @@ export const MapLegend = ({ visuId, year = "general" }: MapLegendProps) => {
       </HeaderContainer>
       <ContentContainer retracted={retracted}>
         <DataLegendContainer>
-          {imageData[year].imageParams.map(({ color, label }: IImageParam) => {
+          {imageData[year]?.imageParams.map(({ color, label }: IImageParam) => {
             return (
               <DataContainer
                 key={color}
-                title={`${label} ${measurementUnit !== "classes" && measurementUnit}`}
+                title={`${label} ${measurementUnit !== "classes" ? measurementUnit : ""}`}
               >
                 <Color color={color} />
                 <ColorLabel>{capitalize(label)}</ColorLabel>

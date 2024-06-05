@@ -15,18 +15,21 @@ import {
 const MapsMenu = ({
   initialValues,
   options,
+  retracted,
+  setRetracted,
   onSelectChange,
   onQuestionSelect,
 }: {
   initialValues: IMapInfo;
   options: IEEInfo[];
+  retracted: boolean;
+  setRetracted: (retracted: boolean) => void;
   onSelectChange: (newValues: IMapInfo) => void;
   onQuestionSelect: (newItem: string) => void;
 }) => {
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
   const [currentName, setCurrentName] = useState<string>("");
-  const [retracted, setRetracted] = useState<boolean>(false);
 
   const onItemChange = (newValue: string) => {
     setFormValues(() =>
@@ -50,7 +53,7 @@ const MapsMenu = ({
   useEffect(() => {
     onItemChange(initialValues.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialValues]);
 
   return (
     <MenuModal

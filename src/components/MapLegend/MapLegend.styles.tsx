@@ -26,7 +26,7 @@ export const HeaderContainer = styled.div`
 
 export const Title = styled.h3`
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
 `;
 
 export const SubtractImage = styled(Image)<{ retracted: string }>`
@@ -48,7 +48,7 @@ export const DataLegendContainer = styled.div`
   display: flex;
 
   flex-flow: column;
-  gap: 0.25rem;
+  gap: 6px;
 `;
 
 export const Color = styled.div<{ color: string }>`

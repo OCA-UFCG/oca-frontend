@@ -6,7 +6,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Wrapper } from "./MapTiff.styles";
 import { IMapInfo } from "@/utils/interfaces";
 
-const MapTiff = ({ data }: { data: IMapInfo }) => {
+const MapTiff = ({
+  data,
+  onClick,
+  ...props
+}: {
+  data: IMapInfo;
+  onClick?: (e: any) => void;
+}) => {
   const { name, year } = data;
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
@@ -84,7 +91,7 @@ const MapTiff = ({ data }: { data: IMapInfo }) => {
     }
   }, [name, year, map, loadLayer, loadMap]);
 
-  return <Wrapper ref={mapContainer} />;
+  return <Wrapper {...props} onClick={onClick} ref={mapContainer} />;
 };
 
 export default MapTiff;

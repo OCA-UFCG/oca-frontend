@@ -1,12 +1,12 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useState } from "react";
-import { IMapInfo } from "@/utils/interfaces";
+import { Suspense, useCallback, useEffect, useState } from "react";
+import { IEEInfo, IMapInfo } from "@/utils/interfaces";
 import MapTiff from "@/components/MapTiff/MapTiff";
 import MapTemplate from "@/templates/mapTemplate";
 import MapsMenu from "@/components/MapsMenu/MapsMenu";
-import { EEImages } from "@/utils/constants";
+import { EEImages, defaultEEInfo } from "@/utils/constants";
 import HomeIcon from "@/../public/homeIcon.svg";
 import QuestionIcon from "@/../public/questionMark.svg";
 import {
@@ -30,61 +30,88 @@ const MapPageWrapper = () => (
   </Suspense>
 );
 
+const DEFAULT_TIFF = "spei";
+
 const MapPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const name = searchParams?.get("name");
-  const year = searchParams?.get("year");
-  const [description, setDescription] = useState<IEEInfo>(EEImages.degradacao);
-  const [openDescriptionModal, setOpenDescriptionModal] =
-    useState<boolean>(false);
 
   const [imageData, setImageData] = useState<IMapInfo>({
-    name: name ?? "",
-    year: year ?? "",
+    name: "",
+    year: "",
   });
 
-  const createQueryString = useCallback(
-    (newData: IMapInfo) => {
-      console.log("dado novooo", newData);
-      const params = new URLSearchParams(searchParams.toString());
-
-      params.set("name", newData.name);
-      params.set("year", newData.year || "general");
-
-      router.push(`${pathname}?${params.toString()}`);
+  const [descriptionInfo, setDescriptionInfo] =
+    useState<IEEInfo>(defaultEEInfo);
+  const [isDescRetracted, setIsDescRetracted] = useState<boolean>(true);
+  const handleDescUpdate = useCallback(
+    (name: string) => {
+      setDescriptionInfo(EEImages[name]);
+      setIsDescRetracted(false);
     },
-    [searchParams, pathname, router],
+    [setIsDescRetracted, setDescriptionInfo],
   );
 
-  const handleVisuChange = (newImageData: IMapInfo) => {
-    setImageData(newImageData);
-    createQueryString(newImageData);
-  };
+  const [isMenuRetracted, setIsmenuRetracted] = useState<boolean>(false);
 
-  const handleSetDescription = useCallback((name: string) => {
-    setDescription(EEImages[name]);
-    setOpenDescriptionModal(false);
+  const handleMapClick = useCallback(() => {
+    setIsmenuRetracted(true);
+    setIsDescRetracted(true);
+  }, [setIsmenuRetracted, setIsDescRetracted]);
+
+  const handleVisuChange = useCallback(
+    (newImageData: IMapInfo) => {
+      const { name, year } = newImageData;
+      const params = new URLSearchParams(searchParams.toString());
+
+      params.set("name", name);
+      params.set("year", year || "general");
+
+      router.push(`${pathname}?${params.toString()}`);
+
+      setImageData(newImageData);
+    },
+    [pathname, router, searchParams],
+  );
+
+  useEffect(() => {
+    let name = searchParams?.get("name") ?? "spei";
+    let year = searchParams?.get("year") ?? "general";
+
+    if (!(name in EEImages)) {
+      name = DEFAULT_TIFF;
+    }
+
+    if (!(year in EEImages[name])) {
+      year = Object.keys(EEImages[name].imageData)[0];
+    }
+
+    setImageData({ name, year });
+    setDescriptionInfo(EEImages[name]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <MapTemplate>
-      <MapDescription
-        imageData={description}
-        retracted={openDescriptionModal}
-        setRetracted={setOpenDescriptionModal}
-      />
       <MapContainer>
-        <MapTiff data={imageData} />
+        <MapTiff data={imageData} onClick={handleMapClick} />
       </MapContainer>
+      <MapDescription
+        imageInfo={descriptionInfo}
+        retracted={isDescRetracted}
+        setRetracted={setIsDescRetracted}
+      />
       <HeaderWrapper>
         <MenuWrapper>
           <MapsMenu
             initialValues={imageData}
             options={Object.values(EEImages)}
+            retracted={isMenuRetracted}
+            setRetracted={setIsmenuRetracted}
             onSelectChange={handleVisuChange}
-            onQuestionSelect={(name: string) => handleSetDescription(name)}
+            onQuestionSelect={handleDescUpdate}
           />
           <Link href="/">
             <HomeImage src={HomeIcon} alt={HomeIcon} height={16} width={16} />
@@ -92,10 +119,8 @@ const MapPage = () => {
         </MenuWrapper>
         {imageData.name && (
           <NameContainer>
-            <VisuName>
-              {capitalize(EEImages[imageData.name]?.name || "undefined")}
-            </VisuName>
-            <div onClick={() => handleSetDescription(imageData.name)}>
+            <VisuName>{capitalize(EEImages[imageData.name]?.name)}</VisuName>
+            <div onClick={() => handleDescUpdate(imageData.name)}>
               <QuestionImage
                 title={`Sobre ${EEImages[imageData.name]?.name}`}
                 src={QuestionIcon}
@@ -108,7 +133,12 @@ const MapPage = () => {
         )}
       </HeaderWrapper>
       <MapLegendContainer>
-        <MapLegend visuId={imageData.name} year={imageData.year || "general"} />
+        {imageData.name && (
+          <MapLegend
+            imageInfo={EEImages[imageData.name]}
+            year={imageData.year || "general"}
+          />
+        )}
       </MapLegendContainer>
     </MapTemplate>
   );

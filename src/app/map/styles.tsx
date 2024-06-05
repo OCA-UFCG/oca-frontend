@@ -16,7 +16,6 @@ export const HeaderWrapper = styled.div`
   width: 100%;
   justify-content: space-between;
   pointer-events: none;
-  padding: 0.5rem;
   box-sizing: border-box;
 `;
 
@@ -68,6 +67,6 @@ export const QuestionImage = styled(Image)`
 `;
 
 export const MapLegendContainer = styled.div`
-  margin: auto 0.5rem 0.5rem auto;
+  margin: auto 0 0 auto;
   z-index: 2;
 `;
