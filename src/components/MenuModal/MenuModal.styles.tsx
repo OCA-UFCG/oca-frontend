@@ -75,7 +75,9 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
     const { position, retracted } = props;
     const isLeft = position === "left";
 
-    const transformExpanded = isLeft ? "translateX(1rem)" : "translateX(-1rem)";
+    const transformExpanded = isLeft
+      ? "translateX(0.5rem)"
+      : "translateX(-0.5rem)";
     const transformRetracted = isLeft
       ? "translateX(-110%)"
       : "translateX(110%)";
