@@ -5,9 +5,11 @@ import { capitalize } from "@/utils/functions";
 export const VisuItem = ({
   info,
   onChange,
+  onClick,
 }: {
   info: IVisuMenuItems;
   onChange: (newValue: string) => void;
+  onClick: (newValue: string, retract: boolean) => void;
 }) => {
   const { id, name, checked } = info;
 
@@ -20,6 +22,7 @@ export const VisuItem = ({
         checked={checked}
         value={id}
         onChange={() => onChange(id)}
+        onClick={() => onClick(id, false)}
       />
       <Label htmlFor={id}>{capitalize(name)}</Label>
     </ItemWrapper>

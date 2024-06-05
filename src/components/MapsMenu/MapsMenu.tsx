@@ -25,7 +25,7 @@ const MapsMenu = ({
   retracted: boolean;
   setRetracted: (retracted: boolean) => void;
   onSelectChange: (newValues: IMapInfo) => void;
-  onQuestionSelect: (newItem: string) => void;
+  onQuestionSelect: (newItem: string, retract?: boolean) => void;
 }) => {
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
@@ -68,7 +68,11 @@ const MapsMenu = ({
           {formValues.map((item: IFormItem) => {
             return (
               <ItemWrapper key={item.id}>
-                <VisuItem info={item} onChange={onItemChange} />
+                <VisuItem
+                  info={item}
+                  onClick={onQuestionSelect}
+                  onChange={onItemChange}
+                />
                 <QuestionMarkImg
                   onClick={() => onQuestionSelect(item.id)}
                   title={`Sobre ${item.name}`}
