@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef } from "react";
 import {
   ContentWrapper,
   Background,
@@ -15,44 +15,56 @@ import MenuIcon from "@/../public/modal-icon.svg";
 const MenuModal = ({
   children,
   hasBackground = true,
-  startRetracted = true,
+  hasIcon = true,
+  position = "left",
+  retracted = true,
+  setRetracted = () => {},
   ...props
 }: {
   children?: ReactNode;
   hasBackground?: boolean;
-  startRetracted?: boolean;
+  retracted?: boolean;
+  hasIcon?: boolean;
+  position?: "left" | "right";
+  setRetracted?: (retracted: boolean) => void;
 }) => {
-  const [retracted, setRetracted] = useState<boolean>(startRetracted);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = useCallback((event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setRetracted(true);
-      document.removeEventListener("click", handleClickOutside);
-    }
-  }, []);
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setRetracted(true);
+      }
+    },
+    [setRetracted],
+  );
 
-  const switchRetract = useCallback(() => {
-    if (retracted) {
-      document.addEventListener("click", handleClickOutside);
-    } else {
-      document.removeEventListener("click", handleClickOutside);
-    }
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
 
-    setRetracted(previous => !previous);
-  }, [handleClickOutside, retracted]);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [handleClickOutside]);
 
   return (
     <div {...props}>
-      <div onClick={switchRetract}>
-        <MenuImage src={MenuIcon} alt="" />
+      <div onClick={() => setRetracted(!retracted)}>
+        {hasIcon && <MenuImage src={MenuIcon} alt="" />}
       </div>
       {hasBackground && <Background retracted={retracted.toString()} />}
-      <ModalWrapper retracted={retracted.toString()} ref={modalRef}>
+      <ModalWrapper
+        retracted={retracted.toString()}
+        ref={modalRef}
+        position={position}
+      >
         <HeadWrapper>
-          <OcaImage src={OcaLogo} alt="" />
-          <div onClick={switchRetract}>
-            <RetractImage src={RetractIcon} alt="" />
+          {hasIcon && <OcaImage src={OcaLogo} alt="" />}
+          <div onClick={() => setRetracted(!retracted)}>
+            <RetractImage src={RetractIcon} alt="" position={position} />
           </div>
         </HeadWrapper>
         <ContentWrapper>{children}</ContentWrapper>
