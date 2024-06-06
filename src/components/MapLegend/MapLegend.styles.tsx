@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
   gap: 1rem;
   box-sizing: border-box;
   padding: 0.75rem;
+  z-index: 10;
 `;
 
 export const HeaderContainer = styled.div`
@@ -25,7 +26,7 @@ export const HeaderContainer = styled.div`
 
 export const Title = styled.h3`
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
 `;
 
 export const SubtractImage = styled(Image)<{ retracted: string }>`
@@ -47,7 +48,7 @@ export const DataLegendContainer = styled.div`
   display: flex;
 
   flex-flow: column;
-  gap: 0.25rem;
+  gap: 6px;
 `;
 
 export const Color = styled.div<{ color: string }>`
@@ -65,7 +66,6 @@ export const DataContainer = styled.div`
   display: flex;
   gap: 0.75rem;
   align-items: center;
-  opacity: 0.7;
   width: 100%;
 
   &:hover {
@@ -79,13 +79,14 @@ export const DataContainer = styled.div`
 export const ColorLabel = styled.span`
   font-weight: bold;
   font-size: 0.8rem;
+  opacity: 0.8;
 `;
 
 export const Measurement = styled.span`
   flex-grow: 1;
   text-align: end;
   font-size: 0.75rem;
-  opacity: 0.8;
+  opacity: 0.9;
 `;
 
 export const MetaInfoContainer = styled.div`

@@ -29,6 +29,7 @@ const MapsSection = ({ eeInfos = {} }: { eeInfos: IEEImage }) => {
     if (keys.length != 0) {
       setCurrentVisu(eeInfos[keys[0]]);
     }
+
     setLoading(false);
   }, [eeInfos]);
 
@@ -64,7 +65,7 @@ const MapsSection = ({ eeInfos = {} }: { eeInfos: IEEImage }) => {
       )}
       <VisuName>{capitalize(currentVisu.name)}</VisuName>
       <Description>{currentVisu.description}</Description>
-      <LinkButton href={`/map?visu=${currentVisu.id}`}>Visualizar</LinkButton>
+      <LinkButton href={`/map?name=${currentVisu.id}`}>Visualizar</LinkButton>
     </Wrapper>
   );
 };

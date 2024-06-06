@@ -2,7 +2,7 @@ import MenuModal from "@/components/MenuModal/MenuModal";
 import { VisuItem } from "@/components/VisuItem/VisuItem";
 import { useEffect, useState } from "react";
 import QuestionMarkIcon from "@/../public/questionMark.svg";
-import { IEEInfo, IFormItem, IImageData } from "@/utils/interfaces";
+import { IEEInfo, IFormItem, IImageData, IMapInfo } from "@/utils/interfaces";
 import DateInput from "@/components/DateInput/DateInput";
 import {
   ContentWrapper,
@@ -13,20 +13,23 @@ import {
 } from "./MapsMenu.styles";
 
 const MapsMenu = ({
-  initialValue,
+  initialValues,
   options,
+  retracted,
+  setRetracted,
   onSelectChange,
   onQuestionSelect,
 }: {
-  initialValue: string;
+  initialValues: IMapInfo;
   options: IEEInfo[];
-  onSelectChange: (name: string, year: string) => void;
-  onQuestionSelect: (newItem: string) => void;
+  retracted: boolean;
+  setRetracted: (retracted: boolean) => void;
+  onSelectChange: (newValues: IMapInfo) => void;
+  onQuestionSelect: (newItem: string, retract?: boolean) => void;
 }) => {
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
   const [currentName, setCurrentName] = useState<string>("");
-  const [retracted, setRetracted] = useState<boolean>(false);
 
   const onItemChange = (newValue: string) => {
     setFormValues(() =>
@@ -47,9 +50,9 @@ const MapsMenu = ({
   };
 
   useEffect(() => {
-    onItemChange(initialValue);
+    onItemChange(initialValues.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialValues]);
 
   return (
     <MenuModal
@@ -65,9 +68,14 @@ const MapsMenu = ({
           {formValues.map((item: IFormItem) => {
             return (
               <ItemWrapper key={item.id}>
-                <VisuItem info={item} onChange={onItemChange} />
+                <VisuItem
+                  info={item}
+                  onClick={onQuestionSelect}
+                  onChange={onItemChange}
+                />
                 <QuestionMarkImg
                   onClick={() => onQuestionSelect(item.id)}
+                  title={`Sobre ${item.name}`}
                   src={QuestionMarkIcon}
                   alt={QuestionMarkIcon}
                   height={16}
@@ -79,6 +87,7 @@ const MapsMenu = ({
         </Form>
         <DateInput
           mapId={currentName}
+          initialYear={initialValues?.year}
           dates={currentImagedata}
           onChange={onSelectChange}
         />

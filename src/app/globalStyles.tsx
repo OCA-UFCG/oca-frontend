@@ -128,7 +128,9 @@ export const GlobalStyles = createGlobalStyle`
     text-align: justify;
     line-height: 1.5rem;
   }
-
+  details {
+    display: none;
+  }
   
 `;
 
@@ -139,6 +141,7 @@ export const MapWrapper = styled.main`
   width: 100%;
   box-sizing: border-box;
   min-height: 100vh;
+  padding: 0.5rem;
 `;
 
 export const ContentContainer = styled.div`

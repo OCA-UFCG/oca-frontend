@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useRef } from "react";
+import { ReactNode, useRef } from "react";
 import {
   ContentWrapper,
   Background,
@@ -30,32 +30,19 @@ const MenuModal = ({
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = useCallback(
-    (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        setRetracted(true);
-      }
-    },
-    [setRetracted],
-  );
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [handleClickOutside]);
+  const updateRetracted = () => setRetracted(!retracted);
 
   return (
     <div {...props}>
-      <div onClick={() => setRetracted(!retracted)}>
+      <div onClick={updateRetracted}>
         {hasIcon && <MenuImage src={MenuIcon} alt="" />}
       </div>
-      {hasBackground && <Background retracted={retracted.toString()} />}
+      {hasBackground && (
+        <Background
+          onClick={updateRetracted}
+          retracted={retracted.toString()}
+        />
+      )}
       <ModalWrapper
         retracted={retracted.toString()}
         ref={modalRef}
@@ -63,7 +50,7 @@ const MenuModal = ({
       >
         <HeadWrapper>
           {hasIcon && <OcaImage src={OcaLogo} alt="" />}
-          <div onClick={() => setRetracted(!retracted)}>
+          <div onClick={updateRetracted}>
             <RetractImage src={RetractIcon} alt="" position={position} />
           </div>
         </HeadWrapper>

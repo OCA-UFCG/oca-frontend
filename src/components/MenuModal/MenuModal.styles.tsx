@@ -4,6 +4,10 @@ import Image from "next/image";
 export const MenuImage = styled(Image)`
   transition: 0.2s;
   cursor: pointer;
+  width: 2rem;
+  height: auto;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 
   &:hover {
     transform: scale(1.05);
@@ -13,7 +17,7 @@ export const MenuImage = styled(Image)`
 export const Background = styled.div<{ retracted: string }>`
   display: ${({ retracted }) => (retracted === "true" ? "none" : "flex")};
   animation: ${(props) => (props.retracted === "true" ? "fadeOut" : "fadeIn")}
-    0.5s forwards;
+    0.5s ease-in-out;
   width: 100vw;
   height: 100vh;
   background-color: #00000060;
@@ -60,7 +64,7 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
   box-sizing: border-box;
   min-width: 20rem;
   max-width: 24rem;
-  box-shadow: 0px 0px 4px 1px #c8c8c8;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
   z-index: 10;
 
   @media screen and (max-width: 400px) {
@@ -71,7 +75,9 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
     const { position, retracted } = props;
     const isLeft = position === "left";
 
-    const transformExpanded = isLeft ? "translateX(1rem)" : "translateX(-1rem)";
+    const transformExpanded = isLeft
+      ? "translateX(0.5rem)"
+      : "translateX(-0.5rem)";
     const transformRetracted = isLeft
       ? "translateX(-110%)"
       : "translateX(110%)";
@@ -105,7 +111,7 @@ export const HeadWrapper = styled.div`
 `;
 
 export const OcaImage = styled(Image)`
-  max-width: 5.5rem;
+  max-width: 6.5rem;
   height: fit-content;
 `;
 
