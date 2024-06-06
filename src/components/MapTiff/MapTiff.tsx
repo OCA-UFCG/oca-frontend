@@ -6,6 +6,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Wrapper } from "./MapTiff.styles";
 import { IMapInfo } from "@/utils/interfaces";
 
+const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
+
 const MapTiff = ({
   data,
   onClick,
@@ -41,7 +43,9 @@ const MapTiff = ({
   const loadLayer = useCallback(
     async (name: string, year: string) => {
       if (!map?.getSource(name + year)) {
-        const response = await fetch(`/api/ee?name=${name}&year=${year}`);
+        const response = await fetch(
+          `${HOST_URL}/api/ee?name=${name}&year=${year}`,
+        );
         const { url } = await response.json();
 
         if (!map?.getSource(name + year)) {
