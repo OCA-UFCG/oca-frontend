@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   gap: 1rem;
   box-sizing: border-box;
   padding: 0.75rem;
-  z-index: 10;
+  z-index: 4;
 `;
 
 export const HeaderContainer = styled.div`

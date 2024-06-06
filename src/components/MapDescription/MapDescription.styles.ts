@@ -21,8 +21,4 @@ export const Description = styled.p`
   margin-top: 0.5rem;
   overflow-y: scroll;
   max-height: 12rem;
-
-  @media screen and (max-width: 750px) and (max-height: 800px) {
-    max-height: 5rem;
-  }
 `;

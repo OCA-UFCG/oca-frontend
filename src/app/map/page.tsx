@@ -17,6 +17,7 @@ import {
   MenuWrapper,
   NameContainer,
   QuestionImage,
+  QuestionWrapper,
   VisuName,
 } from "./styles";
 import Link from "next/link";
@@ -127,7 +128,7 @@ const MapPage = () => {
         {imageData.name && (
           <NameContainer>
             <VisuName>{capitalize(EEImages[imageData.name]?.name)}</VisuName>
-            <div onClick={() => handleDescUpdate(imageData.name)}>
+            <QuestionWrapper onClick={() => handleDescUpdate(imageData.name)}>
               <QuestionImage
                 title={`Sobre ${EEImages[imageData.name]?.name}`}
                 src={QuestionIcon}
@@ -135,7 +136,7 @@ const MapPage = () => {
                 height={20}
                 width={20}
               />
-            </div>
+            </QuestionWrapper>
           </NameContainer>
         )}
       </HeaderWrapper>

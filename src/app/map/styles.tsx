@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const MapContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   position: absolute;
   box-sizing: border-box;
   left: 0;
@@ -45,17 +45,29 @@ export const NameContainer = styled.div`
   gap: 1rem;
   z-index: 1;
 
+  max-width: 18rem;
   border-radius: 4px;
   padding: 0.25rem 1rem;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+
+  @media screen and (max-width: 400px) {
+    max-width: 14rem;
+  }
 `;
 
 export const VisuName = styled.h1`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
+`;
+
+export const QuestionWrapper = styled.div`
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 export const QuestionImage = styled(Image)`
   transition: 0.2s;
@@ -68,5 +80,5 @@ export const QuestionImage = styled(Image)`
 
 export const MapLegendContainer = styled.div`
   margin: auto 0 0 auto;
-  z-index: 2;
+  z-index: 0;
 `;
