@@ -11,9 +11,11 @@ const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 const MapTiff = ({
   data,
   onClick,
+  setLoading,
   ...props
 }: {
   data: IMapInfo;
+  setLoading: (e: any) => void;
   onClick?: (e: any) => void;
 }) => {
   const { name, year } = data;
@@ -42,18 +44,23 @@ const MapTiff = ({
 
   const loadLayer = useCallback(
     async (name: string, year: string) => {
+      setLoading(true);
       if (!map?.getSource(name + year)) {
         const response = await fetch(
           `${HOST_URL}/api/ee?name=${name}&year=${year}`,
         );
-        const { url } = await response.json();
 
-        if (!map?.getSource(name + year)) {
-          map?.addSource(name + year, {
-            type: "raster",
-            tiles: [url],
-            tileSize: 256,
-          });
+        if (response.status !== 200) {
+          setLoading(false);
+        } else {
+          const { url } = await response.json();
+          if (!map?.getSource(name + year)) {
+            map?.addSource(name + year, {
+              type: "raster",
+              tiles: [url],
+              tileSize: 256,
+            });
+          }
         }
       }
 
@@ -74,8 +81,9 @@ const MapTiff = ({
         },
         firstSymbolId,
       );
+      setLoading(false);
     },
-    [map],
+    [map, setLoading],
   );
 
   useEffect(() => {

@@ -121,7 +121,7 @@ export const RangeInput = styled.input`
     background: ${({ theme }) => theme.colors.black};
   }
 
-  &[type="range"]:disabled {
+  &:disabled {
     cursor: not-allowed;
   }
 `;

@@ -14,9 +14,11 @@ import {
 const DateInput = ({
   mapId,
   dates,
+  isLoading,
   onChange,
 }: {
   mapId: string;
+  isLoading: boolean;
   initialYear?: string;
   dates: IImageData;
   onChange: (newValues: IMapInfo) => void;
@@ -49,7 +51,7 @@ const DateInput = ({
   }, [mapId]);
 
   return (
-    <Wrapper disabled={("general" in dates).toString()}>
+    <Wrapper disabled={("general" in dates || isLoading).toString()}>
       <CalendarImage
         src={calendarIcon}
         alt={calendarIcon}
@@ -59,7 +61,7 @@ const DateInput = ({
       <DateInfo>{dates?.general ? "--" : currentDate}</DateInfo>
       <InputWrapper>
         <RangeInput
-          disabled={"general" in dates}
+          disabled={"general" in dates || isLoading}
           type="range"
           ref={inputRef}
           min={1}
