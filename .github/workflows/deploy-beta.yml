@@ -2,22 +2,45 @@ name: CI/CD OCA
 
 on:
   push:
-    branches: ["main"] 
-              
+    branches: ["main"]
+
 jobs:
   build:
     runs-on: oca-self-hosted-runner
     steps:
       - uses: actions/checkout@v4
-
+      
+      - name: Configure .env 
+        run: echo "NEXT_PUBLIC_HOST_URL=${{ vars.NEXT_PUBLIC_HOST_URL_BETA }} NEXT_PUBLIC_GEE_PRIVATE_KEY=${{ vars.NEXT_PUBLIC_GEE_PRIVATE_KEY }}" > .env
+      
       - name: Stop existing container
         run: sudo docker rm -f ${{ vars.CONTAINER_NAME_BETA }} || true 
 
+      - name: Update docker metadata with the tag 
+        uses: docker/metadata-action@v4
+        id: meta
+        with:
+          images: ${{ vars.DOCKER_IMAGE_BETA }}
+
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v
- 
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ vars.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
       - name: Run new container
-        run: sudo docker run --name ${{ vars.CONTAINER_NAME_BETA }} -p ${{ vars.HOST_PORT_BETA }}:${{ vars.CONTAINER_PORT }} -d ${{ vars.DOCKER_IMAGE }}:latest
+        run: sudo docker run --name ${{ vars.CONTAINER_NAME_BETA }} -p ${{ vars.HOST_PORT_BETA }}:${{ vars.CONTAINER_PORT }} -d ${{ vars.DOCKER_IMAGE_BETA }}
 
       - name: Prune unused Docker images
         run: sudo docker system prune -f
