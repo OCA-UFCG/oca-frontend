@@ -19,7 +19,7 @@ export const Background = styled.div<{ retracted: string }>`
   animation: ${(props) => (props.retracted === "true" ? "fadeOut" : "fadeIn")}
     0.5s ease-in-out;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   background-color: #00000060;
   position: fixed;
   left: 0;

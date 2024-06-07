@@ -14,7 +14,7 @@ export const GlobalStyles = createGlobalStyle`
     background-image: url("background.png");
     background-size: 100vw;
     background-repeat: repeat;
-    min-height: 100vh;
+    min-height: 100svh;
 
     ::-webkit-scrollbar {
       height: 0.5rem;
@@ -140,7 +140,7 @@ export const MapWrapper = styled.main`
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  min-height: 100vh;
+  min-height: 100svh;
   padding: 0.5rem;
 `;
 
@@ -151,7 +151,7 @@ export const ContentContainer = styled.div`
   width: 100%;
   padding: 0 0rem 3rem 0rem;
   box-sizing: border-box;
-  min-height: 100vh;
+  min-height: 100svh;
 `;
 
 export const Main = styled.main`
