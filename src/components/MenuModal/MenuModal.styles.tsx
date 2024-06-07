@@ -82,25 +82,9 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
       ? "translateX(-110%)"
       : "translateX(110%)";
 
-    const transformSmallExpanded = "translateX(-50%)";
-    const transformSmallRetracted = isLeft
-      ? "translateX(-50rem)"
-      : "translateX(50rem)";
-
     return `
       ${isLeft ? "left: 0;" : "right: 0;"}
       transform: ${retracted === "true" ? transformRetracted : transformExpanded};
-
-      @media screen and (max-width: 750px) {
-        left: 50%;
-        margin: 0 0;
-        ${isLeft ? "top: 9%;" : "top: 57%;"}
-        transform: ${retracted === "true" ? transformSmallRetracted : transformSmallExpanded};
-      }
-
-      @media screen and (max-width: 750px) and (max-height: 800px) {
-        ${isLeft ? "top: 9%;" : "top: 68%;"}
-      }        
     `;
   }}
 `;
