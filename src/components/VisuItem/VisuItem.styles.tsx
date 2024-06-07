@@ -22,6 +22,12 @@ export const ItemWrapper = styled.div`
 export const Input = styled.input`
   cursor: pointer;
 
+  &:disabled,
+  &:disabled ~ label {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   &[type="radio"] {
     transition: 0.3s;
     -webkit-appearance: none;

@@ -4,10 +4,12 @@ import { capitalize } from "@/utils/functions";
 
 export const VisuItem = ({
   info,
+  isLoading,
   onChange,
   onClick,
 }: {
   info: IVisuMenuItems;
+  isLoading: boolean;
   onChange: (newValue: string) => void;
   onClick: (newValue: string, retract: boolean) => void;
 }) => {
@@ -21,6 +23,7 @@ export const VisuItem = ({
         name={name}
         checked={checked}
         value={id}
+        disabled={isLoading}
         onChange={() => onChange(id)}
         onClick={() => onClick(id, false)}
       />

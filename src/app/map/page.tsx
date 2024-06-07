@@ -37,6 +37,7 @@ const MapPage = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const [loadingMap, setLoadingMap] = useState<boolean>(false);
   const [imageData, setImageData] = useState<IMapInfo>({
     name: "",
     year: "",
@@ -103,7 +104,11 @@ const MapPage = () => {
   return (
     <MapTemplate>
       <MapContainer>
-        <MapTiff data={imageData} onClick={handleMapClick} />
+        <MapTiff
+          data={imageData}
+          onClick={handleMapClick}
+          setLoading={setLoadingMap}
+        />
       </MapContainer>
       <MapDescription
         imageInfo={descriptionInfo}
@@ -113,6 +118,7 @@ const MapPage = () => {
       <HeaderWrapper>
         <MenuWrapper>
           <MapsMenu
+            isLoading={loadingMap}
             initialValues={imageData}
             options={Object.values(EEImages)}
             retracted={isMenuRetracted}

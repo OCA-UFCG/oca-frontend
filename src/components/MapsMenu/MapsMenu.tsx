@@ -16,6 +16,7 @@ const MapsMenu = ({
   initialValues,
   options,
   retracted,
+  isLoading,
   setRetracted,
   onSelectChange,
   onQuestionSelect,
@@ -23,6 +24,7 @@ const MapsMenu = ({
   initialValues: IMapInfo;
   options: IEEInfo[];
   retracted: boolean;
+  isLoading: boolean;
   setRetracted: (retracted: boolean) => void;
   onSelectChange: (newValues: IMapInfo) => void;
   onQuestionSelect: (newItem: string, retract?: boolean) => void;
@@ -70,6 +72,7 @@ const MapsMenu = ({
               <ItemWrapper key={item.id}>
                 <VisuItem
                   info={item}
+                  isLoading={isLoading}
                   onClick={onQuestionSelect}
                   onChange={onItemChange}
                 />
@@ -89,6 +92,7 @@ const MapsMenu = ({
           mapId={currentName}
           initialYear={initialValues?.year}
           dates={currentImagedata}
+          isLoading={isLoading}
           onChange={onSelectChange}
         />
       </ContentWrapper>
