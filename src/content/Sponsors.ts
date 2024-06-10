@@ -32,6 +32,11 @@ export const sponsorsContent: ISponsor[] = [
     link: "https://www.gov.br/mma/pt-br",
   },
   {
+    name: "PELD - Rio Paraíba Integrado",
+    logo: "https://drive.google.com/thumbnail?id=1BaHrqjoLXkqF9C-rwZugyQSWRJAfB61s",
+    link: "https://peldripa.com.br/",
+  },
+  {
     name: "Universidade Estadual da Paraíba",
     logo: "https://drive.google.com/thumbnail?id=1jxKc-Tr8dItDO_uOl6SZklBo_FyFbHFi",
     link: "https://uepb.edu.br/",
