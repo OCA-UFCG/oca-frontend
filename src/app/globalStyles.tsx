@@ -106,6 +106,7 @@ export const GlobalStyles = createGlobalStyle`
   ol, ul {
     margin-left: 1rem;
 
+    width: 100%;
   }
   blockquote, q {
       quotes: none;
@@ -217,4 +218,13 @@ export const SpinningIcon = styled(Image)`
   width: 4rem;
   height: 4rem;
   animation: spin 2s linear infinite;
+`;
+
+export const ArticleImage = styled(Image)`
+  max-width: 32rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  align-self: center;
+  border-radius: 4px;
+  height: fit-content;
 `;
