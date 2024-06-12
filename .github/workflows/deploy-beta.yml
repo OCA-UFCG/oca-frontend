@@ -10,11 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Configure .env 
-        run: echo "NEXT_PUBLIC_HOST_URL=${{ vars.NEXT_PUBLIC_HOST_URL_BETA }} NEXT_PUBLIC_GEE_PRIVATE_KEY=${{ vars.NEXT_PUBLIC_GEE_PRIVATE_KEY }}" > .env
-      
       - name: Stop existing container
         run: sudo docker rm -f ${{ vars.CONTAINER_NAME_BETA }} || true 
+
+      - name: Remove the old image
+        run: sudo docker rmi ${{ vars.DOCKER_IMAGE_BETA }}:latest || true
 
       - name: Update docker metadata with the tag 
         uses: docker/metadata-action@v4
@@ -37,10 +37,13 @@ jobs:
           context: .
           push: true
           file: Dockerfile.production
+          labels: ${{ steps.meta.outputs.labels }}
           tags: |
             ${{ vars.DOCKER_IMAGE_BETA }}:latest
             ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            NEXT_PUBLIC_HOST_URL=${{ vars.NEXT_PUBLIC_HOST_URL_BETA }}
+            NEXT_PUBLIC_GEE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_GEE_PRIVATE_KEY }}
     
       - name: Run new container
         run: sudo docker run --name ${{ vars.CONTAINER_NAME_BETA }} -p ${{ vars.HOST_PORT_BETA }}:${{ vars.CONTAINER_PORT }} -d ${{ vars.DOCKER_IMAGE_BETA }}:latest
