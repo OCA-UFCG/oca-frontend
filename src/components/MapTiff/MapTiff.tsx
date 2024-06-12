@@ -36,6 +36,36 @@ const MapTiff = ({
 
       newMap.on("load", () => {
         newMap.addControl(new maplibregl.NavigationControl(), "bottom-left");
+
+        newMap.addSource("brazil-states", {
+          type: "geojson",
+          data: "https://raw.githubusercontent.com/OCA-UFCG/countries-geo-data/main/public/data/brazil-states.geojson",
+        });
+        newMap.addLayer({
+          id: "brazil-states",
+          type: "line",
+          source: "brazil-states",
+          layout: {},
+          paint: {
+            "line-color": "#000000",
+            "line-width": 3,
+          },
+        });
+        newMap.addSource("brazil-cities", {
+          type: "geojson",
+          data: "https://raw.githubusercontent.com/OCA-UFCG/municipal-brazilian-geodata/master/minified/cities.min.json",
+        });
+        newMap.addLayer({
+          id: "brazil-cities",
+          type: "line",
+          source: "brazil-cities",
+          layout: {},
+          paint: {
+            "line-color": "#00000050",
+            "line-width": 2,
+          },
+          minzoom: 6,
+        });
       });
 
       setMap(newMap);
