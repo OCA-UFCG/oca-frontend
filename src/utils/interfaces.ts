@@ -56,6 +56,11 @@ export interface IEEInfo {
   id: string;
   name: string;
   description: string;
+  extraInfo?: string[];
+  measurementUnit: string;
+  posterUrl: string;
+  minScale?: number;
+  maxScale?: number;
   imageData: {
     [year: string]: {
       default: boolean;
@@ -63,11 +68,6 @@ export interface IEEInfo {
       imageParams: IImageParam[];
     };
   };
-  extraInfo?: string[];
-  measurementUnit: string;
-  posterUrl: string;
-  minScale?: number;
-  maxScale?: number;
 }
 
 export interface IMapId {

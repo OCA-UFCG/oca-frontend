@@ -8,15 +8,17 @@ import {
   VisuName,
   Wrapper,
 } from "./MapsSection.styles";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IEEImage, IEEInfo } from "@/utils/interfaces";
 import { capitalize } from "@/utils/functions";
 import { defaultEEInfo } from "@/utils/constants";
 import LoadingImage from "@/../public/loading.svg";
+import { CMSContext } from "@/contexts/ContentProvider";
 
 const MapsSection = ({ eeInfos = {} }: { eeInfos: IEEImage }) => {
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
   const [loading, setLoading] = useState<boolean>(true);
+  const { mapsData } = useContext(CMSContext);
 
   const updateCurrentVisu = (visuId: string) => {
     if (visuId !== currentVisu.id) {
@@ -37,7 +39,7 @@ const MapsSection = ({ eeInfos = {} }: { eeInfos: IEEImage }) => {
     <Wrapper id="maps-visu">
       <SectionTitle variation="white">Mapas e Visualizações</SectionTitle>
       <TagsContainer>
-        {(Object.values(eeInfos) as IEEInfo[]).map((tag: IEEInfo) => (
+        {mapsData.map(({ fields: tag }: { fields: IEEInfo }) => (
           <Tag
             key={tag.id}
             active={(tag.id === currentVisu.id).toString()}

@@ -5,12 +5,14 @@ import {
   SetStateAction,
   createContext,
   useCallback,
+  useEffect,
   useState,
 } from "react";
 import { Entry, EntrySkeletonType, createClient } from "contentful";
 import { Options } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import { ArticleImage } from "@/app/globalStyles";
+import { IEEInfo } from "@/utils/interfaces";
 
 export const client = createClient({
   accessToken: "xbQbXUCTLdAnjxm2hktaKaVSTDi9v5YhJKZd1LmkLZE",
@@ -35,6 +37,8 @@ export const renderOptions: Options = {
 interface ICMSContent {
   loading: boolean;
   setLoading: (value: SetStateAction<boolean>) => void;
+  mapsData: { fields: IEEInfo }[];
+  setMapsData: (value: SetStateAction<{ fields: IEEInfo }[]>) => void;
   loadData: (
     contentType: string,
     setFunction?: (e: any) => void | any,
@@ -45,16 +49,20 @@ export const CMSContext = createContext<ICMSContent>({
   loading: false,
   setLoading: () => {},
   loadData: (e: any) => e,
+  mapsData: [],
+  setMapsData: (e: any) => e,
 });
 
 export const ContentProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
+  const [mapsData, setMapsData] = useState<{ fields: IEEInfo }[]>([]);
 
   const loadData = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
     async (contentType: string, setFunction?: Function) => {
       setLoading(true);
       const res = await client.getEntries({ content_type: contentType });
+      console.log(res.items);
       if (setFunction) {
         setFunction(res.items);
       }
@@ -65,7 +73,16 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
     [],
   );
 
-  const values = { loading, setLoading, loadData };
+  useEffect(() => {
+    loadData("tiffInfo", setMapsData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    console.log(mapsData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapsData]);
+  const values = { mapsData, setMapsData, loading, setLoading, loadData };
 
   return <CMSContext.Provider value={values}>{children}</CMSContext.Provider>;
 };
