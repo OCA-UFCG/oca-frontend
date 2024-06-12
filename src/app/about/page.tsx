@@ -1,54 +1,38 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
-import { ArticleImage, SectionTitle } from "../globalStyles";
+import { ReactNode, useContext, useEffect, useState } from "react";
+import { SectionTitle } from "../globalStyles";
 import { Article, ContentWrapper, OcaImage } from "./styles";
 import OcaLogo from "@/../public/logo-oca-full.svg";
 import Template from "@/templates/hubTemplate";
-import { client } from "../contentful";
-import {
-  Options,
-  documentToReactComponents,
-} from "@contentful/rich-text-react-renderer";
-import { Document, BLOCKS } from "@contentful/rich-text-types";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { Document } from "@contentful/rich-text-types";
+import { CMSContext, renderOptions } from "@/contexts/ContentProvider";
 
 const About = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<ReactNode | null>(null);
+  const { loadData } = useContext(CMSContext);
 
   useEffect(() => {
-    const options: Options = {
-      renderNode: {
-        [BLOCKS.EMBEDDED_ASSET]: (node) => {
-          return (
-            <ArticleImage
-              alt=""
-              width={node.data.target.fields.file.details.image.width}
-              height={node.data.target.fields.file.details.image.height}
-              src={`https:${node.data.target.fields.file.url}`}
-            />
-          );
-        },
-      },
-    };
+    const loadContent = async () => {
+      const [contentItems] = await loadData("nossaHistoria");
 
-    const loadData = async () => {
-      const res = await client.getEntries({ content_type: "nossaHistoria" });
-
-      if (res?.items[0]?.fields?.conteudo) {
+      if (contentItems.fields?.conteudo) {
         setContent(
           documentToReactComponents(
-            res?.items[0]?.fields?.conteudo as Document,
-            options,
+            contentItems?.fields?.conteudo as Document,
+            renderOptions,
           ),
         );
       }
-      if (res?.items[0]?.fields?.ttulo) {
-        setTitle(res?.items[0]?.fields?.ttulo as string);
+      if (contentItems?.fields?.ttulo) {
+        setTitle(contentItems?.fields?.ttulo as string);
       }
     };
-    loadData();
-  }, []);
+
+    loadContent();
+  }, [loadData]);
 
   return (
     <Template>

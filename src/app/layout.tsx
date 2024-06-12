@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import StyledComponentsRegistry from "@/lib/registry";
 import { GlobalStyles } from "@/app/globalStyles";
 import ThemeBody from "./ThemeBody";
+import { ContentProvider } from "@/contexts/ContentProvider";
 
 const NEXT_PUBLIC_GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 const lato = Lato({ weight: "400", subsets: ["latin"] });
@@ -26,7 +27,7 @@ export default function RootLayout({
       <ThemeBody className={lato.className}>
         <StyledComponentsRegistry>
           <GlobalStyles />
-          {children}
+          <ContentProvider>{children}</ContentProvider>
         </StyledComponentsRegistry>
       </ThemeBody>
 
