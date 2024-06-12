@@ -1,6 +1,6 @@
 export interface ISponsor {
   name: string;
-  logo: string;
+  logo: { fields: { file: { url: string } } };
   link: string;
 }
 
