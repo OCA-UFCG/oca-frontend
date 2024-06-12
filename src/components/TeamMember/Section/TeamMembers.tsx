@@ -13,13 +13,7 @@ const TeamMembersSection = () => {
   const { loadData } = useContext(CMSContext);
 
   useEffect(() => {
-    const loadContent = async () => {
-      const content = await loadData("members");
-      setTeamMembers(content);
-      console.log(content);
-    };
-
-    loadContent();
+    loadData("members", setTeamMembers);
   }, [loadData]);
 
   return (

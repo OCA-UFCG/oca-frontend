@@ -37,6 +37,7 @@ interface ICMSContent {
   setLoading: (value: SetStateAction<boolean>) => void;
   loadData: (
     contentType: string,
+    setFunction?: (e: any) => void | any,
   ) => Promise<Entry<EntrySkeletonType, undefined, string>[]>;
 }
 
@@ -49,13 +50,20 @@ export const CMSContext = createContext<ICMSContent>({
 export const ContentProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
 
-  const loadData = useCallback(async (contentType: string) => {
-    setLoading(true);
-    const res = await client.getEntries({ content_type: contentType });
-    setLoading(false);
+  const loadData = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
+    async (contentType: string, setFunction?: Function) => {
+      setLoading(true);
+      const res = await client.getEntries({ content_type: contentType });
+      if (setFunction) {
+        setFunction(res.items);
+      }
+      setLoading(false);
 
-    return res.items;
-  }, []);
+      return res.items;
+    },
+    [],
+  );
 
   const values = { loading, setLoading, loadData };
 
