@@ -20,7 +20,7 @@ const TeamMembersSection = () => {
     };
 
     loadContent();
-  }, []);
+  }, [loadData]);
 
   return (
     <Section full="false" id="teamMembers">
