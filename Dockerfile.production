@@ -1,5 +1,15 @@
 FROM node:20.12.2
 
+# Get the environment variables
+ARG NEXT_PUBLIC_GA_ID 
+ARG NEXT_PUBLIC_HOST_URL
+ARG NEXT_PUBLIC_GEE_PRIVATE_KEY
+
+# Set the environment variables
+ENV NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID
+ENV NEXT_PUBLIC_HOST_URL=$NEXT_PUBLIC_HOST_URL
+ENV NEXT_PUBLIC_GEE_PRIVATE_KEY=$NEXT_PUBLIC_GEE_PRIVATE_KEY
+
 # Set the working directory inside the container
 WORKDIR /app
 
@@ -7,7 +17,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install 
 
 # Copy the rest of the application code
 COPY . .

@@ -18,20 +18,22 @@ run-prod:
 	npm run build
 	npm run start
 
+docker-build-dev:
+	docker build -t $(IMAGE_NAME) .
+
 docker-run-dev:
 	docker run -p 3000:$(CONTAINER_PORT) --name $(IMAGE_NAME) -v node_modules -v $(PWD):/app $(IMAGE_NAME)
 
 docker-build-prod:
-	docker build -t $(IMAGE_NAME) -f Dockerfile.production .
+	docker build \
+		--build-arg NEXT_PUBLIC_GA_ID=${NEXT_PUBLIC_GA_ID} \
+		--build-arg NEXT_PUBLIC_HOST_URL=${NEXT_PUBLIC_HOST_URL} \
+		--build-arg NEXT_PUBLIC_GEE_PRIVATE_KEY='${NEXT_PUBLIC_GEE_PRIVATE_KEY}' \
+		-t $(IMAGE_NAME) \
+		-f Dockerfile.production .
 
 docker-run-prod:
 	docker run --name $(CONTAINER_NAME_PROD) -p $(HOST_PORT_PROD):$(CONTAINER_PORT) -d $(IMAGE_NAME)
 
 docker-run-beta:
-	docker run --name $(CONTAINER_NAME_BETA) -p $(HOST_PORT_BETA):$(CONTAINER_PORT) -d $(IMAGE_NAME):latest
-
-docker-logs:
-	docker logs -f $(CONTAINER_NAME)
-
-docker-stop:
-	docker rm -f $(CONTAINER_NAME)
+	docker run --name $(CONTAINER_NAME_BETA) -p $(HOST_PORT_BETA):$(CONTAINER_PORT) -d $(IMAGE_NAME)
