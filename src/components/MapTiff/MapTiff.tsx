@@ -47,8 +47,8 @@ const MapTiff = ({
           source: "brazil-states",
           layout: {},
           paint: {
-            "line-color": "#000000",
-            "line-width": 3,
+            "line-color": "#2D2D2D",
+            "line-width": 2.5,
           },
         });
         newMap.addSource("brazil-cities", {
