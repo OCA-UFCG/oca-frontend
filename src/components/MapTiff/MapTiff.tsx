@@ -83,7 +83,6 @@ const MapTiff = ({
       setLoading(true);
       if (!map?.getSource(name + year)) {
         const body = JSON.stringify(mapsData[0].fields);
-
         const response = await fetch(
           `${HOST_URL}/api/ee?name=${name}&year=${year}`,
           {
