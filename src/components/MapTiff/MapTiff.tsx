@@ -2,7 +2,7 @@
 
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Wrapper } from "./MapTiff.styles";
 import { IMapInfo } from "@/utils/interfaces";
 import {
@@ -10,6 +10,7 @@ import {
   MAP_TIFF_BRAZIL_STATES,
   MAP_TIFF_BRAZIL_CITIES,
 } from "@/utils/constants";
+import { CMSContext } from "@/contexts/ContentProvider";
 
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
@@ -26,6 +27,7 @@ const MapTiff = ({
   const { name, year } = data;
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
+  const { mapsData } = useContext(CMSContext);
 
   const loadMap = useCallback(() => {
     if (mapContainer.current) {
@@ -80,8 +82,17 @@ const MapTiff = ({
     async (name: string, year: string) => {
       setLoading(true);
       if (!map?.getSource(name + year)) {
+        const body = JSON.stringify(mapsData[0].fields);
+
         const response = await fetch(
           `${HOST_URL}/api/ee?name=${name}&year=${year}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body,
+          },
         );
 
         if (response.status !== 200) {
@@ -117,7 +128,7 @@ const MapTiff = ({
       );
       setLoading(false);
     },
-    [map, setLoading],
+    [map, mapsData, setLoading],
   );
 
   useEffect(() => {
