@@ -5,6 +5,11 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Wrapper } from "./MapTiff.styles";
 import { IMapInfo } from "@/utils/interfaces";
+import {
+  MAP_TIFF_STYLE,
+  MAP_TIFF_BRAZIL_STATES,
+  MAP_TIFF_BRAZIL_CITIES,
+} from "@/utils/constants";
 
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
@@ -26,8 +31,7 @@ const MapTiff = ({
     if (mapContainer.current) {
       const newMap = new maplibregl.Map({
         container: mapContainer.current,
-        style:
-          "https://api.maptiler.com/maps/basic-v2/style.json?key=71L2QPZ0FHRofxg3QtVC",
+        style: MAP_TIFF_STYLE,
         center: [-55, -15],
         zoom: 3.6,
         maxZoom: 10,
@@ -36,6 +40,36 @@ const MapTiff = ({
 
       newMap.on("load", () => {
         newMap.addControl(new maplibregl.NavigationControl(), "bottom-left");
+
+        newMap.addSource("brazil-states", {
+          type: "geojson",
+          data: MAP_TIFF_BRAZIL_STATES,
+        });
+        newMap.addLayer({
+          id: "brazil-states",
+          type: "line",
+          source: "brazil-states",
+          layout: {},
+          paint: {
+            "line-color": "#2D2D2D",
+            "line-width": 2.5,
+          },
+        });
+        newMap.addSource("brazil-cities", {
+          type: "geojson",
+          data: MAP_TIFF_BRAZIL_CITIES,
+        });
+        newMap.addLayer({
+          id: "brazil-cities",
+          type: "line",
+          source: "brazil-cities",
+          layout: {},
+          paint: {
+            "line-color": "#00000050",
+            "line-width": 2,
+          },
+          minzoom: 6,
+        });
       });
 
       setMap(newMap);
