@@ -7,7 +7,7 @@ const Sponsor = ({ data }: { data: ISponsor }) => {
   return (
     <Wrapper href={link} target="_blank">
       <LogoImage
-        src={`https:${logo.fields.file.url}`}
+        src={`https:${typeof logo === "object" ? logo?.fields?.file?.url : logo}`}
         alt={name}
         title={name}
         width={125}
