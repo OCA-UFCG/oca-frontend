@@ -21,7 +21,10 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
   return (
     <Wrapper>
       <Avatar
-        src={`https:${avatar.fields.file.url}` || "avatar.svg"}
+        src={
+          `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
+          "avatar.svg"
+        }
         alt="Profile picture"
         width={50}
         height={50}

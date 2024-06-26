@@ -7,7 +7,7 @@ export interface ISponsor {
 export interface ITeamMember {
   name: string;
   role: string;
-  avatar: { fields: { file: { url: string } } };
+  avatar: { fields: { file: { url: string } } } | string;
   github?: string;
   linkedin?: string;
   lattes?: string;
