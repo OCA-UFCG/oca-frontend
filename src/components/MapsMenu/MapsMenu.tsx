@@ -67,26 +67,30 @@ const MapsMenu = ({
       <ContentWrapper>
         <Title>Visualizações Disponíveis</Title>
         <Form>
-          {formValues.map((item: IFormItem) => {
-            return (
-              <ItemWrapper key={item.id}>
-                <VisuItem
-                  info={item}
-                  isLoading={isLoading}
-                  onClick={onQuestionSelect}
-                  onChange={onItemChange}
-                />
-                <QuestionMarkImg
-                  onClick={() => onQuestionSelect(item.id)}
-                  title={`Sobre ${item.name}`}
-                  src={QuestionMarkIcon}
-                  alt={QuestionMarkIcon}
-                  height={16}
-                  width={16}
-                />
-              </ItemWrapper>
-            );
-          })}
+          {formValues
+            .sort((element1, element2) =>
+              element1.name.localeCompare(element2.name),
+            )
+            .map((item: IFormItem) => {
+              return (
+                <ItemWrapper key={item.id}>
+                  <VisuItem
+                    info={item}
+                    isLoading={isLoading}
+                    onClick={onQuestionSelect}
+                    onChange={onItemChange}
+                  />
+                  <QuestionMarkImg
+                    onClick={() => onQuestionSelect(item.id)}
+                    title={`Sobre ${item.name}`}
+                    src={QuestionMarkIcon}
+                    alt={QuestionMarkIcon}
+                    height={16}
+                    width={16}
+                  />
+                </ItemWrapper>
+              );
+            })}
         </Form>
         <DateInput
           mapId={currentName}

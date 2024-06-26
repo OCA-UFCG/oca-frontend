@@ -1,13 +1,13 @@
 export interface ISponsor {
   name: string;
-  logo: string;
+  logo: { fields: { file: { url: string } } } | string;
   link: string;
 }
 
 export interface ITeamMember {
   name: string;
   role: string;
-  avatar: string;
+  avatar: { fields: { file: { url: string } } } | string;
   github?: string;
   linkedin?: string;
   lattes?: string;
@@ -56,6 +56,11 @@ export interface IEEInfo {
   id: string;
   name: string;
   description: string;
+  extraInfo?: string[];
+  measurementUnit: string;
+  poster: { fields: { file: { url: string } } } | string;
+  minScale?: number;
+  maxScale?: number;
   imageData: {
     [year: string]: {
       default: boolean;
@@ -63,11 +68,6 @@ export interface IEEInfo {
       imageParams: IImageParam[];
     };
   };
-  extraInfo?: string[];
-  measurementUnit: string;
-  posterUrl: string;
-  minScale?: number;
-  maxScale?: number;
 }
 
 export interface IMapId {

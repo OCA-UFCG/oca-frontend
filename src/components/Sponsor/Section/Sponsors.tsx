@@ -1,17 +1,31 @@
-import { sponsorsContent } from "@/content/Sponsors";
 import { SectionTitle } from "@/app/globalStyles";
 import { SponsorsContainer, Wrapper } from "./Sponsors.styles";
 import Sponsor from "../Sponsor";
+import { useContext, useEffect, useState } from "react";
+import { CMSContext } from "@/contexts/ContentProvider";
+import { ISponsor } from "@/utils/interfaces";
 
 const SponsorsSection = () => {
+  const [sponsors, setSponsors] = useState([]);
+  const { loadData } = useContext(CMSContext);
+
+  useEffect(() => {
+    loadData("sponsors", setSponsors);
+  }, [loadData]);
+
   return (
     <Wrapper id="sponsors">
       <SectionTitle variation="white">Parceiros</SectionTitle>
       <SponsorsContainer>
-        {sponsorsContent
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .map((sponsor, index) => (
-            <Sponsor key={index} data={sponsor} />
+        {sponsors
+          .sort(
+            (
+              { fields: a }: { fields: ISponsor },
+              { fields: b }: { fields: ISponsor },
+            ) => a.name.localeCompare(b.name),
+          )
+          .map((sponsor: { fields: ISponsor }, index) => (
+            <Sponsor key={index} data={sponsor.fields} />
           ))}
       </SponsorsContainer>
     </Wrapper>

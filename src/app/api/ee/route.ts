@@ -1,20 +1,19 @@
 import ee from "@google/earthengine";
 import { NextResponse } from "next/server";
-import { EEImages } from "@/utils/constants";
-import { IMapId } from "@/utils/interfaces";
+import { IEEInfo, IMapId } from "@/utils/interfaces";
 import type { NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const key = process.env.NEXT_PUBLIC_GEE_PRIVATE_KEY || "";
 
     await authenticate(key);
 
-    const name = req.nextUrl.searchParams.get("name") || "";
     const year = req.nextUrl.searchParams.get("year") || "";
 
-    const imageInfo = EEImages[name];
+    const imageInfo: IEEInfo = await req.json();
     const { imageId, imageParams } = imageInfo.imageData[year];
+
     let image = ee.Image(imageId).selfMask();
 
     const filteredImageParams = imageParams.filter(
