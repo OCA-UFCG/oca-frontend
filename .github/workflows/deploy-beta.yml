@@ -44,6 +44,8 @@ jobs:
           build-args: |
             NEXT_PUBLIC_HOST_URL=${{ vars.NEXT_PUBLIC_HOST_URL_BETA }}
             NEXT_PUBLIC_GEE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_GEE_PRIVATE_KEY }}
+            NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
+            NEXT_PUBLIC_CONTENTFUL_SPACE=${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE  }}
     
       - name: Run new container
         run: sudo docker run --name ${{ vars.CONTAINER_NAME_BETA }} -p ${{ vars.HOST_PORT_BETA }}:${{ vars.CONTAINER_PORT }} -d ${{ vars.DOCKER_IMAGE_BETA }}:latest
