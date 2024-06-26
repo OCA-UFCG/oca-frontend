@@ -9,31 +9,33 @@ import {
   Wrapper,
 } from "./MapsSection.styles";
 import { useContext, useEffect, useState } from "react";
-import { IEEImage, IEEInfo } from "@/utils/interfaces";
+import { IEEInfo } from "@/utils/interfaces";
 import { capitalize } from "@/utils/functions";
 import { defaultEEInfo } from "@/utils/constants";
 import LoadingImage from "@/../public/loading.svg";
 import { CMSContext } from "@/contexts/ContentProvider";
 
-const MapsSection = ({ eeInfos = {} }: { eeInfos: IEEImage }) => {
+const MapsSection = () => {
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
   const [loading, setLoading] = useState<boolean>(true);
   const { mapsData } = useContext(CMSContext);
 
   const updateCurrentVisu = (visuId: string) => {
     if (visuId !== currentVisu.id) {
-      setCurrentVisu(eeInfos[visuId]);
+      setCurrentVisu(
+        mapsData.find((map) => map.fields.id === visuId)?.fields ??
+          defaultEEInfo,
+      );
     }
   };
 
   useEffect(() => {
-    const keys = Object.keys(eeInfos);
-    if (keys.length != 0) {
-      setCurrentVisu(eeInfos[keys[0]]);
+    if (mapsData.length != 0) {
+      setCurrentVisu(mapsData.map((map) => map.fields)[0] ?? defaultEEInfo);
     }
 
     setLoading(false);
-  }, [eeInfos]);
+  }, [mapsData]);
 
   return (
     <Wrapper id="maps-visu">

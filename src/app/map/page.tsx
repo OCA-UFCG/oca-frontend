@@ -1,12 +1,12 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useContext, useEffect, useState } from "react";
 import { IEEInfo, IMapInfo } from "@/utils/interfaces";
 import MapTiff from "@/components/MapTiff/MapTiff";
 import MapTemplate from "@/templates/mapTemplate";
 import MapsMenu from "@/components/MapsMenu/MapsMenu";
-import { EEImages, defaultEEInfo } from "@/utils/constants";
+import { defaultEEInfo } from "@/utils/constants";
 import HomeIcon from "@/../public/homeIcon.svg";
 import QuestionIcon from "@/../public/questionMark.svg";
 import {
@@ -24,6 +24,7 @@ import Link from "next/link";
 import { capitalize } from "@/utils/functions";
 import MapDescription from "@/components/MapDescription/MapDescription";
 import { MapLegend } from "@/components/MapLegend/MapLegend";
+import { CMSContext } from "@/contexts/ContentProvider";
 
 const MapPageWrapper = () => (
   <Suspense fallback={<div>Carregando...</div>}>
@@ -44,6 +45,8 @@ const MapPage = () => {
     year: "",
   });
 
+  const { mapsData } = useContext(CMSContext);
+
   const [descriptionInfo, setDescriptionInfo] =
     useState<IEEInfo>(defaultEEInfo);
   const [isDescRetracted, setIsDescRetracted] = useState<boolean>(true);
@@ -57,9 +60,11 @@ const MapPage = () => {
           setIsDescRetracted(false);
         }
       }
-      setDescriptionInfo(EEImages[name]);
+      setDescriptionInfo(
+        mapsData.filter((data) => data.fields.id === name)[0].fields,
+      );
     },
-    [descriptionInfo.id, isDescRetracted],
+    [descriptionInfo.id, isDescRetracted, mapsData],
   );
 
   const [isMenuRetracted, setIsmenuRetracted] = useState<boolean>(false);
@@ -85,22 +90,31 @@ const MapPage = () => {
   );
 
   useEffect(() => {
+    if (mapsData.length === 0) return;
+
     let name = searchParams?.get("name") ?? "spei";
     let year = searchParams?.get("year") ?? "general";
 
-    if (!(name in EEImages)) {
+    const filteredData = mapsData.filter((data) => data.fields.id === name);
+    if (filteredData.length === 0) {
       name = DEFAULT_TIFF;
     }
 
-    if (!(year in EEImages[name])) {
-      year = Object.keys(EEImages[name].imageData)[0];
+    if (
+      mapsData &&
+      mapsData.filter(
+        (data) =>
+          name === data.fields.id && year in Object.keys(data.fields.imageData),
+      ).length == 0
+    ) {
+      year = Object.keys(filteredData[0].fields.imageData)[0];
     }
 
     setImageData({ name, year });
-    setDescriptionInfo(EEImages[name]);
+    setDescriptionInfo(filteredData[0].fields);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [mapsData]);
 
   return (
     <MapTemplate>
@@ -121,7 +135,7 @@ const MapPage = () => {
           <MapsMenu
             isLoading={loadingMap}
             initialValues={imageData}
-            options={Object.values(EEImages)}
+            options={mapsData.map((data) => data.fields)}
             retracted={isMenuRetracted}
             setRetracted={setIsmenuRetracted}
             onSelectChange={handleVisuChange}
@@ -133,10 +147,15 @@ const MapPage = () => {
         </MenuWrapper>
         {imageData.name && (
           <NameContainer>
-            <VisuName>{capitalize(EEImages[imageData.name]?.name)}</VisuName>
+            <VisuName>
+              {capitalize(
+                mapsData.filter((data) => data.fields.id === imageData.name)[0]
+                  .fields.name,
+              )}
+            </VisuName>
             <QuestionWrapper onClick={() => handleDescUpdate(imageData.name)}>
               <QuestionImage
-                title={`Sobre ${EEImages[imageData.name]?.name}`}
+                title={`Sobre ${mapsData.filter((data) => data.fields.id === imageData.name)[0].fields.name}`}
                 src={QuestionIcon}
                 alt={QuestionIcon}
                 height={20}
@@ -149,7 +168,10 @@ const MapPage = () => {
       <MapLegendContainer>
         {imageData.name && (
           <MapLegend
-            imageInfo={EEImages[imageData.name]}
+            imageInfo={
+              mapsData.filter((data) => data.fields.id === imageData.name)[0]
+                .fields
+            }
             year={imageData.year || "general"}
           />
         )}

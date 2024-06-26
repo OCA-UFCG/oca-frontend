@@ -62,7 +62,7 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
     async (contentType: string, setFunction?: Function) => {
       setLoading(true);
       const res = await client.getEntries({ content_type: contentType });
-      console.log(res.items);
+
       if (setFunction) {
         setFunction(res.items);
       }
@@ -78,10 +78,6 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    console.log(mapsData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapsData]);
   const values = { mapsData, setMapsData, loading, setLoading, loadData };
 
   return <CMSContext.Provider value={values}>{children}</CMSContext.Provider>;
