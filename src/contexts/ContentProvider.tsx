@@ -15,8 +15,8 @@ import { ArticleImage } from "@/app/globalStyles";
 import { IEEInfo } from "@/utils/interfaces";
 
 export const client = createClient({
-  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN ?? "",
-  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE ?? "",
+  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN || "",
+  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE || "",
 });
 
 export const renderOptions: Options = {

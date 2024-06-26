@@ -1,3 +1,4 @@
+include .env
 PWD=$(shell pwd)
 NODE_IMAGE=node:20.12.2
 IMAGE_NAME=oca-frontend
@@ -29,6 +30,8 @@ docker-build-prod:
 		--build-arg NEXT_PUBLIC_GA_ID=${NEXT_PUBLIC_GA_ID} \
 		--build-arg NEXT_PUBLIC_HOST_URL=${NEXT_PUBLIC_HOST_URL} \
 		--build-arg NEXT_PUBLIC_GEE_PRIVATE_KEY='${NEXT_PUBLIC_GEE_PRIVATE_KEY}' \
+		--build-arg NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN='${NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN}' \
+		--build-arg NEXT_PUBLIC_CONTENTFUL_SPACE='${NEXT_PUBLIC_CONTENTFUL_SPACE}' \
 		-t $(IMAGE_NAME) \
 		-f Dockerfile.production .
 
