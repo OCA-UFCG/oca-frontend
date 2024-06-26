@@ -31,7 +31,7 @@ const MapsSection = () => {
 
   useEffect(() => {
     if (mapsData.length != 0) {
-      setCurrentVisu(mapsData.map((map) => map.fields)[0] ?? defaultEEInfo);
+      setCurrentVisu(mapsData.map((map) => map.fields)[0]);
     }
 
     setLoading(false);
@@ -64,7 +64,11 @@ const MapsSection = () => {
           alt=""
           width={500}
           height={400}
-          src={currentVisu.posterUrl}
+          src={
+            typeof currentVisu.poster === "object"
+              ? `https:${currentVisu.poster.fields.file.url}`
+              : currentVisu.poster
+          }
         />
       )}
       <VisuName>{capitalize(currentVisu.name)}</VisuName>

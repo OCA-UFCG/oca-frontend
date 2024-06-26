@@ -42,7 +42,7 @@ export const defaultEEInfo: IEEInfo = {
     },
   },
   measurementUnit: "classes",
-  posterUrl: "/defaultMapsPoster.png",
+  poster: "/defaultMapsPoster.png",
   minScale: 0,
   maxScale: 1,
 };
