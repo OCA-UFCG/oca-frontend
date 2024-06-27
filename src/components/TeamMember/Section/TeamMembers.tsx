@@ -3,13 +3,10 @@ import { TeamMembersContainer } from "./TeamMembers.styles";
 import TeamMember from "../TeamMember";
 import { useContext, useEffect, useState } from "react";
 import { CMSContext } from "@/contexts/ContentProvider";
-import { Entry, EntrySkeletonType } from "contentful";
 import { ITeamMember } from "@/utils/interfaces";
 
 const TeamMembersSection = () => {
-  const [teamMembers, setTeamMembers] = useState<
-    Entry<EntrySkeletonType, undefined, string>[]
-  >([]);
+  const [teamMembers, setTeamMembers] = useState<{ fields: ITeamMember }[]>([]);
   const { loadData } = useContext(CMSContext);
 
   useEffect(() => {
@@ -20,12 +17,24 @@ const TeamMembersSection = () => {
     <Section full="false" id="teamMembers">
       <SectionTitle>Nossa equipe</SectionTitle>
       <TeamMembersContainer>
-        {teamMembers.map((teamMember, i) => (
-          <TeamMember
-            key={i}
-            data={teamMember.fields as unknown as ITeamMember}
-          />
-        ))}
+        {teamMembers
+          .sort(
+            (
+              { fields: a }: { fields: ITeamMember },
+              { fields: b }: { fields: ITeamMember },
+            ) => {
+              const aCombined = `${a.role} ${a.name}`;
+              const bCombined = `${b.role} ${b.name}`;
+
+              return aCombined.localeCompare(bCombined);
+            },
+          )
+          .map((teamMember, i) => (
+            <TeamMember
+              key={i}
+              data={teamMember.fields as unknown as ITeamMember}
+            />
+          ))}
       </TeamMembersContainer>
     </Section>
   );
