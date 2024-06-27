@@ -25,17 +25,6 @@ jobs:
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ vars.DOCKER_PASSWORD }}
 
-      # - name: Build Docker image with temporary tag
-      #   run: sudo docker build \
-      #     -f Dockerfile.production \
-      #     -t ${{ vars.DOCKER_IMAGE_BETA }}:temp \
-      #     --label key=value \
-      #     --build-arg NEXT_PUBLIC_HOST_URL=${{ vars.NEXT_PUBLIC_HOST_URL_BETA }} \
-      #     --build-arg NEXT_PUBLIC_GEE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_GEE_PRIVATE_KEY }} \
-      #     --build-arg NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }} \
-      #     --build-arg NEXT_PUBLIC_CONTENTFUL_SPACE=${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE }} \
-      #     .
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
@@ -51,34 +40,12 @@ jobs:
             NEXT_PUBLIC_GEE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_GEE_PRIVATE_KEY }}
             NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
             NEXT_PUBLIC_CONTENTFUL_SPACE=${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE  }}
-
+    
       - name: Stop existing container
         run: sudo docker rm -f ${{ vars.CONTAINER_NAME_BETA }} || true 
-
-      # - name: Remove the old image
-      #   run: sudo docker rmi ${{ vars.DOCKER_IMAGE_BETA }}:none || true
-
-      # - name: Retag new image to latest
-      #   run: sudo docker tag ${{ vars.DOCKER_IMAGE_BETA }}:temp ${{ vars.DOCKER_IMAGE_BETA }}:latest
-    
+            
       - name: Run new container
         run: sudo docker run --name ${{ vars.CONTAINER_NAME_BETA }} -p ${{ vars.HOST_PORT_BETA }}:${{ vars.CONTAINER_PORT }} -d ${{ vars.DOCKER_IMAGE_BETA }}:latest
-
-      # - name: Push Docker image
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: .
-      #     push: true
-      #     file: Dockerfile.production
-      #     labels: ${{ steps.meta.outputs.labels }}
-      #     tags: |
-      #       ${{ vars.DOCKER_IMAGE_BETA }}:latest
-      #       ${{ steps.meta.outputs.tags }}
-      #     build-args: |
-      #       NEXT_PUBLIC_HOST_URL=${{ vars.NEXT_PUBLIC_HOST_URL_BETA }}
-      #       NEXT_PUBLIC_GEE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_GEE_PRIVATE_KEY }}
-      #       NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
-      #       NEXT_PUBLIC_CONTENTFUL_SPACE=${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE  }}
-
+        
       - name: Prune unused Docker images
         run: sudo docker system prune -f
