@@ -2,7 +2,7 @@ name: CI/CD OCA
 
 on:
   push:
-    branches: ["refact/update-cicd"]
+    branches: ["main"]
 
 jobs:
   build:
