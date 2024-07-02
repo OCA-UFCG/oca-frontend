@@ -9,12 +9,6 @@ jobs:
     runs-on: oca-self-hosted-runner
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Stop existing container
-        run: sudo docker rm -f ${{ vars.CONTAINER_NAME_BETA }} || true 
-
-      - name: Remove the old image
-        run: sudo docker rmi ${{ vars.DOCKER_IMAGE_BETA }}:latest || true
 
       - name: Update docker metadata with the tag 
         uses: docker/metadata-action@v4
@@ -47,6 +41,9 @@ jobs:
             NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
             NEXT_PUBLIC_CONTENTFUL_SPACE=${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE  }}
     
+      - name: Stop existing container
+        run: sudo docker rm -f ${{ vars.CONTAINER_NAME_BETA }} || true 
+            
       - name: Run new container
         run: sudo docker run --name ${{ vars.CONTAINER_NAME_BETA }} -p ${{ vars.HOST_PORT_BETA }}:${{ vars.CONTAINER_PORT }} -d ${{ vars.DOCKER_IMAGE_BETA }}:latest
         
