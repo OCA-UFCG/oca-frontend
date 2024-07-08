@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Image from "next/image";
 import MenuModal from "@/components/MenuModal/MenuModal";
 import Header from "../Header";
+import { Icon } from "@/components/Icon/Icon";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ export const HeaderModal = styled(MenuModal)`
   }
 `;
 
-export const LogoImage = styled(Image)`
+export const LogoImage = styled(Icon)`
   max-width: 8rem;
   height: fit-content;
   @media screen and (min-width: 1000px) {
@@ -26,8 +26,7 @@ export const LogoImage = styled(Image)`
 `;
 
 export const MainHeader = styled(Header)`
-
   @media screen and (max-width: 1000px) {
     display: none;
   }
-`
+`;

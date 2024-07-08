@@ -61,7 +61,9 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
     async (contentType: string, setFunction?: Function) => {
       setLoading(true);
+      console.log("meu deus 1", contentType);
       const res = await client.getEntries({ content_type: contentType });
+      console.log("meu deus 2", contentType);
 
       if (setFunction) {
         setFunction(res.items);
@@ -74,6 +76,7 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
+    console.log("Chamando loadData");
     loadData("tiffInfo", setMapsData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

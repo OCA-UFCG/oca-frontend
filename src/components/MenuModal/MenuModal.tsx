@@ -5,12 +5,8 @@ import {
   HeadWrapper,
   MenuImage,
   ModalWrapper,
-  OcaImage,
-  RetractImage,
 } from "./MenuModal.styles";
-import OcaLogo from "@/../public/logo-oca-simple.svg";
-import RetractIcon from "@/../public/retract-icon.svg";
-import MenuIcon from "@/../public/modal-icon.svg";
+import { Icon } from "../Icon/Icon";
 
 const MenuModal = ({
   children,
@@ -35,7 +31,7 @@ const MenuModal = ({
   return (
     <div {...props}>
       <div onClick={updateRetracted}>
-        {hasIcon && <MenuImage src={MenuIcon} alt="" />}
+        {hasIcon && <MenuImage id="modal-button" size={36} />}
       </div>
       {hasBackground && (
         <Background
@@ -49,9 +45,9 @@ const MenuModal = ({
         position={position}
       >
         <HeadWrapper>
-          {hasIcon && <OcaImage src={OcaLogo} alt="" />}
+          {hasIcon && <Icon id="logo-oca-full" width={120} height={60} />}
           <div onClick={updateRetracted}>
-            <RetractImage src={RetractIcon} alt="" position={position} />
+            <Icon id="retract" size={20} />
           </div>
         </HeadWrapper>
         <ContentWrapper>{children}</ContentWrapper>

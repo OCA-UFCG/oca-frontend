@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useContext, useEffect, useState } from "react";
 import { IEEInfo, IMapInfo } from "@/utils/interfaces";
 import MapTiff from "@/components/MapTiff/MapTiff";
@@ -36,8 +36,6 @@ const DEFAULT_TIFF = "spei";
 
 const MapPage = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
 
   const [loadingMap, setLoadingMap] = useState<boolean>(false);
   const [imageData, setImageData] = useState<IMapInfo>({
@@ -73,21 +71,6 @@ const MapPage = () => {
     setIsmenuRetracted(true);
     setIsDescRetracted(true);
   }, [setIsmenuRetracted, setIsDescRetracted]);
-
-  const handleVisuChange = useCallback(
-    (newImageData: IMapInfo) => {
-      const { name, year } = newImageData;
-      const params = new URLSearchParams(searchParams.toString());
-
-      params.set("name", name);
-      params.set("year", year || "general");
-
-      router.push(`${pathname}?${params.toString()}`);
-
-      setImageData(newImageData);
-    },
-    [pathname, router, searchParams],
-  );
 
   useEffect(() => {
     if (mapsData.length === 0) return;
@@ -135,10 +118,9 @@ const MapPage = () => {
           <MapsMenu
             isLoading={loadingMap}
             initialValues={imageData}
-            options={mapsData.map((data) => data.fields)}
             retracted={isMenuRetracted}
             setRetracted={setIsmenuRetracted}
-            onSelectChange={handleVisuChange}
+            updateVisu={setImageData}
             onQuestionSelect={handleDescUpdate}
           />
           <Link href="/">

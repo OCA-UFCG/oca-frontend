@@ -11,9 +11,6 @@ export const GlobalStyles = createGlobalStyle`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url("background.png");
-    background-size: 100vw;
-    background-repeat: repeat;
     min-height: 100svh;
 
     ::-webkit-scrollbar {
@@ -153,6 +150,9 @@ export const ContentContainer = styled.div`
   padding: 0 0rem 3rem 0rem;
   box-sizing: border-box;
   min-height: 100svh;
+  background-image: url("background.png");
+  background-size: 150vw;
+  background-repeat: repeat;
 `;
 
 export const Main = styled.main`
