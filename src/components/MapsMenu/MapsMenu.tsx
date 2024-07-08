@@ -9,6 +9,8 @@ import {
   ContentWrapper,
   Form,
   ItemWrapper,
+  NoDataContainer,
+  NoDataElement,
   QuestionMarkImg,
   Title,
 } from "./MapsMenu.styles";
@@ -115,7 +117,11 @@ const MapsMenu = ({
               })}
           </Form>
         ) : (
-          <p>No data available</p>
+          <NoDataContainer>
+            {new Array(6).fill(0).map((_, index) => (
+              <NoDataElement key={index} delay={index}></NoDataElement>
+            ))}
+          </NoDataContainer>
         )}
         <DateInput
           mapId={currentName}
