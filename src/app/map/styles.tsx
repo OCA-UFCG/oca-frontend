@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Icon } from "@/components/Icon/Icon";
 import styled from "styled-components";
 
 export const MapContainer = styled.div`
@@ -27,7 +27,7 @@ export const MenuWrapper = styled.div`
   pointer-events: auto;
 `;
 
-export const HomeImage = styled(Image)`
+export const HomeImage = styled(Icon)`
   transition: 0.2s;
   cursor: pointer;
   width: 2rem;
@@ -69,7 +69,7 @@ export const QuestionWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-export const QuestionImage = styled(Image)`
+export const QuestionImage = styled(Icon)`
   transition: 0.2s;
   cursor: pointer;
 

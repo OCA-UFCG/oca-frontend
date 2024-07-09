@@ -7,8 +7,6 @@ import MapTiff from "@/components/MapTiff/MapTiff";
 import MapTemplate from "@/templates/mapTemplate";
 import MapsMenu from "@/components/MapsMenu/MapsMenu";
 import { defaultEEInfo } from "@/utils/constants";
-import HomeIcon from "@/../public/homeIcon.svg";
-import QuestionIcon from "@/../public/questionMark.svg";
 import {
   HeaderWrapper,
   HomeImage,
@@ -124,7 +122,7 @@ const MapPage = () => {
             onQuestionSelect={handleDescUpdate}
           />
           <Link href="/">
-            <HomeImage src={HomeIcon} alt={HomeIcon} height={16} width={16} />
+            <HomeImage id="home" size={16} />
           </Link>
         </MenuWrapper>
         {imageData.name && (
@@ -135,14 +133,11 @@ const MapPage = () => {
                   .fields.name,
               )}
             </VisuName>
-            <QuestionWrapper onClick={() => handleDescUpdate(imageData.name)}>
-              <QuestionImage
-                title={`Sobre ${mapsData.filter((data) => data.fields.id === imageData.name)[0].fields.name}`}
-                src={QuestionIcon}
-                alt={QuestionIcon}
-                height={20}
-                width={20}
-              />
+            <QuestionWrapper
+              onClick={() => handleDescUpdate(imageData.name)}
+              title={`Sobre ${mapsData.filter((data) => data.fields.id === imageData.name)[0].fields.name}`}
+            >
+              <QuestionImage id="question" height={20} width={20} />
             </QuestionWrapper>
           </NameContainer>
         )}

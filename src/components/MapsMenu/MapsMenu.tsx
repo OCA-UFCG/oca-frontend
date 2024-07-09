@@ -2,7 +2,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import MenuModal from "@/components/MenuModal/MenuModal";
 import { VisuItem } from "@/components/VisuItem/VisuItem";
 import { useCallback, useContext, useEffect, useState } from "react";
-import QuestionMarkIcon from "@/../public/questionMark.svg";
 import { IFormItem, IImageData, IMapInfo } from "@/utils/interfaces";
 import DateInput from "@/components/DateInput/DateInput";
 import {
@@ -104,14 +103,12 @@ const MapsMenu = ({
                       onClick={onQuestionSelect}
                       onChange={onItemChange}
                     />
-                    <QuestionMarkImg
+                    <div
                       onClick={() => onQuestionSelect(item.id)}
                       title={`Sobre ${item.name}`}
-                      src={QuestionMarkIcon}
-                      alt={QuestionMarkIcon}
-                      height={16}
-                      width={16}
-                    />
+                    >
+                      <QuestionMarkImg id="question" height={20} width={20} />
+                    </div>
                   </ItemWrapper>
                 );
               })}

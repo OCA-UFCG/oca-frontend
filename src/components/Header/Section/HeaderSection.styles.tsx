@@ -18,8 +18,9 @@ export const HeaderModal = styled(MenuModal)`
 `;
 
 export const LogoImage = styled(Icon)`
-  max-width: 8rem;
-  height: fit-content;
+  width: 8rem;
+  height: 4rem;
+
   @media screen and (min-width: 1000px) {
     display: none;
   }

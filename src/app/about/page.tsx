@@ -3,7 +3,6 @@
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { SectionTitle } from "../globalStyles";
 import { Article, ContentWrapper, OcaImage } from "./styles";
-import OcaLogo from "@/../public/logo-oca-full.svg";
 import Template from "@/templates/hubTemplate";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Document } from "@contentful/rich-text-types";
@@ -37,7 +36,7 @@ const About = () => {
   return (
     <Template>
       <ContentWrapper>
-        <OcaImage src={OcaLogo} alt="oi" />
+        <OcaImage id="logo-oca" />
         <SectionTitle>{title}</SectionTitle>
         <Article>{content && content}</Article>
       </ContentWrapper>

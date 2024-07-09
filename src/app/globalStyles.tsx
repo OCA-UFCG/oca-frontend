@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styled, { createGlobalStyle } from "styled-components";
+import { Icon } from "@/components/Icon/Icon";
 
 export const GlobalStyles = createGlobalStyle`
   :root {
@@ -218,7 +219,7 @@ export const LogoSection = styled.div`
   height: 50vh;
 `;
 
-export const OcaImage = styled(Image)`
+export const OcaImage = styled(Icon)`
   width: fit-content;
   height: 20rem;
 `;
