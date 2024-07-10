@@ -1,4 +1,3 @@
-import Logo from "@/../public/logo-oca-simple.svg";
 import {
   HeaderModal,
   LogoImage,
@@ -18,7 +17,7 @@ const HeaderSection = () => {
         <Header />
       </HeaderModal>
       <Link href="/">
-        <LogoImage src={Logo} alt="" />
+        <LogoImage id="logo-oca-full" size={48} />
       </Link>
       <MainHeader />
     </Wrapper>

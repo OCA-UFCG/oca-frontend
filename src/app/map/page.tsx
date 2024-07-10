@@ -1,14 +1,12 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useContext, useEffect, useState } from "react";
 import { IEEInfo, IMapInfo } from "@/utils/interfaces";
 import MapTiff from "@/components/MapTiff/MapTiff";
 import MapTemplate from "@/templates/mapTemplate";
 import MapsMenu from "@/components/MapsMenu/MapsMenu";
 import { defaultEEInfo } from "@/utils/constants";
-import HomeIcon from "@/../public/homeIcon.svg";
-import QuestionIcon from "@/../public/questionMark.svg";
 import {
   HeaderWrapper,
   HomeImage,
@@ -36,8 +34,6 @@ const DEFAULT_TIFF = "spei";
 
 const MapPage = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
 
   const [loadingMap, setLoadingMap] = useState<boolean>(false);
   const [imageData, setImageData] = useState<IMapInfo>({
@@ -73,21 +69,6 @@ const MapPage = () => {
     setIsmenuRetracted(true);
     setIsDescRetracted(true);
   }, [setIsmenuRetracted, setIsDescRetracted]);
-
-  const handleVisuChange = useCallback(
-    (newImageData: IMapInfo) => {
-      const { name, year } = newImageData;
-      const params = new URLSearchParams(searchParams.toString());
-
-      params.set("name", name);
-      params.set("year", year || "general");
-
-      router.push(`${pathname}?${params.toString()}`);
-
-      setImageData(newImageData);
-    },
-    [pathname, router, searchParams],
-  );
 
   useEffect(() => {
     if (mapsData.length === 0) return;
@@ -135,14 +116,13 @@ const MapPage = () => {
           <MapsMenu
             isLoading={loadingMap}
             initialValues={imageData}
-            options={mapsData.map((data) => data.fields)}
             retracted={isMenuRetracted}
             setRetracted={setIsmenuRetracted}
-            onSelectChange={handleVisuChange}
+            updateVisu={setImageData}
             onQuestionSelect={handleDescUpdate}
           />
           <Link href="/">
-            <HomeImage src={HomeIcon} alt={HomeIcon} height={16} width={16} />
+            <HomeImage id="home" size={16} />
           </Link>
         </MenuWrapper>
         {imageData.name && (
@@ -153,14 +133,11 @@ const MapPage = () => {
                   .fields.name,
               )}
             </VisuName>
-            <QuestionWrapper onClick={() => handleDescUpdate(imageData.name)}>
-              <QuestionImage
-                title={`Sobre ${mapsData.filter((data) => data.fields.id === imageData.name)[0].fields.name}`}
-                src={QuestionIcon}
-                alt={QuestionIcon}
-                height={20}
-                width={20}
-              />
+            <QuestionWrapper
+              onClick={() => handleDescUpdate(imageData.name)}
+              title={`Sobre ${mapsData.filter((data) => data.fields.id === imageData.name)[0].fields.name}`}
+            >
+              <QuestionImage id="question" height={20} width={20} />
             </QuestionWrapper>
           </NameContainer>
         )}

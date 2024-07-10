@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styled, { createGlobalStyle } from "styled-components";
+import { Icon } from "@/components/Icon/Icon";
 
 export const GlobalStyles = createGlobalStyle`
   :root {
@@ -11,9 +12,6 @@ export const GlobalStyles = createGlobalStyle`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url("background.png");
-    background-size: 100vw;
-    background-repeat: repeat;
     min-height: 100svh;
 
     ::-webkit-scrollbar {
@@ -65,6 +63,15 @@ export const GlobalStyles = createGlobalStyle`
       }
       20%, 80% {
           opacity: 1;
+      }
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: 100% 100%;
       }
     }
   }
@@ -153,6 +160,9 @@ export const ContentContainer = styled.div`
   padding: 0 0rem 3rem 0rem;
   box-sizing: border-box;
   min-height: 100svh;
+  background-image: url("background.png");
+  background-size: 150vw;
+  background-repeat: repeat;
 `;
 
 export const Main = styled.main`
@@ -209,7 +219,7 @@ export const LogoSection = styled.div`
   height: 50vh;
 `;
 
-export const OcaImage = styled(Image)`
+export const OcaImage = styled(Icon)`
   width: fit-content;
   height: 20rem;
 `;

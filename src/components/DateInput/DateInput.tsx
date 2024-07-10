@@ -1,6 +1,5 @@
 import { IImageData, IMapInfo } from "@/utils/interfaces";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import calendarIcon from "@/../public/calendar.svg";
 import {
   Wrapper,
   DateInfo,
@@ -52,12 +51,7 @@ const DateInput = ({
 
   return (
     <Wrapper disabled={("general" in dates || isLoading).toString()}>
-      <CalendarImage
-        src={calendarIcon}
-        alt={calendarIcon}
-        height={20}
-        width={20}
-      />
+      <CalendarImage id="calendar" size={20} />
       <DateInfo>{dates?.general ? "--" : currentDate}</DateInfo>
       <InputWrapper>
         <RangeInput

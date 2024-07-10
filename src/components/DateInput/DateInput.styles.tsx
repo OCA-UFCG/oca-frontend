@@ -1,5 +1,5 @@
-import Image from "next/image";
 import styled from "styled-components";
+import { Icon } from "../Icon/Icon";
 
 export const Wrapper = styled.div<{ disabled: string }>`
   display: flex;
@@ -17,7 +17,7 @@ export const Wrapper = styled.div<{ disabled: string }>`
   box-sizing: border-box;
 `;
 
-export const CalendarImage = styled(Image)`
+export const CalendarImage = styled(Icon)`
   height: fit-content;
 `;
 

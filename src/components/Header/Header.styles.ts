@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Image from "next/image";
+import { Icon } from "../Icon/Icon";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const LogoImage = styled(Image)`
+export const LogoImage = styled(Icon)`
   height: 4rem;
   width: fit-content;
 

@@ -13,7 +13,6 @@ import {
   MetaInfoContainer,
   ContentContainer,
 } from "./MapLegend.styles";
-import SubtractIcon from "@/../public/subtract-icon.svg";
 import { useState } from "react";
 import { capitalize } from "@/utils/functions";
 
@@ -39,8 +38,7 @@ export const MapLegend = ({ imageInfo, year = "general" }: MapLegendProps) => {
         <Title>{name}</Title>
         <SubtractImage
           retracted={retracted}
-          src={SubtractIcon}
-          alt={SubtractIcon}
+          id="subtract"
           height={16}
           width={16}
         />

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Image from "next/image";
+import { Icon } from "../Icon/Icon";
 
-export const MenuImage = styled(Image)`
+export const MenuImage = styled(Icon)`
   transition: 0.2s;
   cursor: pointer;
   width: 2rem;

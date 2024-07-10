@@ -1,5 +1,5 @@
-import Image from "next/image";
 import styled from "styled-components";
+import { Icon } from "../Icon/Icon";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ export const Title = styled.h3`
   font-size: 0.9rem;
 `;
 
-export const SubtractImage = styled(Image)<{ retracted: string }>`
+export const SubtractImage = styled(Icon)<{ retracted: string }>`
   ${({ retracted }) =>
     retracted === "retracted" && "transform: rotate(180deg)"};
   transition: 0.3s;
