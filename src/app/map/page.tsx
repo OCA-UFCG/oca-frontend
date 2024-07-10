@@ -2,8 +2,9 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useContext, useEffect, useState } from "react";
-import { IEEInfo, IMapInfo } from "@/utils/interfaces";
+import { IEEInfo, IMapInfo, ILocationData } from "@/utils/interfaces";
 import MapTiff from "@/components/MapTiff/MapTiff";
+import Search from "@/components/Search/Search";
 import MapTemplate from "@/templates/mapTemplate";
 import MapsMenu from "@/components/MapsMenu/MapsMenu";
 import { defaultEEInfo } from "@/utils/constants";
@@ -39,6 +40,7 @@ const MapPage = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const [boundingBox, setBoundingBox] = useState<number[]>([]);
   const [loadingMap, setLoadingMap] = useState<boolean>(false);
   const [imageData, setImageData] = useState<IMapInfo>({
     name: "",
@@ -116,6 +118,14 @@ const MapPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapsData]);
 
+  const getBoundingBox = (searchResults: ILocationData) => {
+    const boundingBox = searchResults.boundingbox;
+    const [south, north, west, east] = boundingBox.map((coordinate: string) =>
+      parseFloat(coordinate),
+    );
+    setBoundingBox([west, north, east, south]);
+  };
+
   return (
     <MapTemplate>
       <MapContainer>
@@ -123,6 +133,7 @@ const MapPage = () => {
           data={imageData}
           onClick={handleMapClick}
           setLoading={setLoadingMap}
+          boundingBox={boundingBox}
         />
       </MapContainer>
       <MapDescription
@@ -132,6 +143,7 @@ const MapPage = () => {
       />
       <HeaderWrapper>
         <MenuWrapper>
+          <Search onClick={getBoundingBox} />
           <MapsMenu
             isLoading={loadingMap}
             initialValues={imageData}
