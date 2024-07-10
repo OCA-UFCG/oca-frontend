@@ -143,7 +143,6 @@ const MapPage = () => {
       />
       <HeaderWrapper>
         <MenuWrapper>
-          <Search onClick={getBoundingBox} />
           <MapsMenu
             isLoading={loadingMap}
             initialValues={imageData}
@@ -156,6 +155,7 @@ const MapPage = () => {
           <Link href="/">
             <HomeImage src={HomeIcon} alt={HomeIcon} height={16} width={16} />
           </Link>
+          <Search onClick={getBoundingBox} />
         </MenuWrapper>
         {imageData.name && (
           <NameContainer>
