@@ -1,3 +1,5 @@
+"use client";
+
 import { Section, SectionTitle } from "@/app/globalStyles";
 import { TeamMembersContainer } from "./TeamMembers.styles";
 import TeamMember from "../TeamMember";

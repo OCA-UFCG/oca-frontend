@@ -1,5 +1,3 @@
-"use client";
-
 import { LogoSection, OcaImage } from "./globalStyles";
 
 import PublicationsSection from "@/components/Publication/Section/Publications";

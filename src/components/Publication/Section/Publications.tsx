@@ -1,3 +1,5 @@
+"use client";
+
 import { Section, SectionTitle } from "@/app/globalStyles";
 import { PublicationsContainer } from "./Publications.styles";
 import Publication from "../Publication";

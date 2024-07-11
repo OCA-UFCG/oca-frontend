@@ -1,3 +1,5 @@
+"use client";
+
 import { SectionTitle } from "@/app/globalStyles";
 import { SponsorsContainer, Wrapper } from "./Sponsors.styles";
 import Sponsor from "../Sponsor";
@@ -11,7 +13,8 @@ const SponsorsSection = () => {
 
   useEffect(() => {
     loadData("sponsors", setSponsors);
-  }, [loadData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrapper id="sponsors">
