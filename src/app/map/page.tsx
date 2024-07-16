@@ -103,6 +103,7 @@ const MapPage = () => {
         <MapTiff
           data={imageData}
           onClick={handleMapClick}
+          loading={loadingMap}
           setLoading={setLoadingMap}
         />
       </MapContainer>
