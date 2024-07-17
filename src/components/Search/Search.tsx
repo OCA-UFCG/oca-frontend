@@ -2,8 +2,25 @@
 
 import { useRef, useState } from "react";
 import { ILocationData } from "@/utils/interfaces";
-import { SearchWrapper, SearchImage, SearchBackground } from "./Search.styles";
+import {
+  SearchWrapper,
+  SearchImage,
+  SearchBackground,
+  SectionTitle,
+  LocationItem,
+  LocationContainer,
+  CityName,
+  CityStateName,
+  InputWrapper,
+  InputComponent,
+  InputSearchImage,
+  InputCloseImage,
+  ResultFollowIcon,
+  LocationWrapper,
+} from "./Search.styles";
 import SearchIcon from "@/../public/search-icon.svg";
+import CloseIcon from "@/../public/close-icon.svg";
+import FollowIcon from "@/../public/follow-icon.svg";
 
 const Search = ({ onClick }: { onClick: (results: ILocationData) => void }) => {
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -18,8 +35,9 @@ const Search = ({ onClick }: { onClick: (results: ILocationData) => void }) => {
   const getResults = async (type: string) => {
     const url = `https://nominatim.openstreetmap.org/search?${type}=${searchInputRef.current?.value}&country=brasil&format=json`;
     const response = await fetch(url);
+    const data = await response.json();
 
-    return await response.json();
+    return data;
   };
 
   const fetchSearchResults = async () => {
@@ -42,6 +60,11 @@ const Search = ({ onClick }: { onClick: (results: ILocationData) => void }) => {
     }
   };
 
+  const handleInputClear = () => {
+    searchInputRef.current && (searchInputRef.current.value = "");
+    setMapSearchResults({ cities: [], states: [] });
+  };
+
   return (
     <>
       <div onClick={setIsVisibleHandler}>
@@ -50,24 +73,70 @@ const Search = ({ onClick }: { onClick: (results: ILocationData) => void }) => {
       {isVisible && (
         <SearchBackground onClick={setIsVisibleHandler}>
           <SearchWrapper onClick={(e) => e.stopPropagation()}>
-            <input
-              name="search"
-              id="search"
-              ref={searchInputRef}
-              onChange={useDebounce}
-            />
-            <p>City</p>
-            {mapSearchResults.cities.map((result) => (
-              <div key={result.place_id} onClick={() => onClick(result)}>
-                {result.addresstype === "municipality" && result.name}
-              </div>
-            ))}
-            <p>State</p>
-            {mapSearchResults.states.map((result) => (
-              <div key={result.place_id} onClick={() => onClick(result)}>
-                {result.addresstype === "state" && result.name}
-              </div>
-            ))}
+            <InputWrapper htmlFor="search">
+              <InputSearchImage
+                src={SearchIcon}
+                alt={SearchIcon}
+                height={16}
+                width={16}
+              />
+              <InputComponent
+                name="search"
+                id="search"
+                ref={searchInputRef}
+                onChange={useDebounce}
+              />
+              <InputCloseImage
+                src={CloseIcon}
+                alt={CloseIcon}
+                height={16}
+                width={16}
+                onClick={() => handleInputClear()}
+              />
+            </InputWrapper>
+            <LocationContainer>
+              <SectionTitle>Cidade</SectionTitle>
+              {mapSearchResults.cities
+                .filter((location) => location.addresstype == "municipality")
+                .map((result) => (
+                  <LocationWrapper
+                    key={result.place_id}
+                    onClick={() => onClick(result)}
+                  >
+                    <LocationItem>
+                      <CityName>{result.name}</CityName>
+                      <CityStateName>
+                        {result.display_name.split(", ").at(-3)}
+                      </CityStateName>
+                    </LocationItem>
+                    <ResultFollowIcon
+                      src={FollowIcon}
+                      alt={FollowIcon}
+                      height={16}
+                      width={16}
+                    />
+                  </LocationWrapper>
+                ))}
+            </LocationContainer>
+            <LocationContainer>
+              <SectionTitle>Estado</SectionTitle>
+              {mapSearchResults.states
+                .filter((location) => location.addresstype == "state")
+                .map((result) => (
+                  <LocationWrapper
+                    key={result.place_id}
+                    onClick={() => onClick(result)}
+                  >
+                    <LocationItem>{result.name}</LocationItem>
+                    <ResultFollowIcon
+                      src={FollowIcon}
+                      alt={FollowIcon}
+                      height={16}
+                      width={16}
+                    />
+                  </LocationWrapper>
+                ))}
+            </LocationContainer>
           </SearchWrapper>
         </SearchBackground>
       )}
