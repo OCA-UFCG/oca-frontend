@@ -18,6 +18,7 @@ import {
   ResultFollowIcon,
   LocationWrapper,
   NoResultsFind,
+  Loading,
 } from "./Search.styles";
 import SearchIcon from "@/../public/search-icon.svg";
 import CloseIcon from "@/../public/close-icon.svg";
@@ -30,6 +31,7 @@ const Search = ({ onClick }: { onClick: (results: ILocationData) => void }) => {
     states: ILocationData[];
   }>({ cities: [], states: [] });
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [searching, setSearching] = useState<boolean>(false);
 
   let handler: string | number | NodeJS.Timeout | undefined;
 
@@ -42,8 +44,15 @@ const Search = ({ onClick }: { onClick: (results: ILocationData) => void }) => {
   };
 
   const fetchSearchResults = async () => {
+    if (!searchInputRef.current?.value) {
+      setMapSearchResults({ cities: [], states: [] });
+
+      return;
+    }
+    setSearching(true);
     const cityData = await getResults("city");
     const stateData = await getResults("state");
+    setSearching(false);
     setMapSearchResults({
       cities: cityData.filter(
         (location: { addresstype: string }) =>
@@ -106,48 +115,60 @@ const Search = ({ onClick }: { onClick: (results: ILocationData) => void }) => {
             </InputWrapper>
             <LocationContainer>
               <SectionTitle>Cidade</SectionTitle>
-              {mapSearchResults.cities.length === 0 && (
-                <NoResultsFind>Nenhum resultado encontrado</NoResultsFind>
+              {searching ? (
+                <Loading id="loading" />
+              ) : (
+                <>
+                  {mapSearchResults.cities.length === 0 && (
+                    <NoResultsFind>Nenhum resultado encontrado</NoResultsFind>
+                  )}
+                  {mapSearchResults.cities.map((result) => (
+                    <LocationWrapper
+                      key={result.place_id}
+                      onClick={() => onClick(result)}
+                    >
+                      <LocationItem>
+                        <CityName>{result.name}</CityName>
+                        <CityStateName>
+                          {result.display_name.split(", ").at(-3)}
+                        </CityStateName>
+                      </LocationItem>
+                      <ResultFollowIcon
+                        src={FollowIcon}
+                        alt={FollowIcon}
+                        height={16}
+                        width={16}
+                      />
+                    </LocationWrapper>
+                  ))}
+                </>
               )}
-              {mapSearchResults.cities.map((result) => (
-                <LocationWrapper
-                  key={result.place_id}
-                  onClick={() => onClick(result)}
-                >
-                  <LocationItem>
-                    <CityName>{result.name}</CityName>
-                    <CityStateName>
-                      {result.display_name.split(", ").at(-3)}
-                    </CityStateName>
-                  </LocationItem>
-                  <ResultFollowIcon
-                    src={FollowIcon}
-                    alt={FollowIcon}
-                    height={16}
-                    width={16}
-                  />
-                </LocationWrapper>
-              ))}
             </LocationContainer>
             <LocationContainer>
               <SectionTitle>Estado</SectionTitle>
-              {mapSearchResults.states.length === 0 && (
-                <NoResultsFind>Nenhum resultado encontrado</NoResultsFind>
+              {searching ? (
+                <Loading id="loading" />
+              ) : (
+                <>
+                  {mapSearchResults.states.length === 0 && (
+                    <NoResultsFind>Nenhum resultado encontrado</NoResultsFind>
+                  )}
+                  {mapSearchResults.states.map((result) => (
+                    <LocationWrapper
+                      key={result.place_id}
+                      onClick={() => onClick(result)}
+                    >
+                      <LocationItem>{result.name}</LocationItem>
+                      <ResultFollowIcon
+                        src={FollowIcon}
+                        alt={FollowIcon}
+                        height={16}
+                        width={16}
+                      />
+                    </LocationWrapper>
+                  ))}{" "}
+                </>
               )}
-              {mapSearchResults.states.map((result) => (
-                <LocationWrapper
-                  key={result.place_id}
-                  onClick={() => onClick(result)}
-                >
-                  <LocationItem>{result.name}</LocationItem>
-                  <ResultFollowIcon
-                    src={FollowIcon}
-                    alt={FollowIcon}
-                    height={16}
-                    width={16}
-                  />
-                </LocationWrapper>
-              ))}
             </LocationContainer>
           </SearchWrapper>
         </SearchBackground>

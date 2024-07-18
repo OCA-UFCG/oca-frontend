@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
+import { Icon } from "../Icon/Icon";
 
 export const SearchWrapper = styled.div`
   border-radius: 6px;
@@ -50,12 +51,28 @@ export const LocationWrapper = styled.div`
   }
 `;
 
+export const InputCloseImage = styled(Image)`
+  cursor: not-allowed;
+  width: 0.75rem;
+  height: auto;
+  margin: auto 0.5rem;
+  opacity: 0.3;
+  &:hover {
+    opacity: 0.5;
+  }
+  transition: 0.3s;
+`;
+
 export const InputComponent = styled.input`
   width: 100%;
   padding: 0.5rem;
   border: none;
   font-size: 0.9rem;
   outline: none;
+  &:not(:placeholder-shown) ~ ${InputCloseImage} {
+    opacity: 1;
+    cursor: pointer;
+  }
 `;
 
 export const NoResultsFind = styled.p`
@@ -80,17 +97,6 @@ export const SearchImage = styled(Image)`
 export const InputSearchImage = styled(Image)`
   width: 1.5rem;
   height: auto;
-  &:hover {
-    opacity: 0.5;
-  }
-  transition: 0.3s;
-`;
-
-export const InputCloseImage = styled(Image)`
-  cursor: pointer;
-  width: 0.75rem;
-  height: auto;
-  margin: auto 0.5rem;
   &:hover {
     opacity: 0.5;
   }
@@ -138,4 +144,12 @@ export const CityStateName = styled.p`
   margin: 0;
   opacity: 0.6;
   line-height: 0.8rem;
+`;
+
+export const Loading = styled(Icon)`
+  animation: spin 1.5s linear infinite;
+  width: 1rem;
+  height: 2rem;
+  align-self: center;
+  opacity: 0.6;
 `;
