@@ -1,3 +1,5 @@
+"use client";
+
 import { LinkButton, SectionTitle, SpinningIcon } from "@/app/globalStyles";
 import {
   Description,

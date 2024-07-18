@@ -1,3 +1,5 @@
+"use client";
+
 import { LinkButton, SectionTitle } from "@/app/globalStyles";
 import { CactusImage, TextContainer, Wrapper } from "./AboutSection.styles";
 import Cactus from "@/../public/cactus.svg";
@@ -25,7 +27,8 @@ const AboutSection = () => {
     };
 
     loadContent();
-  }, [loadData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrapper>
