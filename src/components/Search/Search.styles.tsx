@@ -58,6 +58,13 @@ export const InputComponent = styled.input`
   outline: none;
 `;
 
+export const NoResultsFind = styled.p`
+  font-size: 0.8rem;
+  margin: 0;
+  opacity: 0.6;
+  align-self: center;
+`;
+
 export const SearchImage = styled(Image)`
   transition: 0.2s;
   cursor: pointer;
