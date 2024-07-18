@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Image from "next/image";
 import Link from "next/link";
+import { Icon } from "../Icon/Icon";
 
 export const Wrapper = styled.footer`
   display: flex;
@@ -24,7 +24,7 @@ export const Divider = styled.hr`
   border: 1px solid ${({ theme }) => theme.colors.white};
 `;
 
-export const LogoImage = styled(Image)``;
+export const LogoImage = styled(Icon)``;
 
 export const References = styled.div`
   display: flex;
@@ -61,6 +61,7 @@ export const SocialMedia = styled(Link)`
   gap: 0.5rem;
   transition: 0.2s;
   text-decoration: none;
+  color: ${({ theme }) => theme.colors.white};
 
   &:hover {
     opacity: 0.6;

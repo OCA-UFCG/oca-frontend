@@ -54,6 +54,7 @@ export const Networks = styled.div`
 
 export const Medias = styled(Link)`
   transition: 0.2s;
+  color: ${({ theme }) => theme.colors.green};
   &:hover {
     opacity: 0.6;
   }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Image from "next/image";
+import { Icon } from "@/components/Icon/Icon";
 
 export const ContentWrapper = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ export const Article = styled.article`
   align-items: center;
 `;
 
-export const OcaImage = styled(Image)`
+export const OcaImage = styled(Icon)`
   width: fit-content;
   height: 15rem;
 `;

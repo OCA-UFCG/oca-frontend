@@ -3,7 +3,7 @@
 import maplibregl, { LngLatBoundsLike } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { Wrapper } from "./MapTiff.styles";
+import { MapContainer, Loading, LoadingText } from "./MapTiff.styles";
 import { IMapInfo } from "@/utils/interfaces";
 import {
   MAP_TIFF_STYLE,
@@ -16,13 +16,15 @@ const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
 const MapTiff = ({
   data,
-  onClick,
+  loading,
   setLoading,
   boundingBox,
+  onClick,
   ...props
 }: {
   data: IMapInfo;
-  setLoading: (e: any) => void;
+  loading: boolean;
+  setLoading: (e: boolean) => void;
   onClick?: (e: any) => void;
   boundingBox: number[];
 }) => {
@@ -157,7 +159,17 @@ const MapTiff = ({
     }
   }, [map, boundingBox]);
 
-  return <Wrapper {...props} onClick={onClick} ref={mapContainer} />;
+  return (
+    <MapContainer
+      loading={loading.toString()}
+      {...props}
+      onClick={onClick}
+      ref={mapContainer}
+    >
+      <LoadingText>Carregando mapa</LoadingText>
+      <Loading id="loading" size={40} />
+    </MapContainer>
+  );
 };
 
 export default MapTiff;

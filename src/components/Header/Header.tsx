@@ -1,4 +1,3 @@
-import Logo from "@/../public/logo-oca-simple.svg";
 import { ISection } from "@/utils/interfaces";
 import { LogoImage, NavItem, NavList, Navbar, Wrapper } from "./Header.styles";
 import { sections } from "@/utils/constants";
@@ -8,7 +7,7 @@ const Header = (props: any) => {
   return (
     <Wrapper {...props}>
       <Link href="/">
-        <LogoImage src={Logo} alt="" />
+        <LogoImage id="logo-oca-full" />
       </Link>
       <Navbar>
         <NavList>
@@ -19,7 +18,8 @@ const Header = (props: any) => {
           ))}
         </NavList>
       </Navbar>
-      <div style={{ cursor: "not-allowed" }}>pt-br</div> {/* TODO: ADD language component */}
+      <div style={{ cursor: "not-allowed" }}>pt-br</div>{" "}
+      {/* TODO: ADD language component */}
     </Wrapper>
   );
 };

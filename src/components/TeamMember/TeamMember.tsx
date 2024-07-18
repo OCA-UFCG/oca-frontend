@@ -8,14 +8,15 @@ import {
   Networks,
   Medias,
 } from "./TeamMember.styles";
+import { Icon } from "../Icon/Icon";
 
 const TeamMember = ({ data }: { data: ITeamMember }) => {
   const { name, avatar, role, github, linkedin, lattes } = data;
 
   const socialMedias: ISocialMedia[] = [
-    { name: "github", href: github, icon: "github.svg" },
-    { name: "linkedin", href: linkedin, icon: "linkedin.svg" },
-    { name: "lattes", href: lattes, icon: "lattes.svg" },
+    { name: "github", href: github, icon: "github" },
+    { name: "linkedin", href: linkedin, icon: "linkedin" },
+    { name: "lattes", href: lattes, icon: "lattes" },
   ];
 
   return (
@@ -36,8 +37,8 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           {socialMedias.map(
             ({ name, href, icon }: ISocialMedia, index: number) =>
               href && (
-                <Medias target="_blank" key={index} href={href}>
-                  <img src={icon} alt={name} />
+                <Medias target="_blank" key={index} title={name} href={href}>
+                  <Icon id={icon} size={24} />
                 </Medias>
               ),
           )}

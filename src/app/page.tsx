@@ -1,6 +1,3 @@
-"use client";
-
-import OcaLogo from "@/../public/logo-oca-full.svg";
 import { LogoSection, OcaImage } from "./globalStyles";
 
 import PublicationsSection from "@/components/Publication/Section/Publications";
@@ -15,7 +12,7 @@ export default function Home() {
   return (
     <Template>
       <LogoSection>
-        <OcaImage src={OcaLogo} alt="The oca logo" />
+        <OcaImage id="logo-oca" />
       </LogoSection>
       <AboutSection />
       <MapsSection />
