@@ -1,6 +1,6 @@
 "use client";
 
-import maplibregl from "maplibre-gl";
+import maplibregl, { LngLatBoundsLike } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { MapContainer, Loading, LoadingText } from "./MapTiff.styles";
@@ -18,6 +18,7 @@ const MapTiff = ({
   data,
   loading,
   setLoading,
+  boundingBox,
   onClick,
   ...props
 }: {
@@ -25,6 +26,7 @@ const MapTiff = ({
   loading: boolean;
   setLoading: (e: boolean) => void;
   onClick?: (e: any) => void;
+  boundingBox: number[];
 }) => {
   const { name, year } = data;
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -150,6 +152,12 @@ const MapTiff = ({
       };
     }
   }, [name, year, map, loadLayer, loadMap]);
+
+  useEffect(() => {
+    if (map && boundingBox.length > 0) {
+      map.fitBounds(boundingBox as LngLatBoundsLike);
+    }
+  }, [map, boundingBox]);
 
   return (
     <MapContainer
