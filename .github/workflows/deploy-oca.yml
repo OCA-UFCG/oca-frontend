@@ -42,6 +42,9 @@ jobs:
             NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
             NEXT_PUBLIC_CONTENTFUL_SPACE=${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE  }}
 
+      - name: Pull the latest image
+        run: sudo docker pull ${{ vars.DOCKER_IMAGE_PROD }}:latest    
+      
       - name: Stop existing container
         run: sudo docker rm -f ${{ vars.CONTAINER_NAME_PROD }} || true 
          
