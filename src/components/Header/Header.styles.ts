@@ -3,9 +3,14 @@ import { Icon } from "../Icon/Icon";
 
 export const Wrapper = styled.div`
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1rem 1.5rem;
+  z-index: 50;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   box-sizing: border-box;
 
   @media screen and (max-width: 1000px) {
@@ -16,7 +21,7 @@ export const Wrapper = styled.div`
 
 export const LogoImage = styled(Icon)`
   height: 4rem;
-  width: fit-content;
+  width: 8rem;
 
   @media screen and (max-width: 1000px) {
     display: none;
@@ -24,8 +29,16 @@ export const LogoImage = styled(Icon)`
 `;
 
 export const Navbar = styled.nav`
+  backdrop-filter: blur(40px);
+  padding: 0.5rem 0.75rem;
+  background-color: #ffffff98;
+  border: 1px solid #44444410;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px #00000015;
+
   @media screen and (max-width: 1000px) {
     width: 100%;
+    display: none;
   }
 `;
 
@@ -40,41 +53,5 @@ export const NavList = styled.ul`
     flex-flow: column;
     gap: 1rem;
     align-items: flex-start;
-  }
-`;
-
-export const NavItem = styled.li`
-  transition: 0.3s;
-  line-height: 1.5rem;
-  list-style: none;
-  border-bottom: thin solid transparent;
-  border-left: thin solid transparent;
-  margin: 0;
-
-  a {
-    display: block;
-    text-decoration: none;
-    width: 100%;
-    font-style: none;
-  }
-
-  &:hover {
-    opacity: 0.6;
-  }
-
-  @media screen and (min-width: 1001px) {
-    &:hover {
-      translate: 0 -0.25rem;
-      border-bottom: thin solid ${({ theme }) => theme.colors.black};
-    }
-  }
-
-  @media screen and (max-width: 1000px) {
-    width: 100%;
-
-    &:hover {
-      padding-left: 0.5rem;
-      border-left: thin solid ${({ theme }) => theme.colors.black};
-    }
   }
 `;

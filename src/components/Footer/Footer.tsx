@@ -29,11 +29,11 @@ const Footer = () => {
     <Wrapper>
       <LogoImage id="logo-oca-white" width={150} height={150} />
       <References>
-        {sections.map(({ href, name }: ISection, index: number) => (
+        {/* {sections.map(({ href, name }: ISection, index: number) => (
           <Sections key={index} href={href}>
             {name}
           </Sections>
-        ))}
+        ))} */}
         <Divider />
         <SocialMediasContainer>
           {channels.map(({ name, href, icon }, index) => (

@@ -27,7 +27,12 @@ export interface IOCAChannel {
 
 export interface ISection {
   name: string;
-  href: string;
+  path: string;
+  children?: { [key: string]: ISection };
+}
+
+export interface ISections {
+  [key: string]: ISection;
 }
 
 export interface IPublication {

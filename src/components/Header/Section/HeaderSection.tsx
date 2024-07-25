@@ -13,9 +13,9 @@ const HeaderSection = () => {
 
   return (
     <Wrapper>
-      <HeaderModal retracted={retracted} setRetracted={setRetracted}>
+      {/* <HeaderModal retracted={retracted} setRetracted={setRetracted}>
         <Header />
-      </HeaderModal>
+      </HeaderModal> */}
       <Link href="/">
         <LogoImage id="logo-oca-full" size={48} />
       </Link>

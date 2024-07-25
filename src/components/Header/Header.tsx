@@ -1,9 +1,9 @@
-import { ISection } from "@/utils/interfaces";
-import { LogoImage, NavItem, NavList, Navbar, Wrapper } from "./Header.styles";
-import { sections } from "@/utils/constants";
 import Link from "next/link";
+import { LogoImage, NavList, Navbar, Wrapper } from "./Header.styles";
+import { sections } from "@/utils/constants";
+import { Dropdown } from "@/components/Dropdown/Dropdown";
 
-const Header = (props: any) => {
+const Header = (props?: any) => {
   return (
     <Wrapper {...props}>
       <Link href="/">
@@ -11,14 +11,12 @@ const Header = (props: any) => {
       </Link>
       <Navbar>
         <NavList>
-          {sections.map(({ href, name }: ISection, index: number) => (
-            <NavItem key={index}>
-              <Link href={href}>{name}</Link>
-            </NavItem>
+          {Object.entries(sections).map(([key, item]) => (
+            <Dropdown item={item} key={key} />
           ))}
         </NavList>
       </Navbar>
-      <div style={{ cursor: "not-allowed" }}>pt-br</div>{" "}
+      <div style={{ cursor: "not-allowed" }}></div>{" "}
       {/* TODO: ADD language component */}
     </Wrapper>
   );

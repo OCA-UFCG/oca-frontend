@@ -1,31 +1,44 @@
-import { IEEInfo, ISection } from "./interfaces";
+import { IEEInfo, ISections } from "./interfaces";
 
-export const sections: ISection[] = [
-  {
+export const sections: ISections = {
+  home: {
+    name: "Início",
+    path: "/",
+    children: {
+      updates: {
+        name: "Últimas atualizações",
+        path: "/#ultimas-atualizacoes",
+      },
+      publications: {
+        name: "Publicações",
+        path: "/#publicacoes",
+      },
+      maps: {
+        name: "Mapas & Visualizações",
+        path: "/#mapas-visualizacoes",
+      },
+      partners: {
+        name: "Parceiros",
+        path: "/#parceiros",
+      },
+    },
+  },
+  map: {
+    name: "Mapa",
+    path: "/mapa",
+  },
+  about: {
     name: "Sobre nós",
-    href: "/",
+    path: "/sobre",
+    children: {
+      team: {
+        name: "Nosso time",
+        path: "/#time",
+      },
+    },
   },
-  {
-    name: "Nossa história",
-    href: "/about",
-  },
-  {
-    name: "Publicações",
-    href: "/#publications",
-  },
-  {
-    name: "Mapas e Visualizações",
-    href: "/#maps-visu",
-  },
-  {
-    name: "Parceiros",
-    href: "/#sponsors",
-  },
-  {
-    name: "Nossa Equipe",
-    href: "/#teamMembers",
-  },
-];
+  contact: { name: "Fale conosco", path: "/contato" },
+};
 
 export const defaultEEInfo: IEEInfo = {
   id: "default",

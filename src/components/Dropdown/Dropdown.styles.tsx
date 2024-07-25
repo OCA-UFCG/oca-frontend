@@ -1,0 +1,84 @@
+import styled from "styled-components";
+
+export const NavItem = styled.li`
+  position: relative;
+  transition: 0.3s;
+  line-height: 1.5rem;
+  list-style: none;
+  border-left: thin solid transparent;
+  margin: 0;
+
+  a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    font-weight: normal;
+    font-style: none;
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+
+    &:hover {
+      padding-left: 0.5rem;
+      border-left: thin solid ${({ theme }) => theme.colors.black};
+    }
+  }
+`;
+
+export const ItemContent = styled.div`
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  transition: 0.3s;
+
+  a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    font-weight: normal;
+    font-style: none;
+  }
+
+  &:hover {
+    opacity: 0.6;
+  }
+`;
+
+export const Wrapper = styled.div`
+  padding-top: 1rem;
+
+  position: absolute;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+`;
+
+export const ChildrenWrapper = styled.ul`
+  margin: 0;
+  position: relative;
+  border-radius: 4px;
+  width: fit-content;
+  min-width: 12rem;
+  padding: 0.75rem 0.5rem;
+  flex-flow: column;
+  gap: 0.5rem;
+  display: none;
+  box-shadow: 0px 0px 4px #00000015;
+
+  &::before {
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(40px);
+    background-color: #ffffff98;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+  }
+
+  ${NavItem}:hover & {
+    display: flex;
+  }
+`;
