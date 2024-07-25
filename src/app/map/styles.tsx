@@ -43,7 +43,7 @@ export const NameContainer = styled.div`
   display: flex;
   pointer-events: auto;
   gap: 1rem;
-  z-index: 0;
+  z-index: 1;
 
   max-width: 18rem;
   border-radius: 4px;

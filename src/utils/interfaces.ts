@@ -97,14 +97,3 @@ export interface IImageProps {
   imageId: string;
   pallete?: string[];
 }
-
-export interface ILocationData {
-  addresstype: string;
-  name: string;
-  display_name: string;
-  boundingbox: string[];
-  lat: string;
-  lon: string;
-  osm_id: number;
-  place_id: number;
-}
