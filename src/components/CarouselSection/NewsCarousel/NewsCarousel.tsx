@@ -6,9 +6,10 @@ import {
   NewsWrapper,
   NewsImage,
   NewsTitle,
-  PreviousButton,
-  NextButton,
   ButtonWrapper,
+  LoadingBar,
+  RoundButton,
+  Overlay,
 } from "./NewsCarousel.styles";
 import { INews } from "@/utils/interfaces";
 
@@ -17,10 +18,14 @@ const NewsCarousel = () => {
   const [newsItems, setNewsItems] = useState<INews[]>([]);
   const [index, setIndex] = useState(0);
   const length = 3;
-  const handleNext = () => {
+  let handler: NodeJS.Timeout;
+
+  const handleNext = (event?: { stopPropagation: () => void } | undefined) => {
+    event?.stopPropagation();
     setIndex((index + 1) % length);
   };
-  const handlePrev = () => {
+  const handlePrev = (event?: { stopPropagation: () => void }) => {
+    event?.stopPropagation();
     setIndex((index - 1 + length) % length);
   };
 
@@ -29,21 +34,53 @@ const NewsCarousel = () => {
     setNewsItems(fetchedNewsItems as unknown as INews[]);
   };
 
+  const funcDebounce = () => {
+    handler = setTimeout(() => {
+      handleNext();
+    }, 7000);
+  };
+
+  const redirectUrl = () => {
+    window.open(newsItems[index]?.fields.url, "_blank");
+  };
+
+  useEffect(() => {
+    funcDebounce();
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [index]);
+
   useEffect(() => {
     loadNews();
   }, []);
 
   return (
-    <NewsWrapper>
-      <NewsImage
-        src={newsItems[index]?.fields.thumb.fields.file.url}
-        alt="News"
-      />
+    <NewsWrapper onClick={redirectUrl}>
+      {newsItems[index]?.fields.thumb.fields.file.url && (
+        <NewsImage
+          width={300}
+          height={200}
+          src={
+            newsItems[index]?.fields.thumb.fields.file.url
+              ? `https://${newsItems[index]?.fields.thumb.fields.file.url}`
+              : ""
+          }
+          alt="News"
+        />
+      )}
+      <Overlay />
       <ButtonWrapper>
-        <PreviousButton onClick={handlePrev}>Previous</PreviousButton>
-        <NextButton onClick={handleNext}>Next</NextButton>
+        <RoundButton size={36} id="previous-slide" onClick={handlePrev} />
+        <RoundButton size={36} id="next-slide" onClick={handleNext} />
       </ButtonWrapper>
-      <NewsTitle>{newsItems[index]?.fields.title}</NewsTitle>
+      <NewsTitle>
+        {newsItems[index]?.fields.title.length > 60
+          ? `${newsItems[index]?.fields.title.substring(0, 60)}...`
+          : newsItems[index]?.fields.title}
+      </NewsTitle>
+      <LoadingBar key={index} />
     </NewsWrapper>
   );
 };

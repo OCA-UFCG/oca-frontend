@@ -2,14 +2,16 @@
 
 import NewsCarousel from "./NewsCarousel/NewsCarousel";
 import { CarouselWrapper } from "./CarouselSection.styles";
+import { SectionTitle } from "@/app/globalStyles";
 
 const CarouselSection = () => {
   return (
-    <CarouselWrapper>
-      <NewsCarousel />
-      <NewsCarousel />
-      <NewsCarousel />
-    </CarouselWrapper>
+    <>
+      <SectionTitle>Últimas atualizações</SectionTitle>
+      <CarouselWrapper>
+        <NewsCarousel />
+      </CarouselWrapper>
+    </>
   );
 };
 

@@ -74,6 +74,15 @@ export const GlobalStyles = createGlobalStyle`
         background-position: 100% 100%;
       }
     }
+
+    @keyframes expandWidth {
+      from {
+        width: 0%;
+      }
+      to {
+        width: 100%;
+      }
+    }
   }
 
   
