@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useContext, useEffect } from "react";
-import { CMSContext } from "@/contexts/ContentProvider";
+import { useState, useEffect } from "react";
 import {
   NewsWrapper,
   NewsImage,
@@ -13,9 +12,7 @@ import {
 } from "./NewsCarousel.styles";
 import { INews } from "@/utils/interfaces";
 
-const NewsCarousel = () => {
-  const { loadData } = useContext(CMSContext);
-  const [newsItems, setNewsItems] = useState<INews[]>([]);
+const NewsCarousel = ({ newsItems }: { newsItems: INews[] }) => {
   const [index, setIndex] = useState(0);
   const length = 3;
   let handler: NodeJS.Timeout;
@@ -29,11 +26,6 @@ const NewsCarousel = () => {
     setIndex((index - 1 + length) % length);
   };
 
-  const loadNews = async () => {
-    const fetchedNewsItems = await loadData("news");
-    setNewsItems(fetchedNewsItems as unknown as INews[]);
-  };
-
   const funcDebounce = () => {
     handler = setTimeout(() => {
       handleNext();
@@ -45,16 +37,14 @@ const NewsCarousel = () => {
   };
 
   useEffect(() => {
-    funcDebounce();
+    if (newsItems.length > 1) {
+      funcDebounce();
+    }
 
     return () => {
       clearTimeout(handler);
     };
-  }, [index]);
-
-  useEffect(() => {
-    loadNews();
-  }, []);
+  }, [index, newsItems]);
 
   return (
     <NewsWrapper onClick={redirectUrl}>
@@ -71,16 +61,18 @@ const NewsCarousel = () => {
         />
       )}
       <Overlay />
-      <ButtonWrapper>
-        <RoundButton size={36} id="previous-slide" onClick={handlePrev} />
-        <RoundButton size={36} id="next-slide" onClick={handleNext} />
-      </ButtonWrapper>
+      {newsItems.length > 1 && (
+        <ButtonWrapper>
+          <RoundButton size={36} id="previous-slide" onClick={handlePrev} />
+          <RoundButton size={36} id="next-slide" onClick={handleNext} />
+        </ButtonWrapper>
+      )}
       <NewsTitle>
         {newsItems[index]?.fields.title.length > 60
           ? `${newsItems[index]?.fields.title.substring(0, 60)}...`
           : newsItems[index]?.fields.title}
       </NewsTitle>
-      <LoadingBar key={index} />
+      {newsItems.length > 1 && <LoadingBar key={index} />}
     </NewsWrapper>
   );
 };
