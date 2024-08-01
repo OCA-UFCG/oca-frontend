@@ -38,6 +38,7 @@ export const ItemContent = styled.div`
     width: 100%;
     font-weight: normal;
     font-style: none;
+    text-wrap: nowrap;
   }
 
   &:hover {
@@ -56,11 +57,10 @@ export const Wrapper = styled.div`
 
 export const ChildrenWrapper = styled.ul`
   margin: 0;
-  position: relative;
+  position: absolute;
   border-radius: 4px;
   width: fit-content;
-  min-width: 12rem;
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 1rem;
   flex-flow: column;
   gap: 0.5rem;
   display: none;
@@ -71,8 +71,8 @@ export const ChildrenWrapper = styled.ul`
     width: 100%;
     height: 100%;
     backdrop-filter: blur(40px);
-    background-color: #ffffff98;
     position: absolute;
+    background-color: #ffffff;
     top: 0;
     left: 0;
     content: "";

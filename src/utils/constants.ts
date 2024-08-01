@@ -5,35 +5,36 @@ export const sections: ISections = {
     name: "Início",
     path: "/",
     children: {
-      updates: {
-        name: "Últimas atualizações",
-        path: "/#ultimas-atualizacoes",
-      },
+      // updates: {
+      //   name: "Últimas atualizações",
+      //   path: "/#ultimas-atualizacoes",
+      // },
+
       publications: {
         name: "Publicações",
-        path: "/#publicacoes",
+        path: "/#publications",
       },
       maps: {
         name: "Mapas & Visualizações",
-        path: "/#mapas-visualizacoes",
+        path: "/#maps-visu",
       },
       partners: {
         name: "Parceiros",
-        path: "/#parceiros",
+        path: "/#sponsors",
       },
     },
   },
   map: {
     name: "Mapa",
-    path: "/mapa",
+    path: "/map",
   },
   about: {
     name: "Sobre nós",
-    path: "/sobre",
+    path: "/about",
     children: {
       team: {
         name: "Nosso time",
-        path: "/#time",
+        path: "/#teamMembers",
       },
     },
   },

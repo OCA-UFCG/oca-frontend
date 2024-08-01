@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import MenuModal from "@/components/MenuModal/MenuModal";
 import Header from "../Header";
 import { Icon } from "@/components/Icon/Icon";
 
@@ -9,12 +8,6 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   padding: 1rem;
   box-sizing: border-box;
-`;
-
-export const HeaderModal = styled(MenuModal)`
-  @media screen and (min-width: 1000px) {
-    display: none;
-  }
 `;
 
 export const LogoImage = styled(Icon)`

@@ -1,4 +1,4 @@
-import { ISection, IOCAChannel } from "@/utils/interfaces";
+import { IOCAChannel } from "@/utils/interfaces";
 import { sections } from "@/utils/constants";
 import {
   Wrapper,
@@ -29,11 +29,11 @@ const Footer = () => {
     <Wrapper>
       <LogoImage id="logo-oca-white" width={150} height={150} />
       <References>
-        {/* {sections.map(({ href, name }: ISection, index: number) => (
-          <Sections key={index} href={href}>
-            {name}
+        {Object.entries(sections).map(([key, item]) => (
+          <Sections key={key} href={item.path}>
+            {item.name}
           </Sections>
-        ))} */}
+        ))}
         <Divider />
         <SocialMediasContainer>
           {channels.map(({ name, href, icon }, index) => (
