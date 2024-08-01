@@ -1,23 +1,26 @@
 import { Section } from "@/app/globalStyles";
 import styled from "styled-components";
 
-export const CarouselSection = styled(Section)`
-  flex-direction: row;
+export const CarouselWrapperSection = styled(Section)`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: 1rem;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  box-sizing: border-box;
 `;
 
 export const CarouselWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   background: #778c6130;
   gap: 1rem;
   width: 100%;
-  height: 40rem;
-  max-width: 1440px;
-  padding: 0.75rem;
+  height: auto;
+  padding: 1rem;
   border-radius: 0.2rem;
   box-sizing: border-box;
+  margin: 0 auto;
 `;

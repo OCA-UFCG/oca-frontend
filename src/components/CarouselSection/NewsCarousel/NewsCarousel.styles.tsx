@@ -8,13 +8,18 @@ export const NewsWrapper = styled.div`
   padding: 1rem;
   border-radius: 0.2rem;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 8;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    aspect-ratio: 10 / 8;
+  }
 `;
 
 export const NewsImage = styled(Image)`
