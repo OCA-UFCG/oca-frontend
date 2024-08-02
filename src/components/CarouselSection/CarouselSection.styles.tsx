@@ -21,6 +21,6 @@ export const CarouselWrapper = styled.div`
   height: auto;
   padding: 1rem;
   border-radius: 0.2rem;
+  aspect-ratio: 16 / 8;
   box-sizing: border-box;
-  margin: 0 auto;
 `;

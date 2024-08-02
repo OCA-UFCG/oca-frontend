@@ -85,3 +85,19 @@ export const LoadingBar = styled.div`
   left: 0;
   border-radius: 0 0 0.2rem 0.2rem;
 `;
+
+export const LoadingIcon = styled(Icon)`
+  animation: spin 1.5s linear infinite;
+  color: ${({ theme }) => theme.colors.green}60;
+  font-size: 2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  max-height: 200px;
+  max-width: 200px;
+  border-radius: 50%;
+  box-sizing: border-box;
+`;

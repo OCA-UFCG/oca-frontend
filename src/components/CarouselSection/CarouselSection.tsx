@@ -17,7 +17,25 @@ const CarouselSection = () => {
 
   const loadNews = async () => {
     const fetchedNewsItems = await loadData("news");
-    setNewsItems(fetchedNewsItems as unknown as INews[]);
+    if (fetchedNewsItems.length > 0) {
+      setNewsItems(fetchedNewsItems as unknown as INews[]);
+    } else {
+      setNewsItems([
+        {
+          fields: {
+            thumb: {
+              fields: {
+                file: {
+                  url: "images.ctfassets.net/49yodhe2mply/7EZ7TU15FiOxrbIRZCvuPZ/9c8efc4158c700abde67ca84f8268a1c/Frame_214__1_.png",
+                },
+              },
+            },
+            url: "https://www.instagram.com/observatorio.caatinga?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+            title: "Observatório da Caatinga",
+          },
+        },
+      ]);
+    }
     setLoading(false);
   };
 
@@ -29,27 +47,7 @@ const CarouselSection = () => {
     <CarouselWrapperSection>
       <SectionTitle>Últimas atualizações</SectionTitle>
       <CarouselWrapper>
-        {newsItems.length == 0 && loading == false ? (
-          <NewsCarousel
-            newsItems={[
-              {
-                fields: {
-                  thumb: {
-                    fields: {
-                      file: {
-                        url: "drive.google.com/thumbnail?id=1iAfp02KeJGkAUQm73jlsRok0NGj-Ohg1",
-                      },
-                    },
-                  },
-                  url: "https://www.instagram.com/observatorio.caatinga?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-                  title: "Observatório da Caatinga",
-                },
-              },
-            ]}
-          />
-        ) : (
-          <NewsCarousel newsItems={newsItems} />
-        )}
+        <NewsCarousel newsItems={newsItems} loading={loading} />
       </CarouselWrapper>
     </CarouselWrapperSection>
   );
