@@ -35,10 +35,9 @@ export const ItemContent = styled.div`
   a {
     display: block;
     text-decoration: none;
-    width: 100%;
+    width: max-content;
     font-weight: normal;
     font-style: none;
-    text-wrap: nowrap;
   }
 
   &:hover {
