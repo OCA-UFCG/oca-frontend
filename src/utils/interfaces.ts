@@ -23,6 +23,7 @@ export interface IOCAChannel {
   name: string;
   href: string;
   icon: string;
+  size?: number;
 }
 
 export interface ISection {

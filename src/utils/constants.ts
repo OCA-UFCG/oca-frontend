@@ -1,4 +1,19 @@
-import { IEEInfo, ISections } from "./interfaces";
+import { IEEInfo, IOCAChannel, ISections } from "./interfaces";
+
+export const channels: IOCAChannel[] = [
+  {
+    name: "GitHub",
+    href: "https://github.com/OCA-UFCG",
+    icon: "github",
+    size: 22,
+  },
+  {
+    name: "White instagram icon with a camera drawing",
+    href: "https://www.instagram.com/observatorio.caatinga/",
+    icon: "instagram",
+    size: 27,
+  },
+];
 
 export const sections: ISections = {
   home: {

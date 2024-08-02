@@ -1,5 +1,4 @@
-import { IOCAChannel } from "@/utils/interfaces";
-import { sections } from "@/utils/constants";
+import { channels, sections } from "@/utils/constants";
 import {
   Wrapper,
   Divider,
@@ -12,19 +11,6 @@ import {
 import { Icon } from "../Icon/Icon";
 
 const Footer = () => {
-  const channels: IOCAChannel[] = [
-    {
-      name: "GitHub",
-      href: "https://github.com/OCA-UFCG",
-      icon: "github",
-    },
-    {
-      name: "White instagram icon with a camera drawing",
-      href: "https://www.instagram.com/observatorio.caatinga/",
-      icon: "instagram",
-    },
-  ];
-
   return (
     <Wrapper>
       <LogoImage id="logo-oca-white" width={150} height={150} />
@@ -36,9 +22,9 @@ const Footer = () => {
         ))}
         <Divider />
         <SocialMediasContainer>
-          {channels.map(({ name, href, icon }, index) => (
+          {channels.map(({ name, href, icon, size }, index) => (
             <SocialMedia target="_blank" key={index} title={name} href={href}>
-              <Icon id={icon} size={24} />
+              <Icon id={icon} size={size} />
             </SocialMedia>
           ))}
         </SocialMediasContainer>

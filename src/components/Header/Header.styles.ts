@@ -55,3 +55,25 @@ export const NavList = styled.ul`
     align-items: flex-start;
   }
 `;
+
+export const SocialMedia = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(40px);
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  background-color: #ffffff60;
+`;
+
+export const MediaWrapper = styled.a`
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.black}90;
+  transition: 300ms;
+
+  &:hover {
+    transform: scale(110%);
+  }
+`;
