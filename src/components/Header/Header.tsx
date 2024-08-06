@@ -1,9 +1,33 @@
-import { ISection } from "@/utils/interfaces";
-import { LogoImage, NavItem, NavList, Navbar, Wrapper } from "./Header.styles";
-import { sections } from "@/utils/constants";
 import Link from "next/link";
+import {
+  LogoImage,
+  MediaWrapper,
+  NavList,
+  Navbar,
+  SocialMedia,
+  Wrapper,
+} from "./Header.styles";
+import { channels, sections } from "@/utils/constants";
+import { Dropdown } from "@/components/Dropdown/Dropdown";
+import { Icon } from "../Icon/Icon";
 
-const Header = (props: any) => {
+const SocialMediaIem = ({
+  href,
+  icon,
+  size,
+}: {
+  href: string;
+  icon: string;
+  size: number;
+}) => {
+  return (
+    <MediaWrapper href={href} target="_blank" title={icon}>
+      <Icon id={icon} size={size} />
+    </MediaWrapper>
+  );
+};
+
+const Header = (props?: any) => {
   return (
     <Wrapper {...props}>
       <Link href="/">
@@ -11,15 +35,21 @@ const Header = (props: any) => {
       </Link>
       <Navbar>
         <NavList>
-          {sections.map(({ href, name }: ISection, index: number) => (
-            <NavItem key={index}>
-              <Link href={href}>{name}</Link>
-            </NavItem>
+          {Object.entries(sections).map(([key, item]) => (
+            <Dropdown item={item} key={key} />
           ))}
         </NavList>
       </Navbar>
-      <div style={{ cursor: "not-allowed" }}>pt-br</div>{" "}
-      {/* TODO: ADD language component */}
+      <SocialMedia>
+        {channels.map(({ name, icon, href, size }) => (
+          <SocialMediaIem
+            key={name.toLocaleLowerCase().replace(" ", "-")}
+            icon={icon}
+            href={href}
+            size={size || 24}
+          />
+        ))}
+      </SocialMedia>
     </Wrapper>
   );
 };

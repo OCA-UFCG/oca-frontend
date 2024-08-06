@@ -54,6 +54,7 @@ export const Sections = styled(Link)`
 export const SocialMediasContainer = styled.div`
   display: flex;
   gap: 1rem;
+  align-items: center;
 `;
 
 export const SocialMedia = styled(Link)`

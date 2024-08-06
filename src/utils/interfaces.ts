@@ -23,11 +23,17 @@ export interface IOCAChannel {
   name: string;
   href: string;
   icon: string;
+  size?: number;
 }
 
 export interface ISection {
   name: string;
-  href: string;
+  path: string;
+  children?: { [key: string]: ISection };
+}
+
+export interface ISections {
+  [key: string]: ISection;
 }
 
 export interface IPublication {
