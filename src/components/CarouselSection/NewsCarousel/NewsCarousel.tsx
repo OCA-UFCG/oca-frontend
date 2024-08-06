@@ -21,31 +21,25 @@ const NewsCarousel = ({
   loading: boolean;
 }) => {
   const [index, setIndex] = useState(0);
-  const length = 3;
   let handler: NodeJS.Timeout;
 
-  const handleNext = (event?: { stopPropagation: () => void } | undefined) => {
-    event?.stopPropagation();
-    setIndex((index + 1) % length);
-  };
-  const handlePrev = (event?: { stopPropagation: () => void }) => {
-    event?.stopPropagation();
-    setIndex((index - 1 + length) % length);
+  const handleNews = (
+    updateIndex: () => number,
+    event?: { preventDefault: () => void } | undefined,
+  ) => {
+    event?.preventDefault();
+    setIndex(updateIndex);
   };
 
-  const funcDebounce = () => {
+  const newsDebounce = () => {
     handler = setTimeout(() => {
-      handleNext();
+      handleNews(() => (index + 1) % newsItems.length);
     }, 7000);
-  };
-
-  const redirectUrl = () => {
-    window.open(newsItems[index]?.fields.url, "_blank");
   };
 
   useEffect(() => {
     if (newsItems.length > 1) {
-      funcDebounce();
+      newsDebounce();
     }
 
     return () => {
@@ -54,7 +48,7 @@ const NewsCarousel = ({
   }, [index, newsItems]);
 
   return (
-    <NewsWrapper onClick={redirectUrl}>
+    <NewsWrapper href={newsItems[index]?.fields.url} target="_blank">
       {loading ? (
         <LoadingIcon id="loading" />
       ) : (
@@ -72,8 +66,23 @@ const NewsCarousel = ({
           <Overlay />
           {newsItems.length > 1 && (
             <ButtonWrapper>
-              <RoundButton size={36} id="previous-slide" onClick={handlePrev} />
-              <RoundButton size={36} id="next-slide" onClick={handleNext} />
+              <RoundButton
+                size={36}
+                id="previous-slide"
+                onClick={(e) =>
+                  handleNews(
+                    () => (index - 1 + newsItems.length) % newsItems.length,
+                    e,
+                  )
+                }
+              />
+              <RoundButton
+                size={36}
+                id="next-slide"
+                onClick={(e) =>
+                  handleNews(() => (index + 1) % newsItems.length, e)
+                }
+              />
             </ButtonWrapper>
           )}
           <NewsTitle>

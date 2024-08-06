@@ -2,7 +2,7 @@ import { Icon } from "@/components/Icon/Icon";
 import Image from "next/image";
 import styled from "styled-components";
 
-export const NewsWrapper = styled.div`
+export const NewsWrapper = styled.a`
   position: relative;
   box-sizing: border-box;
   padding: 1rem;
@@ -14,6 +14,7 @@ export const NewsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
   overflow: hidden;
   cursor: pointer;
 
@@ -62,7 +63,6 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const NewsTitle = styled.h2`
-  background: none;
   font-size: 1.5rem;
   font-weight: 500;
   z-index: 0;
