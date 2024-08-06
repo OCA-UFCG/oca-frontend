@@ -1,31 +1,60 @@
-import { IEEInfo, ISection } from "./interfaces";
+import { IEEInfo, IOCAChannel, ISections } from "./interfaces";
 
-export const sections: ISection[] = [
+export const channels: IOCAChannel[] = [
   {
-    name: "Sobre nós",
-    href: "/",
+    name: "GitHub",
+    href: "https://github.com/OCA-UFCG",
+    icon: "github",
+    size: 22,
   },
   {
-    name: "Nossa história",
-    href: "/about",
-  },
-  {
-    name: "Publicações",
-    href: "/#publications",
-  },
-  {
-    name: "Mapas e Visualizações",
-    href: "/#maps-visu",
-  },
-  {
-    name: "Parceiros",
-    href: "/#sponsors",
-  },
-  {
-    name: "Nossa Equipe",
-    href: "/#teamMembers",
+    name: "White instagram icon with a camera drawing",
+    href: "https://www.instagram.com/observatorio.caatinga/",
+    icon: "instagram",
+    size: 27,
   },
 ];
+
+export const sections: ISections = {
+  home: {
+    name: "Início",
+    path: "/",
+    children: {
+      // updates: {
+      //   name: "Últimas atualizações",
+      //   path: "/#ultimas-atualizacoes",
+      // },
+
+      publications: {
+        name: "Publicações",
+        path: "/#publications",
+      },
+      maps: {
+        name: "Mapas & Visualizações",
+        path: "/#maps-visu",
+      },
+      partners: {
+        name: "Parceiros",
+        path: "/#sponsors",
+      },
+    },
+  },
+  map: {
+    name: "Mapa",
+    path: "/map",
+  },
+  about: {
+    name: "Sobre nós",
+    path: "/about",
+    children: {
+      team: {
+        name: "Nosso time",
+        path: "/#teamMembers",
+      },
+    },
+  },
+  contact: { name: "Fale conosco", path: "/contato" },
+};
 
 export const defaultEEInfo: IEEInfo = {
   id: "default",

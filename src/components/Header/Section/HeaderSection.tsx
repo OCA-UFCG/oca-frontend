@@ -1,21 +1,11 @@
-import {
-  HeaderModal,
-  LogoImage,
-  MainHeader,
-  Wrapper,
-} from "./HeaderSection.styles";
-import Header from "../Header";
+import HeaderModal from "@/components/Header/Modal/HeaderModal";
+import { LogoImage, MainHeader, Wrapper } from "./HeaderSection.styles";
 import Link from "next/link";
-import { useState } from "react";
 
 const HeaderSection = () => {
-  const [retracted, setRetracted] = useState<boolean>(true);
-
   return (
     <Wrapper>
-      <HeaderModal retracted={retracted} setRetracted={setRetracted}>
-        <Header />
-      </HeaderModal>
+      <HeaderModal />
       <Link href="/">
         <LogoImage id="logo-oca-full" size={48} />
       </Link>
