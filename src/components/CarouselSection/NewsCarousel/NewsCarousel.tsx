@@ -57,9 +57,8 @@ const NewsCarousel = ({
             width={1600}
             height={800}
             src={
-              newsItems[index]?.fields.thumb.fields.file.url
-                ? `https://${newsItems[index]?.fields.thumb.fields.file.url}`
-                : ""
+              newsItems[index]?.fields.thumb.fields.file.url &&
+              `https://${newsItems[index]?.fields.thumb.fields.file.url}`
             }
             alt="News"
           />
