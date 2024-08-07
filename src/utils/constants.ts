@@ -1,4 +1,4 @@
-import { IEEInfo, IOCAChannel, ISections } from "./interfaces";
+import { IEEInfo, IOCAChannel, ISections, INews } from "./interfaces";
 
 export const channels: IOCAChannel[] = [
   {
@@ -75,6 +75,22 @@ export const defaultEEInfo: IEEInfo = {
   minScale: 0,
   maxScale: 1,
 };
+
+export const defaultNews: INews[] = [
+  {
+    fields: {
+      thumb: {
+        fields: {
+          file: {
+            url: "images.ctfassets.net/49yodhe2mply/7EZ7TU15FiOxrbIRZCvuPZ/9c8efc4158c700abde67ca84f8268a1c/Frame_214__1_.png",
+          },
+        },
+      },
+      url: "https://www.instagram.com/observatorio.caatinga?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+      title: "Observatório da Caatinga",
+    },
+  },
+];
 
 export const MAP_TIFF_STYLE =
   "https://api.maptiler.com/maps/basic-v2/style.json?key=71L2QPZ0FHRofxg3QtVC";

@@ -103,3 +103,11 @@ export interface IImageProps {
   imageId: string;
   pallete?: string[];
 }
+
+export interface INews {
+  fields: {
+    title: string;
+    thumb: { fields: { file: { url: string } } };
+    url: string;
+  };
+}
