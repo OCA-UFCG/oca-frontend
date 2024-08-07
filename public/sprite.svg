@@ -1,10 +1,11 @@
 <!-- sprite.svg -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-        <symbol id="loading" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <symbol id="loading" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M12 3a9 9 0 1 0 9 9" />
-          </symbol>
+        </symbol>
         <symbol viewBox="0 0 157 76" id="logo-oca-full">
             <g filter="url(#filter0_d_588_1447)">
                 <path
@@ -328,6 +329,11 @@
         <symbol id="arrow-head" viewBox="0 0 11 7" fill="none">
             <path d="M1.46875 1.61182L5.46875 5.61182L9.46875 1.61182" stroke="currentColor"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="link-arrow" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M9.80752 1.44019C9.80752 1.09501 9.5277 0.815186 9.18252 0.815184L3.55751 0.815169C3.21234 0.815183 2.93252 1.095 2.93251 1.44017C2.93254 1.78538 3.21234 2.06517 3.5575 2.06517L8.55752 2.06518L8.55752 7.06518C8.55752 7.41036 8.83734 7.69018 9.18252 7.69019C9.5277 7.69018 9.80752 7.41036 9.80752 7.06518L9.80752 1.44019ZM0.78563 8.9532C0.541546 9.19728 0.541554 9.593 0.78563 9.83708C1.02971 10.0812 1.42543 10.0812 1.66951 9.83708L0.78563 8.9532ZM8.74058 0.998244L0.78563 8.9532L1.66951 9.83708L9.62446 1.88213L8.74058 0.998244Z"
+                fill="white" fill-opacity="1" />
         </symbol>
 
 

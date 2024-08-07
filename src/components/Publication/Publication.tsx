@@ -1,14 +1,32 @@
 import { IPublication } from "@/utils/interfaces";
-import { Card, Type, CardTitle } from "./Publication.styles";
+import {
+  Card,
+  Type,
+  CardTitle,
+  TypeContainer,
+  ArrowIcon,
+  IconContainer,
+  SecondArrowIcon,
+} from "./Publication.styles";
 
 const Publication = ({ data }: { data: IPublication }) => {
   const { title, href, type } = data;
-  const maxContentLength = 100
+  const maxContentLength = 100;
 
   return (
     <Card href={href} target="_blank" title={title}>
-      <Type>{type}</Type>
-      <CardTitle>{title.length > maxContentLength ? title.slice(0, maxContentLength) + '...' : title}</CardTitle>
+      <TypeContainer>
+        <Type>{type}</Type>
+        <IconContainer>
+          <ArrowIcon id="link-arrow" size={12} />
+          <SecondArrowIcon id="link-arrow" size={12} />
+        </IconContainer>
+      </TypeContainer>
+      <CardTitle>
+        {title.length > maxContentLength
+          ? title.slice(0, maxContentLength) + "..."
+          : title}
+      </CardTitle>
     </Card>
   );
 };
