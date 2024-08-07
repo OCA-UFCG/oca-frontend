@@ -8,7 +8,6 @@ export const NewsWrapper = styled.a`
   padding: 1rem;
   border-radius: 0.2rem;
   width: 100%;
-  aspect-ratio: 16 / 8;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -17,10 +16,6 @@ export const NewsWrapper = styled.a`
   text-decoration: none;
   overflow: hidden;
   cursor: pointer;
-
-  @media (max-width: 768px) {
-    aspect-ratio: 10 / 8;
-  }
 `;
 
 export const NewsImage = styled(Image)`
