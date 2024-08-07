@@ -47,6 +47,7 @@ export const Tag = styled.span<{ active?: string }>`
   border-radius: 2px;
   transition: 0.3s;
   text-wrap: nowrap;
+  z-index: 0;
   cursor: ${({ active }) => (active === "true" ? "not-allowed" : "pointer")};
   background-color: ${({ theme, active }) =>
     active === "false" ? "transparent" : theme.colors.white};
