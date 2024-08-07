@@ -168,7 +168,6 @@ export const ContentContainer = styled.div`
   width: 100%;
   padding: 0 0rem 3rem 0rem;
   box-sizing: border-box;
-  min-height: 100svh;
   background-image: url("background.png");
   background-size: 150vw;
   background-repeat: repeat;

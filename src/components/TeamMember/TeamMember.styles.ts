@@ -5,45 +5,41 @@ import Link from "next/link";
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 16rem;
-  gap: 1rem;
-
-  @media (max-width: 600px) {
-    flex-flow: column;
-  }
+  width: auto;
+  gap: 0.5rem;
+  flex-direction: column;
 `;
 
 export const Avatar = styled(Image)`
   border-radius: 50%;
-  height: 5rem;
-  width: 5rem;
-`;
-
-export const Details = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 600px) {
-    align-items: center;
-    height: 100%;
-  }
+  height: 6rem;
+  width: 6rem;
 `;
 
 export const Name = styled.span`
   font-weight: bold;
+  font-size: 1.1rem;
 
   @media (max-width: 600px) {
     flex: 2;
     min-width: 7rem;
     text-align: center;
     font-size: 1rem;
+    max-width: 8rem;
   }
 `;
 
 export const Role = styled.span`
   margin-bottom: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.gray};
+
+  @media (max-width: 600px) {
+    flex: 2;
+    min-width: 7rem;
+    text-align: center;
+    font-size: 0.8rem;
+  }
 `;
 
 export const Networks = styled.div`

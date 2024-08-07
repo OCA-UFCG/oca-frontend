@@ -2,7 +2,6 @@ import { ITeamMember, ISocialMedia } from "@/utils/interfaces";
 import {
   Wrapper,
   Avatar,
-  Details,
   Name,
   Role,
   Networks,
@@ -30,20 +29,18 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
         width={50}
         height={50}
       />
-      <Details>
-        <Name>{name}</Name>
-        <Role>{role}</Role>
-        <Networks>
-          {socialMedias.map(
-            ({ name, href, icon }: ISocialMedia, index: number) =>
-              href && (
-                <Medias target="_blank" key={index} title={name} href={href}>
-                  <Icon id={icon} size={24} />
-                </Medias>
-              ),
-          )}
-        </Networks>
-      </Details>
+      <Name>{name}</Name>
+      <Role>{role}</Role>
+      <Networks>
+        {socialMedias.map(
+          ({ name, href, icon }: ISocialMedia, index: number) =>
+            href && (
+              <Medias target="_blank" key={index} title={name} href={href}>
+                <Icon id={icon} size={24} />
+              </Medias>
+            ),
+        )}
+      </Networks>
     </Wrapper>
   );
 };
