@@ -26,6 +26,7 @@ const CarouselSection = () => {
 
   useEffect(() => {
     loadNews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
