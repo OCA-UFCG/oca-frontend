@@ -87,7 +87,7 @@ export const defaultNews: INews[] = [
       thumb: {
         fields: {
           file: {
-            url: "images.ctfassets.net/49yodhe2mply/7EZ7TU15FiOxrbIRZCvuPZ/9c8efc4158c700abde67ca84f8268a1c/Frame_214__1_.png",
+            url: "images.ctfassets.net/49yodhe2mply/McQyDnf53teKZFqK3C1Fs/e9fcd5be9a16f0883a3e6b5f5c11f08d/Frame_214.png",
           },
         },
       },

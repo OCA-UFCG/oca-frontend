@@ -29,10 +29,10 @@ export const NewsImage = styled(Image)`
 
 export const Overlay = styled.div`
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 0;
   width: 100%;
-  height: 50%;
+  height: 100%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
   border-radius: 0 0 0.2rem 0.2rem;
   pointer-events: none;
