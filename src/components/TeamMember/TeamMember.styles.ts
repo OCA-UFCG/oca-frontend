@@ -1,6 +1,24 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { Icon } from "@/components/Icon/Icon";
+
+export const ExpandIcon = styled(Icon)`
+  position: absolute;
+  color: ${({ theme }) => theme.colors.black};
+  opacity: 0;
+  z-index: 1;
+  align-self: center;
+  margin-top: 2rem;
+  cursor: pointer;
+`;
+
+export const Avatar = styled(Image)`
+  position: relative;
+  border-radius: 50%;
+  height: 6rem;
+  width: 6rem;
+`;
 
 export const Wrapper = styled.div`
   display: flex;
@@ -8,12 +26,15 @@ export const Wrapper = styled.div`
   width: auto;
   gap: 0.5rem;
   flex-direction: column;
-`;
-
-export const Avatar = styled(Image)`
-  border-radius: 50%;
-  height: 6rem;
-  width: 6rem;
+  &:hover ${ExpandIcon} {
+    opacity: 1;
+    animation: pulse 0.5s;
+  }
+  &:hover ${Avatar} {
+    opacity: 0.4;
+    filter: blur(2px);
+    cursor: pointer;
+  }
 `;
 
 export const Name = styled.span`
@@ -45,12 +66,12 @@ export const Role = styled.span`
 export const Networks = styled.div`
   display: flex;
   gap: 0.5rem;
-  align-items: end;
+  align-items: center;
 `;
 
 export const Medias = styled(Link)`
   transition: 0.2s;
-  color: ${({ theme }) => theme.colors.green};
+  color: ${({ theme }) => theme.colors.black}90;
   &:hover {
     opacity: 0.6;
   }

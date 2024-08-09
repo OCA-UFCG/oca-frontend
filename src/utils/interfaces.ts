@@ -17,6 +17,7 @@ export interface ISocialMedia {
   name: string;
   icon: string;
   href: string | undefined;
+  size: number;
 }
 
 export interface IOCAChannel {
