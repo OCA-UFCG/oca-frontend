@@ -6,8 +6,11 @@ export const Wrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  padding: 1rem;
   box-sizing: border-box;
+  position: fixed;
+  z-index: 10;
+  padding: 1rem;
+  align-items: center;
 `;
 
 export const LogoImage = styled(Icon)`
