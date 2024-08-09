@@ -1,7 +1,7 @@
 "use client";
 
 import { Section, SectionTitle } from "@/app/globalStyles";
-import { TeamMembersContainer } from "./TeamMembers.styles";
+import { TeamMembersContainer, SubTitleMembers } from "./TeamMembers.styles";
 import TeamMember from "../TeamMember";
 import { useContext, useEffect, useState } from "react";
 import { CMSContext } from "@/contexts/ContentProvider";
@@ -18,6 +18,10 @@ const TeamMembersSection = () => {
   return (
     <Section full="false" id="teamMembers">
       <SectionTitle>Nossa equipe</SectionTitle>
+      <SubTitleMembers>
+        Essas são as pessoas que contribuem com o nosso projeto, seja por meio
+        de pesquisa e/ou desenvolvimento.
+      </SubTitleMembers>
       <TeamMembersContainer>
         {teamMembers
           .sort(

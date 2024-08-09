@@ -83,6 +83,18 @@ export const GlobalStyles = createGlobalStyle`
         width: 100%;
       }
     }
+
+    @keyframes pulse {
+      0%, 40%{
+        transform: scale(0.3);
+      }
+      40%, 80%{
+        transform: scale(1.15);
+      }
+      80%, 100%{
+        transform: scale(1);
+      }
+    }
   }
 
   
@@ -166,9 +178,8 @@ export const ContentContainer = styled.div`
   flex-flow: column;
   align-items: center;
   width: 100%;
-  padding: 0 0rem 3rem 0rem;
-  box-sizing: border-box;
   min-height: 100svh;
+  box-sizing: border-box;
   background-image: url("background.png");
   background-size: 150vw;
   background-repeat: repeat;

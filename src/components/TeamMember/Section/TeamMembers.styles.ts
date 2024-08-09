@@ -5,15 +5,14 @@ export const TeamMembersContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   padding: 1rem;
-  gap: 2rem 1rem;
+  gap: 2rem 5rem;
+`;
 
-  @media screen and (max-width: 600px) {
-    justify-content: space-between;
-    align-items: stretch;
-    height: max-content;
-    width: 100%;
-    box-sizing: border-box;
-    flex-wrap: nowrap;
-    overflow: scroll;
-  }
+export const SubTitleMembers = styled.h2`
+  font-size: 1rem;
+  color: #00000080;
+  margin-bottom: 1rem;
+  align-self: center;
+  text-align: center;
+  padding: 0 1rem;
 `;

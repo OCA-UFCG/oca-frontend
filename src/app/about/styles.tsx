@@ -10,6 +10,7 @@ export const ContentWrapper = styled.div`
   max-width: var(--main-section-width);
   padding: 0 1rem 1rem;
   box-sizing: border-box;
+  margin-top: 4rem;
 `;
 
 export const Article = styled.article`
