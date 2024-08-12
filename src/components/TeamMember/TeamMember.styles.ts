@@ -9,7 +9,7 @@ export const ExpandIcon = styled(Icon)`
   opacity: 0;
   z-index: 1;
   align-self: center;
-  margin-top: 2rem;
+  margin-top: 2.25rem;
   cursor: pointer;
 `;
 

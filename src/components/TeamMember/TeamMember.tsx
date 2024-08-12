@@ -21,7 +21,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
 
   return (
     <Wrapper>
-      <ExpandIcon id="expand" size={28} />
+      <ExpandIcon id="expand" size={24} />
       <Avatar
         src={
           `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
