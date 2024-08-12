@@ -1,60 +1,85 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { Icon } from "@/components/Icon/Icon";
+
+export const ExpandIcon = styled(Icon)`
+  position: absolute;
+  color: ${({ theme }) => theme.colors.black};
+  opacity: 0;
+  z-index: 1;
+  align-self: center;
+  margin-top: 2.25rem;
+  cursor: pointer;
+`;
+
+export const Avatar = styled(Image)`
+  position: relative;
+  border-radius: 50%;
+  height: 6rem;
+  width: 6rem;
+`;
+
+export const InfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: auto;
+  gap: 0.5rem;
+  flex-direction: column;
+  &:hover ${ExpandIcon} {
+    opacity: 1;
+    animation: pulse 0.5s;
+  }
+  &:hover ${Avatar} {
+    opacity: 0.4;
+    filter: blur(2px);
+    cursor: pointer;
+  }
+`;
 
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 16rem;
-  gap: 1rem;
-
-  @media (max-width: 600px) {
-    flex-flow: column;
-  }
-`;
-
-export const Avatar = styled(Image)`
-  border-radius: 50%;
-  height: 5rem;
-  width: 5rem;
-`;
-
-export const Details = styled.div`
-  display: flex;
+  width: auto;
+  gap: 0.5rem;
   flex-direction: column;
-
-  @media (max-width: 600px) {
-    align-items: center;
-    height: 100%;
-  }
 `;
 
 export const Name = styled.span`
   font-weight: bold;
+  font-size: 1.1rem;
 
   @media (max-width: 600px) {
     flex: 2;
     min-width: 7rem;
     text-align: center;
     font-size: 1rem;
+    max-width: 8rem;
   }
 `;
 
 export const Role = styled.span`
   margin-bottom: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.gray};
+
+  @media (max-width: 600px) {
+    flex: 2;
+    min-width: 7rem;
+    text-align: center;
+    font-size: 0.8rem;
+  }
 `;
 
 export const Networks = styled.div`
   display: flex;
   gap: 0.5rem;
-  align-items: end;
+  align-items: center;
 `;
 
 export const Medias = styled(Link)`
   transition: 0.2s;
-  color: ${({ theme }) => theme.colors.green};
+  color: ${({ theme }) => theme.colors.black}90;
   &:hover {
     opacity: 0.6;
   }

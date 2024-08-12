@@ -49,7 +49,7 @@ export const sections: ISections = {
     children: {
       team: {
         name: "Nosso time",
-        path: "/#teamMembers",
+        path: "/team",
       },
       history: {
         name: "Nossa história",

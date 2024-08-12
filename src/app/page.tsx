@@ -1,6 +1,5 @@
 import PublicationsSection from "@/components/Publication/Section/Publications";
 import SponsorsSection from "@/components/Sponsor/Section/Sponsors";
-import TeamMembersSection from "@/components/TeamMember/Section/TeamMembers";
 import MapsSection from "@/components/MapsSection/MapsSection";
 import CarouselSection from "@/components/CarouselSection/CarouselSection";
 
@@ -13,7 +12,6 @@ export default function Home() {
       <MapsSection />
       <PublicationsSection />
       <SponsorsSection />
-      <TeamMembersSection />
     </Template>
   );
 }
