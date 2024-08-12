@@ -5,6 +5,7 @@ import {
   Name,
   Role,
   Networks,
+  InfoContainer,
   Medias,
   ExpandIcon,
 } from "./TeamMember.styles";
@@ -16,23 +17,25 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
   const socialMedias: ISocialMedia[] = [
     { name: "github", href: github, icon: "github", size: 24 },
     { name: "linkedin", href: linkedin, icon: "linkedin", size: 24 },
-    { name: "lattes", href: lattes, icon: "lattes", size: 28 },
+    { name: "lattes", href: lattes, icon: "lattes", size: 24 },
   ];
 
   return (
     <Wrapper>
-      <ExpandIcon id="expand" size={24} />
-      <Avatar
-        src={
-          `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
-          "avatar.svg"
-        }
-        alt="Profile picture"
-        width={50}
-        height={50}
-      />
-      <Name>{name}</Name>
-      <Role>{role}</Role>
+      <InfoContainer>
+        <ExpandIcon id="expand" size={24} />
+        <Avatar
+          src={
+            `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
+            "avatar.svg"
+          }
+          alt="Profile picture"
+          width={50}
+          height={50}
+        />
+        <Name>{name}</Name>
+        <Role>{role}</Role>
+      </InfoContainer>
       <Networks>
         {socialMedias.map(
           ({ name, href, icon, size }: ISocialMedia, index: number) =>

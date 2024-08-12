@@ -20,7 +20,7 @@ export const Avatar = styled(Image)`
   width: 6rem;
 `;
 
-export const Wrapper = styled.div`
+export const InfoContainer = styled.div`
   display: flex;
   align-items: center;
   width: auto;
@@ -35,6 +35,14 @@ export const Wrapper = styled.div`
     filter: blur(2px);
     cursor: pointer;
   }
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: auto;
+  gap: 0.5rem;
+  flex-direction: column;
 `;
 
 export const Name = styled.span`
