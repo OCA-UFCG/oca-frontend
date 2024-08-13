@@ -16,6 +16,10 @@ export const NavItem = styled.li`
     font-style: none;
   }
 
+  svg {
+    margin-top: 4px;
+  }
+
   @media screen and (max-width: 1000px) {
     width: 100%;
 
