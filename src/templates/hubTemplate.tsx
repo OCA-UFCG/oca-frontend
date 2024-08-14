@@ -10,8 +10,8 @@ const HubTemplate = ({ children }: React.PropsWithChildren) => {
       <ContentContainer>
         <HeaderSection />
         <Main id="root">{children}</Main>
+        <Footer />
       </ContentContainer>
-      <Footer />
     </>
   );
 };
