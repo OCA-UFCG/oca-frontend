@@ -89,3 +89,16 @@ export const Medias = styled(Link)`
     max-height: 1.75rem;
   }
 `;
+
+export const InfoBackground = styled.div`
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
