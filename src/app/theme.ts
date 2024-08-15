@@ -18,7 +18,7 @@ declare module "styled-components" {
 
 export const theme: DefaultTheme = {
   colors: {
-    green: "#778C61",
+    green: "#7E8951",
     maroon: "#8f4456",
     white: "white",
     black: "#1e1e1e",
