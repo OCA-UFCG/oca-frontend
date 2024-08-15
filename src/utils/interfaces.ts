@@ -11,6 +11,8 @@ export interface ITeamMember {
   github?: string;
   linkedin?: string;
   lattes?: string;
+  fieldWork?: string[];
+  institution?: string;
 }
 
 export interface ISocialMedia {
