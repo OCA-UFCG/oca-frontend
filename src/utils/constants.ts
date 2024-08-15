@@ -58,7 +58,7 @@ export const sections: ISections = {
     },
   },
 
-  // contact: { name: "Fale conosco", path: "/contato" },
+  contact: { name: "Fale conosco", path: "/contact-us" },
 };
 
 export const defaultEEInfo: IEEInfo = {

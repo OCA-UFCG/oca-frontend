@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Icon as DefaultIcon } from "@/components/Icon/Icon";
 
 export const ContactUsContainer = styled.div`
   display: flex;
@@ -52,17 +53,39 @@ export const FormularyTextArea = styled.textarea`
   min-height: 200px;
 `;
 
-export const SendInput = styled.input`
+export const InvalidForm = styled.button`
   background-color: ${({ theme }) => theme.colors.green};
-  color: ${({ theme }) => theme.colors.white};
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-  max-width: 100px;
+  cursor: not-allowed;
+  max-width: 120px;
   align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.5;
+`;
+
+export const SendButton = styled(InvalidForm)`
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s;
   &:hover {
-    opacity: 0.7;
+    opacity: 0.8;
   }
+`;
+
+export const TextInButton = styled.h1`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+export const Icon = styled(DefaultIcon)`
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+export const LoadingIcon = styled(Icon)`
+  animation: spin 1.5s linear infinite;
+  color: ${({ theme }) => theme.colors.white};
 `;

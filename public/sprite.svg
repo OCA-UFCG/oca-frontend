@@ -392,6 +392,15 @@
                 stroke-linejoin="round" />
         </symbol>
 
+        <symbol viewBox="0 0 15 15" id="send" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.27344 8.7264L13.6068 1.39307" stroke="currentColor" stroke-width="1.25"
+                stroke-linecap="round" stroke-linejoin="round" />
+            <path
+                d="M13.6065 1.39307L9.27316 13.3931C9.24391 13.4569 9.19695 13.511 9.13786 13.5489C9.07877 13.5868 9.01004 13.607 8.93983 13.607C8.86961 13.607 8.80088 13.5868 8.74179 13.5489C8.6827 13.511 8.63574 13.4569 8.60649 13.3931L6.27316 8.7264L1.60649 6.39307C1.54266 6.36382 1.48858 6.31686 1.45066 6.25777C1.41274 6.19868 1.39258 6.12994 1.39258 6.05973C1.39258 5.98952 1.41274 5.92079 1.45066 5.8617C1.48858 5.80261 1.54266 5.75565 1.60649 5.7264L13.6065 1.39307Z"
+                stroke="currentColor" stroke-width="1.25" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+
 
     </defs>
 </svg>
