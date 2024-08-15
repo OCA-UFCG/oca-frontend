@@ -5,6 +5,7 @@ import {
   Name,
   Role,
   Identify,
+  NamedIdentify,
   HeaderWrapper,
   SubTitle,
   SubTitleText,
@@ -54,8 +55,10 @@ const ExpandedInfo = ({
           height={900}
         />
         <Identify>
-          <Name>{name}</Name>
-          <Role>{role}</Role>
+          <NamedIdentify>
+            <Name>{name}</Name>
+            <Role>{role}</Role>
+          </NamedIdentify>
           <Networks>
             {socialMedias.map(
               ({ name, href, icon, size }: ISocialMedia, index: number) =>

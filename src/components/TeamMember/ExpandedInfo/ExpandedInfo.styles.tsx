@@ -5,7 +5,7 @@ import { Icon as DefaultIcon } from "@/components/Icon/Icon";
 
 export const ExpandedInfoWrapper = styled.div`
   display: flex;
-  border-radius: 0.8rem;
+  border-radius: 6px;
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors.white};
   background-image: url("/flower-background.png");
@@ -13,7 +13,9 @@ export const ExpandedInfoWrapper = styled.div`
   z-index: 1;
   max-width: 35rem;
   margin: 1rem;
+  padding: 1rem;
   position: relative;
+  gap: 1rem;
 
   @media screen and (min-width: 500px) {
     min-width: 30rem;
@@ -29,12 +31,28 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const Avatar = styled(Image)`
-  border-radius: 0.4rem;
+  border-radius: 3px;
   width: 14rem;
   height: 14rem;
-  margin: 1rem;
-  box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.black};
+  box-shadow: 0 0 2px ${({ theme }) => theme.colors.black};
   box-sizing: border-box;
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    height: auto;
+  }
+`;
+
+export const NamedIdentify = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  justify-content: center;
+  width: 100%;
+
+  @media screen and (min-width: 500px) {
+    align-items: center;
+  }
 `;
 
 export const Identify = styled.div`
@@ -45,16 +63,19 @@ export const Identify = styled.div`
   padding: 1rem;
   justify-content: center;
   width: 100%;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: row;
+    align-items: center;
+  }
 `;
 
 export const Name = styled.span`
   font-weight: bold;
   font-size: 1.3rem;
-  text-align: center;
 `;
 
 export const Role = styled.span`
-  margin-bottom: 0.5rem;
   font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.gray};
 `;
@@ -81,7 +102,6 @@ export const Medias = styled(Link)`
 export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0.75rem 0;
 `;
 
 export const Icon = styled(DefaultIcon)`
@@ -109,12 +129,9 @@ export const SubTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-left: 1rem;
 `;
 
 export const Description = styled.p`
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.black};
-  text-align: justify;
-  padding: 0 1.5rem;
 `;
