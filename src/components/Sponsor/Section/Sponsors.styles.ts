@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 export const Wrapper = styled(Section)`
   padding: 1.5rem 0;
-  /* background-color: ${({ theme }) => theme.colors.green};
-  background-image: url("flower-background.png"); */
   background-repeat: repeat;
   background-size: 40rem;
 `;
@@ -35,21 +33,30 @@ export const SponsorsContainer = styled.div`
 export const TierContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.75rem;
   margin-bottom: 1rem;
   align-items: center;
 `;
 
+export const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
 export const Description = styled.p`
   font-size: 1.25rem;
-  color: #00000080;
+  color: ${({ theme }) => theme.colors.black}80;
   text-align: center;
   padding: 0 1rem;
 `;
 
 export const SubTitle = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  font-weight: bold;
   color: ${({ theme }) => theme.colors.green};
   text-align: center;
 `;

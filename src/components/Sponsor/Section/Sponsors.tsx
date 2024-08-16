@@ -4,6 +4,7 @@ import { SectionTitle } from "@/app/globalStyles";
 import {
   SponsorsContainer,
   Wrapper,
+  Header,
   Description,
   TierContainer,
   SubTitle,
@@ -26,8 +27,6 @@ const SponsorsSection = () => {
     tierSponsors[sponsor.fields.tier].push(sponsor.fields);
   });
 
-  console.log(tierSponsors);
-
   useEffect(() => {
     loadData("sponsors", setSponsors);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,10 +34,13 @@ const SponsorsSection = () => {
 
   return (
     <Wrapper id="sponsors">
-      <SectionTitle>Parceiros</SectionTitle>
-      <Description>
-        Os seguintes parceiros contribuem para o desenvolvimento do projeto.
-      </Description>
+      <Header>
+        <SectionTitle>Patrocinadores</SectionTitle>
+        <Description>
+          O projeto é mantido por meio de patrocínios. Agradecemos a todos os
+          nossos patrocinadores por acreditarem no nosso trabalho.
+        </Description>
+      </Header>
       {Object.keys(tierSponsors).map((tier) => (
         <TierContainer key={tier}>
           <SubTitle>{tier}</SubTitle>

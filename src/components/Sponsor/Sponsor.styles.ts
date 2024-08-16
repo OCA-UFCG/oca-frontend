@@ -22,5 +22,5 @@ export const LogoImage = styled(Image)`
   height: 100%;
   max-height: 8rem;
   aspect-ratio: 1 / 1;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px #cdcdcd;
 `;
