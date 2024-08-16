@@ -2,6 +2,7 @@ export interface ISponsor {
   name: string;
   logo: { fields: { file: { url: string } } } | string;
   link: string;
+  tier: string;
 }
 
 export interface ITeamMember {
