@@ -6,7 +6,6 @@ import {
   CarouselWrapper,
   CarouselWrapperSection,
 } from "./CarouselSection.styles";
-import { SectionTitle } from "@/app/globalStyles";
 import { useContext, useEffect, useState } from "react";
 import { INews } from "@/utils/interfaces";
 import { defaultNews } from "@/utils/constants";
@@ -31,7 +30,6 @@ const CarouselSection = () => {
 
   return (
     <CarouselWrapperSection>
-      <SectionTitle>Últimas atualizações</SectionTitle>
       <CarouselWrapper>
         <NewsCarousel newsItems={newsItems} loading={loading} />
       </CarouselWrapper>
