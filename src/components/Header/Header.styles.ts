@@ -45,6 +45,7 @@ export const Navbar = styled.nav`
 export const NavList = styled.ul`
   display: flex;
   align-items: flex-end;
+  margin: 0;
   gap: 2rem;
 
   @media screen and (max-width: 1000px) {
@@ -65,6 +66,7 @@ export const SocialMedia = styled.div`
   padding: 0.3rem 0.5rem;
   border-radius: 4px;
   background-color: #ffffff60;
+  margin-left: 3rem;
 `;
 
 export const MediaWrapper = styled.a`

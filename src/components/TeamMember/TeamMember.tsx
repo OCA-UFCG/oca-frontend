@@ -8,11 +8,16 @@ import {
   InfoContainer,
   Medias,
   ExpandIcon,
+  InfoBackground,
 } from "./TeamMember.styles";
+import { useState } from "react";
 import { Icon } from "../Icon/Icon";
+import ExpandedInfo from "./ExpandedInfo/ExpandedInfo";
 
 const TeamMember = ({ data }: { data: ITeamMember }) => {
   const { name, avatar, role, github, linkedin, lattes } = data;
+
+  const [expanded, setExpanded] = useState(false);
 
   const socialMedias: ISocialMedia[] = [
     { name: "github", href: github, icon: "github", size: 24 },
@@ -20,9 +25,20 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
     { name: "lattes", href: lattes, icon: "lattes", size: 24 },
   ];
 
+  const setExpandedHandler = () => setExpanded(!expanded);
+
+  const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
+
   return (
     <Wrapper>
-      <InfoContainer>
+      {expanded && (
+        <InfoBackground onClick={setExpandedHandler}>
+          <div onClick={stopPropagation}>
+            <ExpandedInfo data={data} onClose={setExpandedHandler} />
+          </div>
+        </InfoBackground>
+      )}
+      <InfoContainer onClick={setExpandedHandler}>
         <ExpandIcon id="expand" size={24} />
         <Avatar
           src={
@@ -30,8 +46,8 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
             "avatar.svg"
           }
           alt="Profile picture"
-          width={50}
-          height={50}
+          width={160}
+          height={90}
         />
         <Name>{name}</Name>
         <Role>{role}</Role>

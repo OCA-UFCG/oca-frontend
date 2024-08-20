@@ -7,7 +7,7 @@ export const Wrapper = styled.footer`
   padding: 2rem;
   box-sizing: border-box;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.colors.maroon};
+  background-color: ${({ theme }) => theme.colors.green};
 
   gap: 1rem;
   position: relative;
