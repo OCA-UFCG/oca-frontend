@@ -77,20 +77,20 @@ export const GlobalStyles = createGlobalStyle`
 
     @keyframes close {
       0% {
-        height: 100px;
+        height: fit-content;
       }
       100% {
+        opacity: 0;
         height: 0px;
-        display: none;
+        padding: 0;
       }
     }
 
     @keyframes open {
       0% {
+        opacity: 0;
         height: 0px;
-      }
-      99% {
-        height: 100px;
+        padding: 0;
       }
       100% {
         height: fit-content;

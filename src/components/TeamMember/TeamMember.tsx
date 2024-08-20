@@ -62,7 +62,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           type="checkbox"
           defaultChecked={true}
           hidden
-          disabled={!(institution && fieldWork)}
+          disabled={!(institution || fieldWork)}
         />
         <MoreInfoContainer>
           {institution && <Institution>{institution}</Institution>}
