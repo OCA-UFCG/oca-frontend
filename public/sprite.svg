@@ -463,7 +463,7 @@
         </symbol>
         <symbol id="arrow-head" viewBox="0 0 11 7" fill="none">
             <path d="M1.46875 1.61182L5.46875 5.61182L9.46875 1.61182" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
         <symbol id="link-arrow" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

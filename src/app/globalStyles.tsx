@@ -75,6 +75,28 @@ export const GlobalStyles = createGlobalStyle`
       }
     }
 
+    @keyframes close {
+      0% {
+        height: fit-content;
+      }
+      100% {
+        opacity: 0;
+        height: 0px;
+        padding: 0;
+      }
+    }
+
+    @keyframes open {
+      0% {
+        opacity: 0;
+        height: 0px;
+        padding: 0;
+      }
+      100% {
+        height: fit-content;
+      }
+    }
+
     @keyframes expandWidth {
       from {
         width: 0%;

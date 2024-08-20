@@ -3,33 +3,54 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/Icon/Icon";
 
-export const ExpandIcon = styled(Icon)`
-  position: absolute;
+export const Checkbox = styled.input``;
+
+export const ExpandIcon = styled(Icon)<{ expanded: string }>`
   color: ${({ theme }) => theme.colors.black};
-  opacity: 0;
-  z-index: 1;
   align-self: center;
-  margin-top: 2.25rem;
-  cursor: pointer;
+  opacity: 0.5;
+  transition: 300ms;
+  transform: rotate(180deg);
+
+  ${Checkbox}:checked ~ & {
+    transform: rotate(0deg);
+  }
 `;
 
-export const Avatar = styled(Image)`
-  position: relative;
-  border-radius: 50%;
-  height: 6rem;
-  width: 6rem;
-`;
-
-export const InfoContainer = styled.div`
+export const Wrapper = styled.label`
   display: flex;
   align-items: center;
   width: auto;
   gap: 0.5rem;
   flex-direction: column;
+  break-inside: avoid;
+  width: 16rem;
+  box-shadow: 0 0 5px #cdcdcd;
+  background-color: white;
+  margin-bottom: 2rem;
+  cursor: pointer;
+
   &:hover ${ExpandIcon} {
     opacity: 1;
-    animation: pulse 0.5s;
+    width: 6rem;
   }
+`;
+
+export const Avatar = styled(Image)`
+  position: relative;
+  width: 100%;
+  height: auto;
+  box-shadow: inset 0 0 5px #cdcdcd;
+`;
+
+export const InfoContainer = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  box-sizing: border-box;
+  gap: 0.5rem;
+  flex-direction: column;
+
   &:hover ${Avatar} {
     opacity: 0.4;
     filter: blur(2px);
@@ -37,51 +58,78 @@ export const InfoContainer = styled.div`
   }
 `;
 
-export const Wrapper = styled.div`
+export const MainInfoContainer = styled.div`
   display: flex;
-  align-items: center;
-  width: auto;
-  gap: 0.5rem;
-  flex-direction: column;
+  flex-flow: column;
 `;
 
 export const Name = styled.span`
   font-weight: bold;
   font-size: 1.1rem;
-
-  @media (max-width: 600px) {
-    flex: 2;
-    min-width: 7rem;
-    text-align: center;
-    font-size: 1rem;
-    max-width: 8rem;
-  }
 `;
 
 export const Role = styled.span`
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: ${({ theme }) => theme.colors.gray};
+`;
 
-  @media (max-width: 600px) {
-    flex: 2;
-    min-width: 7rem;
-    text-align: center;
-    font-size: 0.8rem;
+export const MoreInfoContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  gap: 0.75rem;
+  transition: height 300ms;
+
+  overflow: hidden;
+  padding: 0.5rem 0;
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+
+  ${Checkbox}:checked ~ & {
+    animation: close 300ms ease-in-out forwards;
   }
+
+  :not(Checkbox:checked) ~ & {
+    animation: open 300ms ease-in-out forwards;
+  }
+`;
+
+export const Institution = styled.span`
+  font-size: 13px;
+`;
+
+export const FieldWorkContainer = styled.div``;
+
+export const FieldWorkTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: bold;
+  color: #222;
+`;
+export const FieldWorkTitle = styled.span`
+  font-size: 14px;
+`;
+
+export const FieldWorkWrapper = styled.div``;
+
+export const FieldWork = styled.span`
+  font-size: 13px;
 `;
 
 export const Networks = styled.div`
   display: flex;
   gap: 0.5rem;
-  align-items: center;
+  /* align-items: flex-end;
+  justify-content: center; */
+  width: 100%;
 `;
 
 export const Medias = styled(Link)`
+  display: flex;
   transition: 0.2s;
-  color: ${({ theme }) => theme.colors.black}90;
+  color: ${({ theme }) => theme.colors.gray};
   &:hover {
-    opacity: 0.6;
+    transform: scale(1.1);
   }
 
   img {

@@ -1,7 +1,11 @@
 "use client";
 
-import { Section, SectionTitle } from "@/app/globalStyles";
-import { TeamMembersContainer, SubTitleMembers } from "./TeamMembers.styles";
+import { SectionTitle } from "@/app/globalStyles";
+import {
+  TeamMembersContainer,
+  SubTitleMembers,
+  Section,
+} from "./TeamMembers.styles";
 import TeamMember from "../TeamMember";
 import { useContext, useEffect, useState } from "react";
 import { CMSContext } from "@/contexts/ContentProvider";
