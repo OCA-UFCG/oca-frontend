@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
   align-items: center;
   width: 100vw;
   box-sizing: border-box;
+  pointer-events: none;
 
   @media screen and (max-width: 1000px) {
     gap: 1rem;
@@ -22,6 +23,7 @@ export const Wrapper = styled.div`
 export const LogoImage = styled(Icon)`
   height: 4rem;
   width: 8rem;
+  pointer-events: all;
 
   @media screen and (max-width: 1000px) {
     display: none;
@@ -35,6 +37,7 @@ export const Navbar = styled.nav`
   border: 1px solid #44444410;
   border-radius: 4px;
   box-shadow: 0px 0px 4px #00000015;
+  pointer-events: all;
 
   @media screen and (max-width: 1000px) {
     width: 100%;
@@ -67,6 +70,7 @@ export const SocialMedia = styled.div`
   border-radius: 4px;
   background-color: #ffffff60;
   margin-left: 3rem;
+  pointer-events: all;
 `;
 
 export const MediaWrapper = styled.a`
