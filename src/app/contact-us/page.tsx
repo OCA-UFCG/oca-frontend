@@ -8,30 +8,38 @@ import {
   FormularyLabel,
   FormularyInput,
   FormularyTextArea,
-  SendButton,
-  InvalidForm,
+  DinamicButton,
   Icon,
   TextInButton,
-  LoadingIcon,
 } from "./styles";
 import { SectionTitle } from "../globalStyles";
 import { FormEvent, useState } from "react";
+import { contactStatus } from "@/utils/constants";
 
 const ContactUsPage = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [sendStatus, setSendStatus] = useState<
+    "success" | "error" | "loading" | "default"
+  >("default");
 
   const validateForm = (form: HTMLFormElement) => {
     const formData = new FormData(form);
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const message = formData.get("message") as string;
-    const isValid = name != "" && email != "" && message != "";
+    const isValid =
+      name.trim() != "" && email.trim() != "" && message.trim() != "";
     setIsFormValid(isValid);
   };
 
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
   const sendEmail = async (event: FormEvent) => {
     setIsLoading(true);
+    setSendStatus("loading");
+
     event.preventDefault();
 
     const form = event.target as HTMLFormElement;
@@ -43,14 +51,21 @@ const ContactUsPage = () => {
       message: formData.get("message") as string,
     };
 
-    await fetch("/api/mail", {
+    const response = await fetch("/api/mail", {
       method: "POST",
       body: JSON.stringify(data),
     });
 
-    form.reset();
-    validateForm(form);
     setIsLoading(false);
+
+    if (response.ok) {
+      setSendStatus("success");
+      sleep(4000).then(() => setSendStatus("default"));
+      form.reset();
+      setIsFormValid(false);
+    } else {
+      setSendStatus("error");
+    }
   };
 
   return (
@@ -78,21 +93,19 @@ const ContactUsPage = () => {
             Mensagem:
             <FormularyTextArea id="message" name="message" required />
           </FormularyLabel>
-          {isFormValid && !isLoading ? (
-            <SendButton type="submit">
-              <TextInButton>Enviar</TextInButton>
-              <Icon id="send" size={17} />
-            </SendButton>
-          ) : (
-            <InvalidForm type="submit" disabled>
-              <TextInButton>Enviar</TextInButton>
-              {isLoading ? (
-                <LoadingIcon id="loading" size={17} />
-              ) : (
-                <Icon id="send" size={17} />
-              )}
-            </InvalidForm>
-          )}
+          <DinamicButton
+            isFormValid={isFormValid}
+            className={sendStatus || "default"}
+            type="submit"
+            disabled={!isFormValid || isLoading}
+          >
+            <TextInButton>{contactStatus[sendStatus].message}</TextInButton>
+            <Icon
+              className={contactStatus[sendStatus].animation || ""}
+              id={contactStatus[sendStatus].icon}
+              size={19}
+            />
+          </DinamicButton>
         </FormularyWrapper>
       </ContactUsContainer>
     </Template>

@@ -2,6 +2,8 @@ import { DefaultTheme } from "styled-components/dist/types";
 
 declare module "styled-components" {
   export interface colorPalette {
+    wine: string;
+    darkgreen: string;
     green: string;
     maroon: string;
     white: string;
@@ -18,6 +20,8 @@ declare module "styled-components" {
 
 export const theme: DefaultTheme = {
   colors: {
+    wine: "#A65E5F",
+    darkgreen: "#5B8951",
     green: "#778C61",
     maroon: "#8f4456",
     white: "white",

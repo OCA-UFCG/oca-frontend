@@ -401,6 +401,19 @@
                 stroke-linejoin="round" />
         </symbol>
 
+        <symbol viewBox="0 0 11 9" id="check" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 4.5L4 7.5L10 1.5" stroke="white" stroke-width="1.25" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+
+
+        <symbol viewBox="0 0 16 16" id="retry" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M14.625 7.16643C14.4142 5.55872 13.6248 4.08291 12.4044 3.01529C11.184 1.94766 9.61636 1.36139 7.99489 1.36624C6.37343 1.37109 4.80932 1.96672 3.59534 3.04162C2.38137 4.11653 1.60076 5.59703 1.39964 7.20598C1.19852 8.81493 1.59068 10.442 2.50271 11.7827C3.41474 13.1233 4.78411 14.0857 6.35449 14.4895C7.92487 14.8933 9.58859 14.711 11.0342 13.9766C12.4799 13.2422 13.6083 12.0061 14.2083 10.4998M14.625 14.6664V10.4998H10.4583"
+                stroke="currentColor" stroke-width="1.25" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+
 
     </defs>
 </svg>

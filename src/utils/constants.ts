@@ -1,4 +1,10 @@
-import { IEEInfo, IOCAChannel, ISections, INews } from "./interfaces";
+import {
+  IEEInfo,
+  IOCAChannel,
+  ISections,
+  INews,
+  IContactStatus,
+} from "./interfaces";
 
 export const channels: IOCAChannel[] = [
   {
@@ -96,6 +102,26 @@ export const defaultNews: INews[] = [
     },
   },
 ];
+
+export const contactStatus: IContactStatus = {
+  success: {
+    message: "Mensagem enviada",
+    icon: "check",
+  },
+  error: {
+    message: "Enviar novamente",
+    icon: "retry",
+  },
+  loading: {
+    message: "Enviando...",
+    icon: "loading",
+    animation: "spin",
+  },
+  default: {
+    message: "Enviar",
+    icon: "send",
+  },
+};
 
 export const MAP_TIFF_STYLE =
   "https://api.maptiler.com/maps/basic-v2/style.json?key=71L2QPZ0FHRofxg3QtVC";

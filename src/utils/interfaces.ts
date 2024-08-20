@@ -112,3 +112,11 @@ export interface INews {
     url: string;
   };
 }
+
+export interface IContactStatus {
+  [status: string]: {
+    icon: string;
+    message: string;
+    animation?: string;
+  };
+}

@@ -53,26 +53,40 @@ export const FormularyTextArea = styled.textarea`
   min-height: 200px;
 `;
 
-export const InvalidForm = styled.button`
+export const DinamicButton = styled.button<{ isFormValid: boolean }>`
   background-color: ${({ theme }) => theme.colors.green};
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;
-  cursor: not-allowed;
+  cursor: ${({ isFormValid }) => (isFormValid ? "pointer" : "not-allowed")};
   max-width: 120px;
   align-self: center;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  opacity: 0.5;
-`;
-
-export const SendButton = styled(InvalidForm)`
-  cursor: pointer;
-  opacity: 1;
   transition: 0.3s;
+  opacity: ${({ isFormValid }) => (isFormValid ? 1 : 0.5)};
   &:hover {
-    opacity: 0.8;
+    opacity: ${({ isFormValid }) => (isFormValid ? 0.8 : 0.5)};
+  }
+
+  &.loading {
+    cursor: not-allowed;
+    opacity: 0.9;
+    max-width: 200px;
+  }
+
+  &.success {
+    background-color: ${({ theme }) => theme.colors.darkgreen};
+    opacity: 1;
+    max-width: 200px;
+  }
+
+  &.error {
+    background-color: ${({ theme }) => theme.colors.wine};
+    cursor: pointer;
+    opacity: 1;
+    max-width: 200px;
   }
 `;
 
@@ -83,9 +97,8 @@ export const TextInButton = styled.h1`
 
 export const Icon = styled(DefaultIcon)`
   color: ${({ theme }) => theme.colors.white};
-`;
 
-export const LoadingIcon = styled(Icon)`
-  animation: spin 1.5s linear infinite;
-  color: ${({ theme }) => theme.colors.white};
+  &.spin {
+    animation: spin 1.5s linear infinite;
+  }
 `;
