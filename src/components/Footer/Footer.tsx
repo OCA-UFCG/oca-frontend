@@ -16,7 +16,7 @@ const Footer = () => {
       <LogoImage id="logo-oca-white" width={200} height={150} />
       <References>
         {Object.entries(sections).map(([key, item]) => (
-          <Sections key={key} href={item.path}>
+          <Sections key={key} href={item.path || ""}>
             {item.name}
           </Sections>
         ))}

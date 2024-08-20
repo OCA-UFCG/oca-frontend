@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Icon } from "../Icon/Icon";
+import Link from "next/link";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -70,7 +71,7 @@ export const SocialMedia = styled.div`
   pointer-events: all;
 `;
 
-export const MediaWrapper = styled.a`
+export const MediaWrapper = styled(Link)`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.colors.black}90;

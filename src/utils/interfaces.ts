@@ -32,7 +32,7 @@ export interface IOCAChannel {
 
 export interface ISection {
   name: string;
-  path: string;
+  path?: string;
   children?: { [key: string]: ISection };
 }
 

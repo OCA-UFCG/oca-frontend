@@ -45,7 +45,6 @@ export const sections: ISections = {
   },
   about: {
     name: "Sobre nós",
-    path: "/about",
     children: {
       team: {
         name: "Nosso time",

@@ -6,6 +6,7 @@ import {
   Wrapper,
 } from "./Dropdown.styles";
 import { Icon } from "../Icon/Icon";
+import Link from "next/link";
 
 export const Dropdown = ({ item }: { item: ISection }) => {
   const { name, path, children } = item;
@@ -14,7 +15,7 @@ export const Dropdown = ({ item }: { item: ISection }) => {
     return (
       <NavItem>
         <ItemContent>
-          <a href={path}>{name}</a>
+          {path ? <Link href={path}>{name}</Link> : <span>{name}</span>}
         </ItemContent>
       </NavItem>
     );
@@ -23,7 +24,7 @@ export const Dropdown = ({ item }: { item: ISection }) => {
   return (
     <NavItem>
       <ItemContent>
-        <a href={path}>{name}</a>
+        {path ? <Link href={path}>{name}</Link> : <span>{name}</span>}
         <Icon id="arrow-head" width={11} height={9} />
       </ItemContent>
       {children && (
