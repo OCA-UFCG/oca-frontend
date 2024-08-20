@@ -2,7 +2,7 @@ import { Section as DefaultSection } from "@/app/globalStyles";
 import styled from "styled-components";
 
 export const Section = styled(DefaultSection)`
-  margin-top: 4rem;
+  /* margin-top: 4rem; */
   align-items: center;
 `;
 

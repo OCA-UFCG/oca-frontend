@@ -3,9 +3,6 @@ import { Icon } from "../Icon/Icon";
 
 export const Wrapper = styled.div`
   display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
   padding: 1rem 1.5rem;
   z-index: 50;
   justify-content: space-between;

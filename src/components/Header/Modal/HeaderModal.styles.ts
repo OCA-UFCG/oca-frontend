@@ -2,6 +2,8 @@ import styled from "styled-components";
 import MenuModal from "@/components/MenuModal/MenuModal";
 
 export const Modal = styled(MenuModal)`
+  pointer-events: all;
+
   @media screen and (min-width: 1000px) {
     display: none;
   }

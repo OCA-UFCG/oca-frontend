@@ -7,8 +7,8 @@ import Footer from "@/components/Footer/Footer";
 const HubTemplate = ({ children }: React.PropsWithChildren) => {
   return (
     <>
+      <HeaderSection />
       <ContentContainer>
-        <HeaderSection />
         <Main id="root">{children}</Main>
       </ContentContainer>
       <Footer />

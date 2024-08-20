@@ -5,14 +5,20 @@ import { Icon } from "@/components/Icon/Icon";
 export const Wrapper = styled.div`
   display: flex;
   width: 100%;
+  top: 0;
+  align-items: center;
   justify-content: space-between;
   padding: 1rem;
   box-sizing: border-box;
+  position: sticky;
+  z-index: 1;
+  pointer-events: none;
 `;
 
 export const LogoImage = styled(Icon)`
   width: 8rem;
   height: 4rem;
+  pointer-events: all;
 
   @media screen and (min-width: 1000px) {
     display: none;

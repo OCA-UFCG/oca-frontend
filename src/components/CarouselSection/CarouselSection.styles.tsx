@@ -11,7 +11,6 @@ export const CarouselWrapperSection = styled(Section)`
   max-width: 1440px;
   height: 100%;
   box-sizing: border-box;
-  margin-top: 4rem;
 `;
 
 export const CarouselWrapper = styled.div`
