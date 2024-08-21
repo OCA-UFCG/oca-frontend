@@ -11,6 +11,10 @@ export const CarouselWrapperSection = styled(Section)`
   max-width: 1440px;
   height: 100%;
   box-sizing: border-box;
+
+  @media (max-width: 1200px) {
+    padding: 0rem;
+  }
 `;
 
 export const CarouselWrapper = styled.div`
@@ -19,12 +23,14 @@ export const CarouselWrapper = styled.div`
   gap: 1rem;
   width: 100%;
   height: auto;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 0.2rem;
   aspect-ratio: 16 / 8;
   box-sizing: border-box;
 
-  @media (max-width: 768px) {
-    aspect-ratio: 10 / 8;
+  @media (max-width: 700px) {
+    /* height: 55svh; */
+    /* height: 100%; */
+    aspect-ratio: 1 / 1;
   }
 `;

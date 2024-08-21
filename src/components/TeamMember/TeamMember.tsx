@@ -48,8 +48,8 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           }
           title={name}
           alt="Profile picture"
-          width={160}
-          height={90}
+          width={260}
+          height={260}
         />
       </AvatarFrame>
 
