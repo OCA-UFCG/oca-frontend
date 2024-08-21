@@ -205,6 +205,7 @@ export const ContentContainer = styled.div`
   background-image: url("background.png");
   background-size: 150vw;
   background-repeat: repeat;
+  justify-content: space-between;
 `;
 
 export const Main = styled.main`
