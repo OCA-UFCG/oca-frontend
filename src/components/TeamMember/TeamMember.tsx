@@ -40,7 +40,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
 
   return (
     <Wrapper htmlFor={name.replace(" ", "_").toLowerCase()}>
-      <AvatarFrame>
+      <AvatarFrame href={github || linkedin || lattes || ""} target="_blank">
         <Avatar
           src={
             `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
@@ -58,7 +58,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           <Checkbox
             id={name.replace(" ", "_").toLowerCase()}
             type="checkbox"
-            defaultChecked={false}
+            checked={false}
             hidden
             disabled={!(institution || fieldWork)}
           />

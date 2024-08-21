@@ -17,7 +17,7 @@ export const ExpandIcon = styled(Icon)<{ expanded: string }>`
   }
 `;
 
-export const AvatarFrame = styled.div`
+export const AvatarFrame = styled.a`
   overflow: hidden;
   width: 100%;
 `;
