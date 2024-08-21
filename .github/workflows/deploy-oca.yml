@@ -23,7 +23,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ vars.DOCKER_PASSWORD }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -41,6 +41,9 @@ jobs:
             NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
             NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
             NEXT_PUBLIC_CONTENTFUL_SPACE=${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE  }}
+            NEXT_PUBLIC_MAIL_APP_TO=${{ vars.NEXT_PUBLIC_MAIL_APP_TO }}
+            NEXT_PUBLIC_MAIL_APP_USER=${{ vars.NEXT_PUBLIC_MAIL_APP_USER }}
+            NEXT_PUBLIC_MAIL_APP_PASS=${{ secrets.NEXT_PUBLIC_MAIL_APP_PASS }}
 
       - name: Pull the latest image
         run: sudo docker pull ${{ vars.DOCKER_IMAGE_PROD }}:latest    
