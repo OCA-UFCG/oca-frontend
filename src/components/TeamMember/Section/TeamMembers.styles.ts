@@ -2,7 +2,6 @@ import { Section as DefaultSection } from "@/app/globalStyles";
 import styled from "styled-components";
 
 export const Section = styled(DefaultSection)`
-  /* margin-top: 4rem; */
   align-items: center;
 `;
 
@@ -13,15 +12,15 @@ export const TeamMembersContainer = styled.div`
   column-count: 4;
   width: fit-content;
 
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1000px) {
     column-count: 3;
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 700px) {
     column-count: 2;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 450px) {
     column-count: 1;
   }
 `;

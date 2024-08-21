@@ -17,6 +17,19 @@ export const ExpandIcon = styled(Icon)<{ expanded: string }>`
   }
 `;
 
+export const AvatarFrame = styled.div`
+  overflow: hidden;
+  width: 100%;
+`;
+
+export const Avatar = styled(Image)`
+  position: relative;
+  width: 100%;
+  height: auto;
+  box-shadow: inset 0 0 5px #cdcdcd;
+  transition: 300ms;
+`;
+
 export const Wrapper = styled.label`
   display: flex;
   align-items: center;
@@ -34,13 +47,14 @@ export const Wrapper = styled.label`
     opacity: 1;
     width: 6rem;
   }
-`;
 
-export const Avatar = styled(Image)`
-  position: relative;
-  width: 100%;
-  height: auto;
-  box-shadow: inset 0 0 5px #cdcdcd;
+  &:hover ${Avatar} {
+    transform: scale(1.1);
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 100%;
+  }
 `;
 
 export const InfoContainer = styled.div`
@@ -50,12 +64,6 @@ export const InfoContainer = styled.div`
   box-sizing: border-box;
   gap: 0.5rem;
   flex-direction: column;
-
-  &:hover ${Avatar} {
-    opacity: 0.4;
-    filter: blur(2px);
-    cursor: pointer;
-  }
 `;
 
 export const MainInfoContainer = styled.div`
@@ -80,9 +88,7 @@ export const MoreInfoContainer = styled.div`
   transition: height 300ms;
 
   overflow: hidden;
-  padding: 0.5rem 0;
-  border-top: 1px solid #cdcdcd;
-  border-bottom: 1px solid #cdcdcd;
+  padding: 0.25rem 0 0.5rem;
 
   ${Checkbox}:checked ~ & {
     animation: close 300ms ease-in-out forwards;
