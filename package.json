@@ -23,11 +23,13 @@
     "@types/google-earth": "^0.0.8",
     "contentful": "^10.11.10",
     "express": "^4.19.2",
+    "lightgallery": "^2.7.2",
     "maplibre-gl": "^4.2.0",
     "next": "14.2.2",
     "braces": ">=3.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "sass": "^1.77.8",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

@@ -47,12 +47,16 @@ export const sections: ISections = {
     name: "Sobre nós",
     children: {
       team: {
-        name: "Nosso time",
+        name: "Equipe",
         path: "/team",
       },
       history: {
         name: "Nossa história",
         path: "/about",
+      },
+      infra: {
+        name: "Infraestrutura",
+        path: "/infra",
       },
     },
   },
