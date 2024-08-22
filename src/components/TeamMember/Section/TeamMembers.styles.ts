@@ -10,7 +10,7 @@ export const TeamMembersContainer = styled.div`
   padding: 1rem;
   gap: 2rem;
   column-count: 4;
-  width: fit-content;
+  box-sizing: border-box;
 
   @media screen and (max-width: 1000px) {
     column-count: 3;

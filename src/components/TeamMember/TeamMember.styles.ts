@@ -37,7 +37,7 @@ export const Wrapper = styled.label`
   gap: 0.5rem;
   flex-direction: column;
   break-inside: avoid;
-  width: 16rem;
+  /* width: 16rem; */
   box-shadow: 0 0 5px #cdcdcd;
   background-color: white;
   margin-bottom: 2rem;
