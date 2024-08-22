@@ -41,7 +41,6 @@ export const Wrapper = styled.label`
   box-shadow: 0 0 5px #cdcdcd;
   background-color: white;
   margin-bottom: 2rem;
-  cursor: pointer;
 
   &:hover ${ExpandIcon} {
     opacity: 1;
