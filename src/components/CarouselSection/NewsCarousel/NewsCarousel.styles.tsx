@@ -2,6 +2,23 @@ import { Icon } from "@/components/Icon/Icon";
 import Image from "next/image";
 import styled from "styled-components";
 
+export const ImageFramer = styled.div`
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+`;
+
+export const NewsImage = styled(Image)`
+  object-fit: cover;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.2rem;
+  position: absolute;
+  transition: 300ms;
+`;
+
 export const NewsWrapper = styled.a`
   position: relative;
   box-sizing: border-box;
@@ -16,15 +33,10 @@ export const NewsWrapper = styled.a`
   text-decoration: none;
   overflow: hidden;
   cursor: pointer;
-`;
 
-export const NewsImage = styled(Image)`
-  object-fit: cover;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  border-radius: 0.2rem;
-  position: absolute;
+  &:hover ${NewsImage} {
+    transform: scale(1.05);
+  }
 `;
 
 export const Overlay = styled.div`

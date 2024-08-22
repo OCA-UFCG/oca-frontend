@@ -7,7 +7,6 @@ import {
   Networks,
   InfoContainer,
   Medias,
-  ExpandIcon,
   MoreInfoContainer,
   Institution,
   FieldWork,
@@ -17,6 +16,7 @@ import {
   MainInfoContainer,
   FieldWorkWrapper,
   Checkbox,
+  AvatarFrame,
 } from "./TeamMember.styles";
 import { Icon } from "../Icon/Icon";
 
@@ -40,50 +40,54 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
 
   return (
     <Wrapper htmlFor={name.replace(" ", "_").toLowerCase()}>
-      <Avatar
-        src={
-          `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
-          "avatar.svg"
-        }
-        title={name}
-        alt="Profile picture"
-        width={160}
-        height={90}
-      />
+      <AvatarFrame href={github || linkedin || lattes || ""} target="_blank">
+        <Avatar
+          src={
+            `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
+            "avatar.svg"
+          }
+          title={name}
+          alt="Profile picture"
+          width={260}
+          height={260}
+        />
+      </AvatarFrame>
 
       <InfoContainer>
         <MainInfoContainer>
+          <Checkbox
+            id={name.replace(" ", "_").toLowerCase()}
+            type="checkbox"
+            checked={false}
+            hidden
+            disabled={!(institution || fieldWork)}
+          />
           <Name>{name}</Name>
           <Role>{role}</Role>
+          {(institution || fieldWork) && (
+            <MoreInfoContainer>
+              {institution && <Institution>{institution}</Institution>}
+              {fieldWork && (
+                <FieldWorkContainer>
+                  <FieldWorkTitleContainer>
+                    <Icon id="bookIcon" size={16} />
+                    <FieldWorkTitle>Área de atuação</FieldWorkTitle>
+                  </FieldWorkTitleContainer>
+
+                  <FieldWorkWrapper>
+                    {fieldWork.map((field, index) => (
+                      <>
+                        <FieldWork key={index}>{field}</FieldWork>
+                        {index != fieldWork.length - 1 && ", "}
+                      </>
+                    ))}
+                  </FieldWorkWrapper>
+                </FieldWorkContainer>
+              )}
+            </MoreInfoContainer>
+          )}
         </MainInfoContainer>
 
-        <Checkbox
-          id={name.replace(" ", "_").toLowerCase()}
-          type="checkbox"
-          defaultChecked={true}
-          hidden
-          disabled={!(institution || fieldWork)}
-        />
-        <MoreInfoContainer>
-          {institution && <Institution>{institution}</Institution>}
-          {fieldWork && (
-            <FieldWorkContainer>
-              <FieldWorkTitleContainer>
-                <Icon id="bookIcon" size={16} />
-                <FieldWorkTitle>Área de atuação</FieldWorkTitle>
-              </FieldWorkTitleContainer>
-
-              <FieldWorkWrapper>
-                {fieldWork.map((field, index) => (
-                  <>
-                    <FieldWork key={index}>{field}</FieldWork>
-                    {index != fieldWork.length - 1 && ", "}
-                  </>
-                ))}
-              </FieldWorkWrapper>
-            </FieldWorkContainer>
-          )}
-        </MoreInfoContainer>
         <Networks>
           {socialMedias.map(
             ({ href, icon, size }: ISocialMedia, index: number) =>
@@ -94,14 +98,6 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
               ),
           )}
         </Networks>
-        {(institution || fieldWork) && (
-          <ExpandIcon
-            expanded="expanded"
-            id="arrow-head"
-            width={16}
-            height={12}
-          />
-        )}
       </InfoContainer>
     </Wrapper>
   );

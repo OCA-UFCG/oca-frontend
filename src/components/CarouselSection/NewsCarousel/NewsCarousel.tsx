@@ -10,6 +10,7 @@ import {
   RoundButton,
   Overlay,
   LoadingIcon,
+  ImageFramer,
 } from "./NewsCarousel.styles";
 import { INews } from "@/utils/interfaces";
 
@@ -54,15 +55,17 @@ const NewsCarousel = ({
         <LoadingIcon id="loading" />
       ) : (
         <>
-          <NewsImage
-            width={1600}
-            height={800}
-            src={
-              newsItems[index]?.fields.thumb.fields.file.url &&
-              `https://${newsItems[index]?.fields.thumb.fields.file.url}`
-            }
-            alt="News"
-          />
+          <ImageFramer>
+            <NewsImage
+              width={1600}
+              height={800}
+              src={
+                newsItems[index]?.fields.thumb.fields.file.url &&
+                `https://${newsItems[index]?.fields.thumb.fields.file.url}`
+              }
+              alt="News"
+            />
+          </ImageFramer>
           <Overlay />
           {newsItems.length > 1 && (
             <ButtonWrapper>
