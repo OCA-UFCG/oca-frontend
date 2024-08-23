@@ -50,10 +50,6 @@ const InfraSection = () => {
     loadData("infrastructure", setGallery);
   }, [loadData]);
 
-  const onInit = () => {
-    console.log("lightGallery has been initialized");
-  };
-
   return (
     <Section full={"false"} id="publications">
       <Gallery>
@@ -61,7 +57,7 @@ const InfraSection = () => {
           mode="lg-fade"
           pager={false}
           thumbnail={true}
-          galleryId={"nature"}
+          galleryId={"infrastructure"}
           autoplayFirstVideo={false}
           mobileSettings={{
             controls: false,
@@ -69,7 +65,6 @@ const InfraSection = () => {
             download: false,
             rotate: false,
           }}
-          onInit={onInit}
           speed={500}
           elementClassNames="gallery"
           plugins={[lgThumbnail, lgZoom]}
@@ -80,7 +75,7 @@ const InfraSection = () => {
               data-lg-size={`${photo.fields.image.fields.file.details.image.width}-${photo.fields.image.fields.file.details.image.height}`}
               className="gallery__item"
               data-src={`https:${photo.fields.image.fields.file.url}`}
-              data-sub-html="<h4>Photo by - <a href='https://unsplash.com/@entrycube' >Diego Guzmán </a></h4> <p> Location - <a href='https://unsplash.com/s/photos/fushimi-inari-taisha-shrine-senbontorii%2C-68%E7%95%AA%E5%9C%B0-fukakusa-yabunouchicho%2C-fushimi-ward%2C-kyoto%2C-japan'>Fushimi Ward, Kyoto, Japan</a></p>"
+              data-sub-html={`<h2 style=\"color: white\">${photo.fields.title}</h2><p style=\"color: white; text-align: center\"><strong>Descrição: </strong>${photo.fields.description}</p>`}
             >
               <ImageContainer>
                 <InfoContainer>

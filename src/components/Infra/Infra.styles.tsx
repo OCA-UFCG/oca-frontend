@@ -26,6 +26,7 @@ export const Image = styled(NativeImage)`
   height: 100%;
   width: 100%;
   object-fit: cover;
+  background-color: #cdcdcd;
 `;
 
 export const Title = styled.h2`
