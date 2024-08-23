@@ -28,6 +28,7 @@ export const Avatar = styled(Image)`
   height: auto;
   box-shadow: inset 0 0 5px #cdcdcd;
   transition: 300ms;
+  background-color: #cdcdcd;
 `;
 
 export const Wrapper = styled.label`
