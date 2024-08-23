@@ -16,8 +16,8 @@ export const Wrapper = styled.div`
 `;
 
 export const LogoImage = styled(Icon)`
-  width: 8rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   pointer-events: all;
 
   @media screen and (min-width: 1000px) {

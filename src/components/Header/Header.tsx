@@ -31,7 +31,7 @@ const Header = (props?: any) => {
   return (
     <Wrapper {...props}>
       <Link href="/">
-        <LogoImage id="logo-oca-full" />
+        <LogoImage id="logo-oca" />
       </Link>
       <Navbar>
         <NavList>

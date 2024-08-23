@@ -28,9 +28,10 @@ export const CarouselWrapper = styled.div`
   aspect-ratio: 16 / 8;
   box-sizing: border-box;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1000px) {
     /* height: 55svh; */
     /* height: 100%; */
-    aspect-ratio: 1 / 1;
+    /* aspect-ratio: 1 / 1; */
+    height: 80svh;
   }
 `;
