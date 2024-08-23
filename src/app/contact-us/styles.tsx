@@ -25,32 +25,38 @@ export const FormularyWrapper = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 70%;
+  width: 100%;
+  max-width: 700px;
+  padding: 0.5rem;
+  box-sizing: border-box;
 `;
 
 export const FormularyLabel = styled.label`
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   align-items: left;
   flex-direction: column;
 `;
 
 export const FormularyInput = styled.input`
   padding: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.colors.black}30;
   border-radius: 4px;
   font-size: 1rem;
+  box-sizing: border-box;
   width: 100%;
   min-height: 25px;
 `;
 
 export const FormularyTextArea = styled.textarea`
   padding: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  box-sizing: border-box;
+  border: 1px solid ${({ theme }) => theme.colors.black}30;
   border-radius: 4px;
   font-size: 1rem;
   width: 100%;
   min-height: 200px;
+  resize: vertical;
 `;
 
 export const DinamicButton = styled.button<{ isFormValid: boolean }>`
