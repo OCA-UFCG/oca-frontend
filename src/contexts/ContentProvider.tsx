@@ -68,8 +68,6 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
       }
       setLoading(false);
 
-      console.log(res.items);
-
       return res.items;
     },
     [],
