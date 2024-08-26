@@ -65,7 +65,7 @@ export const ChildrenWrapper = styled.ul`
   width: fit-content;
   padding: 0.75rem 1rem;
   flex-flow: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
   display: none;
   box-shadow: 0px 0px 4px #00000015;
 
