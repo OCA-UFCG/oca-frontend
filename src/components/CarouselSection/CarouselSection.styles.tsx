@@ -6,15 +6,11 @@ export const CarouselWrapperSection = styled(Section)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 0 1rem 1rem;
   width: 100%;
   max-width: 1440px;
   height: 100%;
   box-sizing: border-box;
-
-  @media (max-width: 1200px) {
-    padding: 0rem;
-  }
 `;
 
 export const CarouselWrapper = styled.div`
@@ -23,15 +19,13 @@ export const CarouselWrapper = styled.div`
   gap: 1rem;
   width: 100%;
   height: auto;
-  padding: 0.5rem;
+  /* padding: 0.15rem; */
   border-radius: 0.2rem;
   aspect-ratio: 16 / 8;
   box-sizing: border-box;
+  box-shadow: 0px 0px 4px #cdcdcd;
 
   @media (max-width: 1000px) {
-    /* height: 55svh; */
-    /* height: 100%; */
-    /* aspect-ratio: 1 / 1; */
     height: 80svh;
   }
 `;
