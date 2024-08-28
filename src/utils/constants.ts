@@ -26,11 +26,10 @@ export const sections: ISections = {
     name: "Início",
     path: "/",
     children: {
-      // updates: {
-      //   name: "Últimas atualizações",
-      //   path: "/#ultimas-atualizacoes",
-      // },
-
+      news: {
+        name: "Notícias",
+        path: "/#news",
+      },
       publications: {
         name: "Publicações",
         path: "/#publications",

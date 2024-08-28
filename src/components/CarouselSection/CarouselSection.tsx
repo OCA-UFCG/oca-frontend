@@ -29,7 +29,7 @@ const CarouselSection = () => {
   }, []);
 
   return (
-    <CarouselWrapperSection>
+    <CarouselWrapperSection id="news">
       <CarouselWrapper>
         <NewsCarousel newsItems={newsItems} loading={loading} />
       </CarouselWrapper>

@@ -104,5 +104,4 @@ export const CardTitle = styled.span`
   padding-top: 0.5rem;
   transition: 0.25s;
   text-decoration: none;
-  z-index: 100;
 `;
