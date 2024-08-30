@@ -30,16 +30,16 @@ export const sections: ISections = {
         name: "Notícias",
         path: "/#news",
       },
-      publications: {
-        name: "Publicações",
-        path: "/#publications",
-      },
       maps: {
         name: "Mapas & Visualizações",
         path: "/#maps-visu",
       },
+      publications: {
+        name: "Publicações",
+        path: "/#publications",
+      },
       partners: {
-        name: "Parceiros",
+        name: "Patrocinadores",
         path: "/#sponsors",
       },
     },
