@@ -1,8 +1,5 @@
 "use client";
-
 import { Section } from "@/app/globalStyles";
-import { useContext, useEffect, useState } from "react";
-import { CMSContext } from "@/contexts/ContentProvider";
 import LightGallery from "lightgallery/react";
 
 // import styles
@@ -27,29 +24,24 @@ import {
   Title,
 } from "./Infra.styles";
 
-const InfraSection = () => {
-  const [gallery, setGallery] = useState<
-    {
-      fields: {
-        title: string;
-        description: string;
-        image: {
-          fields: {
-            file: {
-              url: string;
-              details: { image: { height: number; width: number } };
-            };
+const InfraSection = ({
+  gallery,
+}: {
+  gallery: {
+    fields: {
+      title: string;
+      description: string;
+      image: {
+        fields: {
+          file: {
+            url: string;
+            details: { image: { height: number; width: number } };
           };
         };
       };
-    }[]
-  >([]);
-  const { loadData } = useContext(CMSContext);
-
-  useEffect(() => {
-    loadData("infrastructure", setGallery);
-  }, [loadData]);
-
+    };
+  }[];
+}) => {
   return (
     <Section full={"false"} id="publications">
       <Gallery>

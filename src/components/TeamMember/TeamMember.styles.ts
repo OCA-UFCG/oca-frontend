@@ -90,13 +90,13 @@ export const MoreInfoContainer = styled.div`
   overflow: hidden;
   padding: 0.25rem 0 0.5rem;
 
-  ${Checkbox}:checked ~ & {
-    animation: close 300ms ease-in-out forwards;
+  /* ${Checkbox}:checked ~ & {
+    animation: close 500ms ease-in-out forwards;
   }
 
   :not(Checkbox:checked) ~ & {
-    animation: open 300ms ease-in-out forwards;
-  }
+    animation: open 500ms ease-in-out forwards;
+  } */
 `;
 
 export const Institution = styled.span`
@@ -125,8 +125,6 @@ export const FieldWork = styled.span`
 export const Networks = styled.div`
   display: flex;
   gap: 0.5rem;
-  /* align-items: flex-end;
-  justify-content: center; */
   width: 100%;
 `;
 
