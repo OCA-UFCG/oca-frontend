@@ -6,7 +6,6 @@ import AboutSection from "@/components/AboutSection/AboutSection";
 
 const About = async () => {
   const { nossaHistoria: content } = await getContent(["nossaHistoria"]);
-  console.log(content[0].fields?.cover);
 
   return (
     <Template>
