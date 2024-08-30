@@ -50,7 +50,7 @@ const NewsCarousel = ({
   }, [index, newsItems]);
 
   return (
-    <NewsWrapper href={newsItems[index]?.fields.url} target="_blank">
+    <NewsWrapper href={newsItems[index]?.fields?.url || ""} target="_blank">
       {loading ? (
         <LoadingIcon id="loading" />
       ) : (
@@ -60,8 +60,8 @@ const NewsCarousel = ({
               width={1600}
               height={800}
               src={
-                newsItems[index]?.fields.thumb.fields.file.url &&
-                `https://${newsItems[index]?.fields.thumb.fields.file.url}`
+                newsItems[index]?.fields?.thumb?.fields?.file?.url &&
+                `https://${newsItems[index]?.fields?.thumb?.fields?.file?.url}`
               }
               alt="News"
             />
@@ -89,9 +89,9 @@ const NewsCarousel = ({
             </ButtonWrapper>
           )}
           <NewsTitle>
-            {newsItems[index]?.fields.title.length > 60
-              ? `${newsItems[index]?.fields.title.substring(0, 60)}...`
-              : newsItems[index]?.fields.title}
+            {newsItems[index]?.fields?.title?.length > 60
+              ? `${newsItems[index]?.fields?.title?.substring(0, 60)}...`
+              : newsItems[index]?.fields?.title}
           </NewsTitle>
           {newsItems.length > 1 && <LoadingBar key={index} />}
         </>

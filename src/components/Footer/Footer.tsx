@@ -1,3 +1,5 @@
+"use client";
+
 import { channels, sections } from "@/utils/constants";
 import {
   Wrapper,
