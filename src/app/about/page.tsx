@@ -6,7 +6,6 @@ import AboutSection from "@/components/AboutSection/AboutSection";
 
 const About = async () => {
   const { nossaHistoria: content } = await getContent(["nossaHistoria"]);
-  console.log(content[0].fields?.cover);
 
   return (
     <Template>
@@ -14,8 +13,8 @@ const About = async () => {
         <SectionTitle>{content[0].fields?.ttulo}</SectionTitle>
         <CoverImage
           alt="Pessoas do oca"
-          height={900}
-          width={1600}
+          height={600}
+          width={1200}
           src={`https:${content[0].fields?.cover.fields.file.url}`}
         />
         <AboutSection content={content[0].fields?.conteudo} />
