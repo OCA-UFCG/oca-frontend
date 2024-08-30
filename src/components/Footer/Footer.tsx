@@ -1,6 +1,5 @@
 "use client";
 
-import { channels, sections } from "@/utils/constants";
 import {
   Wrapper,
   Divider,
@@ -11,6 +10,7 @@ import {
   SocialMediasContainer,
 } from "./Footer.styles";
 import { Icon } from "../Icon/Icon";
+import { channels, sections } from "@/utils/constants";
 
 const Footer = () => {
   return (

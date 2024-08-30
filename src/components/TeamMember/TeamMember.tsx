@@ -60,6 +60,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
             type="checkbox"
             checked={false}
             hidden
+            readOnly
             disabled={!(institution || fieldWork)}
           />
           <Name>{name}</Name>
@@ -76,10 +77,10 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
 
                   <FieldWorkWrapper>
                     {fieldWork.map((field, index) => (
-                      <>
-                        <FieldWork key={index}>{field}</FieldWork>
+                      <FieldWork key={index}>
+                        {field}
                         {index != fieldWork.length - 1 && ", "}
-                      </>
+                      </FieldWork>
                     ))}
                   </FieldWorkWrapper>
                 </FieldWorkContainer>
