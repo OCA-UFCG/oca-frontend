@@ -1,9 +1,8 @@
 "use client";
 
-import { SectionTitle, SpinningIcon } from "@/app/globalStyles";
+import { SectionTitle } from "@/app/globalStyles";
 import {
   Description,
-  LoadingContainer,
   MapPoster,
   ExpandBox,
   TagButton,
@@ -22,12 +21,10 @@ import { useContext, useEffect, useState } from "react";
 import { IEEInfo } from "@/utils/interfaces";
 import { capitalize } from "@/utils/functions";
 import { defaultEEInfo } from "@/utils/constants";
-import LoadingImage from "@/../public/loading.svg";
 import { CMSContext } from "@/contexts/ContentProvider";
 
 const MapsSection = () => {
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
-  const [loading, setLoading] = useState<boolean>(true);
   const { mapsData } = useContext(CMSContext);
   let handler: NodeJS.Timeout;
 
@@ -72,39 +69,27 @@ const MapsSection = () => {
     if (mapsData.length != 0) {
       setCurrentVisu(mapsData.map((map) => map.fields)[0]);
     }
-
-    setLoading(false);
   }, [mapsData]);
 
   return (
     <MapSectionWrapper id="maps-visu">
       <SectionTitle variation="black">Mapas e Visualizações</SectionTitle>
       <BoxWrapper>
-        {loading ? (
-          <LoadingContainer>
-            <SpinningIcon
-              src={LoadingImage}
-              alt="Representação de uma flor que existe no nordete com cinco pétalas"
-            />
-            <span>Carregando..</span>
-          </LoadingContainer>
-        ) : (
-          <PreviewWrapper>
-            <ExpandBox href={`/map?name=${currentVisu.id}`}>
-              <VisuIcon id="expand" size={20} />
-            </ExpandBox>
-            <MapPoster
-              alt=""
-              width={500}
-              height={400}
-              src={
-                typeof currentVisu.poster === "object"
-                  ? `https:${currentVisu.poster.fields.file.url}`
-                  : currentVisu.poster
-              }
-            />
-          </PreviewWrapper>
-        )}
+        <PreviewWrapper>
+          <ExpandBox href={`/map?name=${currentVisu.id}`}>
+            <VisuIcon id="expand" size={20} />
+          </ExpandBox>
+          <MapPoster
+            alt=""
+            width={500}
+            height={400}
+            src={
+              typeof currentVisu.poster === "object"
+                ? `https:${currentVisu.poster.fields.file.url}`
+                : currentVisu.poster
+            }
+          />
+        </PreviewWrapper>
         {mapsData.length != 0 && (
           <TagsContainer>
             {mapsData.map(({ fields: tag }: { fields: IEEInfo }) => (

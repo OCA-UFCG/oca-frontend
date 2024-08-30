@@ -101,6 +101,7 @@ export const MapPoster = styled(Image)`
   height: 100%;
   box-sizing: border-box;
   border: 3px solid ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.green}80;
   border-radius: 8px;
   object-fit: cover;
 `;
