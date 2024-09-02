@@ -11,7 +11,7 @@ import {
 
 const Publication = ({ data }: { data: IPublication }) => {
   const { title, href, type } = data;
-  const maxContentLength = 100;
+  const maxContentLength = 150;
 
   return (
     <Card href={href} target="_blank" title={title}>
