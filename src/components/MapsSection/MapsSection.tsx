@@ -110,7 +110,7 @@ const MapsSection = () => {
                     />
                     <Divider />
                     <LinkButton
-                      href={`/map?name=${currentVisu.id}`}
+                      href={`/map?name=${tag.id}`}
                       active={(tag.id === currentVisu.id).toString()}
                     >
                       Visualizar
