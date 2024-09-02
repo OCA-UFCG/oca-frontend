@@ -1,3 +1,5 @@
+"use client";
+
 import styled from "styled-components";
 
 export const TeamMembersWrapper = styled.section`
@@ -12,6 +14,7 @@ export const Tabloid = styled.div`
   flex-flow: column;
   align-items: center;
   gap: 0.75rem;
+  min-height: 80vh;
 `;
 
 export const SubTitle = styled.h2`

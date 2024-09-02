@@ -1,5 +1,7 @@
+"use client";
+
+import Image from "next/image";
 import styled from "styled-components";
-import { Icon } from "@/components/Icon/Icon";
 
 export const ContentWrapper = styled.div`
   display: flex;
@@ -10,16 +12,13 @@ export const ContentWrapper = styled.div`
   max-width: var(--main-section-width);
   padding: 0 1rem 1rem;
   box-sizing: border-box;
-  margin-top: 4rem;
 `;
 
-export const Article = styled.article`
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-`;
-
-export const OcaImage = styled(Icon)`
-  width: fit-content;
-  height: 15rem;
+export const CoverImage = styled(Image)`
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  max-width: 1000px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
 `;

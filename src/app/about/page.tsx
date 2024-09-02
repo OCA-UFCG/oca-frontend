@@ -1,44 +1,23 @@
-"use client";
-
-import { ReactNode, useContext, useEffect, useState } from "react";
 import { SectionTitle } from "../globalStyles";
-import { Article, ContentWrapper, OcaImage } from "./styles";
+import { ContentWrapper, CoverImage } from "./styles";
 import Template from "@/templates/hubTemplate";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Document } from "@contentful/rich-text-types";
-import { CMSContext, renderOptions } from "@/contexts/ContentProvider";
+import { getContent } from "@/utils/functions";
+import AboutSection from "@/components/AboutSection/AboutSection";
 
-const About = () => {
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<ReactNode | null>(null);
-  const { loadData } = useContext(CMSContext);
-
-  useEffect(() => {
-    const loadContent = async () => {
-      const [contentItems] = await loadData("nossaHistoria");
-
-      if (contentItems.fields?.conteudo) {
-        setContent(
-          documentToReactComponents(
-            contentItems?.fields?.conteudo as Document,
-            renderOptions,
-          ),
-        );
-      }
-      if (contentItems?.fields?.ttulo) {
-        setTitle(contentItems?.fields?.ttulo as string);
-      }
-    };
-
-    loadContent();
-  }, [loadData]);
+const About = async () => {
+  const { nossaHistoria: content } = await getContent(["nossaHistoria"]);
 
   return (
     <Template>
       <ContentWrapper>
-        <OcaImage id="logo-oca" />
-        <SectionTitle>{title}</SectionTitle>
-        <Article>{content && content}</Article>
+        <SectionTitle>{content[0].fields?.ttulo}</SectionTitle>
+        <CoverImage
+          alt="Pessoas do oca"
+          height={600}
+          width={1200}
+          src={`https:${content[0].fields?.cover.fields.file.url}`}
+        />
+        <AboutSection content={content[0].fields?.conteudo} />
       </ContentWrapper>
     </Template>
   );

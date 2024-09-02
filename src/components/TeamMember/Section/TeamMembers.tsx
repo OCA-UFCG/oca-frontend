@@ -7,18 +7,13 @@ import {
   Section,
 } from "./TeamMembers.styles";
 import TeamMember from "../TeamMember";
-import { useContext, useEffect, useState } from "react";
-import { CMSContext } from "@/contexts/ContentProvider";
 import { ITeamMember } from "@/utils/interfaces";
 
-const TeamMembersSection = () => {
-  const [teamMembers, setTeamMembers] = useState<{ fields: ITeamMember }[]>([]);
-  const { loadData } = useContext(CMSContext);
-
-  useEffect(() => {
-    loadData("members", setTeamMembers);
-  }, [loadData]);
-
+const TeamMembersSection = ({
+  teamMembers,
+}: {
+  teamMembers: { fields: ITeamMember }[];
+}) => {
   return (
     <Section full="false" id="teamMembers">
       <SectionTitle>Nossa equipe</SectionTitle>
