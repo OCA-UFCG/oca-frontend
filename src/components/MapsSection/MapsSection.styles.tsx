@@ -31,11 +31,14 @@ export const TagsContainer = styled.div`
   gap: 1rem;
   width: 100%;
   height: 100%;
-  max-width: 450px;
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;
   padding: 0.1rem;
+
+  @media screen and (min-width: 700px) {
+    max-width: 450px;
+  }
 `;
 
 export const TagButton = styled.span<{ active?: string }>`
