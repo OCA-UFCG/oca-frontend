@@ -112,6 +112,9 @@ const MapsSection = () => {
                     <LinkButton
                       href={`/map?name=${tag.id}`}
                       active={(tag.id === currentVisu.id).toString()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
                     >
                       Visualizar
                     </LinkButton>
