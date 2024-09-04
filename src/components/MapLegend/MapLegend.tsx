@@ -24,7 +24,9 @@ interface MapLegendProps {
 export const MapLegend = ({ imageInfo, year = "general" }: MapLegendProps) => {
   const [retracted, setRetracted] = useState<string>("open");
 
-  const { name, imageData, measurementUnit, extraInfo } = imageInfo;
+  const { name, imageData, measurementUnit, extraInfo, graphLegendTitle } =
+    imageInfo;
+  console.log(imageInfo);
 
   return (
     <Wrapper>
@@ -35,7 +37,7 @@ export const MapLegend = ({ imageInfo, year = "general" }: MapLegendProps) => {
           )
         }
       >
-        <Title>{name}</Title>
+        <Title>{graphLegendTitle || name}</Title>
         <SubtractImage
           retracted={retracted}
           id="subtract"

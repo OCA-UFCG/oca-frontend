@@ -71,6 +71,7 @@ export interface IEEInfo {
   poster: { fields: { file: { url: string } } } | string;
   minScale?: number;
   maxScale?: number;
+  graphLegendTitle?: string;
   imageData: {
     [year: string]: {
       default: boolean;
