@@ -17,6 +17,7 @@ import {
   FieldWorkWrapper,
   Checkbox,
   AvatarFrame,
+  ExpandIcon,
 } from "./TeamMember.styles";
 import { Icon } from "../Icon/Icon";
 
@@ -39,8 +40,11 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
   ];
 
   return (
-    <Wrapper htmlFor={name.replace(" ", "_").toLowerCase()}>
-      <AvatarFrame href={github || linkedin || lattes || ""} target="_blank">
+    <Wrapper
+      htmlFor={name.replace(" ", "_").toLowerCase()}
+      active={(institution || fieldWork)?.toString() || "false"}
+    >
+      <AvatarFrame>
         <Avatar
           src={
             `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
@@ -48,8 +52,8 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           }
           title={name}
           alt="Profile picture"
-          width={260}
-          height={260}
+          width={300}
+          height={300}
         />
       </AvatarFrame>
 
@@ -58,7 +62,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           <Checkbox
             id={name.replace(" ", "_").toLowerCase()}
             type="checkbox"
-            checked={false}
+            defaultChecked={true}
             hidden
             readOnly
             disabled={!(institution || fieldWork)}
@@ -87,18 +91,18 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
               )}
             </MoreInfoContainer>
           )}
+          <Networks>
+            {socialMedias.map(
+              ({ href, icon, size }: ISocialMedia, index: number) =>
+                href && (
+                  <Medias target="_blank" key={index} title={href} href={href}>
+                    <Icon id={icon} size={size} />
+                  </Medias>
+                ),
+            )}
+          </Networks>
+          <ExpandIcon id="arrow-head" size={16} />
         </MainInfoContainer>
-
-        <Networks>
-          {socialMedias.map(
-            ({ href, icon, size }: ISocialMedia, index: number) =>
-              href && (
-                <Medias target="_blank" key={index} title={href} href={href}>
-                  <Icon id={icon} size={size} />
-                </Medias>
-              ),
-          )}
-        </Networks>
       </InfoContainer>
     </Wrapper>
   );

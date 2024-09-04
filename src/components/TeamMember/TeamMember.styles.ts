@@ -5,10 +5,9 @@ import { Icon } from "@/components/Icon/Icon";
 
 export const Checkbox = styled.input``;
 
-export const ExpandIcon = styled(Icon)<{ expanded: string }>`
+export const ExpandIcon = styled(Icon)`
   color: ${({ theme }) => theme.colors.black};
   align-self: center;
-  opacity: 0.5;
   transition: 300ms;
   transform: rotate(180deg);
 
@@ -17,7 +16,7 @@ export const ExpandIcon = styled(Icon)<{ expanded: string }>`
   }
 `;
 
-export const AvatarFrame = styled.a`
+export const AvatarFrame = styled.div`
   overflow: hidden;
   width: 100%;
 `;
@@ -25,31 +24,37 @@ export const AvatarFrame = styled.a`
 export const Avatar = styled(Image)`
   position: relative;
   width: 100%;
+  aspect-ratio: 9 / 10;
+  object-fit: cover;
   height: auto;
   box-shadow: inset 0 0 5px #cdcdcd;
   transition: 300ms;
   background-color: #cdcdcd;
 `;
 
-export const Wrapper = styled.label`
+export const Wrapper = styled.label<{ active: string }>`
+  cursor: ${({ active }) => (active === "false" ? "not-allowed" : "pointer")};
   display: flex;
   align-items: center;
   width: auto;
   gap: 0.5rem;
   flex-direction: column;
   break-inside: avoid;
-  /* width: 16rem; */
-  box-shadow: 0 0 5px #cdcdcd;
+  max-width: 18rem;
+  box-shadow: 0 0 3px #cdcdcd;
   background-color: white;
   margin-bottom: 2rem;
 
+  & ${ExpandIcon} {
+    opacity: ${({ active }) => (active !== "false" ? "0.5" : "0.3")};
+  }
+
   &:hover ${ExpandIcon} {
-    opacity: 1;
-    width: 6rem;
+    opacity: ${({ active }) => active !== "false" && "1"};
   }
 
   &:hover ${Avatar} {
-    transform: scale(1.1);
+    transform: ${({ active }) => active !== "false" && "scale(1.1)"};
   }
 
   @media screen and (max-width: 1200px) {
@@ -90,13 +95,13 @@ export const MoreInfoContainer = styled.div`
   overflow: hidden;
   padding: 0.25rem 0 0.5rem;
 
-  /* ${Checkbox}:checked ~ & {
+  ${Checkbox}:checked ~ & {
     animation: close 500ms ease-in-out forwards;
   }
 
   :not(Checkbox:checked) ~ & {
     animation: open 500ms ease-in-out forwards;
-  } */
+  }
 `;
 
 export const Institution = styled.span`
@@ -126,6 +131,7 @@ export const Networks = styled.div`
   display: flex;
   gap: 0.5rem;
   width: 100%;
+  padding: 0.5rem 0;
 `;
 
 export const Medias = styled(Link)`
