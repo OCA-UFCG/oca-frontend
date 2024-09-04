@@ -118,8 +118,8 @@ export const ExpandBox = styled(Link)`
   left: 1rem;
   background-color: ${({ theme }) => theme.colors.white};
   opacity: 0.8;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 0.3rem;
+  border-radius: 6px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
   z-index: 1;
@@ -165,8 +165,8 @@ export const IconWrapper = styled.div`
 `;
 
 export const VisuIcon = styled(Icon)<{ active?: string }>`
-  width: 100%;
-  height: 100%;
+  width: 30px;
+  height: 30px;
   color: ${({ theme, active }) =>
     active === "true" ? theme.colors.green : theme.colors.black};
 `;

@@ -17,15 +17,14 @@ import {
   BoxWrapper,
   PreviewWrapper,
 } from "./MapsSection.styles";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IEEInfo } from "@/utils/interfaces";
 import { capitalize } from "@/utils/functions";
 import { defaultEEInfo } from "@/utils/constants";
-import { CMSContext } from "@/contexts/ContentProvider";
+import { Icon } from "../Icon/Icon";
 
-const MapsSection = () => {
+const MapsSection = ({ tiffInfo }: { tiffInfo: { fields: IEEInfo }[] }) => {
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
-  const { mapsData } = useContext(CMSContext);
   let handler: NodeJS.Timeout;
 
   const updateCurrentVisu = (
@@ -35,18 +34,18 @@ const MapsSection = () => {
     event?.preventDefault();
     if (visuId !== currentVisu.id) {
       setCurrentVisu(
-        mapsData.find((map) => map.fields.id === visuId)?.fields ??
+        tiffInfo.find((map) => map.fields.id === visuId)?.fields ??
           defaultEEInfo,
       );
     }
   };
 
   const nextVisu = () => {
-    const currentIndex = mapsData.findIndex(
+    const currentIndex = tiffInfo.findIndex(
       (map) => map.fields.id === currentVisu.id,
     );
-    const nextIndex = (currentIndex + 1) % mapsData.length;
-    updateCurrentVisu(mapsData[nextIndex].fields.id);
+    const nextIndex = (currentIndex + 1) % tiffInfo.length;
+    updateCurrentVisu(tiffInfo[nextIndex].fields.id);
   };
 
   const visuDebounce = () => {
@@ -56,20 +55,21 @@ const MapsSection = () => {
   };
 
   useEffect(() => {
-    if (mapsData.length > 1) {
+    if (tiffInfo.length > 1) {
       visuDebounce();
     }
 
     return () => {
       clearTimeout(handler);
     };
-  }, [currentVisu, mapsData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentVisu, tiffInfo]);
 
   useEffect(() => {
-    if (mapsData.length != 0) {
-      setCurrentVisu(mapsData.map((map) => map.fields)[0]);
+    if (tiffInfo.length != 0) {
+      setCurrentVisu(tiffInfo.map((map) => map.fields)[0]);
     }
-  }, [mapsData]);
+  }, [tiffInfo]);
 
   return (
     <MapSectionWrapper id="maps-visu">
@@ -77,7 +77,7 @@ const MapsSection = () => {
       <BoxWrapper>
         <PreviewWrapper>
           <ExpandBox href={`/map?name=${currentVisu.id}`}>
-            <VisuIcon id="expand" size={20} />
+            <Icon id="expand" size={18} />
           </ExpandBox>
           <MapPoster
             alt=""
@@ -90,9 +90,9 @@ const MapsSection = () => {
             }
           />
         </PreviewWrapper>
-        {mapsData.length != 0 && (
+        {tiffInfo.length != 0 && (
           <TagsContainer>
-            {mapsData.map(({ fields: tag }: { fields: IEEInfo }) => (
+            {tiffInfo.map(({ fields: tag }: { fields: IEEInfo }) => (
               <TagButton
                 key={tag.id}
                 active={(tag.id === currentVisu.id).toString()}

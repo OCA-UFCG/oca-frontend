@@ -8,16 +8,17 @@ import { getContent } from "@/utils/functions";
 import { defaultNews } from "@/utils/constants";
 
 export default async function Home() {
-  const { news, publications, sponsors } = await getContent([
+  const { news, publications, sponsors, tiffInfo } = await getContent([
     "news",
     "publications",
     "sponsors",
+    "tiffInfo",
   ]);
 
   return (
     <Template>
       <CarouselSection newsItems={news?.length === 0 ? defaultNews : news} />
-      <MapsSection />
+      <MapsSection tiffInfo={tiffInfo} />
       <PublicationsSection publications={publications} />
       <SponsorsSection sponsors={sponsors} />
     </Template>
