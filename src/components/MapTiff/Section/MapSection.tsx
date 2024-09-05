@@ -23,15 +23,15 @@ import { capitalize } from "@/utils/functions";
 import MapDescription from "@/components/MapDescription/MapDescription";
 import { MapLegend } from "@/components/MapLegend/MapLegend";
 
+const DEFAULT_TIFF = "spei";
+
 const MapPageWrapper = ({ mapsData }: { mapsData: any }) => (
   <Suspense fallback={<div>Carregando...</div>}>
     <MapSection mapsData={mapsData} />
   </Suspense>
 );
 
-const DEFAULT_TIFF = "spei";
-
-const MapSection = ({ mapsData }: { mapsData: any }) => {
+const MapSection = ({ mapsData }: { mapsData: { fields: IEEInfo }[] }) => {
   const searchParams = useSearchParams();
 
   const [loadingMap, setLoadingMap] = useState<boolean>(false);
@@ -117,6 +117,7 @@ const MapSection = ({ mapsData }: { mapsData: any }) => {
         <MenuWrapper>
           <MapsMenu
             isLoading={loadingMap}
+            mapsData={mapsData}
             initialValues={imageData}
             retracted={isMenuRetracted}
             setRetracted={setIsmenuRetracted}

@@ -111,24 +111,26 @@ const MapTiff = ({
           }
         }
       }
-
       let firstSymbolId;
-      const layers = map?.getStyle().layers || [];
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].type === "symbol") {
-          firstSymbolId = layers[i].id;
-          break;
-        }
-      }
+      const layers = map?.getStyle()?.layers || [];
 
-      map?.addLayer(
-        {
-          type: "raster",
-          source: name + year,
-          id: name + year,
-        },
-        firstSymbolId,
-      );
+      if (layers.length) {
+        for (let i = 0; i < layers.length; i++) {
+          if (layers[i].type === "symbol") {
+            firstSymbolId = layers[i].id;
+            break;
+          }
+        }
+
+        map?.addLayer(
+          {
+            type: "raster",
+            source: name + year,
+            id: name + year,
+          },
+          firstSymbolId,
+        );
+      }
       setLoading(false);
     },
     [map, mapsData, setLoading],

@@ -1,8 +1,8 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import MenuModal from "@/components/MenuModal/MenuModal";
 import { VisuItem } from "@/components/VisuItem/VisuItem";
-import { useCallback, useContext, useEffect, useState } from "react";
-import { IFormItem, IImageData, IMapInfo } from "@/utils/interfaces";
+import { useCallback, useEffect, useState } from "react";
+import { IEEInfo, IFormItem, IImageData, IMapInfo } from "@/utils/interfaces";
 import DateInput from "@/components/DateInput/DateInput";
 import {
   ContentWrapper,
@@ -13,11 +13,11 @@ import {
   QuestionMarkImg,
   Title,
 } from "./MapsMenu.styles";
-import { CMSContext } from "@/contexts/ContentProvider";
 
 const MapsMenu = ({
   initialValues,
   retracted,
+  mapsData,
   isLoading,
   setRetracted,
   updateVisu,
@@ -26,6 +26,7 @@ const MapsMenu = ({
   initialValues: IMapInfo;
   retracted: boolean;
   isLoading: boolean;
+  mapsData: { fields: IEEInfo }[];
   setRetracted: (retracted: boolean) => void;
   updateVisu: (newValues: IMapInfo) => void;
   onQuestionSelect: (newItem: string, retract?: boolean) => void;
@@ -33,7 +34,6 @@ const MapsMenu = ({
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
   const [currentName, setCurrentName] = useState<string>("");
-  const { mapsData } = useContext(CMSContext);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

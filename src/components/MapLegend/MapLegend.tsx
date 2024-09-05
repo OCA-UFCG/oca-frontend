@@ -26,7 +26,6 @@ export const MapLegend = ({ imageInfo, year = "general" }: MapLegendProps) => {
 
   const { name, imageData, measurementUnit, extraInfo, graphLegendTitle } =
     imageInfo;
-  console.log(imageInfo);
 
   return (
     <Wrapper>
