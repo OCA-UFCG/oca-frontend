@@ -7,6 +7,8 @@ import Template from "@/templates/hubTemplate";
 import { getContent } from "@/utils/functions";
 import { defaultNews } from "@/utils/constants";
 
+export const revalidate = 60;
+
 export default async function Home() {
   const { news, publications, sponsors, tiffInfo } = await getContent([
     "news",

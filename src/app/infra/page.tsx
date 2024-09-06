@@ -4,6 +4,8 @@ import { SubTitle, Tabloid } from "./styles";
 import InfraSection from "@/components/Infra/Infra";
 import { getContent } from "@/utils/functions";
 
+export const revalidate = 60;
+
 const TeamPage = async () => {
   const data = await getContent(["infrastructure"]);
 

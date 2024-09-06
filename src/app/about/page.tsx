@@ -4,6 +4,8 @@ import Template from "@/templates/hubTemplate";
 import { getContent } from "@/utils/functions";
 import AboutSection from "@/components/AboutSection/AboutSection";
 
+export const revalidate = 60;
+
 const About = async () => {
   const { nossaHistoria: content } = await getContent(["nossaHistoria"]);
 
