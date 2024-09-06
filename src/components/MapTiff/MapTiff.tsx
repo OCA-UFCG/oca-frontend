@@ -112,9 +112,10 @@ const MapTiff = ({
         }
       }
       let firstSymbolId;
-      const layers = map?.getStyle()?.layers || [];
 
-      if (layers.length) {
+      if (map && map.getStyle()) {
+        const layers = map?.getStyle().layers || [];
+
         for (let i = 0; i < layers.length; i++) {
           if (layers[i].type === "symbol") {
             firstSymbolId = layers[i].id;
@@ -130,8 +131,8 @@ const MapTiff = ({
           },
           firstSymbolId,
         );
+        setLoading(false);
       }
-      setLoading(false);
     },
     [map, mapsData, setLoading],
   );
@@ -143,6 +144,7 @@ const MapTiff = ({
 
     if (name) {
       const yearStr = year || "general";
+
       loadLayer(name, yearStr);
 
       return () => {

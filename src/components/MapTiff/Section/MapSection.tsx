@@ -33,16 +33,16 @@ const MapPageWrapper = ({ mapsData }: { mapsData: any }) => (
 
 const MapSection = ({ mapsData }: { mapsData: { fields: IEEInfo }[] }) => {
   const searchParams = useSearchParams();
-
-  const [loadingMap, setLoadingMap] = useState<boolean>(false);
   const [imageData, setImageData] = useState<IMapInfo>({
     name: "",
     year: "",
   });
 
+  const [loadingMap, setLoadingMap] = useState<boolean>(false);
   const [descriptionInfo, setDescriptionInfo] =
     useState<IEEInfo>(defaultEEInfo);
   const [isDescRetracted, setIsDescRetracted] = useState<boolean>(true);
+  const [isMenuRetracted, setIsmenuRetracted] = useState<boolean>(false);
 
   const handleDescUpdate = useCallback(
     (name: string, retract: boolean = true) => {
@@ -62,41 +62,40 @@ const MapSection = ({ mapsData }: { mapsData: { fields: IEEInfo }[] }) => {
     [descriptionInfo.id, isDescRetracted, mapsData],
   );
 
-  const [isMenuRetracted, setIsmenuRetracted] = useState<boolean>(false);
-
   const handleMapClick = useCallback(() => {
     setIsmenuRetracted(true);
     setIsDescRetracted(true);
   }, [setIsmenuRetracted, setIsDescRetracted]);
 
   useEffect(() => {
-    if (mapsData.length === 0) return;
+    if (!mapsData || mapsData.length === 0) return;
 
-    let name = searchParams?.get("name") ?? "spei";
+    let name = searchParams?.get("name") ?? DEFAULT_TIFF;
     let year = searchParams?.get("year") ?? "general";
 
-    const filteredData = mapsData.filter(
+    const filteredData = mapsData.find(
       (data: { fields: { id: string } }) => data.fields.id === name,
     );
-    if (filteredData.length === 0) {
+
+    if (!filteredData) {
       name = DEFAULT_TIFF;
     }
 
     if (
-      mapsData &&
-      mapsData.filter(
+      filteredData &&
+      !mapsData.find(
         (data: { fields: { id: string; imageData: {} } }) =>
           name === data.fields.id && year in Object.keys(data.fields.imageData),
-      ).length == 0
+      )
     ) {
-      year = Object.keys(filteredData[0].fields.imageData)[0];
+      year = Object.keys(filteredData?.fields?.imageData)[0];
     }
 
     setImageData({ name, year });
-    setDescriptionInfo(filteredData[0].fields);
+    filteredData && setDescriptionInfo(filteredData?.fields);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapsData]);
+  }, []);
 
   return (
     <MapTemplate>
