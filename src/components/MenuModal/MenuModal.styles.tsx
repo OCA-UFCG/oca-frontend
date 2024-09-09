@@ -2,6 +2,16 @@ import styled from "styled-components";
 import Image from "next/image";
 import { Icon } from "../Icon/Icon";
 
+export const RetractIcon = styled(Icon)<{ position: "left" | "right" }>`
+  ${({ position }) => position === "right" && "transform: rotate(180deg)"};
+  cursor: pointer;
+  transition: 300ms;
+
+  &:hover {
+    opacity: 0.6;
+  }
+`;
+
 export const MenuImage = styled(Icon)`
   transition: 0.2s;
   cursor: pointer;

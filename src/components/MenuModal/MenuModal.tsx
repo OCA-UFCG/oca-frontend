@@ -5,6 +5,7 @@ import {
   HeadWrapper,
   MenuImage,
   ModalWrapper,
+  RetractIcon,
 } from "./MenuModal.styles";
 import { Icon } from "../Icon/Icon";
 
@@ -47,7 +48,7 @@ const MenuModal = ({
         <HeadWrapper>
           {hasIcon && <Icon id="logo-oca-full" width={120} height={60} />}
           <div onClick={updateRetracted}>
-            <Icon id="retract" size={20} />
+            <RetractIcon id="retract" size={20} position={position} />
           </div>
         </HeadWrapper>
         <ContentWrapper>{children}</ContentWrapper>

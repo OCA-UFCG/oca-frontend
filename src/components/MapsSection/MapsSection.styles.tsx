@@ -14,12 +14,13 @@ export const MapSectionWrapper = styled(Section)`
 
 export const BoxWrapper = styled.div`
   display: flex;
+  justify-content: center;
   gap: 1rem;
   max-width: 1440px;
   height: 550px;
   width: 100%;
   box-sizing: border-box;
-  padding: 1rem;
+  /* padding: 1rem; */
 
   @media screen and (max-width: 700px) {
     flex-direction: column;
@@ -165,8 +166,7 @@ export const IconWrapper = styled.div`
 `;
 
 export const VisuIcon = styled(Icon)<{ active?: string }>`
-  width: 30px;
-  height: 30px;
+  /* width: 30px; */
   color: ${({ theme, active }) =>
     active === "true" ? theme.colors.green : theme.colors.black};
 `;
@@ -181,7 +181,7 @@ export const LinkButton = styled(Link)<{ active?: string }>`
   color: ${({ theme, active }) =>
     active === "true" ? theme.colors.green : theme.colors.black};
   cursor: pointer;
-  width: 100%;
+  /* width: 100%; */
   text-align: flex-end;
   transition: 0.3s;
   text-decoration: none;
