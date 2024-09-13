@@ -5,11 +5,27 @@ import { Icon } from "@/components/Icon/Icon";
 import Link from "next/link";
 
 export const MapSectionWrapper = styled(Section)`
-  padding: 2.5rem 1rem;
+  padding: 3rem 1rem;
   display: flex;
   flex-flow: column;
   align-items: center;
   overflow: hidden;
+  background-color: ${({ theme }) => theme.colors.salmon};
+  position: relative;
+
+  &:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    background-image: url("padrao-flores.png");
+    background-size: 60vw;
+    background-repeat: repeat;
+  }
 `;
 
 export const BoxWrapper = styled.div`
@@ -36,6 +52,7 @@ export const TagsContainer = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   padding: 0.1rem;
+  padding-right: 0.75rem;
 
   @media screen and (min-width: 700px) {
     max-width: 450px;
@@ -55,16 +72,17 @@ export const TagButton = styled.span<{ active?: string }>`
   font-size: 1.1rem;
   box-shadow: 0 0 4px #a3a3a3;
   border-radius: 2px;
-  transition: 1s;
+  transition: 300ms;
   z-index: 0;
   box-sizing: border-box;
+  background-color: #ffffff95;
+
   cursor: ${({ active }) => (active === "true" ? "not-allowed" : "pointer")};
 
   &:hover {
     transform: scale(${({ active }) => active !== "true" && "0.99"});
     color: ${({ theme }) => theme.colors.green};
-    background-color: ${({ theme, active }) =>
-      active === "true" ? "transparent" : theme.colors.black}10;
+    opacity: ${({ active }) => active !== "true" && "0.6"};
   }
 `;
 

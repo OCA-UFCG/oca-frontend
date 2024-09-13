@@ -226,6 +226,7 @@ export const Main = styled.main`
 
 export const Section = styled.section<{ full?: string }>`
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 1.5rem;
   padding: 0;
@@ -239,6 +240,9 @@ export const SectionTitle = styled.h2<{ variation?: "black" | "white" }>`
   font-size: 1.75rem;
   font-weight: bold;
   text-align: center;
+  padding-bottom: 0.25rem;
+  width: fit-content;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.green};
   color: ${({ theme, variation }) => theme.colors[variation || "black"]};
 `;
 

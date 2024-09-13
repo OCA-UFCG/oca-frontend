@@ -6,6 +6,7 @@ export const PublicationsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   padding: 1rem;
+  align-items: center;
   gap: 1rem;
 
   @media screen and (max-width: 1000px) {
@@ -14,6 +15,7 @@ export const PublicationsContainer = styled.div`
 
   @media screen and (max-width: 800px) {
     display: flex;
+    align-items: center;
     overflow: hidden;
     width: fit-content;
     position: relative;

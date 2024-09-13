@@ -73,7 +73,7 @@ const MapsSection = ({ tiffInfo }: { tiffInfo: { fields: IEEInfo }[] }) => {
 
   return (
     <MapSectionWrapper id="maps-visu">
-      <SectionTitle variation="black">Mapas e Visualizações</SectionTitle>
+      <SectionTitle variation="black">Mapas & Visualizações</SectionTitle>
       <BoxWrapper>
         <PreviewWrapper>
           <ExpandBox href={`/map?name=${currentVisu.id}`}>
