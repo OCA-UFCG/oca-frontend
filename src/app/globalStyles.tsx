@@ -217,7 +217,6 @@ export const Main = styled.main`
 
   box-sizing: border-box;
   transition: 0.3s;
-  gap: 3rem;
 
   background-image: url("padrao-verde.png");
   background-size: 60vw;
@@ -225,11 +224,11 @@ export const Main = styled.main`
 `;
 
 export const Section = styled.section<{ full?: string }>`
+  padding: 3rem 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 0;
   box-sizing: border-box;
   width: 100%;
   max-width: ${({ full }) =>
