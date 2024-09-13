@@ -218,6 +218,10 @@ export const Main = styled.main`
   box-sizing: border-box;
   transition: 0.3s;
   gap: 3rem;
+
+  background-image: url("padrao-verde.png");
+  background-size: 60vw;
+  background-repeat: repeat;
 `;
 
 export const Section = styled.section<{ full?: string }>`

@@ -35,16 +35,18 @@ export const ItemContent = styled.div`
   gap: 0.25rem;
   align-items: center;
   transition: 0.3s;
+  color: ${({ theme }) => theme.colors.black};
 
   a {
+    color: ${({ theme }) => theme.colors.black};
     display: block;
     text-decoration: none;
     width: max-content;
-    font-weight: normal;
+    transition: 0.3s;
     font-style: none;
   }
 
-  &:hover {
+  &:hover a {
     opacity: 0.6;
   }
 `;

@@ -11,6 +11,7 @@ declare module "styled-components" {
     gray: string;
     orange: string;
     yellow: string;
+    salmon: string;
   }
 
   export interface DefaultTheme {
@@ -29,5 +30,6 @@ export const theme: DefaultTheme = {
     gray: "#858585",
     orange: "#AA633B",
     yellow: "#CEA15B",
+    salmon: "#F9E8DD",
   },
 };

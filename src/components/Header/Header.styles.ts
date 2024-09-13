@@ -31,10 +31,9 @@ export const LogoImage = styled(Icon)`
 export const Navbar = styled.nav`
   backdrop-filter: blur(40px);
   padding: 0.5rem 0.75rem;
-  background-color: #ffffff98;
-  border: 1px solid #44444410;
+  background-color: #ffffff99;
   border-radius: 4px;
-  box-shadow: 0px 0px 4px #00000015;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.green};
   pointer-events: all;
 
   @media screen and (max-width: 1000px) {
@@ -74,7 +73,7 @@ export const SocialMedia = styled.div`
 export const MediaWrapper = styled(Link)`
   display: flex;
   align-items: center;
-  color: ${({ theme }) => theme.colors.black}90;
+  color: ${({ theme }) => theme.colors.green};
   transition: 300ms;
 
   &:hover {
