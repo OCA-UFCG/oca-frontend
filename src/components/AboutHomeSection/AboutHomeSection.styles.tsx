@@ -6,21 +6,23 @@ import { Icon } from "../Icon/Icon";
 export const Wrapper = styled(Section)`
   background-image: url("Grass.png");
   background-repeat: repeat-x;
-  min-height: 60vh;
+  min-height: 40rem;
   justify-content: center;
-  background-position: right;
+  background-position: bottom;
 `;
 
 export const ContentWrapper = styled.div`
   display: flex;
+  gap: 1rem;
   justify-content: space-between;
   align-items: center;
   max-width: 1440px;
   width: 100%;
   margin-bottom: 3rem;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 900px) {
     justify-content: center;
+    flex-flow: column-reverse;
   }
 `;
 
@@ -29,14 +31,12 @@ export const ContentModal = styled.div`
   flex-flow: column;
   gap: 1rem;
   box-sizing: border-box;
-  background-color: #ffffff99;
-  backdrop-filter: blur(40px);
+  background-color: #ffffff;
   height: fit-content;
-  max-width: 600px;
+  max-width: 550px;
   padding: 1rem;
   box-shadow: 0px 0px 4px #cdcdcd;
   border-radius: 4px;
-  transform: translateY(-3rem);
 `;
 
 export const OcaLogo = styled(Icon)``;

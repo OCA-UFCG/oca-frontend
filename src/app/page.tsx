@@ -24,7 +24,10 @@ export default async function Home() {
 
   return (
     <Template>
-      <AboutHomeSection content={content[0].fields?.about} />
+      <AboutHomeSection
+        content={content[0].fields?.about}
+        photos={content[0].fields?.album}
+      />
       <MapsSection tiffInfo={tiffInfo} />
       <PublicationsSection publications={publications} />
       <SponsorsSection sponsors={sponsors} />
