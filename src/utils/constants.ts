@@ -55,6 +55,10 @@ export const sections: ISections = {
         name: "Equipe",
         path: "/team",
       },
+      collab: {
+        name: "Colaboradores",
+        path: "/collab",
+      },
       history: {
         name: "Nossa história",
         path: "/about",

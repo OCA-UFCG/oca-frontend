@@ -13,7 +13,7 @@ export const Wrapper = styled(Section)`
 
 export const ContentWrapper = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: space-between;
   align-items: center;
   max-width: 1440px;

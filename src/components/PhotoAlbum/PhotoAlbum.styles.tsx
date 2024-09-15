@@ -24,7 +24,7 @@ export const PhotoWrapper = styled.div`
 export const Photo = styled(Image)<{ active: string; distance: number }>`
   object-fit: cover;
   width: ${({ active, distance }) =>
-    active === "true" ? "26rem" : `${3 - distance / 3}rem`};
+    active === "true" ? "26rem" : `${2 - distance / 3}rem`};
   height: ${({ active, distance }) =>
     active === "true" ? "17rem" : `${16 - distance / 2}rem`};
   border-radius: 4px;
@@ -40,7 +40,7 @@ export const Photo = styled(Image)<{ active: string; distance: number }>`
     width: ${({ active, distance }) =>
       active === "true" ? "20rem" : `${2.5 - distance / 3}rem`};
     height: ${({ active, distance }) =>
-      active === "true" ? "12rem" : `${12 - distance / 2}rem`};
+      active === "true" ? "14rem" : `${12 - distance / 2}rem`};
   }
 
   @media screen and (max-width: 540px) {

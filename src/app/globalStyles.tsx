@@ -13,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100svh;
+    min-height: 100vh;
 
     ::-webkit-scrollbar {
       height: 0.5rem;
@@ -151,8 +151,9 @@ export const GlobalStyles = createGlobalStyle`
   body {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
+    min-height: 100vh;
+    justify-content: space-between;
   }
   ol, ul {
     margin-left: 1rem;

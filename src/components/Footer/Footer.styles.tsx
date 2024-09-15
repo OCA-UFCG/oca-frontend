@@ -5,6 +5,7 @@ import { Icon } from "../Icon/Icon";
 export const Wrapper = styled.footer`
   display: flex;
   padding: 2rem;
+  margin-top: auto;
   box-sizing: border-box;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.green};
