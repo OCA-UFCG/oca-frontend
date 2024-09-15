@@ -9,7 +9,7 @@ const About = async () => {
   const { collaborators: content } = await getContent(["collaborators"]);
 
   return (
-    <Template>
+    <Template backThumb={true}>
       <Wrapper>
         <Title>Colaboradores do Observatório da Caatinga</Title>
         <ContentWrapper>

@@ -8,7 +8,7 @@ const TeamPage = async () => {
   const data = await getContent(["members"]);
 
   return (
-    <Template>
+    <Template backThumb={true}>
       <TeamMembersSection teamMembers={data.members} />
     </Template>
   );

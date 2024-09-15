@@ -204,13 +204,12 @@ export const ContentContainer = styled.div`
   width: 100%;
   min-height: 100svh;
   box-sizing: border-box;
-  background-image: url("background.png");
   background-size: 150vw;
   background-repeat: repeat;
   justify-content: space-between;
 `;
 
-export const Main = styled.main`
+export const Main = styled.main<{ backThumb: string }>`
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -219,9 +218,13 @@ export const Main = styled.main`
   box-sizing: border-box;
   transition: 0.3s;
 
-  background-image: url("padrao-verde.png");
-  background-size: 60vw;
-  background-repeat: repeat;
+  background-image: url(${({ backThumb }) =>
+    backThumb === "true" ? "background.png" : "padrao-verde.png"});
+
+  background-size: ${({ backThumb }) => backThumb === "false" && "60vw"};
+  background-repeat: ${({ backThumb }) =>
+    backThumb === "true" ? "repeat-x" : "repeat"};
+  background-position: bottom;
 `;
 
 export const Section = styled.section<{ full?: string }>`

@@ -65,7 +65,7 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
   margin: auto 0;
   transition: transform 0.5s ease-out;
   background-color: ${({ theme }) => theme.colors.white};
-  background-image: url("background.png");
+  background-image: url("padrao-verde.png");
   background-size: 50rem;
   border-radius: 6px;
 
