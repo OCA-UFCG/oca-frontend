@@ -1,7 +1,7 @@
 import CollabTable from "@/components/CollabTable/CollabTable";
 import Template from "@/templates/hubTemplate";
 import { getContent } from "@/utils/functions";
-import { ContentWrapper, Title } from "./styles";
+import { ContentWrapper, Title, Wrapper } from "./styles";
 
 export const revalidate = 60;
 
@@ -10,10 +10,12 @@ const About = async () => {
 
   return (
     <Template>
-      <ContentWrapper>
+      <Wrapper>
         <Title>Colaboradores do Observatório da Caatinga</Title>
-        <CollabTable content={content} />
-      </ContentWrapper>
+        <ContentWrapper>
+          <CollabTable content={content} />
+        </ContentWrapper>
+      </Wrapper>
     </Template>
   );
 };

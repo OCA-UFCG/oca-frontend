@@ -5,7 +5,6 @@ import styled from "styled-components";
 export const Table = styled.table`
   max-width: 1300px;
 
-  box-shadow: 0px 0px 3px #cdcdcd;
   border-radius: 4px;
   box-sizing: border-box;
   background: ${({ theme }) => theme.colors.white};
@@ -18,6 +17,14 @@ export const Table = styled.table`
   td:not(:last-child),
   th:not(:last-child) {
     width: calc(100% / 3); /* Set equal width for all columns except the last */
+  }
+
+  td:first-child,
+  th:first-child {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 0;
+    background: white;
   }
 `;
 
