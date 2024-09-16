@@ -38,7 +38,7 @@ const AboutHomeSection = ({
   console.log(photos);
 
   return (
-    <Wrapper>
+    <Wrapper id="about">
       <ContentWrapper>
         <ContentModal>
           <SectionTitle>Quem Somos</SectionTitle>

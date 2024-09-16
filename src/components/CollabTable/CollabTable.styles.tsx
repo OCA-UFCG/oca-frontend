@@ -37,7 +37,7 @@ export const Row = styled.tr`
 `;
 
 export const TableBody = styled.tbody`
-  ${Row}:hover {
+  ${Row}:hover td {
     background-color: #f2f2f2;
   }
 `;

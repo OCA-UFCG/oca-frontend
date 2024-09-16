@@ -27,8 +27,8 @@ export const sections: ISections = {
     path: "/",
     children: {
       news: {
-        name: "Notícias",
-        path: "/#news",
+        name: "Quem somos",
+        path: "/#about",
       },
       maps: {
         name: "Mapas & Visualizações",
