@@ -1,17 +1,19 @@
 "use client";
 
-import { Section, SectionTitle } from "@/app/globalStyles";
-import { PublicationsContainer } from "./Publications.styles";
+import { PublicationsContainer, Wrapper } from "./Publications.styles";
 import Publication from "../Publication";
-import { IPublication } from "@/utils/interfaces";
+import { IPublication, ISectionHeader } from "@/utils/interfaces";
+import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 
 const PublicationsSection = ({
+  sectionHead,
   publications,
 }: {
+  sectionHead: ISectionHeader[];
   publications: { fields: IPublication }[];
 }) => (
-  <Section full={"false"} id="publications">
-    <SectionTitle>Publicações do observatório</SectionTitle>
+  <Wrapper full={"false"} id="publications">
+    <SectionHeader id="publications" sectionHead={sectionHead} />
     <PublicationsContainer>
       {publications.map((publications, index) => (
         <Publication
@@ -20,7 +22,7 @@ const PublicationsSection = ({
         />
       ))}
     </PublicationsContainer>
-  </Section>
+  </Wrapper>
 );
 
 export default PublicationsSection;

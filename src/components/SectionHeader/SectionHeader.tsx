@@ -1,15 +1,27 @@
 import { SectionTitle } from "@/app/globalStyles";
 import { SubTitle, Wrapper } from "./SectionHeader.styles";
+import { ISectionHeader } from "@/utils/interfaces";
 
 export const SectionHeader = ({
-  title,
-  subtitle,
+  id,
+  sectionHead,
+  alignment = "center",
 }: {
-  title: string;
-  subtitle?: string;
+  id: string;
+  alignment?: "start" | "center" | "end";
+  sectionHead: ISectionHeader[];
 }) => {
+  const header = sectionHead?.find(
+    (head: ISectionHeader) => head.fields.id === id,
+  );
+
+  const { title, subtitle } = header?.fields || {
+    title: "",
+    subtitle: undefined,
+  };
+
   return (
-    <Wrapper>
+    <Wrapper alignment={alignment}>
       <SectionTitle>{title}</SectionTitle>
       {subtitle && <SubTitle>{subtitle}</SubTitle>}
     </Wrapper>

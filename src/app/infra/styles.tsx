@@ -16,13 +16,3 @@ export const Tabloid = styled.div`
   gap: 0.75rem;
   min-height: 80vh;
 `;
-
-export const SubTitle = styled.h2`
-  font-size: 1rem;
-  color: #00000080;
-  margin-bottom: 1rem;
-  align-self: center;
-  text-align: center;
-  width: fit-content;
-  padding: 0 1rem;
-`;

@@ -14,23 +14,29 @@ export default async function Home() {
     publications,
     sponsors,
     tiffInfo,
+    sectionHead,
   } = await getContent([
     "news",
     "publications",
     "sponsors",
     "tiffInfo",
     "about",
+    "sectionHead",
   ]);
 
   return (
     <Template>
       <AboutHomeSection
+        sectionHead={sectionHead}
         content={content[0].fields?.about}
         photos={content[0].fields?.album}
       />
-      <MapsSection tiffInfo={tiffInfo} />
-      <PublicationsSection publications={publications} />
-      <SponsorsSection sponsors={sponsors} />
+      <MapsSection sectionHead={sectionHead} tiffInfo={tiffInfo} />
+      <PublicationsSection
+        sectionHead={sectionHead}
+        publications={publications}
+      />
+      <SponsorsSection sponsors={sponsors} sectionHead={sectionHead} />
     </Template>
   );
 }

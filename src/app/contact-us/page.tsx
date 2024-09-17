@@ -9,13 +9,9 @@ const ContactUsPage = async () => {
   const { sectionHead } = await getContent(["sectionHead"]);
   const id = "contact-us";
 
-  const { fields } = sectionHead.find((head) => head.fields.id === id);
-
-  const { title, subtitle } = fields;
-
   return (
     <Template>
-      <SectionHeader title={title} subtitle={subtitle} />
+      <SectionHeader id={id} sectionHead={sectionHead} />
       <ContactForm />
     </Template>
   );

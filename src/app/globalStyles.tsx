@@ -228,7 +228,7 @@ export const Main = styled.main<{ backThumb: string }>`
 `;
 
 export const Section = styled.section<{ full?: string }>`
-  padding: 3rem 1rem;
+  padding: 1rem 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;

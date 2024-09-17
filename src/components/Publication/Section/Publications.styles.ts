@@ -1,5 +1,10 @@
 "use client";
+import { Section } from "@/app/globalStyles";
 import styled from "styled-components";
+
+export const Wrapper = styled(Section)`
+  margin: 2rem 0;
+`;
 
 export const PublicationsContainer = styled.div`
   column-count: 4;

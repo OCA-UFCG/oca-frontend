@@ -2,6 +2,7 @@ import { Section } from "@/app/globalStyles";
 import Link from "next/link";
 import styled from "styled-components";
 import { Icon } from "../Icon/Icon";
+import { SectionHeader as DefaultSectionHeader } from "../SectionHeader/SectionHeader";
 
 export const Wrapper = styled(Section)`
   background-image: url("Grass.png");
@@ -9,6 +10,10 @@ export const Wrapper = styled(Section)`
   min-height: 40rem;
   justify-content: center;
   background-position: bottom;
+`;
+
+export const SectionHeader = styled(DefaultSectionHeader)`
+  align-items: flex-end;
 `;
 
 export const ContentWrapper = styled.div`

@@ -38,21 +38,6 @@ export const TierContainer = styled.div`
   align-items: center;
 `;
 
-export const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-`;
-
-export const Description = styled.p`
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.colors.black}80;
-  text-align: center;
-  padding: 0 1rem;
-`;
-
 export const SubTitle = styled.h2`
   font-size: 1.25rem;
   text-transform: uppercase;

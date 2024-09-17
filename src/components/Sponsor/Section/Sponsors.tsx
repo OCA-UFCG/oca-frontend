@@ -1,20 +1,20 @@
 "use client";
 
-import { SectionTitle } from "@/app/globalStyles";
 import {
   SponsorsContainer,
   Wrapper,
-  Header,
-  Description,
   TierContainer,
   SubTitle,
 } from "./Sponsors.styles";
 import Sponsor from "../Sponsor";
-import { ISponsor } from "@/utils/interfaces";
+import { ISectionHeader, ISponsor } from "@/utils/interfaces";
+import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 
 const SponsorsSection = ({
   sponsors,
+  sectionHead,
 }: {
+  sectionHead: ISectionHeader[];
   sponsors: { fields: ISponsor }[];
 }) => {
   const tierSponsors: { [key: string]: ISponsor[] } = {};
@@ -28,13 +28,7 @@ const SponsorsSection = ({
 
   return (
     <Wrapper id="sponsors">
-      <Header>
-        <SectionTitle>Patrocinadores</SectionTitle>
-        <Description>
-          O projeto é mantido por meio de patrocínios. Agradecemos a todos os
-          nossos patrocinadores por acreditarem no nosso trabalho.
-        </Description>
-      </Header>
+      <SectionHeader id="sponsors" sectionHead={sectionHead} />
       {Object.keys(tierSponsors).map((tier) => (
         <TierContainer key={tier}>
           <SubTitle>{tier}</SubTitle>

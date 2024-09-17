@@ -1,6 +1,5 @@
 "use client";
 
-import { SectionTitle } from "@/app/globalStyles";
 import {
   Description,
   MapPoster,
@@ -18,12 +17,19 @@ import {
   PreviewWrapper,
 } from "./MapsSection.styles";
 import { useEffect, useState } from "react";
-import { IEEInfo } from "@/utils/interfaces";
+import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
 import { capitalize } from "@/utils/functions";
 import { defaultEEInfo } from "@/utils/constants";
 import { Icon } from "../Icon/Icon";
+import { SectionHeader } from "../SectionHeader/SectionHeader";
 
-const MapsSection = ({ tiffInfo }: { tiffInfo: { fields: IEEInfo }[] }) => {
+const MapsSection = ({
+  sectionHead,
+  tiffInfo,
+}: {
+  sectionHead: ISectionHeader[];
+  tiffInfo: { fields: IEEInfo }[];
+}) => {
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
   let handler: NodeJS.Timeout;
 
@@ -73,7 +79,7 @@ const MapsSection = ({ tiffInfo }: { tiffInfo: { fields: IEEInfo }[] }) => {
 
   return (
     <MapSectionWrapper id="maps-visu">
-      <SectionTitle variation="black">Mapas & Visualizações</SectionTitle>
+      <SectionHeader id="maps-visu" sectionHead={sectionHead} />
       <BoxWrapper>
         <PreviewWrapper>
           <ExpandBox href={`/map?name=${currentVisu.id}`}>

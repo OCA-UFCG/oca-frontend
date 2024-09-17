@@ -2,12 +2,12 @@
 
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ alignment: string }>`
   display: flex;
   flex-flow: column;
   gap: 1rem;
   max-width: 900px;
-  align-items: center;
+  align-items: ${({ alignment }) => alignment};
 `;
 
 export const SubTitle = styled.h2`
