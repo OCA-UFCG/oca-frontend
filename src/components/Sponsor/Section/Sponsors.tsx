@@ -31,7 +31,7 @@ const SponsorsSection = ({
       <SectionHeader id="sponsors" sectionHead={sectionHead} />
       {Object.keys(tierSponsors).map((tier) => (
         <TierContainer key={tier}>
-          <SubTitle>{tier}</SubTitle>
+          {tier && tier !== "undefined" && <SubTitle>{tier}</SubTitle>}
           <SponsorsContainer>
             {tierSponsors[tier]
               .sort((a, b) => a.name.localeCompare(b.name))
