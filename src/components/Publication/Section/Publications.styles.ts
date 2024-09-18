@@ -18,21 +18,11 @@ export const PublicationsContainer = styled.div`
     column-count: 3;
   }
 
-  @media screen and (max-width: 800px) {
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    width: fit-content;
-    position: relative;
-    justify-content: flex-start;
-    align-items: center;
-    max-width: calc(100vw);
-    padding: 0 1rem;
-    box-sizing: border-box;
-    height: fit-content;
-    flex-wrap: nowrap;
-    overflow: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
-    overflow-y: hidden;
+  @media screen and (max-width: 700px) {
+    column-count: 2;
+  }
+
+  @media screen and (max-width: 600px) {
+    column-count: 1;
   }
 `;
