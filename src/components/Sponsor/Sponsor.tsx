@@ -4,7 +4,12 @@ import { Wrapper, LogoImage } from "./Sponsor.styles";
 const Sponsor = ({ data }: { data: ISponsor }) => {
   const { name, logo, link } = data;
 
-  console.log(logo);
+  let proportion = 1;
+  if (typeof logo === "object") {
+    proportion =
+      logo?.fields?.file?.details?.image?.height /
+      logo?.fields?.file?.details?.image?.width;
+  }
 
   return (
     <Wrapper href={link} target="_blank">
@@ -12,14 +17,8 @@ const Sponsor = ({ data }: { data: ISponsor }) => {
         src={`https:${typeof logo === "object" ? logo?.fields?.file?.url : logo}`}
         alt={name}
         title={name}
-        width={
-          typeof logo === "object"
-            ? logo?.fields?.file?.details?.image?.width
-            : 125
-        }
-        height={
-          typeof logo === "object" ? logo.fields.file.details.image.width : 125
-        }
+        width={300}
+        height={300 * proportion}
       />
     </Wrapper>
   );
