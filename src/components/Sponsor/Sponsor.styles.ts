@@ -10,6 +10,8 @@ export const Wrapper = styled.a`
   text-decoration: none;
   gap: 1rem;
   transition: 0.3s;
+  padding: 0.2rem;
+  box-shadow: 0 0 3px #cdcdcd;
 
   &:hover {
     transform: scale(0.95);
@@ -21,6 +23,14 @@ export const LogoImage = styled(Image)`
   border-radius: 4px;
   height: 100%;
   max-height: 8rem;
-  aspect-ratio: 1 / 1;
-  box-shadow: 0 0 3px #cdcdcd;
+  min-width: 4rem;
+  max-width: 100%;
+  width: fit-content;
+  object-fit: cover;
+
+  @media screen and (max-width: 800px) {
+    width: fit-content;
+    max-height: 6rem;
+    min-width: 3rem;
+  }
 `;

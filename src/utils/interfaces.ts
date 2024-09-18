@@ -1,6 +1,15 @@
 export interface ISponsor {
   name: string;
-  logo: { fields: { file: { url: string } } } | string;
+  logo:
+    | {
+        fields: {
+          file: {
+            url: string;
+            details: { image: { width: number; height: number } };
+          };
+        };
+      }
+    | string;
   link: string;
   tier: string;
 }
@@ -8,7 +17,16 @@ export interface ISponsor {
 export interface ITeamMember {
   name: string;
   role: string;
-  avatar: { fields: { file: { url: string } } } | string;
+  avatar:
+    | {
+        fields: {
+          file: {
+            url: string;
+            details: { image: { width: number; height: number } };
+          };
+        };
+      }
+    | string;
   github?: string;
   linkedin?: string;
   lattes?: string;

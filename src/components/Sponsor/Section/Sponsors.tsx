@@ -29,18 +29,20 @@ const SponsorsSection = ({
   return (
     <Wrapper id="sponsors">
       <SectionHeader id="sponsors" sectionHead={sectionHead} />
-      {Object.keys(tierSponsors).map((tier) => (
-        <TierContainer key={tier}>
-          {tier && tier !== "undefined" && <SubTitle>{tier}</SubTitle>}
-          <SponsorsContainer>
-            {tierSponsors[tier]
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((sponsor, index) => (
-                <Sponsor key={index} data={sponsor} />
-              ))}
-          </SponsorsContainer>
-        </TierContainer>
-      ))}
+      {Object.keys(tierSponsors)
+        .sort((a, b) => b.localeCompare(a))
+        .map((tier) => (
+          <TierContainer key={tier}>
+            {tier && tier !== "undefined" && <SubTitle>{tier}</SubTitle>}
+            <SponsorsContainer>
+              {tierSponsors[tier]
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((sponsor, index) => (
+                  <Sponsor key={index} data={sponsor} />
+                ))}
+            </SponsorsContainer>
+          </TierContainer>
+        ))}
     </Wrapper>
   );
 };

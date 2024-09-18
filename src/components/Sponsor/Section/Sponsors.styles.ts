@@ -16,17 +16,7 @@ export const SponsorsContainer = styled.div`
   max-width: 1440px;
 
   @media screen and (max-width: 800px) {
-    position: relative;
-    justify-content: flex-start;
-    align-items: center;
-    max-width: calc(100vw);
-    padding: 0 1rem 0.5rem 1rem;
-    box-sizing: border-box;
-    height: fit-content;
-    flex-wrap: nowrap;
-    overflow: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
-    overflow-y: hidden;
+    width: fit-content;
   }
 `;
 
