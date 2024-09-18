@@ -12,6 +12,7 @@ import {
   NoDataElement,
   QuestionMarkImg,
   Title,
+  YearSelect,
 } from "./MapsMenu.styles";
 
 const MapsMenu = ({
@@ -37,6 +38,31 @@ const MapsMenu = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const convertToDownloadLink = (item: IFormItem) => {
+    const imageData = item.imageData;
+    const tifInfo = imageData[item.year || "general"];
+    const driveUrl = tifInfo.linkDrive;
+    const regex = /\/d\/([a-zA-Z0-9_-]+)/;
+    const match = driveUrl?.match(regex);
+
+    if (match && match[1]) {
+      const fileId = match[1];
+
+      return `https://drive.google.com/uc?export=download&id=${fileId}`;
+    }
+
+    return "";
+  };
+
+  const getYears = (imageData: IImageData) => {
+    return Object.keys(imageData).sort((a, b) => {
+      if (a === "general") return -1;
+      if (b === "general") return 1;
+
+      return a.localeCompare(b);
+    });
+  };
 
   const handleVisuChange = useCallback(
     (newImageData: IMapInfo) => {
@@ -68,6 +94,7 @@ const MapsMenu = ({
           name: item.name,
           checked: item.id === newValue,
           imageData: item.imageData,
+          year: getYears(item.imageData)[0],
         };
       }),
     );
@@ -109,6 +136,33 @@ const MapsMenu = ({
                     >
                       <QuestionMarkImg id="question" height={20} width={20} />
                     </div>
+                    <a
+                      target="_blank"
+                      href={convertToDownloadLink(item)}
+                      title={`Baixar ${item.name}`}
+                    >
+                      <QuestionMarkImg id="download" height={20} width={20} />
+                    </a>
+                    <YearSelect
+                      onChange={(e) => (item.year = e.target.value)}
+                      disabled={item.year == "general"}
+                    >
+                      {item.year == "general" ? (
+                        <option
+                          value="general"
+                          disabled={true}
+                          selected={item.year == "general"}
+                        >
+                          --
+                        </option>
+                      ) : (
+                        getYears(item.imageData).map((year) => (
+                          <option key={year} value={year}>
+                            {year}
+                          </option>
+                        ))
+                      )}
+                    </YearSelect>
                   </ItemWrapper>
                 );
               })}

@@ -77,6 +77,7 @@ export interface IEEInfo {
       default: boolean;
       imageId: string;
       imageParams: IImageParam[];
+      linkDrive: string;
     };
   };
 }
@@ -97,6 +98,7 @@ export interface IFormItem {
   name: string;
   checked: boolean;
   imageData: IImageData;
+  year: string;
 }
 
 export interface IImageData {
@@ -107,6 +109,7 @@ export interface IImageProps {
   default?: boolean;
   imageId: string;
   pallete?: string[];
+  linkDrive?: string;
 }
 
 export interface INews {

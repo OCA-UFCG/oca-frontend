@@ -68,3 +68,13 @@ export const NoDataElement = styled.div<{ delay: number }>`
   width: 100%;
   border-radius: 4px;
 `;
+
+export const YearSelect = styled.select`
+  border-radius: 4px;
+  background-color: ${({ theme }) => theme.colors.white};
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 8rem;
+  cursor: pointer;
+`;

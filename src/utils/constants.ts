@@ -85,6 +85,7 @@ export const defaultEEInfo: IEEInfo = {
         { color: "#white", label: "" },
         { color: "#black", label: "" },
       ],
+      linkDrive: "",
     },
   },
   measurementUnit: "classes",

@@ -480,9 +480,11 @@
         </symbol>
 
         <symbol viewBox="0 0 14 14" id="expand" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 1H13V3.99996" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"
+            <path d="M10 1H13V3.99996" stroke="currentColor" stroke-width="1.25"
+                stroke-linecap="round"
                 stroke-linejoin="round" />
-            <path d="M3.99996 13H1V10" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"
+            <path d="M3.99996 13H1V10" stroke="currentColor" stroke-width="1.25"
+                stroke-linecap="round"
                 stroke-linejoin="round" />
         </symbol>
 
@@ -588,6 +590,18 @@
                     <rect width="20" height="20" fill="white" transform="translate(0.25 0.669434)" />
                 </clipPath>
             </defs>
+        </symbol>
+
+        <symbol viewBox="0 0 15 16" id="download" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M1 11.833V13.4997C1 13.9417 1.17559 14.3656 1.48816 14.6782C1.80072 14.9907 2.22464 15.1663 2.66667 15.1663H12.6667C13.1087 15.1663 13.5326 14.9907 13.8452 14.6782C14.1577 14.3656 14.3333 13.9417 14.3333 13.4997V11.833"
+                stroke="currentColor" stroke-width="1.25" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path d="M3.5 6.83301L7.66667 10.9997L11.8333 6.83301" stroke="currentColor"
+                stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M7.6665 1V11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"
+                stroke-linejoin="round" />
         </symbol>
 
 
