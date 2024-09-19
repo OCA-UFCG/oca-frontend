@@ -6,6 +6,7 @@ export const Wrapper = styled.a`
   flex-flow: column;
   align-items: center;
   width: fit-content;
+  background: ${({ theme }) => theme.colors.white};
 
   text-decoration: none;
   gap: 1rem;

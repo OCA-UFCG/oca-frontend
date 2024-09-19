@@ -17,8 +17,8 @@ const Sponsor = ({ data }: { data: ISponsor }) => {
         src={`https:${typeof logo === "object" ? logo?.fields?.file?.url : logo}`}
         alt={name}
         title={name}
-        width={300}
-        height={300 * proportion}
+        width={600}
+        height={600 * proportion}
       />
     </Wrapper>
   );
