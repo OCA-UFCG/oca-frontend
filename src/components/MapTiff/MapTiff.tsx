@@ -30,6 +30,9 @@ const MapTiff = ({
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
   const { mapsData } = useContext(CMSContext);
+  const popupRef = useRef(
+    new maplibregl.Popup({ closeButton: false, closeOnClick: false }),
+  );
 
   const loadMap = useCallback(() => {
     if (mapContainer.current) {
@@ -94,6 +97,12 @@ const MapTiff = ({
               { source: "brazil-states", id: hoveredStateId },
               { hover: true },
             );
+
+            const stateName = e.features[0].properties.name;
+            popupRef.current
+              .setLngLat(e.lngLat)
+              .setHTML(`<strong>${stateName}</strong>`)
+              .addTo(newMap);
           }
         });
 
