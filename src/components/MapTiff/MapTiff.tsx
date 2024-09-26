@@ -30,31 +30,6 @@ const MapTiff = ({
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
   const { mapsData } = useContext(CMSContext);
-  const [hoveredStateId, setHoveredStateId] = useState<number>();
-  const [lastHoveredStateId, setLastHoveredStateId] = useState<number>();
-
-  useEffect(() => {
-    if (map) {
-      if (hoveredStateId) {
-        console.log(hoveredStateId);
-        map.setFeatureState(
-          { source: "brazil-states", id: hoveredStateId },
-          { hover: true },
-        );
-        if (lastHoveredStateId) {
-          map.setFeatureState(
-            { source: "brazil-states", id: lastHoveredStateId },
-            { hover: false },
-          );
-        }
-      } else {
-        map.setFeatureState(
-          { source: "brazil-states", id: lastHoveredStateId },
-          { hover: false },
-        );
-      }
-    }
-  }, [hoveredStateId]);
 
   const loadMap = useCallback(() => {
     if (mapContainer.current) {
@@ -70,6 +45,7 @@ const MapTiff = ({
       newMap.on("load", () => {
         newMap.addControl(new maplibregl.NavigationControl(), "bottom-left");
 
+        // ==== Add Brazil states =====
         newMap.addSource("brazil-states", {
           type: "geojson",
           data: MAP_TIFF_BRAZIL_STATES,
@@ -91,6 +67,7 @@ const MapTiff = ({
           },
         });
 
+        // ==== Add Brazil states borders =====
         newMap.addLayer({
           id: "state-borders",
           type: "line",
@@ -102,26 +79,40 @@ const MapTiff = ({
           },
         });
 
-        // Evento para o hover nos estados
+        // ==== Add hover effect on Brazil states =====
+        let hoveredStateId: string | number | undefined = undefined;
         newMap.on("mousemove", "state-fills", (e) => {
           if (e.features && e.features.length > 0) {
             if (hoveredStateId) {
-              setLastHoveredStateId(hoveredStateId);
+              newMap.setFeatureState(
+                { source: "brazil-states", id: hoveredStateId },
+                { hover: false },
+              );
             }
-            setHoveredStateId(e.features[0].properties.id);
+            hoveredStateId = e.features[0].properties.id;
+            newMap.setFeatureState(
+              { source: "brazil-states", id: hoveredStateId },
+              { hover: true },
+            );
           }
         });
 
-        // Remove o hover quando o mouse sai do estado
         newMap.on("mouseleave", "state-fills", () => {
-          setLastHoveredStateId(hoveredStateId);
-          setHoveredStateId(undefined);
+          if (hoveredStateId) {
+            newMap.setFeatureState(
+              { source: "brazil-states", id: hoveredStateId },
+              { hover: false },
+            );
+          }
+          hoveredStateId = undefined;
         });
 
+        // ==== Add Brazil cities =====
         newMap.addSource("brazil-cities", {
           type: "geojson",
           data: MAP_TIFF_BRAZIL_CITIES,
         });
+
         newMap.addLayer({
           id: "brazil-cities",
           type: "line",
