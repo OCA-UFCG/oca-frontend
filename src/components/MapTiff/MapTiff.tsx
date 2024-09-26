@@ -30,6 +30,31 @@ const MapTiff = ({
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
   const { mapsData } = useContext(CMSContext);
+  const [hoveredStateId, setHoveredStateId] = useState<number>();
+  const [lastHoveredStateId, setLastHoveredStateId] = useState<number>();
+
+  useEffect(() => {
+    if (map) {
+      if (hoveredStateId) {
+        console.log(hoveredStateId);
+        map.setFeatureState(
+          { source: "brazil-states", id: hoveredStateId },
+          { hover: true },
+        );
+        if (lastHoveredStateId) {
+          map.setFeatureState(
+            { source: "brazil-states", id: lastHoveredStateId },
+            { hover: false },
+          );
+        }
+      } else {
+        map.setFeatureState(
+          { source: "brazil-states", id: lastHoveredStateId },
+          { hover: false },
+        );
+      }
+    }
+  }, [hoveredStateId]);
 
   const loadMap = useCallback(() => {
     if (mapContainer.current) {
@@ -49,8 +74,25 @@ const MapTiff = ({
           type: "geojson",
           data: MAP_TIFF_BRAZIL_STATES,
         });
+
         newMap.addLayer({
-          id: "brazil-states",
+          id: "state-fills",
+          type: "fill",
+          source: "brazil-states",
+          layout: {},
+          paint: {
+            "fill-color": "#627BC1",
+            "fill-opacity": [
+              "case",
+              ["boolean", ["feature-state", "hover"], false],
+              1,
+              0.5,
+            ],
+          },
+        });
+
+        newMap.addLayer({
+          id: "state-borders",
           type: "line",
           source: "brazil-states",
           layout: {},
@@ -59,6 +101,23 @@ const MapTiff = ({
             "line-width": 2.5,
           },
         });
+
+        // Evento para o hover nos estados
+        newMap.on("mousemove", "state-fills", (e) => {
+          if (e.features && e.features.length > 0) {
+            if (hoveredStateId) {
+              setLastHoveredStateId(hoveredStateId);
+            }
+            setHoveredStateId(e.features[0].properties.id);
+          }
+        });
+
+        // Remove o hover quando o mouse sai do estado
+        newMap.on("mouseleave", "state-fills", () => {
+          setLastHoveredStateId(hoveredStateId);
+          setHoveredStateId(undefined);
+        });
+
         newMap.addSource("brazil-cities", {
           type: "geojson",
           data: MAP_TIFF_BRAZIL_CITIES,
