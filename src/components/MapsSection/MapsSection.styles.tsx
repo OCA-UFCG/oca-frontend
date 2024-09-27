@@ -77,8 +77,6 @@ export const TagButton = styled.span<{ active?: string }>`
   box-sizing: border-box;
   background-color: #ffffff95;
 
-  cursor: ${({ active }) => (active === "true" ? "not-allowed" : "pointer")};
-
   &:hover {
     transform: scale(${({ active }) => active !== "true" && "0.99"});
     color: ${({ theme }) => theme.colors.green};
