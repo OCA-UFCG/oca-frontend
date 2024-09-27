@@ -13,7 +13,7 @@ export const Wrapper = styled.footer`
   gap: 1rem;
   position: relative;
   width: 100%;
-  align-items: center;
+  align-items: start-flex;
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -29,10 +29,10 @@ export const LogoImage = styled(Icon)``;
 
 export const References = styled.div`
   display: flex;
-
+  border: 1px red solid;
   gap: 0.5rem;
-  align-items: end;
-  flex-direction: column;
+  align-items: start-flex;
+  flex-direction: row;
   justify-content: center;
 
   @media (max-width: 600px) {
@@ -40,7 +40,15 @@ export const References = styled.div`
   }
 `;
 
-export const Sections = styled(Link)`
+export const Sections = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start-flex;
+`;
+
+export const SectionTitle = styled(Link)`
+  border: 1px solid white;
   color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
   text-decoration: none;
@@ -51,6 +59,8 @@ export const Sections = styled(Link)`
     opacity: 0.6;
   }
 `;
+
+export const InnerSections = styled.div``;
 
 export const SocialMediasContainer = styled.div`
   display: flex;

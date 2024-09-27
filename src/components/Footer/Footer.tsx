@@ -6,6 +6,8 @@ import {
   LogoImage,
   References,
   Sections,
+  InnerSections,
+  SectionTitle,
   SocialMedia,
   SocialMediasContainer,
 } from "./Footer.styles";
@@ -17,19 +19,22 @@ const Footer = () => {
     <Wrapper>
       <LogoImage id="logo-oca-white" width={200} height={150} />
       <References>
-        {Object.entries(sections).map(([key, item]) => (
-          <Sections key={key} href={item.path || ""}>
-            {item.name}
-          </Sections>
-        ))}
-        <Divider />
-        <SocialMediasContainer>
-          {channels.map(({ href, icon, size }, index) => (
-            <SocialMedia target="_blank" key={index} title={href} href={href}>
-              <Icon id={icon} size={size} />
-            </SocialMedia>
+        <Sections>
+          {Object.entries(sections).map(([key, item]) => (
+            <InnerSections key={key}>
+              <SectionTitle href={item.path || ""}>{item.name}</SectionTitle>
+              <Divider />
+            </InnerSections>
           ))}
-        </SocialMediasContainer>
+
+          <SocialMediasContainer>
+            {channels.map(({ href, icon, size }, index) => (
+              <SocialMedia target="_blank" key={index} title={href} href={href}>
+                <Icon id={icon} size={size} />
+              </SocialMedia>
+            ))}
+          </SocialMediasContainer>
+        </Sections>
       </References>
     </Wrapper>
   );
