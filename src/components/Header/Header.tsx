@@ -21,7 +21,7 @@ const SocialMediaIem = ({
   size: number;
 }) => {
   return (
-    <MediaWrapper href={href} target="_blank" title={icon}>
+    <MediaWrapper href={href} target="_blank" title={href}>
       <Icon id={icon} size={size} />
     </MediaWrapper>
   );
