@@ -28,3 +28,15 @@ export const LoadingText = styled.span`
 export const Loading = styled(Icon)`
   animation: spin 1.5s linear infinite;
 `;
+
+export const PopupContent = styled.div`
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  color: black;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+
+  strong {
+    font-size: 16px;
+  }
+`;

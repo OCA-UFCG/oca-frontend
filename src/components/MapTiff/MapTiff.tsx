@@ -2,8 +2,14 @@
 
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { createRoot } from "react-dom/client";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { MapContainer, Loading, LoadingText } from "./MapTiff.styles";
+import {
+  MapContainer,
+  Loading,
+  LoadingText,
+  PopupContent,
+} from "./MapTiff.styles";
 import { IMapInfo } from "@/utils/interfaces";
 import {
   MAP_TIFF_STYLE,
@@ -27,12 +33,45 @@ const MapTiff = ({
   onClick?: (e: any) => void;
 }) => {
   const { name, year } = data;
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<maplibregl.Map | null>(null);
   const { mapsData } = useContext(CMSContext);
+  const [map, setMap] = useState<maplibregl.Map | null>(null);
+  const mapContainer = useRef<HTMLDivElement>(null);
   const popupRef = useRef(
     new maplibregl.Popup({ closeButton: false, closeOnClick: false }),
   );
+
+  // const handleMouseMove = (e: any, newMap: maplibregl.Map | null, hoveredStateId: number | undefined) => {
+  //   if (newMap && e.features && e.features.length > 0) {
+  //     if (hoveredStateId) {
+  //       newMap.setFeatureState(
+  //         { source: "brazil-states", id: hoveredStateId },
+  //         { hover: false },
+  //       );
+  //     }
+  //     hoveredStateId = e.features[0].properties.id;
+  //     newMap.setFeatureState(
+  //       { source: "brazil-states", id: hoveredStateId },
+  //       { hover: true },
+  //     );
+
+  //     const stateName = e.features[0].properties.name;
+  //     popupRef.current
+  //       .setLngLat(e.lngLat)
+  //       .setHTML(`<strong>${stateName}</strong>`)
+  //       .addTo(newMap);
+  //   }
+  // };
+
+  // const handleMouseLeave = (newMap: maplibregl.Map | null, hoveredStateId: number | undefined) => {
+  //   if (newMap && hoveredStateId) {
+  //     newMap.setFeatureState(
+  //       { source: "brazil-states", id: hoveredStateId },
+  //       { hover: false },
+  //     );
+  //     hoveredStateId = undefined;
+  //     popupRef.current.remove();
+  //   }
+  // };
 
   const loadMap = useCallback(() => {
     if (mapContainer.current) {
@@ -60,12 +99,12 @@ const MapTiff = ({
           source: "brazil-states",
           layout: {},
           paint: {
-            "fill-color": "#627BC1",
+            "fill-color": "black",
             "fill-opacity": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              1,
-              0.5,
+              0.3,
+              0,
             ],
           },
         });
@@ -78,12 +117,20 @@ const MapTiff = ({
           layout: {},
           paint: {
             "line-color": "#2D2D2D",
-            "line-width": 2.5,
+            "line-width": [
+              "case",
+              ["boolean", ["feature-state", "hover"], false],
+              2.5,
+              1.5,
+            ],
           },
         });
 
         // ==== Add hover effect on Brazil states =====
-        let hoveredStateId: string | number | undefined = undefined;
+        let hoveredStateId: number | undefined = undefined;
+        const popupContainer = document.createElement("div");
+        const root = createRoot(popupContainer);
+
         newMap.on("mousemove", "state-fills", (e) => {
           if (e.features && e.features.length > 0) {
             if (hoveredStateId) {
@@ -99,9 +146,15 @@ const MapTiff = ({
             );
 
             const stateName = e.features[0].properties.name;
+            root.render(
+              <PopupContent>
+                <strong>{stateName}</strong>
+              </PopupContent>,
+            );
+
             popupRef.current
               .setLngLat(e.lngLat)
-              .setHTML(`<strong>${stateName}</strong>`)
+              .setDOMContent(popupContainer)
               .addTo(newMap);
           }
         });
@@ -114,6 +167,7 @@ const MapTiff = ({
             );
           }
           hoveredStateId = undefined;
+          popupRef.current.remove();
         });
 
         // ==== Add Brazil cities =====
