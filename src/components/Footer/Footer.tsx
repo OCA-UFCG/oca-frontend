@@ -8,6 +8,7 @@ import {
   Sections,
   InnerSections,
   SectionTitle,
+  SectionOptions,
   SocialMedia,
   SocialMediasContainer,
 } from "./Footer.styles";
@@ -22,19 +23,28 @@ const Footer = () => {
         <Sections>
           {Object.entries(sections).map(([key, item]) => (
             <InnerSections key={key}>
-              <SectionTitle href={item.path || ""}>{item.name}</SectionTitle>
-              <Divider />
+              <SectionTitle href={item.path || ""}>
+                {item.name}
+                <Divider />
+              </SectionTitle>
+              {item.children != undefined
+                ? Object.entries(item.children).map(([innerKey, innerItem]) => (
+                    <SectionOptions key={innerKey} href={innerItem.path || ""}>
+                      {innerItem.name}
+                    </SectionOptions>
+                  ))
+                : undefined}
             </InnerSections>
           ))}
-
-          <SocialMediasContainer>
-            {channels.map(({ href, icon, size }, index) => (
-              <SocialMedia target="_blank" key={index} title={href} href={href}>
-                <Icon id={icon} size={size} />
-              </SocialMedia>
-            ))}
-          </SocialMediasContainer>
         </Sections>
+
+        <SocialMediasContainer>
+          {channels.map(({ href, icon, size }, index) => (
+            <SocialMedia target="_blank" key={index} title={href} href={href}>
+              <Icon id={icon} size={size} />
+            </SocialMedia>
+          ))}
+        </SocialMediasContainer>
       </References>
     </Wrapper>
   );

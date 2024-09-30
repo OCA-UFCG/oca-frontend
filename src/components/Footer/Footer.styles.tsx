@@ -15,57 +15,98 @@ export const Wrapper = styled.footer`
   width: 100%;
   align-items: start-flex;
 
-  @media (max-width: 600px) {
+  @media (max-width: 800px) {
+    align-items: center;
     flex-direction: column;
   }
 `;
 
 export const Divider = styled.hr`
+  border: none;
+  height: 1px;
   width: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
+  margin-top: 0px;
 `;
 
 export const LogoImage = styled(Icon)``;
 
 export const References = styled.div`
   display: flex;
-  border: 1px red solid;
   gap: 0.5rem;
-  align-items: start-flex;
-  flex-direction: row;
-  justify-content: center;
 
-  @media (max-width: 600px) {
+  flex-direction: column;
+  justify-content: flex-end;
+
+  flex-grow: 2;
+
+  @media (max-width: 800px) {
     align-items: center;
+    flex-direction: column;
+    gap: 2rem;
   }
 `;
 
 export const Sections = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: start-flex;
+  justify-content: flex-end;
+  gap: 2.2rem;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 
 export const SectionTitle = styled(Link)`
-  border: 1px solid white;
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: bolder;
+
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s;
+  font-size: 1.1rem;
+  margin-bottom: 1px;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  @media (max-width: 800px) {
+    text-align: center;
+    width: fit-content;
+    align-self: center;
+  }
+`;
+
+export const InnerSections = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @media (max-width: 800px) {
+    text-align: center;
+  }
+`;
+
+export const SectionOptions = styled(Link)`
   color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
   text-decoration: none;
   transition: 0.2s;
   font-size: 0.9rem;
-
-  &:hover {
-    opacity: 0.6;
-  }
+  font-weight: lighter;
 `;
-
-export const InnerSections = styled.div``;
 
 export const SocialMediasContainer = styled.div`
   display: flex;
   gap: 1rem;
   align-items: center;
+  align-self: flex-end;
+
+  @media (max-width: 800px) {
+    align-self: center;
+  }
 `;
 
 export const SocialMedia = styled(Link)`
