@@ -23,17 +23,21 @@ const Footer = () => {
         <Sections>
           {Object.entries(sections).map(([key, item]) => (
             <InnerSections key={key}>
-              <SectionTitle href={item.path || ""}>
+              <SectionTitle>
                 {item.name}
                 <Divider />
               </SectionTitle>
-              {item.children != undefined
-                ? Object.entries(item.children).map(([innerKey, innerItem]) => (
-                    <SectionOptions key={innerKey} href={innerItem.path || ""}>
-                      {innerItem.name}
-                    </SectionOptions>
-                  ))
-                : undefined}
+              {item.children != undefined ? (
+                Object.entries(item.children).map(([innerKey, innerItem]) => (
+                  <SectionOptions key={innerKey} href={innerItem.path || ""}>
+                    {innerItem.name}
+                  </SectionOptions>
+                ))
+              ) : (
+                <SectionOptions href={item.path || ""}>
+                  {item.name}
+                </SectionOptions>
+              )}
             </InnerSections>
           ))}
         </Sections>

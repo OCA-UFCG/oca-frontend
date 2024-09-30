@@ -58,7 +58,7 @@ export const Sections = styled.div`
   }
 `;
 
-export const SectionTitle = styled(Link)`
+export const SectionTitle = styled.h2`
   color: ${({ theme }) => theme.colors.white};
   font-weight: bolder;
 
@@ -67,10 +67,6 @@ export const SectionTitle = styled(Link)`
   transition: 0.2s;
   font-size: 1.1rem;
   margin-bottom: 1px;
-
-  &:hover {
-    opacity: 0.6;
-  }
 
   @media (max-width: 800px) {
     text-align: center;
@@ -96,6 +92,10 @@ export const SectionOptions = styled(Link)`
   transition: 0.2s;
   font-size: 0.9rem;
   font-weight: lighter;
+
+  &:hover {
+    opacity: 0.6;
+  }
 `;
 
 export const SocialMediasContainer = styled.div`
