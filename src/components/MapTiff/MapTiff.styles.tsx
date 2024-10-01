@@ -36,6 +36,8 @@ export const PopupContent = styled.div`
   color: black;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
 
+  width: 800px;
+
   strong {
     font-size: 16px;
   }
