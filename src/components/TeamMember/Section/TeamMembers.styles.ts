@@ -11,7 +11,6 @@ export const TeamMembersContainer = styled.div`
   justify-content: center;
   padding: 1rem;
   gap: 2rem;
-  //column-count: 6;
   box-sizing: border-box;
 
   @media screen and (max-width: 1000px) {
