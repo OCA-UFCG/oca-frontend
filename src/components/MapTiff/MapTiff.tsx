@@ -9,6 +9,12 @@ import {
   Loading,
   LoadingText,
   PopupContent,
+  TopHeader,
+  Title,
+  Subtitle,
+  LineInfo,
+  TotalArea,
+  PercentArea,
 } from "./MapTiff.styles";
 import { IMapInfo } from "@/utils/interfaces";
 import { MAP_TIFF_STYLE, MAP_TIFF_BRAZIL_CITIES } from "@/utils/constants";
@@ -190,29 +196,40 @@ const MapTiff = ({
           );
 
           const properties = e.features[0].properties;
+          const propertiesTIFF = JSON.parse(properties[name + year]);
+          const areas = [
+            {
+              area: propertiesTIFF.Area_km2_1,
+              percent: propertiesTIFF.Percent_1,
+            },
+            {
+              area: propertiesTIFF.Area_km2_2,
+              percent: propertiesTIFF.Percent_2,
+            },
+            {
+              area: propertiesTIFF.Area_km2_3,
+              percent: propertiesTIFF.Percent_3,
+            },
+            {
+              area: propertiesTIFF.Area_km2_4,
+              percent: propertiesTIFF.Percent_4,
+            },
+          ];
+
           root.render(
             <PopupContent>
-              <strong>{properties.NM_UF}</strong> <br />
-              <strong>
-                Km² de degradação critica{" "}
-                {JSON.parse(properties[name + year]).Percent_1?.toFixed(2)}%
-              </strong>{" "}
-              <br />
-              <strong>
-                Km² de degradação severa{" "}
-                {JSON.parse(properties[name + year]).Percent_2?.toFixed(2)}%
-              </strong>{" "}
-              <br />
-              <strong>
-                Km² de degradação moderada{" "}
-                {JSON.parse(properties[name + year]).Percent_3?.toFixed(2)}%
-              </strong>{" "}
-              <br />
-              <strong>
-                Km² de conservação boa{" "}
-                {JSON.parse(properties[name + year]).Percent_4?.toFixed(2)}%
-              </strong>{" "}
-              <br />
+              <TopHeader>
+                <Title>{properties.NM_UF}</Title>
+                <Subtitle>{properties.SIGLA_UF}</Subtitle>
+              </TopHeader>
+              {areas
+                .filter(({ percent }) => percent && percent > 0) // Filtra os valores que têm percent maior que 0
+                .map((areaInfo, index) => (
+                  <LineInfo key={index}>
+                    <TotalArea>{areaInfo.area?.toFixed(0)}Km²</TotalArea>
+                    <PercentArea>{areaInfo.percent?.toFixed(0)}%</PercentArea>
+                  </LineInfo>
+                ))}
             </PopupContent>,
           );
 

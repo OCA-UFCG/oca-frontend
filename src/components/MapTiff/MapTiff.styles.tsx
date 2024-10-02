@@ -30,15 +30,43 @@ export const Loading = styled(Icon)`
 `;
 
 export const PopupContent = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 10px;
+  gap: 5px;
   background-color: white;
   border-radius: 8px;
   color: black;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+`;
 
-  width: 800px;
+export const Title = styled.h3`
+  font-weight: bold;
+  font-size: 1.1rem;
+`;
 
-  strong {
-    font-size: 16px;
-  }
+export const Subtitle = styled.h4`
+  font-size: 0.8rem;
+  opacity: 0.7;
+`;
+
+export const TopHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+`;
+
+export const TotalArea = styled.h3`
+  font-size: 1rem;
+`;
+
+export const PercentArea = styled.h3`
+  font-size: 1rem;
+  font-weight: bold;
+`;
+
+export const LineInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 `;
