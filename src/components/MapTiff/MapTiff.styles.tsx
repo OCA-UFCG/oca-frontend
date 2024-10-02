@@ -56,17 +56,34 @@ export const TopHeader = styled.div`
   margin-bottom: 0.5rem;
 `;
 
+export const BoxArea = styled.div`
+  width: 5rem;
+`;
+
 export const TotalArea = styled.h3`
   font-size: 1rem;
+  min-width: 7rem;
 `;
 
 export const PercentArea = styled.h3`
   font-size: 1rem;
   font-weight: bold;
+  min-width: 3rem;
 `;
 
 export const LineInfo = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+`;
+
+export const Color = styled.div<{ color: string }>`
+  width: 2.5rem;
+  box-sizing: border-box;
+  height: 1.25rem;
+  border-radius: 4px;
+  background-color: ${({ color }) => color};
+  box-shadow: 0px 0px 4px #cdcdcd;
+  transition: 400ms;
+  border: solid thin #cdcdcd;
 `;

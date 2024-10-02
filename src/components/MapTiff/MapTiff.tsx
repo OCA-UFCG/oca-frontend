@@ -15,6 +15,7 @@ import {
   LineInfo,
   TotalArea,
   PercentArea,
+  Color,
 } from "./MapTiff.styles";
 import { IMapInfo } from "@/utils/interfaces";
 import { MAP_TIFF_STYLE, MAP_TIFF_BRAZIL_CITIES } from "@/utils/constants";
@@ -197,22 +198,45 @@ const MapTiff = ({
 
           const properties = e.features[0].properties;
           const propertiesTIFF = JSON.parse(properties[name + year]);
+
+          const atualData = mapsData.filter(
+            (data) => data.fields.id === name,
+          )[0].fields;
+
+          const colors = atualData.imageData[year]?.imageParams.map(
+            (param) => param.color,
+          );
+
           const areas = [
             {
               area: propertiesTIFF.Area_km2_1,
+              color: colors[0],
               percent: propertiesTIFF.Percent_1,
             },
             {
               area: propertiesTIFF.Area_km2_2,
+              color: colors[1],
               percent: propertiesTIFF.Percent_2,
             },
             {
               area: propertiesTIFF.Area_km2_3,
+              color: colors[2],
               percent: propertiesTIFF.Percent_3,
             },
             {
               area: propertiesTIFF.Area_km2_4,
+              color: colors[3],
               percent: propertiesTIFF.Percent_4,
+            },
+            {
+              area: propertiesTIFF.Area_km2_5,
+              color: colors[4],
+              percent: propertiesTIFF.Percent_5,
+            },
+            {
+              area: propertiesTIFF.Area_km2_6,
+              color: colors[5],
+              percent: propertiesTIFF.Percent_6,
             },
           ];
 
@@ -220,13 +244,14 @@ const MapTiff = ({
             <PopupContent>
               <TopHeader>
                 <Title>{properties.NM_UF}</Title>
-                <Subtitle>{properties.SIGLA_UF}</Subtitle>
+                <Subtitle>{atualData.name}</Subtitle>
               </TopHeader>
               {areas
-                .filter(({ percent }) => percent && percent > 0) // Filtra os valores que têm percent maior que 0
+                .filter(({ area }) => area && area > 0) // Filtra os valores que têm percent maior que 0
                 .map((areaInfo, index) => (
                   <LineInfo key={index}>
                     <TotalArea>{areaInfo.area?.toFixed(0)}Km²</TotalArea>
+                    <Color color={areaInfo.color} />
                     <PercentArea>{areaInfo.percent?.toFixed(0)}%</PercentArea>
                   </LineInfo>
                 ))}
@@ -248,7 +273,6 @@ const MapTiff = ({
           );
         }
         hoveredStateId = undefined;
-        console.log(hoveredStateId);
         popupRef.current.remove();
       });
     },
