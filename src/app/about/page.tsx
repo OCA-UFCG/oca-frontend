@@ -1,5 +1,8 @@
 import { SectionTitle } from "../globalStyles";
-import { ContentWrapper, CoverImage } from "./styles";
+import { ContentWrapper, Carousel, CarouselImage } from "./styles";
+
+// remember to put coberImage again
+
 import Template from "@/templates/hubTemplate";
 import { getContent } from "@/utils/functions";
 import AboutSection from "@/components/AboutSection/AboutSection";
@@ -13,12 +16,15 @@ const About = async () => {
     <Template>
       <ContentWrapper>
         <SectionTitle>{content[0].fields?.ttulo}</SectionTitle>
-        <CoverImage
-          alt="Pessoas do oca"
-          height={600}
-          width={1200}
-          src={`https:${content[0].fields?.cover.fields.file.url}`}
-        />
+        <Carousel>
+          <CarouselImage
+            alt="Pessoas do oca"
+            height={400}
+            width={800}
+            src={`https:${content[0].fields?.cover.fields.file.url}`}
+          />
+          {JSON.stringify(content[0].fields.cover)};
+        </Carousel>
         <AboutSection content={content[0].fields?.conteudo} />
       </ContentWrapper>
     </Template>

@@ -14,6 +14,17 @@ export const ContentWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+export const Carousel = styled.div`
+  border: 1px red solid;
+  display: flex;
+`;
+
+export const CarouselImage = styled(Image)`
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+`;
+
 export const CoverImage = styled(Image)`
   aspect-ratio: 16 / 9;
   object-fit: cover;
