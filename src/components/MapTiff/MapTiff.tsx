@@ -197,71 +197,74 @@ const MapTiff = ({
           );
 
           const properties = e.features[0].properties;
-          const propertiesTIFF = JSON.parse(properties[name + year]);
+          if (!properties[name + year]) popupRef.current.remove();
+          else {
+            const propertiesTIFF = JSON.parse(properties[name + year]);
 
-          const atualData = mapsData.filter(
-            (data) => data.fields.id === name,
-          )[0].fields;
+            const atualData = mapsData.filter(
+              (data) => data.fields.id === name,
+            )[0].fields;
 
-          const colors = atualData.imageData[year]?.imageParams.map(
-            (param) => param.color,
-          );
+            const colors = atualData.imageData[year]?.imageParams.map(
+              (param) => param.color,
+            );
 
-          const areas = [
-            {
-              area: propertiesTIFF.Area_km2_1,
-              color: colors[0],
-              percent: propertiesTIFF.Percent_1,
-            },
-            {
-              area: propertiesTIFF.Area_km2_2,
-              color: colors[1],
-              percent: propertiesTIFF.Percent_2,
-            },
-            {
-              area: propertiesTIFF.Area_km2_3,
-              color: colors[2],
-              percent: propertiesTIFF.Percent_3,
-            },
-            {
-              area: propertiesTIFF.Area_km2_4,
-              color: colors[3],
-              percent: propertiesTIFF.Percent_4,
-            },
-            {
-              area: propertiesTIFF.Area_km2_5,
-              color: colors[4],
-              percent: propertiesTIFF.Percent_5,
-            },
-            {
-              area: propertiesTIFF.Area_km2_6,
-              color: colors[5],
-              percent: propertiesTIFF.Percent_6,
-            },
-          ];
+            const areas = [
+              {
+                color: colors[0],
+                area: propertiesTIFF.Area_km2_1,
+                percent: propertiesTIFF.Percent_1,
+              },
+              {
+                color: colors[1],
+                area: propertiesTIFF.Area_km2_2,
+                percent: propertiesTIFF.Percent_2,
+              },
+              {
+                color: colors[2],
+                area: propertiesTIFF.Area_km2_3,
+                percent: propertiesTIFF.Percent_3,
+              },
+              {
+                color: colors[3],
+                area: propertiesTIFF.Area_km2_4,
+                percent: propertiesTIFF.Percent_4,
+              },
+              {
+                color: colors[4],
+                area: propertiesTIFF.Area_km2_5,
+                percent: propertiesTIFF.Percent_5,
+              },
+              {
+                color: colors[5],
+                area: propertiesTIFF.Area_km2_6,
+                percent: propertiesTIFF.Percent_6,
+              },
+            ];
 
-          root.render(
-            <PopupContent>
-              <TopHeader>
-                <Title>{properties.NM_UF}</Title>
-                <Subtitle>{atualData.name}</Subtitle>
-              </TopHeader>
-              {areas
-                .filter(({ area }) => area && area > 0) // Filtra os valores que têm percent maior que 0
-                .map((areaInfo, index) => (
-                  <LineInfo key={index}>
-                    <TotalArea>{areaInfo.area?.toFixed(0)}Km²</TotalArea>
-                    <Color color={areaInfo.color} />
-                    <PercentArea>{areaInfo.percent?.toFixed(0)}%</PercentArea>
-                  </LineInfo>
-                ))}
-            </PopupContent>,
-          );
+            root.render(
+              <PopupContent>
+                <TopHeader>
+                  <Title>{properties.NM_UF}</Title>
+                  <Subtitle>{atualData.name}</Subtitle>
+                </TopHeader>
+                {areas
+                  .filter(({ area }) => area && area > 0) // Filtra os valores que têm percent maior que 0
+                  .map((areaInfo, index) => (
+                    <LineInfo key={index}>
+                      <TotalArea>{areaInfo.area?.toFixed(0)}Km²</TotalArea>
+                      <Color color={areaInfo.color} />
+                      <PercentArea>{areaInfo.percent?.toFixed(0)}%</PercentArea>
+                    </LineInfo>
+                  ))}
+              </PopupContent>,
+            );
 
-          popupRef.current
-            .setLngLat(e.lngLat)
-            .setDOMContent(popupContainer)
-            .addTo(map);
+            popupRef.current
+              .setLngLat(e.lngLat)
+              .setDOMContent(popupContainer)
+              .addTo(map);
+          }
         }
       });
 
@@ -276,7 +279,7 @@ const MapTiff = ({
         popupRef.current.remove();
       });
     },
-    [map],
+    [map, mapsData],
   );
 
   useEffect(() => {
