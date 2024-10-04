@@ -4,19 +4,7 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { createRoot } from "react-dom/client";
 import { useContext, useEffect, useRef, useState } from "react";
-import {
-  MapContainer,
-  Loading,
-  LoadingText,
-  PopupContent,
-  TopHeader,
-  Title,
-  Subtitle,
-  LineInfo,
-  TotalArea,
-  PercentArea,
-  Color,
-} from "./MapTiff.styles";
+import { MapContainer, Loading, LoadingText } from "./MapTiff.styles";
 import { IMapInfo } from "@/utils/interfaces";
 import {
   MAP_TIFF_STYLE,
@@ -24,6 +12,7 @@ import {
   MAP_TIFF_BRAZIL_CITIES,
 } from "@/utils/constants";
 import { CMSContext } from "@/contexts/ContentProvider";
+import MapPopup from "../MapPopup/MapPopup";
 
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
@@ -197,12 +186,12 @@ const addPopupEffect = (
         ]?.imageParams.map((param: any) => param.color);
 
         root.render(
-          createPopupContent(
-            fcProperties.NM_UF,
-            rasterColors,
-            rasterMetadata.fields.name,
-            fcMetadata,
-          ),
+          <MapPopup
+            nameUF={fcProperties.NM_UF}
+            colors={rasterColors}
+            nameRaster={rasterMetadata.fields.name}
+            fcMetadata={fcMetadata}
+          />,
         );
 
         popupRef.current
@@ -223,43 +212,6 @@ const addPopupEffect = (
     hoveredStateId = undefined;
     popupRef.current.remove();
   });
-};
-
-const createPopupContent = (
-  nameUF: string,
-  colors: string[],
-  nameRaster: string,
-  fcMetadata: any,
-) => {
-  const areas = colors.map((color, index) => {
-    const area = fcMetadata[`Area_km2_${index + 1}`];
-    const formattedArea =
-      area > 1000
-        ? `${(area / 1000).toFixed(1)} Mil Km²`
-        : `${area.toFixed(0)} Km²`;
-
-    return {
-      color,
-      area: formattedArea,
-      percent: fcMetadata[`Percent_${index + 1}`].toFixed(0),
-    };
-  });
-
-  return (
-    <PopupContent>
-      <TopHeader>
-        <Title>{nameUF}</Title>
-        <Subtitle>{nameRaster}</Subtitle>
-      </TopHeader>
-      {areas.map((areaInfo, index) => (
-        <LineInfo key={index}>
-          <TotalArea>{areaInfo.area}</TotalArea>
-          <Color color={areaInfo.color} percent={areaInfo.percent} />
-          <PercentArea>{areaInfo.percent}%</PercentArea>
-        </LineInfo>
-      ))}
-    </PopupContent>
-  );
 };
 
 const MapTiff = ({
