@@ -24,3 +24,14 @@ export const capitalize = (inputString: string): string => {
 
   return capitalizedWords.join(" ");
 };
+
+export const getPriority = (role: string): string => {
+  let priority = "";
+
+  if (role.toUpperCase().includes("COORDENADOR")) priority = "A";
+  else if (role.toUpperCase().includes("LÍDER TÉCNICO")) priority = "B";
+  else if (role.toUpperCase().includes("PESQUISADOR")) priority = "C";
+  else priority = "D";
+
+  return priority;
+};

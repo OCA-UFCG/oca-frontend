@@ -1,6 +1,5 @@
 import { IVisuMenuItems } from "@/utils/interfaces";
 import { Input, ItemWrapper, Label } from "./VisuItem.styles";
-import { capitalize } from "@/utils/functions";
 
 export const VisuItem = ({
   info,
@@ -27,7 +26,7 @@ export const VisuItem = ({
         onChange={() => onChange(id)}
         onClick={() => onClick(id, false)}
       />
-      <Label htmlFor={id}>{capitalize(name)}</Label>
+      <Label htmlFor={id}>{name}</Label>
     </ItemWrapper>
   );
 };

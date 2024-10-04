@@ -24,8 +24,8 @@ const Footer = () => {
         ))}
         <Divider />
         <SocialMediasContainer>
-          {channels.map(({ name, href, icon, size }, index) => (
-            <SocialMedia target="_blank" key={index} title={name} href={href}>
+          {channels.map(({ href, icon, size }, index) => (
+            <SocialMedia target="_blank" key={index} title={href} href={href}>
               <Icon id={icon} size={size} />
             </SocialMedia>
           ))}

@@ -39,7 +39,7 @@ export const sections: ISections = {
         path: "/#publications",
       },
       partners: {
-        name: "Patrocinadores",
+        name: "Apoiadores",
         path: "/#sponsors",
       },
     },
