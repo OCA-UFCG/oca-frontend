@@ -6,22 +6,23 @@ export const Section = styled(DefaultSection)`
 `;
 
 export const TeamMembersContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-content: center;
   padding: 1rem;
   gap: 2rem;
-  column-count: 4;
   box-sizing: border-box;
 
   @media screen and (max-width: 1000px) {
-    column-count: 3;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   @media screen and (max-width: 700px) {
-    column-count: 2;
+    grid-template-columns: 1fr 1fr;
   }
 
   @media screen and (max-width: 450px) {
-    column-count: 1;
+    grid-template-columns: 1fr;
   }
 `;
 

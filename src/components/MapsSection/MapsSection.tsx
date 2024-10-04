@@ -18,7 +18,6 @@ import {
 } from "./MapsSection.styles";
 import { useEffect, useState } from "react";
 import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
-import { capitalize } from "@/utils/functions";
 import { defaultEEInfo } from "@/utils/constants";
 import { Icon } from "../Icon/Icon";
 import { SectionHeader } from "../SectionHeader/SectionHeader";
@@ -106,7 +105,7 @@ const MapsSection = ({
               >
                 <VisuHeader>
                   <VisuName active={(tag.id === currentVisu.id).toString()}>
-                    {capitalize(tag.name)}
+                    {tag.name}
                   </VisuName>
                   <IconWrapper>
                     <VisuIcon

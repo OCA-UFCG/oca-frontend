@@ -3,6 +3,7 @@
 import { TeamMembersContainer, Section } from "./TeamMembers.styles";
 import TeamMember from "../TeamMember";
 import { ITeamMember } from "@/utils/interfaces";
+import { getPriority } from "../../../utils/functions";
 
 const TeamMembersSection = ({
   teamMembers,
@@ -18,8 +19,11 @@ const TeamMembersSection = ({
               { fields: a }: { fields: ITeamMember },
               { fields: b }: { fields: ITeamMember },
             ) => {
-              const aCombined = `${a.role} ${a.name}`;
-              const bCombined = `${b.role} ${b.name}`;
+              const priorityA = getPriority(a.role);
+              const priorityB = getPriority(b.role);
+
+              const aCombined = `${priorityA} ${a.role} ${a.name}`;
+              const bCombined = `${priorityB} ${b.role} ${b.name}`;
 
               return aCombined.localeCompare(bCombined);
             },
