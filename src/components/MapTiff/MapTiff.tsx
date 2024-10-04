@@ -145,6 +145,7 @@ const loadMapLayer = async (
   const symbolLayer = map
     ?.getStyle()
     ?.layers?.find((layer) => layer.type === "symbol");
+
   if (map && symbolLayer) {
     map.addLayer(
       {
@@ -164,11 +165,6 @@ const addPopupEffect = (
   name: string,
   year: string,
   popupRef: React.MutableRefObject<maplibregl.Popup>,
-  createPopupContent: (
-    properties: any,
-    colors: string[],
-    atualData: any,
-  ) => React.ReactNode,
 ) => {
   let hoveredStateId: string | number | undefined = undefined;
   const popupContainer = document.createElement("div");
@@ -182,23 +178,32 @@ const addPopupEffect = (
           { hover: false },
         );
       }
+
       hoveredStateId = e.features[0].id;
       map.setFeatureState(
         { source: "brazil-states", id: hoveredStateId },
         { hover: true },
       );
 
-      const properties = e.features[0].properties;
-      if (!properties[name + year]) popupRef.current.remove();
+      const fcProperties = e.features[0].properties;
+      if (!fcProperties[name + year]) popupRef.current.remove();
       else {
-        const propertiesTIFF = JSON.parse(properties[name + year]);
-        const atualData = mapsData.filter((data) => data.fields.id === name)[0]
-          .fields;
-        const colors = atualData.imageData[year]?.imageParams.map(
-          (param: any) => param.color,
-        );
+        const fcMetadata = JSON.parse(fcProperties[name + year]);
+        const rasterMetadata = mapsData.filter(
+          (data) => data.fields.id === name,
+        )[0];
+        const rasterColors = rasterMetadata.fields.imageData[
+          year
+        ]?.imageParams.map((param: any) => param.color);
 
-        root.render(createPopupContent(propertiesTIFF, colors, atualData));
+        root.render(
+          createPopupContent(
+            fcProperties.NM_UF,
+            rasterColors,
+            rasterMetadata.fields.name,
+            fcMetadata,
+          ),
+        );
 
         popupRef.current
           .setLngLat(e.lngLat)
@@ -221,29 +226,36 @@ const addPopupEffect = (
 };
 
 const createPopupContent = (
-  propertiesTIFF: any,
+  nameUF: string,
   colors: string[],
-  atualData: any,
+  nameRaster: string,
+  fcMetadata: any,
 ) => {
-  const areas = colors
-    .map((color, index) => ({
+  const areas = colors.map((color, index) => {
+    const area = fcMetadata[`Area_km2_${index + 1}`];
+    const formattedArea =
+      area > 1000
+        ? `${(area / 1000).toFixed(1)} Mil Km²`
+        : `${area.toFixed(0)} Km²`;
+
+    return {
       color,
-      area: propertiesTIFF[`Area_km2_${index + 1}`],
-      percent: propertiesTIFF[`Percent_${index + 1}`],
-    }))
-    .filter(({ area }) => area && area > 0);
+      area: formattedArea,
+      percent: fcMetadata[`Percent_${index + 1}`].toFixed(0),
+    };
+  });
 
   return (
     <PopupContent>
       <TopHeader>
-        <Title>{atualData.name}</Title>
-        <Subtitle>{atualData.subtitle}</Subtitle>
+        <Title>{nameUF}</Title>
+        <Subtitle>{nameRaster}</Subtitle>
       </TopHeader>
       {areas.map((areaInfo, index) => (
         <LineInfo key={index}>
-          <TotalArea>{areaInfo.area?.toFixed(0)}Km²</TotalArea>
-          <Color color={areaInfo.color} />
-          <PercentArea>{areaInfo.percent?.toFixed(0)}%</PercentArea>
+          <TotalArea>{areaInfo.area}</TotalArea>
+          <Color color={areaInfo.color} percent={areaInfo.percent} />
+          <PercentArea>{areaInfo.percent}%</PercentArea>
         </LineInfo>
       ))}
     </PopupContent>
@@ -278,14 +290,7 @@ const MapTiff = ({
     if (name) {
       const yearStr = year || "general";
       loadMapLayer(map, mapsData, name, yearStr, setLoading);
-      addPopupEffect(
-        map,
-        mapsData,
-        name,
-        yearStr,
-        popupRef,
-        createPopupContent,
-      );
+      addPopupEffect(map, mapsData, name, yearStr, popupRef);
 
       return () => {
         if (map?.getLayer(name + yearStr)) {
