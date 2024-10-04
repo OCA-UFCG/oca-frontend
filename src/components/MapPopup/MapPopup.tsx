@@ -29,19 +29,21 @@ const MapPopup: React.FC<MapPopupProps> = ({
   nameRaster,
   fcMetadata,
 }) => {
-  const areas = colors.map((color, index) => {
-    const area = fcMetadata[`Area_km2_${index + 1}`];
-    const formattedArea =
-      area > 1000
-        ? `${(area / 1000).toFixed(1)} Mil Km²`
-        : `${area.toFixed(0)} Km²`;
+  const areas = colors
+    .map((color, index) => {
+      const area = fcMetadata[`Area_km2_${index + 1}`];
+      const formattedArea =
+        area > 1000
+          ? `${(area / 1000).toFixed(1)} Mil Km²`
+          : `${area.toFixed(0)} Km²`;
 
-    return {
-      color,
-      area: formattedArea,
-      percent: fcMetadata[`Percent_${index + 1}`].toFixed(0),
-    };
-  });
+      return {
+        color,
+        area: formattedArea,
+        percent: fcMetadata[`Percent_${index + 1}`].toFixed(0),
+      };
+    })
+    .filter(({ percent }) => percent > 0);
 
   return (
     <PopupContent>
