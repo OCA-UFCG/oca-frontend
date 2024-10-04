@@ -17,6 +17,10 @@ export const ContentWrapper = styled.div`
 export const Carousel = styled.div`
   border: 1px red solid;
   display: flex;
+  height: fit-content;
+  width: 800px;
+  height: 300px;
+  overflow: hidden;
 `;
 
 export const CarouselImage = styled(Image)`
