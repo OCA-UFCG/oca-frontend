@@ -3,33 +3,33 @@
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { createRoot } from "react-dom/client";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, Loading, LoadingText } from "./MapTiff.styles";
-import { IMapInfo } from "@/utils/interfaces";
+import { IEEInfo, IMapInfo } from "@/utils/interfaces";
 import {
   MAP_TIFF_STYLE,
   MAP_TIFF_BRAZIL_STATES,
   MAP_TIFF_BRAZIL_CITIES,
 } from "@/utils/constants";
-import { CMSContext } from "@/contexts/ContentProvider";
 import MapPopup from "../MapPopup/MapPopup";
 
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
 const MapTiff = ({
+  mapsData,
   data,
   loading,
   setLoading,
   onClick,
   ...props
 }: {
+  mapsData: { fields: IEEInfo }[];
   data: IMapInfo;
   loading: boolean;
   setLoading: (e: boolean) => void;
   onClick?: (e: any) => void;
 }) => {
   const { name, year } = data;
-  const { mapsData } = useContext(CMSContext);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const popupRef = useRef(

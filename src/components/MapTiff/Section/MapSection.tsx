@@ -101,6 +101,7 @@ const MapSection = ({ mapsData }: { mapsData: { fields: IEEInfo }[] }) => {
     <MapTemplate>
       <MapContainer>
         <MapTiff
+          mapsData={mapsData}
           data={imageData}
           onClick={handleMapClick}
           loading={loadingMap}
