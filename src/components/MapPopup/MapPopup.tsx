@@ -33,7 +33,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
     color: colors[index],
     area: fcMetadata[`Area_info_${index + 1}`],
     percent: fcMetadata[`Percent_${index + 1}`]?.toFixed(2),
-  })).filter((areaInfo) => areaInfo.area !== undefined);
+  })).filter((areaInfo) => areaInfo.area);
 
   return (
     <PopupContent>
