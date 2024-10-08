@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
     const password = process.env.NEXT_PUBLIC_MAIL_APP_PASS;
     const from = process.env.NEXT_PUBLIC_MAIL_APP_USER;
     const to = process.env.NEXT_PUBLIC_MAIL_APP_TO;
+    const cc = process.env.NEXT_PUBLIC_MAIL_APP_CC;
 
     const transporter = nodemailer.createTransport({
       service: "Gmail",
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
     await transporter.sendMail({
       from: from,
       to: to,
-      cc: email,
+      cc: [email, cc],
       subject: `Nova mensagem de ${name}`,
       text: message,
     });
