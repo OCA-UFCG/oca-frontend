@@ -3,12 +3,11 @@ import styled from "styled-components";
 export const PopupContent = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
-  gap: 0.2rem;
+  padding: 1rem;
+  gap: 0.75rem;
   background-color: white;
-  border-radius: 8px;
-  color: black;
-  min-width: 13rem;
+  border-radius: 4px;
+  min-width: 16rem;
 `;
 
 export const Title = styled.h3`
@@ -19,6 +18,7 @@ export const Title = styled.h3`
 export const Subtitle = styled.h4`
   font-size: 0.8rem;
   opacity: 0.7;
+  font-weight: normal;
 `;
 
 export const TopHeader = styled.div`
@@ -26,6 +26,12 @@ export const TopHeader = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 0.5rem;
+`;
+
+export const InfoContent = styled.div`
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
 `;
 
 export const LineInfo = styled.div`
@@ -37,6 +43,7 @@ export const LineInfo = styled.div`
 
 export const TotalArea = styled.h3`
   font-size: 0.75rem;
+  font-weight: normal;
 `;
 
 export const PercentArea = styled.h3`
@@ -44,11 +51,10 @@ export const PercentArea = styled.h3`
   font-weight: bold;
   text-align: right;
   margin-left: auto;
-  /* width: 2rem; */
 `;
 
 export const Color = styled.div<{ color: string; $percent: number }>`
-  width: ${({ $percent }) => `${$percent / 30}rem`};
+  width: ${({ $percent }) => `${$percent / 15}rem`};
   max-width: 100%;
   min-width: 0.2rem;
   height: 1.25rem;
