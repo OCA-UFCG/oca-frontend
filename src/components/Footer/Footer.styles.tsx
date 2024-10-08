@@ -62,7 +62,6 @@ export const SectionTitle = styled.h3`
   color: ${({ theme }) => theme.colors.white};
   font-weight: bolder;
 
-  cursor: pointer;
   text-decoration: none;
   transition: 0.2s;
   font-size: 1.1rem;
