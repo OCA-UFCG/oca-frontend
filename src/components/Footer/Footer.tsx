@@ -27,7 +27,7 @@ const Footer = () => {
                 {item.name}
                 <Divider />
               </SectionTitle>
-              {item.children != undefined ? (
+              {item.children ? (
                 Object.entries(item.children).map(([innerKey, innerItem]) => (
                   <SectionOptions key={innerKey} href={innerItem.path || ""}>
                     {innerItem.name}
