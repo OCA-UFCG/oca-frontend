@@ -58,7 +58,7 @@ export const Sections = styled.div`
   }
 `;
 
-export const SectionTitle = styled.h2`
+export const SectionTitle = styled.h3`
   color: ${({ theme }) => theme.colors.white};
   font-weight: bolder;
 
