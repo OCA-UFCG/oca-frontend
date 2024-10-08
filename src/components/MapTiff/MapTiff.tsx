@@ -172,7 +172,7 @@ const MapTiff = ({
   const addPopupEffect = useCallback(
     async (name: string, year: string) => {
       let hoveredStateId: string | number | undefined = undefined;
-      const popupContainer = document.createElement("a");
+      const popupContainer = document.createElement("div");
       const root = createRoot(popupContainer);
 
       map?.on("mousemove", "state-fills", (e) => {
