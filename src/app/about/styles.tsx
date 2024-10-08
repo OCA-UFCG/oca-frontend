@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import styled from "styled-components";
 
 export const ContentWrapper = styled.div`
@@ -21,19 +20,4 @@ export const Carousel = styled.div`
   width: 800px;
   height: 300px;
   overflow: hidden;
-`;
-
-export const CarouselImage = styled(Image)`
-  display: flex;
-  width: fit-content;
-  height: fit-content;
-`;
-
-export const CoverImage = styled(Image)`
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  max-width: 1000px;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
 `;

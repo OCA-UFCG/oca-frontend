@@ -32,7 +32,6 @@ export const ContentWrapper = styled.div`
 `;
 
 export const ContentModal = styled.div`
-  border: 1px red solid;
   display: flex;
   flex-flow: column;
   gap: 1rem;
