@@ -5,22 +5,8 @@ import { Suspense, useCallback, useEffect, useState } from "react";
 import { IEEInfo, IMapInfo } from "@/utils/interfaces";
 import MapTiff from "@/components/MapTiff/MapTiff";
 import MapTemplate from "@/templates/mapTemplate";
-import MapsMenu from "@/components/MapsMenu/MapsMenu";
 import { defaultEEInfo } from "@/utils/constants";
-import {
-  HeaderWrapper,
-  HomeImage,
-  MapContainer,
-  MapLegendContainer,
-  MenuWrapper,
-  NameContainer,
-  QuestionImage,
-  QuestionWrapper,
-  VisuName,
-} from "./MapsSections.styles";
-import Link from "next/link";
-import { capitalize } from "@/utils/functions";
-import MapDescription from "@/components/MapDescription/MapDescription";
+import { MapContainer, MapLegendContainer } from "./MapsSections.styles";
 import { MapLegend } from "@/components/MapLegend/MapLegend";
 
 const DEFAULT_TIFF = "spei";
@@ -45,9 +31,12 @@ export const MapSection = ({
   const [loadingMap, setLoadingMap] = useState<boolean>(false);
   const [descriptionInfo, setDescriptionInfo] =
     useState<IEEInfo>(defaultEEInfo);
+  console.log(descriptionInfo);
   const [isDescRetracted, setIsDescRetracted] = useState<boolean>(true);
   const [isMenuRetracted, setIsmenuRetracted] = useState<boolean>(false);
-
+  console.log(isDescRetracted, isMenuRetracted);
+  {
+    /*
   const handleDescUpdate = useCallback(
     (name: string, retract: boolean = true) => {
       if (retract) {
@@ -65,6 +54,8 @@ export const MapSection = ({
     },
     [descriptionInfo.id, isDescRetracted, mapsData],
   );
+  */
+  }
 
   const handleMapClick = useCallback(() => {
     setIsmenuRetracted(true);
@@ -112,13 +103,16 @@ export const MapSection = ({
           setLoading={setLoadingMap}
         />
       </MapContainer>
+      {/*
       <MapDescription
         imageInfo={descriptionInfo}
         retracted={isDescRetracted}
         setRetracted={setIsDescRetracted}
       />
+      */}
+      {/*
       <HeaderWrapper>
-        <MenuWrapper>
+        <MenuWrapper >
           <MapsMenu
             isLoading={loadingMap}
             mapsData={mapsData}
@@ -151,6 +145,7 @@ export const MapSection = ({
           </NameContainer>
         )}
       </HeaderWrapper>
+      */}
       <MapLegendContainer>
         {imageData.name && (
           <MapLegend

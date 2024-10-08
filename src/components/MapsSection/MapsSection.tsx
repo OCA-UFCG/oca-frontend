@@ -2,7 +2,6 @@
 
 import {
   Description,
-  MapPoster,
   ExpandBox,
   TagButton,
   TagsContainer,
@@ -21,6 +20,7 @@ import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
 import { defaultEEInfo } from "@/utils/constants";
 import { Icon } from "../Icon/Icon";
 import { SectionHeader } from "../SectionHeader/SectionHeader";
+import { MapSection } from "../MapTiff/Section/MapSectionReduced";
 
 const MapsSection = ({
   sectionHead,
@@ -84,6 +84,7 @@ const MapsSection = ({
           <ExpandBox href={`/map?name=${currentVisu.id}`}>
             <Icon id="expand" size={18} />
           </ExpandBox>
+          {/*
           <MapPoster
             alt=""
             width={500}
@@ -93,7 +94,9 @@ const MapsSection = ({
                 ? `https:${currentVisu.poster.fields.file.url}`
                 : currentVisu.poster
             }
-          />
+            />
+          */}
+          <MapSection mapsData={tiffInfo} />
         </PreviewWrapper>
         {tiffInfo.length != 0 && (
           <TagsContainer>
