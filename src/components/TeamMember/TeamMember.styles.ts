@@ -37,11 +37,9 @@ export const Wrapper = styled.label<{ active: string }>`
   display: flex;
   align-items: center;
   width: auto;
-  gap: 0.5rem;
   flex-direction: column;
   break-inside: avoid;
   max-width: 18rem;
-  box-shadow: 0 0 3px #cdcdcd;
   background-color: white;
   margin-bottom: 2rem;
 
@@ -69,6 +67,7 @@ export const InfoContainer = styled.div`
   box-sizing: border-box;
   gap: 0.5rem;
   flex-direction: column;
+  box-shadow: 0 0 3px #cdcdcd;
 `;
 
 export const MainInfoContainer = styled.div`

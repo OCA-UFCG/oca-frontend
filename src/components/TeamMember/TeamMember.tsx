@@ -15,9 +15,7 @@ import {
   FieldWorkTitleContainer,
   MainInfoContainer,
   FieldWorkWrapper,
-  Checkbox,
   AvatarFrame,
-  ExpandIcon,
 } from "./TeamMember.styles";
 import { Icon } from "../Icon/Icon";
 
@@ -59,14 +57,6 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
 
       <InfoContainer>
         <MainInfoContainer>
-          <Checkbox
-            id={name.replace(" ", "_").toLowerCase()}
-            type="checkbox"
-            defaultChecked={true}
-            hidden
-            readOnly
-            disabled={!(institution || fieldWork)}
-          />
           <Name>{name}</Name>
           <Role>{role}</Role>
           {(institution || fieldWork) && (
@@ -101,7 +91,6 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
                 ),
             )}
           </Networks>
-          <ExpandIcon id="arrow-head" size={16} />
         </MainInfoContainer>
       </InfoContainer>
     </Wrapper>
