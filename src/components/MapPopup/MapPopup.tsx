@@ -43,8 +43,8 @@ const MapPopup: React.FC<MapPopupProps> = ({
       </TopHeader>
       {areas.map((areaInfo: AreaInfo, index) => (
         <LineInfo key={index}>
-          <TotalArea>{areaInfo.area}</TotalArea>
           <Color color={areaInfo.color} $percent={areaInfo.percent} />
+          <TotalArea>({areaInfo.area})</TotalArea>
           <PercentArea>{areaInfo.percent}%</PercentArea>
         </LineInfo>
       ))}
