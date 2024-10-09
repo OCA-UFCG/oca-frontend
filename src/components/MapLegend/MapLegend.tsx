@@ -14,7 +14,6 @@ import {
   ContentContainer,
 } from "./MapLegend.styles";
 import { useState } from "react";
-import { capitalize } from "@/utils/functions";
 
 interface MapLegendProps {
   imageInfo: IEEInfo;
@@ -53,7 +52,7 @@ export const MapLegend = ({ imageInfo, year = "general" }: MapLegendProps) => {
                 title={`${label} ${measurementUnit !== "classes" ? measurementUnit : ""}`}
               >
                 <Color color={color} />
-                <ColorLabel>{capitalize(label)}</ColorLabel>
+                <ColorLabel>{label}</ColorLabel>
 
                 <Measurement>
                   {measurementUnit !== "classes" ? measurementUnit : ""}

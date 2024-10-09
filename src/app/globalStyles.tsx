@@ -196,9 +196,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .maplibregl-popup-tip {
-    display: none;
+    visibility: hidden;
   }
-  
 `;
 
 export const MapWrapper = styled.main`

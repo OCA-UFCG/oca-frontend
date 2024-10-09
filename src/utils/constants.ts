@@ -39,14 +39,10 @@ export const sections: ISections = {
         path: "/#publications",
       },
       partners: {
-        name: "Apoiadores",
+        name: "Parceiros",
         path: "/#sponsors",
       },
     },
-  },
-  map: {
-    name: "Mapa",
-    path: "/map",
   },
   about: {
     name: "Sobre nós",
@@ -69,7 +65,7 @@ export const sections: ISections = {
       },
     },
   },
-
+  map: { name: "Mapa", path: "/map" },
   contact: { name: "Fale conosco", path: "/contact-us" },
 };
 
