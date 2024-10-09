@@ -11,8 +11,10 @@ import {
   NoDataContainer,
   NoDataElement,
   QuestionMarkImg,
-  Title,
   SubSectionWrapper,
+  FieldDetails,
+  Summary,
+  IconWrapper,
 } from "./MapsMenu.styles";
 
 const MapsMenu = ({
@@ -101,14 +103,16 @@ const MapsMenu = ({
       setRetracted={setRetracted}
     >
       <ContentWrapper>
-        <Title>Visualizações Disponíveis</Title>
         {formValues.length > 0 ? (
           <Form>
             {Object.keys(mapTypes)
               .sort((a, b) => b.localeCompare(a))
               .map((type) => (
-                <fieldset key={type}>
-                  <legend>{type}</legend>
+                <FieldDetails key={type}>
+                  <Summary>
+                    <h4>{type}</h4>
+                    <IconWrapper id="close" size={16} stroke-width={3} />
+                  </Summary>
                   <SubSectionWrapper>
                     {mapTypes[type]
                       .sort((element1, element2) =>
@@ -137,7 +141,7 @@ const MapsMenu = ({
                         );
                       })}
                   </SubSectionWrapper>
-                </fieldset>
+                </FieldDetails>
               ))}
           </Form>
         ) : (

@@ -76,3 +76,28 @@ export const SubSectionWrapper = styled.div`
   width: 100%;
   padding: 1rem 0;
 `;
+
+export const FieldDetails = styled.details`
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0;
+`;
+
+export const Summary = styled.summary`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors["dark-gray"]};
+`;
+
+export const IconWrapper = styled(Icon)`
+  color: ${({ theme }) => theme.colors.black};
+
+  &.spin {
+    animation: spin 1.5s linear infinite;
+  }
+`;
