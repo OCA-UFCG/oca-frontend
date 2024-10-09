@@ -1,5 +1,5 @@
 import { IVisuMenuItems } from "@/utils/interfaces";
-import { Input, ItemWrapper, Label } from "./VisuItem.styles";
+import { Input, ItemWrapper, Label, LoadingIcon } from "./VisuItem.styles";
 
 export const VisuItem = ({
   info,
@@ -16,17 +16,23 @@ export const VisuItem = ({
 
   return (
     <ItemWrapper>
-      <Input
-        type="radio"
-        id={id}
-        name={name}
-        checked={checked}
-        value={id}
-        disabled={isLoading}
-        onChange={() => onChange(id)}
-        onClick={() => onClick(id, false)}
-      />
-      <Label htmlFor={id}>{name}</Label>
+      {isLoading ? (
+        <LoadingIcon id="isLoading" />
+      ) : (
+        <Input
+          type={isLoading ? "hidden" : "radio"}
+          id={id}
+          name={name}
+          checked={checked}
+          value={id}
+          disabled={isLoading}
+          onChange={() => onChange(id)}
+          onClick={() => onClick(id, false)}
+        />
+      )}
+      <Label isLoading={isLoading} htmlFor={id}>
+        {name}
+      </Label>
     </ItemWrapper>
   );
 };
