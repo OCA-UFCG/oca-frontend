@@ -12,6 +12,7 @@ import {
   NoDataElement,
   QuestionMarkImg,
   Title,
+  SubSectionWrapper,
 } from "./MapsMenu.styles";
 
 const MapsMenu = ({
@@ -32,6 +33,7 @@ const MapsMenu = ({
   onQuestionSelect: (newItem: string, retract?: boolean) => void;
 }) => {
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
+  const [mapTypes, setMapTypes] = useState<{ [key: string]: IFormItem[] }>({});
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
   const [currentName, setCurrentName] = useState<string>("");
   const router = useRouter();
@@ -68,14 +70,26 @@ const MapsMenu = ({
           name: item.name,
           checked: item.id === newValue,
           imageData: item.imageData,
+          type: item.type,
         };
       }),
     );
+
+    const typesMap: { [key: string]: IFormItem[] } = {};
+
+    formValues.forEach((item) => {
+      if (!typesMap[item.type]) {
+        typesMap[item.type] = [];
+      }
+
+      typesMap[item.type].push(item);
+    });
+
+    setMapTypes(typesMap);
   };
 
   useEffect(() => {
     onItemChange(initialValues.name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues]);
 
   return (
@@ -90,28 +104,41 @@ const MapsMenu = ({
         <Title>Visualizações Disponíveis</Title>
         {formValues.length > 0 ? (
           <Form>
-            {formValues
-              .sort((element1, element2) =>
-                element1.name.localeCompare(element2.name),
-              )
-              .map((item: IFormItem) => {
-                return (
-                  <ItemWrapper key={item.id}>
-                    <VisuItem
-                      info={item}
-                      isLoading={isLoading}
-                      onClick={onQuestionSelect}
-                      onChange={onItemChange}
-                    />
-                    <div
-                      onClick={() => onQuestionSelect(item.id)}
-                      title={`Sobre ${item.name}`}
-                    >
-                      <QuestionMarkImg id="question" height={20} width={20} />
-                    </div>
-                  </ItemWrapper>
-                );
-              })}
+            {Object.keys(mapTypes)
+              .sort((a, b) => b.localeCompare(a))
+              .map((type) => (
+                <fieldset key={type}>
+                  <legend>{type}</legend>
+                  <SubSectionWrapper>
+                    {mapTypes[type]
+                      .sort((element1, element2) =>
+                        element1.name.localeCompare(element2.name),
+                      )
+                      .map((item: IFormItem) => {
+                        return (
+                          <ItemWrapper key={item.id}>
+                            <VisuItem
+                              info={item}
+                              isLoading={isLoading}
+                              onClick={onQuestionSelect}
+                              onChange={onItemChange}
+                            />
+                            <div
+                              onClick={() => onQuestionSelect(item.id)}
+                              title={`Sobre ${item.name}`}
+                            >
+                              <QuestionMarkImg
+                                id="question"
+                                height={20}
+                                width={20}
+                              />
+                            </div>
+                          </ItemWrapper>
+                        );
+                      })}
+                  </SubSectionWrapper>
+                </fieldset>
+              ))}
           </Form>
         ) : (
           <NoDataContainer>

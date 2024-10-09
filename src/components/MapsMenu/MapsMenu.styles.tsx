@@ -68,3 +68,11 @@ export const NoDataElement = styled.div<{ delay: number }>`
   width: 100%;
   border-radius: 4px;
 `;
+
+export const SubSectionWrapper = styled.div`
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem 0;
+`;

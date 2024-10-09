@@ -91,6 +91,7 @@ export const defaultEEInfo: IEEInfo = {
   poster: "/defaultMapsPoster.png",
   minScale: 0,
   maxScale: 1,
+  type: "default",
 };
 
 export const defaultNews: INews[] = [
