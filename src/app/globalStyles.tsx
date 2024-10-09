@@ -184,6 +184,20 @@ export const GlobalStyles = createGlobalStyle`
   details {
     display: none;
   }
+
+  .maplibregl-popup-content, .maplibregl-popup-tip {
+    background-color: transparent;
+    box-shadow: none;
+    border-top-color: transparent;
+  }
+
+  .maplibregl-popup-content {
+    width: 20rem;
+  }
+
+  .maplibregl-popup-tip {
+    display: none;
+  }
   
 `;
 
