@@ -31,7 +31,11 @@ const MapPageWrapper = ({ mapsData }: { mapsData: any }) => (
   </Suspense>
 );
 
-const MapSection = ({ mapsData }: { mapsData: { fields: IEEInfo }[] }) => {
+export const MapSection = ({
+  mapsData,
+}: {
+  mapsData: { fields: IEEInfo }[];
+}) => {
   const searchParams = useSearchParams();
   const [imageData, setImageData] = useState<IMapInfo>({
     name: "",
@@ -106,6 +110,7 @@ const MapSection = ({ mapsData }: { mapsData: { fields: IEEInfo }[] }) => {
           onClick={handleMapClick}
           loading={loadingMap}
           setLoading={setLoadingMap}
+          isReduced={false}
         />
       </MapContainer>
       <MapDescription

@@ -53,7 +53,9 @@ const MapsMenu = ({
       params.set("name", name);
       params.set("year", year || "general");
 
-      router.push(`${pathname}?${params.toString()}`);
+      if (window.location.href.includes("/map")) {
+        router.push(`${pathname}?${params.toString()}`);
+      }
 
       updateVisu(newImageData);
     },
