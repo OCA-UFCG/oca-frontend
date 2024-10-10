@@ -1,15 +1,14 @@
 .swiper {
     z-index: 0;
     display: flex;
+    aspect-ratio: 3/2;
     width: 75%;
-    height: 40rem;
-  }
+}
   
 .swiper-slide {
-    text-align: center;
-    background: #fff;
-    width: 100%;
-    display: flex;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .swiper-slide .carouselImage {
