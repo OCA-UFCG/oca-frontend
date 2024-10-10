@@ -110,6 +110,7 @@ export const MapSection = ({
           onClick={handleMapClick}
           loading={loadingMap}
           setLoading={setLoadingMap}
+          isReduced={false}
         />
       </MapContainer>
       <MapDescription

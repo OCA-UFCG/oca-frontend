@@ -46,7 +46,9 @@ const MapsMenu = ({
       params.set("name", name);
       params.set("year", year || "general");
 
-      router.push(`${pathname}?${params.toString()}`);
+      if (window.location.href.includes("/map")) {
+        router.push(`${pathname}?${params.toString()}`);
+      }
 
       updateVisu(newImageData);
     },
@@ -97,12 +99,14 @@ const MapsMenu = ({
               .map((item: IFormItem) => {
                 return (
                   <ItemWrapper key={item.id}>
-                    <VisuItem
-                      info={item}
-                      isLoading={isLoading}
-                      onClick={onQuestionSelect}
-                      onChange={onItemChange}
-                    />
+                    <ItemWrapper>
+                      <VisuItem
+                        info={item}
+                        isLoading={isLoading}
+                        onClick={onQuestionSelect}
+                        onChange={onItemChange}
+                      />
+                    </ItemWrapper>
                     <div
                       onClick={() => onQuestionSelect(item.id)}
                       title={`Sobre ${item.name}`}

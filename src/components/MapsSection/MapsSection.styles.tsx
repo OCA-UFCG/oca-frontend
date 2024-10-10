@@ -33,7 +33,7 @@ export const BoxWrapper = styled.div`
   justify-content: center;
   gap: 1rem;
   max-width: 1440px;
-  height: 550px;
+  height: 650px;
   width: 100%;
   box-sizing: border-box;
   /* padding: 1rem; */
@@ -210,5 +210,8 @@ export const LinkButton = styled(Link)<{ active?: string }>`
   &:hover {
     opacity: 0.7;
     text-decoration: underline;
+  }
+  $:click {
+    opacity: 0;
   }
 `;
