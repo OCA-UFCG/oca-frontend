@@ -39,14 +39,10 @@ export const sections: ISections = {
         path: "/#publications",
       },
       partners: {
-        name: "Apoiadores",
+        name: "Parceiros",
         path: "/#sponsors",
       },
     },
-  },
-  map: {
-    name: "Mapa",
-    path: "/map",
   },
   about: {
     name: "Sobre nós",
@@ -69,7 +65,7 @@ export const sections: ISections = {
       },
     },
   },
-
+  map: { name: "Mapa", path: "/map" },
   contact: { name: "Fale conosco", path: "/contact-us" },
 };
 
@@ -91,6 +87,7 @@ export const defaultEEInfo: IEEInfo = {
   poster: "/defaultMapsPoster.png",
   minScale: 0,
   maxScale: 1,
+  type: "default",
 };
 
 export const defaultNews: INews[] = [

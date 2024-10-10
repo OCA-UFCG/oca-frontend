@@ -14,8 +14,6 @@ export const ItemWrapper = styled.div`
   gap: 0.5rem;
   width: 100%;
   padding: 0.5rem 1rem 0.5rem 0.5rem;
-  background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: 0px 0px 2px #e0e0e0;
   border-radius: 4px;
 `;
 
