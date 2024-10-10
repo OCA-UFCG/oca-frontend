@@ -1,13 +1,12 @@
 import { IImageData, IMapInfo } from "@/utils/interfaces";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import {
   Wrapper,
-  DateInfo,
   CalendarImage,
   RangeInput,
-  DateList,
   InputWrapper,
-  DateItem,
+  DateContainer,
+  DateSpan,
 } from "./DateInput.styles";
 
 const DateInput = ({
@@ -22,12 +21,10 @@ const DateInput = ({
   dates: IImageData;
   onChange: (newValues: IMapInfo) => void;
 }) => {
-  const [currentDate, setCurrentDate] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newDate = Object.keys(dates)[Number(event.target.value) - 1];
-    setCurrentDate(newDate);
     onChange({ name: mapId, year: newDate });
   };
 
@@ -36,7 +33,6 @@ const DateInput = ({
   const updateFields = (year: string) => {
     if (inputRef.current)
       inputRef.current.value = [dateKeys.indexOf(year) + 1].toString();
-    setCurrentDate(year);
     onChange({ name: mapId, year: year });
   };
 
@@ -50,23 +46,22 @@ const DateInput = ({
   }, [mapId]);
 
   return (
-    <Wrapper disabled={("general" in dates || isLoading).toString()}>
+    <Wrapper disabled={isLoading.toString()}>
       <CalendarImage id="calendar" size={20} />
-      <DateInfo>{dates?.general ? "--" : currentDate}</DateInfo>
       <InputWrapper>
         <RangeInput
-          disabled={"general" in dates || isLoading}
           type="range"
           ref={inputRef}
+          disabled={isLoading}
           min={1}
           max={Object.keys(dates).length}
           onChange={handleRangeChange}
         />
-        <DateList>
+        <DateContainer>
           {Object.keys(dates).map((date: string) => (
-            <DateItem key={date} />
+            <DateSpan key={date} year={date} />
           ))}
-        </DateList>
+        </DateContainer>
       </InputWrapper>
     </Wrapper>
   );
