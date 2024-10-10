@@ -15,6 +15,8 @@ import {
   FieldDetails,
   Summary,
   IconWrapper,
+  InfoContainer,
+  Title,
 } from "./MapsMenu.styles";
 
 const MapsMenu = ({
@@ -38,6 +40,7 @@ const MapsMenu = ({
   const [mapTypes, setMapTypes] = useState<{ [key: string]: IFormItem[] }>({});
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
   const [currentName, setCurrentName] = useState<string>("");
+  const [currentCategory, setCurrentCategory] = useState<string>("");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -65,6 +68,7 @@ const MapsMenu = ({
         if (item.id === newValue) {
           setCurrentName(item.id);
           setcurrentImageData(item.imageData);
+          currentCategory === "" && setCurrentCategory(item.type);
         }
 
         return {
@@ -92,6 +96,7 @@ const MapsMenu = ({
 
   useEffect(() => {
     onItemChange(initialValues.name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues]);
 
   return (
@@ -108,10 +113,10 @@ const MapsMenu = ({
             {Object.keys(mapTypes)
               .sort((a, b) => b.localeCompare(a))
               .map((type) => (
-                <FieldDetails key={type}>
+                <FieldDetails key={type} open={currentCategory === type}>
                   <Summary>
-                    <h4>{type}</h4>
-                    <IconWrapper id="close" size={16} stroke-width={3} />
+                    <Title>{type}</Title>
+                    <IconWrapper id="close" size={16} stroke-width={2} />
                   </Summary>
                   <SubSectionWrapper>
                     {mapTypes[type]
@@ -127,7 +132,7 @@ const MapsMenu = ({
                               onClick={onQuestionSelect}
                               onChange={onItemChange}
                             />
-                            <div
+                            <InfoContainer
                               onClick={() => onQuestionSelect(item.id)}
                               title={`Sobre ${item.name}`}
                             >
@@ -136,7 +141,7 @@ const MapsMenu = ({
                                 height={20}
                                 width={20}
                               />
-                            </div>
+                            </InfoContainer>
                           </ItemWrapper>
                         );
                       })}
