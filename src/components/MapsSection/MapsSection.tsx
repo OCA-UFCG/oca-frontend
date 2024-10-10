@@ -35,7 +35,7 @@ const MapsSection = ({
   const pathname = usePathname();
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
   const [imageData, setImageData] = useState<IMapInfo>({
-    name: "deg",
+    name: "cisterna",
     year: "general",
   });
 
