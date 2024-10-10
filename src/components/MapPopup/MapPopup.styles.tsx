@@ -49,8 +49,6 @@ export const TotalArea = styled.h3`
 export const PercentArea = styled.h3`
   font-size: 1rem;
   font-weight: bold;
-  text-align: right;
-  margin-left: auto;
 `;
 
 export const Color = styled.div<{ color: string; $percent: number }>`
