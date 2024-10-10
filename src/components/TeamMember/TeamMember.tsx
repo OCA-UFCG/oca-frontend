@@ -15,7 +15,9 @@ import {
   FieldWorkTitleContainer,
   MainInfoContainer,
   FieldWorkWrapper,
+  Checkbox,
   AvatarFrame,
+  AvatarCircle,
 } from "./TeamMember.styles";
 import { Icon } from "../Icon/Icon";
 
@@ -37,26 +39,46 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
     { name: "lattes", href: lattes, icon: "lattes", size: 18 },
   ];
 
+  const handleClick = () => {
+    const firstMedia = socialMedias.find((media) => media.href);
+    if (firstMedia) {
+      window.open(firstMedia.href);
+    }
+  };
+
   return (
     <Wrapper
       htmlFor={name.replace(" ", "_").toLowerCase()}
-      active={(institution || fieldWork)?.toString() || "false"}
+      //active={(institution || fieldWork)?.toString() || "false"}
+      active={"true"}
     >
       <AvatarFrame>
-        <Avatar
-          src={
-            `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
-            "avatar.svg"
-          }
-          title={name}
-          alt="Profile picture"
-          width={300}
-          height={300}
-        />
+        <AvatarCircle>
+          <Avatar
+            src={
+              `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
+              "avatar.svg"
+            }
+            title={name}
+            alt="Profile picture"
+            width={300}
+            height={300}
+            onClick={() => handleClick()}
+          />
+        </AvatarCircle>
       </AvatarFrame>
 
       <InfoContainer>
         <MainInfoContainer>
+          <Checkbox
+            id={name.replace(" ", "_").toLowerCase()}
+            type="checkbox"
+            checked={false}
+            defaultChecked={true}
+            hidden
+            readOnly
+            disabled={!(institution || fieldWork)}
+          />
           <Name>{name}</Name>
           <Role>{role}</Role>
           {(institution || fieldWork) && (
@@ -91,6 +113,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
                 ),
             )}
           </Networks>
+          {/*<ExpandIcon id="arrow-head" size={16} />*/}
         </MainInfoContainer>
       </InfoContainer>
     </Wrapper>
