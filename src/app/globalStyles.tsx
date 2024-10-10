@@ -17,13 +17,13 @@ export const GlobalStyles = createGlobalStyle`
 
     ::-webkit-scrollbar {
       height: 0.5rem;
-      width: 0.5rem;
+      width: 0.25rem;
       padding: 10px;
     }
     
     ::-webkit-scrollbar-thumb {
       background: ${({ theme }) => theme.colors.green}75;
-      scroll-padding: 1rem;
+      scroll-padding: 0.2rem;
       background-clip: padding-box;
     }
 
@@ -140,7 +140,7 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    color: ${({ theme }) => theme.colors.black}
+    color: ${({ theme }) => theme.colors["dark-gray"]}
   }
 
   /* HTML5 display-role reset for older browsers */

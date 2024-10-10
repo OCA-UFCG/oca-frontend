@@ -11,6 +11,11 @@ import {
   NoDataContainer,
   NoDataElement,
   QuestionMarkImg,
+  SubSectionWrapper,
+  FieldDetails,
+  Summary,
+  IconWrapper,
+  InfoContainer,
   Title,
 } from "./MapsMenu.styles";
 
@@ -32,8 +37,10 @@ const MapsMenu = ({
   onQuestionSelect: (newItem: string, retract?: boolean) => void;
 }) => {
   const [formValues, setFormValues] = useState<IFormItem[]>([]);
+  const [mapTypes, setMapTypes] = useState<{ [key: string]: IFormItem[] }>({});
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
   const [currentName, setCurrentName] = useState<string>("");
+  const [currentCategory, setCurrentCategory] = useState<string>("");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -61,6 +68,7 @@ const MapsMenu = ({
         if (item.id === newValue) {
           setCurrentName(item.id);
           setcurrentImageData(item.imageData);
+          currentCategory === "" && setCurrentCategory(item.type);
         }
 
         return {
@@ -68,9 +76,22 @@ const MapsMenu = ({
           name: item.name,
           checked: item.id === newValue,
           imageData: item.imageData,
+          type: item.type,
         };
       }),
     );
+
+    const typesMap: { [key: string]: IFormItem[] } = {};
+
+    formValues.forEach((item) => {
+      if (!typesMap[item.type]) {
+        typesMap[item.type] = [];
+      }
+
+      typesMap[item.type].push(item);
+    });
+
+    setMapTypes(typesMap);
   };
 
   useEffect(() => {
@@ -87,31 +108,46 @@ const MapsMenu = ({
       setRetracted={setRetracted}
     >
       <ContentWrapper>
-        <Title>Visualizações Disponíveis</Title>
         {formValues.length > 0 ? (
           <Form>
-            {formValues
-              .sort((element1, element2) =>
-                element1.name.localeCompare(element2.name),
-              )
-              .map((item: IFormItem) => {
-                return (
-                  <ItemWrapper key={item.id}>
-                    <VisuItem
-                      info={item}
-                      isLoading={isLoading}
-                      onClick={onQuestionSelect}
-                      onChange={onItemChange}
-                    />
-                    <div
-                      onClick={() => onQuestionSelect(item.id)}
-                      title={`Sobre ${item.name}`}
-                    >
-                      <QuestionMarkImg id="question" height={20} width={20} />
-                    </div>
-                  </ItemWrapper>
-                );
-              })}
+            {Object.keys(mapTypes)
+              .sort((a, b) => b.localeCompare(a))
+              .map((type) => (
+                <FieldDetails key={type} open={currentCategory === type}>
+                  <Summary>
+                    <Title>{type}</Title>
+                    <IconWrapper id="close" size={16} stroke-width={2} />
+                  </Summary>
+                  <SubSectionWrapper>
+                    {mapTypes[type]
+                      .sort((element1, element2) =>
+                        element1.name.localeCompare(element2.name),
+                      )
+                      .map((item: IFormItem) => {
+                        return (
+                          <ItemWrapper key={item.id}>
+                            <VisuItem
+                              info={item}
+                              isLoading={isLoading}
+                              onClick={onQuestionSelect}
+                              onChange={onItemChange}
+                            />
+                            <InfoContainer
+                              onClick={() => onQuestionSelect(item.id)}
+                              title={`Sobre ${item.name}`}
+                            >
+                              <QuestionMarkImg
+                                id="question"
+                                height={20}
+                                width={20}
+                              />
+                            </InfoContainer>
+                          </ItemWrapper>
+                        );
+                      })}
+                  </SubSectionWrapper>
+                </FieldDetails>
+              ))}
           </Form>
         ) : (
           <NoDataContainer>

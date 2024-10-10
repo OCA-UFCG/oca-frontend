@@ -8,6 +8,7 @@ declare module "styled-components" {
     maroon: string;
     white: string;
     black: string;
+    "dark-gray": string;
     gray: string;
     orange: string;
     yellow: string;
@@ -27,6 +28,7 @@ export const theme: DefaultTheme = {
     maroon: "#8f4456",
     white: "white",
     black: "#1e1e1e",
+    "dark-gray": "#444444",
     gray: "#858585",
     orange: "#AA633B",
     yellow: "#CEA15B",

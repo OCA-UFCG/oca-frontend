@@ -97,6 +97,7 @@ export interface IEEInfo {
       imageParams: IImageParam[];
     };
   };
+  type: string;
 }
 
 export interface IMapId {
@@ -115,6 +116,7 @@ export interface IFormItem {
   name: string;
   checked: boolean;
   imageData: IImageData;
+  type: string;
 }
 
 export interface IImageData {
