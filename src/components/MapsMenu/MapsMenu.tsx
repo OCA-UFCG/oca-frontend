@@ -120,13 +120,15 @@ const MapsMenu = ({
             ))}
           </NoDataContainer>
         )}
-        <DateInput
-          mapId={currentName}
-          initialYear={initialValues?.year}
-          dates={currentImagedata}
-          isLoading={isLoading}
-          onChange={handleVisuChange}
-        />
+        {!currentImagedata.general && (
+          <DateInput
+            mapId={currentName}
+            dates={currentImagedata}
+            isLoading={isLoading}
+            initialYear={initialValues?.year}
+            onChange={handleVisuChange}
+          />
+        )}
       </ContentWrapper>
     </MenuModal>
   );

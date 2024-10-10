@@ -22,7 +22,7 @@ export const Form = styled.form`
   flex-flow: column;
   gap: 0.5rem;
   width: 100%;
-  padding: 1.5rem 0 1rem 0;
+  padding: 1.5rem 0 0 0;
 `;
 
 export const ItemWrapper = styled.div`
