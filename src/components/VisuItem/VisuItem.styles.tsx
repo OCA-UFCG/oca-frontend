@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { Icon } from "@/components/Icon/Icon";
 
 export const Wrapper = styled.div`
@@ -19,27 +19,10 @@ export const ItemWrapper = styled.div`
   border-radius: 4px;
 `;
 
-const spinnerAnimation = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-`;
-
 export const LoadingIcon = styled(Icon)`
   opacity: 0.7;
   cursor: not-allowed;
-  content: "";
-  position: flex;
-  width: 10px;
-  height: 10px;
-  border: 3px solid gray;
-  border-radius: 50%;
-  animation: ${spinnerAnimation} 1s linear infinite;
-  transform: translate(-50%, -50%);
-  border-top-color: transparent;
+  animation: spin 1s linear infinite;
 `;
 
 export const Input = styled.input`

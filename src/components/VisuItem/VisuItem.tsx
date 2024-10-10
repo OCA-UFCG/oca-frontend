@@ -17,7 +17,7 @@ export const VisuItem = ({
   return (
     <ItemWrapper>
       {isLoading ? (
-        <LoadingIcon id="isLoading" />
+        <LoadingIcon id="loading" size={18} />
       ) : (
         <Input
           type={isLoading ? "hidden" : "radio"}
