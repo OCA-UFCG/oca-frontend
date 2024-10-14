@@ -31,7 +31,7 @@ export const sections: ISections = {
         path: "/#about",
       },
       maps: {
-        name: "Mapas & Visualizações",
+        name: "Plataforma do OCA",
         path: "/#maps-visu",
       },
       publications: {
@@ -65,7 +65,7 @@ export const sections: ISections = {
       },
     },
   },
-  map: { name: "Mapa", path: "/map" },
+  map: { name: "Plataforma", path: "/map" },
   contact: { name: "Fale conosco", path: "/contact-us" },
 };
 
