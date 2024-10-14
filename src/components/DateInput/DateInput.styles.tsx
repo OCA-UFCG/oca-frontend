@@ -86,25 +86,14 @@ export const DateContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: end;
-  height: 1.7rem;
+  height: 1.5rem;
 
   position: relative;
   opacity: 0.7;
-  z-index: -2;
 `;
 
 export const DateSpan = styled.span<{ year: string }>`
-  position: relative;
-  display: inline-block;
   font-size: 12px;
   color: ${({ theme }) => theme.colors.black};
-  pointer-events: none;
-
-  &::after {
-    content: "${({ year }) => year}";
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
-  }
+  cursor: pointer;
 `;
