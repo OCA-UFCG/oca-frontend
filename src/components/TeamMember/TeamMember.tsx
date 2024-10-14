@@ -49,7 +49,11 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
       active={"true"}
     >
       <AvatarFrame>
-        <AvatarCircle href={firstMedia?.href || ""} target="_blank">
+        <AvatarCircle
+          href={firstMedia?.href || ""}
+          target="_blank"
+          active={"true"}
+        >
           <Avatar
             src={
               `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||

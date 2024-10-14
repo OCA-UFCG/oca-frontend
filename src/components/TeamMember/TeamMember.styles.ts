@@ -23,16 +23,6 @@ export const AvatarFrame = styled.div`
   background-color: white;
 `;
 
-export const AvatarCircle = styled.a`
-  display: flex;
-  width: 14rem;
-  height: 14rem;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: white;
-  margin: 1rem auto;
-`;
-
 export const Avatar = styled(Image)`
   position: relative;
   width: 100%;
@@ -44,16 +34,15 @@ export const Avatar = styled(Image)`
   background-color: #cdcdcd;
 `;
 
-export const Wrapper = styled.label<{ active: string }>`
-  cursor: ${({ active }) => (active === "false" ? "not-allowed" : "pointer")};
+export const AvatarCircle = styled.a<{ active: string }>`
   display: flex;
-  align-items: center;
-  width: auto;
-  flex-direction: column;
-  break-inside: avoid;
-  max-width: 18rem;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  overflow: hidden;
   background-color: white;
-  margin-bottom: 2rem;
+  margin: 1rem auto;
+  cursor: pointer;
 
   & ${ExpandIcon} {
     opacity: ${({ active }) => (active !== "false" ? "0.5" : "0.3")};
@@ -66,6 +55,30 @@ export const Wrapper = styled.label<{ active: string }>`
   &:hover ${Avatar} {
     transform: ${({ active }) => active !== "false" && "scale(1.1)"};
   }
+`;
+
+export const Wrapper = styled.label<{ active: string }>`
+  //cursor: ${({ active }) => (active === "false" ? "not-allowed" : "pointer")};
+  display: flex;
+  align-items: center;
+  width: auto;
+  flex-direction: column;
+  break-inside: avoid;
+  max-width: 18rem;
+  background-color: white;
+  margin-bottom: 2rem;
+
+  // & ${ExpandIcon} {
+  //   opacity: ${({ active }) => (active !== "false" ? "0.5" : "0.3")};
+  // }
+
+  // &:hover ${ExpandIcon} {
+  //   opacity: ${({ active }) => active !== "false" && "1"};
+  // }
+
+  // &:hover ${Avatar} {
+  //   transform: ${({ active }) => active !== "false" && "scale(1.1)"};
+  // }
 
   @media screen and (max-width: 1200px) {
     width: 100%;
