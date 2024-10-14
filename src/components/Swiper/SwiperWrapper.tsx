@@ -19,7 +19,7 @@ const SwiperWrapper = ({ content }: { content: any }) => {
       navigation={true}
       loop={true}
       modules={[Autoplay, Pagination, Navigation, Zoom]}
-      autoplay={{ delay: 3000 }}
+      autoplay={{ delay: 7000 }}
       zoom={true}
     >
       {content[0].fields.pictures.map((item: any, key: number) => (
