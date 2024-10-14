@@ -1,3 +1,5 @@
+"use client";
+
 import { IImageData, IMapInfo } from "@/utils/interfaces";
 import { ChangeEvent, useEffect, useRef } from "react";
 import {
@@ -32,6 +34,8 @@ const DateInput = ({
   const updateFields = (year: string) => {
     if (inputRef.current)
       inputRef.current.value = [dateKeys.indexOf(year) + 1].toString();
+    inputRef?.current?.focus();
+
     onChange({ name: mapId, year: year });
   };
 
@@ -58,7 +62,13 @@ const DateInput = ({
           />
           <DateContainer>
             {Object.keys(dates).map((date) => (
-              <DateSpan key={date} year={date} />
+              <DateSpan
+                key={date}
+                year={date}
+                onClick={() => updateFields(date)}
+              >
+                {date}
+              </DateSpan>
             ))}
           </DateContainer>
         </InputWrapper>
