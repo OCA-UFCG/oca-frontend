@@ -1,7 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation, Zoom } from "swiper/modules";
+import { Autoplay, Pagination, Navigation, Zoom } from "swiper/modules";
 import "swiper/css";
 import "swiper/css"; // Ensure Swiper styles are imported globally.
 import "swiper/css/pagination"; // Ensure Swiper styles are imported globally.
@@ -18,7 +18,7 @@ const SwiperWrapper = ({ content }: { content: any }) => {
       pagination={{ clickable: true }}
       navigation={true}
       loop={true}
-      modules={[Pagination, Navigation, Zoom]}
+      modules={[Autoplay, Pagination, Navigation, Zoom]}
       autoplay={{ delay: 3000 }}
       zoom={true}
     >
