@@ -23,7 +23,7 @@ export const AvatarFrame = styled.div`
   background-color: white;
 `;
 
-export const AvatarCircle = styled.div`
+export const AvatarCircle = styled.a`
   display: flex;
   width: 14rem;
   height: 14rem;

@@ -39,31 +39,26 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
     { name: "lattes", href: lattes, icon: "lattes", size: 18 },
   ];
 
-  const handleClick = () => {
-    const firstMedia = socialMedias.find((media) => media.href);
-    if (firstMedia) {
-      window.open(firstMedia.href);
-    }
-  };
+  const firstMedia = socialMedias.find((media) => media.href);
 
   return (
     <Wrapper
       htmlFor={name.replace(" ", "_").toLowerCase()}
+      // eslint-disable-next-line lines-around-comment
       //active={(institution || fieldWork)?.toString() || "false"}
       active={"true"}
     >
       <AvatarFrame>
-        <AvatarCircle>
+        <AvatarCircle href={firstMedia?.href || ""} target="_blank">
           <Avatar
             src={
               `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
               "avatar.svg"
             }
-            title={name}
+            title={firstMedia?.href}
             alt="Profile picture"
             width={300}
             height={300}
-            onClick={() => handleClick()}
           />
         </AvatarCircle>
       </AvatarFrame>
