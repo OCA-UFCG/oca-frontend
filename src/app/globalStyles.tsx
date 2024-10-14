@@ -192,7 +192,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .maplibregl-popup-content {
-    width: 20rem;
+    width: 13rem;
   }
 
   .maplibregl-popup-tip {
