@@ -33,11 +33,10 @@ export const BoxWrapper = styled.div`
   justify-content: center;
   gap: 1rem;
   max-width: 1440px;
-  height: 650px;
+  height: 550px;
   width: 100%;
   box-sizing: border-box;
   /* padding: 1rem; */
-
   @media screen and (max-width: 700px) {
     flex-direction: column;
   }
@@ -113,6 +112,7 @@ export const PreviewWrapper = styled.div`
   width: 100%;
   max-width: 950px;
   height: 100%;
+  border: 3px solid ${({ theme }) => theme.colors.white};
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
@@ -210,8 +210,5 @@ export const LinkButton = styled(Link)<{ active?: string }>`
   &:hover {
     opacity: 0.7;
     text-decoration: underline;
-  }
-  $:click {
-    opacity: 0;
   }
 `;
