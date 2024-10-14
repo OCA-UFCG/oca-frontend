@@ -103,7 +103,7 @@ export const MapSection = ({
 
   return (
     <MapTemplate>
-      <MapContainer>
+      <MapContainer isReduced={false}>
         <MapTiff
           mapsData={mapsData}
           data={imageData}
