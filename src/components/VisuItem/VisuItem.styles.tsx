@@ -1,10 +1,10 @@
 import styled from "styled-components";
+import { Icon } from "@/components/Icon/Icon";
 
 export const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-flow: column;
-
   gap: 0.5rem;
 `;
 
@@ -15,6 +15,12 @@ export const ItemWrapper = styled.div`
   width: 100%;
   padding: 0.5rem 1rem 0.5rem 0.5rem;
   border-radius: 4px;
+`;
+
+export const LoadingIcon = styled(Icon)`
+  opacity: 0.7;
+  cursor: not-allowed;
+  animation: spin 1s linear infinite;
 `;
 
 export const Input = styled.input`
@@ -31,17 +37,14 @@ export const Input = styled.input`
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
-
     font: inherit;
     color: ${({ theme }) => theme.colors.black};
     width: max-content;
     height: max-content;
     padding: 2px;
-
     border: 0.15rem solid ${({ theme }) => theme.colors.black};
     border-radius: 50%;
     transform: translateY(0.05rem);
-
     display: grid;
     place-content: center;
   }
@@ -69,11 +72,13 @@ export const Input = styled.input`
   }
 `;
 
-export const Label = styled.label`
+export const Label = styled.label<{ isLoading?: boolean }>`
   font-size: 1rem;
   width: 100%;
   transition: 0.3s;
-  cursor: pointer;
+  cursor: ${({ isLoading }) =>
+    Boolean(isLoading) ? "not-allowed" : "pointer"};
+  opacity: ${({ isLoading }) => (Boolean(isLoading) ? "0.7" : "1")};
 `;
 
 export const SubItemsContainer = styled.div`
