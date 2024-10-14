@@ -4,7 +4,7 @@ import { Photo, Wrapper } from "./PhotoAlbum.styles";
 // poster: { fields: { file: { url: string } } } | string;
 
 export const PhotoAlbum = ({ photos }: { photos: any[] }) => {
-  const [currentPhoto, setCurrentPhoto] = useState(2);
+  const [currentPhoto, setCurrentPhoto] = useState(0);
   let handler: NodeJS.Timeout;
 
   const newsDebounce = () => {
