@@ -19,6 +19,8 @@ export const ExpandIcon = styled(Icon)`
 export const AvatarFrame = styled.div`
   overflow: hidden;
   width: 100%;
+  box-shadow: #cdcdcd 0px -1.5px 2px 0px;
+  background-color: white;
 `;
 
 export const Avatar = styled(Image)`
@@ -26,24 +28,21 @@ export const Avatar = styled(Image)`
   width: 100%;
   aspect-ratio: 9 / 10;
   object-fit: cover;
-  height: auto;
+  height: 100%;
   box-shadow: inset 0 0 5px #cdcdcd;
   transition: 300ms;
   background-color: #cdcdcd;
 `;
 
-export const Wrapper = styled.label<{ active: string }>`
-  cursor: ${({ active }) => (active === "false" ? "not-allowed" : "pointer")};
+export const AvatarCircle = styled.a<{ active: string }>`
   display: flex;
-  align-items: center;
-  width: auto;
-  gap: 0.5rem;
-  flex-direction: column;
-  break-inside: avoid;
-  max-width: 18rem;
-  box-shadow: 0 0 3px #cdcdcd;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  overflow: hidden;
   background-color: white;
-  margin-bottom: 2rem;
+  margin: 1rem auto;
+  cursor: pointer;
 
   & ${ExpandIcon} {
     opacity: ${({ active }) => (active !== "false" ? "0.5" : "0.3")};
@@ -56,6 +55,30 @@ export const Wrapper = styled.label<{ active: string }>`
   &:hover ${Avatar} {
     transform: ${({ active }) => active !== "false" && "scale(1.1)"};
   }
+`;
+
+export const Wrapper = styled.label<{ active: string }>`
+  //cursor: ${({ active }) => (active === "false" ? "not-allowed" : "pointer")};
+  display: flex;
+  align-items: center;
+  width: auto;
+  flex-direction: column;
+  break-inside: avoid;
+  max-width: 18rem;
+  background-color: white;
+  margin-bottom: 2rem;
+
+  // & ${ExpandIcon} {
+  //   opacity: ${({ active }) => (active !== "false" ? "0.5" : "0.3")};
+  // }
+
+  // &:hover ${ExpandIcon} {
+  //   opacity: ${({ active }) => active !== "false" && "1"};
+  // }
+
+  // &:hover ${Avatar} {
+  //   transform: ${({ active }) => active !== "false" && "scale(1.1)"};
+  // }
 
   @media screen and (max-width: 1200px) {
     width: 100%;
@@ -69,6 +92,7 @@ export const InfoContainer = styled.div`
   box-sizing: border-box;
   gap: 0.5rem;
   flex-direction: column;
+  box-shadow: #cdcdcd 0px 1.5px 2px 0px;
 `;
 
 export const MainInfoContainer = styled.div`

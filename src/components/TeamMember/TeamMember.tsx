@@ -17,7 +17,7 @@ import {
   FieldWorkWrapper,
   Checkbox,
   AvatarFrame,
-  ExpandIcon,
+  AvatarCircle,
 } from "./TeamMember.styles";
 import { Icon } from "../Icon/Icon";
 
@@ -39,22 +39,32 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
     { name: "lattes", href: lattes, icon: "lattes", size: 18 },
   ];
 
+  const firstMedia = socialMedias.find((media) => media.href);
+
   return (
     <Wrapper
       htmlFor={name.replace(" ", "_").toLowerCase()}
-      active={(institution || fieldWork)?.toString() || "false"}
+      // eslint-disable-next-line lines-around-comment
+      //active={(institution || fieldWork)?.toString() || "false"}
+      active={"true"}
     >
       <AvatarFrame>
-        <Avatar
-          src={
-            `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
-            "avatar.svg"
-          }
-          title={name}
-          alt="Profile picture"
-          width={300}
-          height={300}
-        />
+        <AvatarCircle
+          href={firstMedia?.href || ""}
+          target="_blank"
+          active={"true"}
+        >
+          <Avatar
+            src={
+              `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
+              "avatar.svg"
+            }
+            title={firstMedia?.href}
+            alt="Profile picture"
+            width={300}
+            height={300}
+          />
+        </AvatarCircle>
       </AvatarFrame>
 
       <InfoContainer>
@@ -62,6 +72,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           <Checkbox
             id={name.replace(" ", "_").toLowerCase()}
             type="checkbox"
+            checked={false}
             defaultChecked={true}
             hidden
             readOnly
@@ -101,7 +112,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
                 ),
             )}
           </Networks>
-          <ExpandIcon id="arrow-head" size={16} />
+          {/*<ExpandIcon id="arrow-head" size={16} />*/}
         </MainInfoContainer>
       </InfoContainer>
     </Wrapper>
