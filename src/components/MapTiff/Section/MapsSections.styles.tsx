@@ -1,9 +1,9 @@
 import { Icon } from "@/components/Icon/Icon";
 import styled from "styled-components";
 
-export const MapContainer = styled.div`
-  width: 100vw;
-  height: 100svh;
+export const MapContainer = styled.div<{ isReduced: boolean }>`
+  width: ${({ isReduced }) => (isReduced ? "100%" : "100vw")};
+  height: ${({ isReduced }) => (isReduced ? "100%" : "100svh")};
   position: absolute;
   box-sizing: border-box;
   left: 0;

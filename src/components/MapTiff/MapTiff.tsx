@@ -43,7 +43,7 @@ const MapTiff = ({
       const newMap = new maplibregl.Map({
         container: mapContainer.current!,
         style: MAP_TIFF_STYLE,
-        center: isReduced ? [-9.66, -31.28] : [-51.55, -15],
+        center: isReduced ? [-54.69, -15.13] : [-51.55, -15],
         zoom: isReduced ? 3.46 : 3.6,
         minZoom: isReduced ? 3.46 : 3.6,
         maxZoom: 10,

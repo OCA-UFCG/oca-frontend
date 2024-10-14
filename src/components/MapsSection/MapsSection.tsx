@@ -20,7 +20,7 @@ import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
 import { defaultEEInfo } from "@/utils/constants";
 import { Icon } from "../Icon/Icon";
 import { SectionHeader } from "../SectionHeader/SectionHeader";
-import { MapPageWrapper } from "../MapTiff/Section/MapSectionReduced";
+import MapPageWrapper from "../MapTiff/Section/MapSectionReduced";
 import { IMapInfo } from "@/utils/interfaces";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -103,7 +103,11 @@ const MapsSection = ({
           <ExpandBox href={`/map?name=${currentVisu.id}`}>
             <Icon id="expand" size={18} />
           </ExpandBox>
-          <MapPageWrapper mapsData={tiffInfo} ImgData={imageData} />
+          <MapPageWrapper
+            mapsData={tiffInfo}
+            ImgData={imageData}
+            isReduced={true}
+          />
         </PreviewWrapper>
         {tiffInfo.length != 0 && (
           <TagsContainer>
