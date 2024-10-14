@@ -36,6 +36,7 @@ export const RangeInput = styled.input`
   -webkit-appearance: none;
   background: transparent;
   cursor: pointer;
+  height: 0.25rem;
 
   input[type="range"] {
     height: 22px;
@@ -84,9 +85,10 @@ export const DateContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: end;
+  height: 1.7rem;
 
   position: relative;
-  // transform: translate(0, -10px); /* Aproximar a data da barra */
   opacity: 0.7;
   z-index: -2;
 `;
