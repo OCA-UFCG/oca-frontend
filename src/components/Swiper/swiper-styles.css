@@ -1,8 +1,8 @@
 .swiper {
     z-index: 0;
     display: flex;
-    aspect-ratio: 3/2;
-    width: 75%;
+    width: 100%;
+    max-width: 1000px;
 }
   
 .swiper-slide {
