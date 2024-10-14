@@ -141,7 +141,7 @@ export const ExpandBox = styled(Link)`
   border-radius: 6px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  z-index: 1;
+  z-index: 0;
   transition: 0.3s;
 
   &:hover {

@@ -1,13 +1,11 @@
 import { IImageData, IMapInfo } from "@/utils/interfaces";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import {
   Wrapper,
-  DateInfo,
-  CalendarImage,
   RangeInput,
-  DateList,
   InputWrapper,
-  DateItem,
+  DateContainer,
+  DateSpan,
 } from "./DateInput.styles";
 
 const DateInput = ({
@@ -22,21 +20,18 @@ const DateInput = ({
   dates: IImageData;
   onChange: (newValues: IMapInfo) => void;
 }) => {
-  const [currentDate, setCurrentDate] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const dateKeys: string[] = Object.keys(dates);
+  const hasGeneralDate = "general" in dates;
 
   const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newDate = Object.keys(dates)[Number(event.target.value) - 1];
-    setCurrentDate(newDate);
     onChange({ name: mapId, year: newDate });
   };
-
-  const dateKeys: string[] = Object.keys(dates);
 
   const updateFields = (year: string) => {
     if (inputRef.current)
       inputRef.current.value = [dateKeys.indexOf(year) + 1].toString();
-    setCurrentDate(year);
     onChange({ name: mapId, year: year });
   };
 
@@ -50,24 +45,24 @@ const DateInput = ({
   }, [mapId]);
 
   return (
-    <Wrapper disabled={("general" in dates || isLoading).toString()}>
-      <CalendarImage id="calendar" size={20} />
-      <DateInfo>{dates?.general ? "--" : currentDate}</DateInfo>
-      <InputWrapper>
-        <RangeInput
-          disabled={"general" in dates || isLoading}
-          type="range"
-          ref={inputRef}
-          min={1}
-          max={Object.keys(dates).length}
-          onChange={handleRangeChange}
-        />
-        <DateList>
-          {Object.keys(dates).map((date: string) => (
-            <DateItem key={date} />
-          ))}
-        </DateList>
-      </InputWrapper>
+    <Wrapper disabled={isLoading.toString()}>
+      {!hasGeneralDate && (
+        <InputWrapper>
+          <RangeInput
+            disabled={isLoading}
+            type="range"
+            ref={inputRef}
+            min={1}
+            max={Object.keys(dates).length}
+            onChange={handleRangeChange}
+          />
+          <DateContainer>
+            {Object.keys(dates).map((date) => (
+              <DateSpan key={date} year={date} />
+            ))}
+          </DateContainer>
+        </InputWrapper>
+      )}
     </Wrapper>
   );
 };
