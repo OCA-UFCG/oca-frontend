@@ -43,7 +43,7 @@ docker-build-prod:
 		-f Dockerfile.production .
 
 docker-run-prod:
-	docker run --name $(CONTAINER_NAME_PROD) -p $(HOST_PORT_PROD):$(CONTAINER_PORT) -d $(IMAGE_NAME)
+	docker run --name $(CONTAINER_NAME_PROD) -p $(HOST_PORT_PROD):$(CONTAINER_PORT) -d --restart always $(IMAGE_NAME)
 
 docker-run-beta:
-	docker run --name $(CONTAINER_NAME_BETA) -p $(HOST_PORT_BETA):$(CONTAINER_PORT) -d $(IMAGE_NAME)
+	docker run --name $(CONTAINER_NAME_BETA) -p $(HOST_PORT_BETA):$(CONTAINER_PORT) -d --restart always $(IMAGE_NAME)
