@@ -86,14 +86,34 @@ export const DateContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: end;
-  height: 1.5rem;
+  /* height: 1.5rem; */
 
   position: relative;
   opacity: 0.7;
 `;
 
-export const DateSpan = styled.span<{ year: string }>`
+export const Divider = styled.hr`
+  border-bottom: 1px solid #000;
+  transition: 300ms width ease-in-out;
+  opacity: 0;
+  width: 0px;
+  margin: 0;
+`;
+
+export const DateSpan = styled.p<{ active: string }>`
   font-size: 12px;
+  margin: 0;
   color: ${({ theme }) => theme.colors.black};
   cursor: pointer;
+  margin-top: 0.25rem;
+  pointer-events: ${({ active }) => (active !== "true" ? "all" : "none")};
+
+  &:hover {
+    font-weight: bold;
+  }
+
+  &:hover + ${Divider} {
+    width: 100%;
+    opacity: 1;
+  }
 `;

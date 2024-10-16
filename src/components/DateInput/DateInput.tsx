@@ -8,6 +8,7 @@ import {
   InputWrapper,
   DateContainer,
   DateSpan,
+  Divider,
 } from "./DateInput.styles";
 
 const DateInput = ({
@@ -62,13 +63,15 @@ const DateInput = ({
           />
           <DateContainer>
             {Object.keys(dates).map((date) => (
-              <DateSpan
-                key={date}
-                year={date}
-                onClick={() => updateFields(date)}
-              >
-                {date}
-              </DateSpan>
+              <div key={date}>
+                <DateSpan
+                  active={isLoading.toString()}
+                  onClick={() => updateFields(date)}
+                >
+                  {date}
+                </DateSpan>
+                <Divider />
+              </div>
             ))}
           </DateContainer>
         </InputWrapper>
