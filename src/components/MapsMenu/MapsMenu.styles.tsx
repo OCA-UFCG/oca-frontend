@@ -12,7 +12,6 @@ export const Form = styled.form`
   flex-flow: column;
   box-sizing: border-box;
   width: 20rem;
-  height: 100vh;
   padding-right: 0.3rem;
 
   max-height: 24rem;
