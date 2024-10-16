@@ -14,6 +14,7 @@ export const Form = styled.form`
   width: 20rem;
   padding-right: 0.3rem;
 
+  max-height: 24rem;
   overflow-y: scroll;
   overflow-x: hidden;
 `;

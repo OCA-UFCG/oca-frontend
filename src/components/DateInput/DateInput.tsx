@@ -62,9 +62,12 @@ const DateInput = ({
             onChange={handleRangeChange}
           />
           <DateContainer>
-            {Object.keys(dates).map((date) => (
+            {Object.keys(dates).map((date, index) => (
               <div key={date}>
                 <DateSpan
+                  isCurrent={(
+                    (index + 1).toString() === inputRef?.current?.value || false
+                  ).toString()}
                   active={isLoading.toString()}
                   onClick={() => updateFields(date)}
                 >

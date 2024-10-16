@@ -23,7 +23,6 @@ export const InputWrapper = styled.div`
   justify-content: center;
   gap: 0rem;
   width: 100%;
-  // height: 2rem;
 `;
 
 export const InputContainer = styled.div`
@@ -100,7 +99,7 @@ export const Divider = styled.hr`
   margin: 0;
 `;
 
-export const DateSpan = styled.p<{ active: string }>`
+export const DateSpan = styled.p<{ isCurrent: string; active: string }>`
   font-size: 12px;
   margin: 0;
   color: ${({ theme }) => theme.colors.black};
@@ -110,6 +109,11 @@ export const DateSpan = styled.p<{ active: string }>`
 
   &:hover {
     font-weight: bold;
+  }
+
+  & + ${Divider} {
+    width: ${({ isCurrent }) => isCurrent === "true" && "100%"};
+    opacity: ${({ isCurrent }) => isCurrent === "true" && "1"};
   }
 
   &:hover + ${Divider} {
