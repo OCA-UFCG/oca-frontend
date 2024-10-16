@@ -2,7 +2,6 @@
 
 import {
   Description,
-  MapPoster,
   ExpandBox,
   TagButton,
   TagsContainer,
@@ -21,6 +20,9 @@ import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
 import { defaultEEInfo } from "@/utils/constants";
 import { Icon } from "../Icon/Icon";
 import { SectionHeader } from "../SectionHeader/SectionHeader";
+import MapPageWrapper from "../MapTiff/Section/MapSectionReduced";
+import { IMapInfo } from "@/utils/interfaces";
+import { useRouter, usePathname } from "next/navigation";
 
 const MapsSection = ({
   sectionHead,
@@ -29,7 +31,14 @@ const MapsSection = ({
   sectionHead: ISectionHeader[];
   tiffInfo: { fields: IEEInfo }[];
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
+  const [imageData, setImageData] = useState<IMapInfo>({
+    name: "cisterna",
+    year: "general",
+  });
+
   let handler: NodeJS.Timeout;
 
   const updateCurrentVisu = (
@@ -37,9 +46,10 @@ const MapsSection = ({
     event?: { preventDefault: () => void } | undefined,
   ) => {
     event?.preventDefault();
+
     if (visuId !== currentVisu.id) {
       setCurrentVisu(
-        tiffInfo.find((map) => map.fields.id === visuId)?.fields ??
+        tiffInfo.find((map) => map.fields.id === visuId)?.fields ||
           defaultEEInfo,
       );
     }
@@ -56,7 +66,7 @@ const MapsSection = ({
   const visuDebounce = () => {
     handler = setTimeout(() => {
       nextVisu();
-    }, 7000);
+    }, 10000);
   };
 
   useEffect(() => {
@@ -76,6 +86,15 @@ const MapsSection = ({
     }
   }, [tiffInfo]);
 
+  useEffect(() => {
+    setImageData({
+      name: currentVisu.id,
+      year: Object.keys(currentVisu.imageData)[
+        Object.keys(currentVisu.imageData).length - 1
+      ],
+    });
+  }, [currentVisu]);
+
   return (
     <MapSectionWrapper id="maps-visu">
       <SectionHeader id="maps-visu" sectionHead={sectionHead} />
@@ -84,52 +103,58 @@ const MapsSection = ({
           <ExpandBox href={`/map?name=${currentVisu.id}`}>
             <Icon id="expand" size={18} />
           </ExpandBox>
-          <MapPoster
-            alt=""
-            width={500}
-            height={400}
-            src={
-              typeof currentVisu.poster === "object"
-                ? `https:${currentVisu.poster.fields.file.url}`
-                : currentVisu.poster
-            }
+          <MapPageWrapper
+            mapsData={tiffInfo}
+            ImgData={imageData}
+            isReduced={true}
           />
         </PreviewWrapper>
         {tiffInfo.length != 0 && (
           <TagsContainer>
-            {tiffInfo.map(({ fields: tag }: { fields: IEEInfo }) => (
-              <TagButton
-                key={tag.id}
-                active={(tag.id === currentVisu.id).toString()}
-                onClick={(e) => updateCurrentVisu(tag.id, e)}
-              >
-                <VisuHeader>
-                  <VisuName active={(tag.id === currentVisu.id).toString()}>
-                    {tag.name}
-                  </VisuName>
-                  <IconWrapper>
-                    <VisuIcon
-                      active={(tag.id === currentVisu.id).toString()}
-                      id={tag.id === currentVisu.id ? "open-eye" : "closed-eye"}
-                      size={20}
-                    />
-                    <Divider />
-                    <LinkButton
-                      href={`/map?name=${tag.id}`}
-                      active={(tag.id === currentVisu.id).toString()}
+            {tiffInfo
+              .sort((a: { fields: IEEInfo }, b: { fields: IEEInfo }) =>
+                a.fields.name.localeCompare(b.fields.name),
+              )
+              .map(({ fields: tag }: { fields: IEEInfo }) => (
+                <TagButton
+                  key={tag.id}
+                  active={(tag.id === currentVisu.id).toString()}
+                  onClick={(e) => updateCurrentVisu(tag.id, e)}
+                >
+                  <VisuHeader>
+                    <VisuName active={(tag.id === currentVisu.id).toString()}>
+                      {tag.name}
+                    </VisuName>
+                    <IconWrapper
                       onClick={(e) => {
-                        e.stopPropagation();
+                        console.log(e, `${pathname}map?${tag.id}`);
+                        router.push(`${pathname}map?${tag.id}`);
                       }}
                     >
-                      Visualizar
-                    </LinkButton>
-                  </IconWrapper>
-                </VisuHeader>
-                <Description active={(tag.id === currentVisu.id).toString()}>
-                  {currentVisu.description}
-                </Description>
-              </TagButton>
-            ))}
+                      <VisuIcon
+                        active={(tag.id === currentVisu.id).toString()}
+                        id={
+                          tag.id === currentVisu.id ? "open-eye" : "closed-eye"
+                        }
+                        size={20}
+                      />
+                      <Divider />
+                      <LinkButton
+                        active={(tag.id === currentVisu.id).toString()}
+                        href={`/map?name=${tag.id}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        Visualizar
+                      </LinkButton>
+                    </IconWrapper>
+                  </VisuHeader>
+                  <Description active={(tag.id === currentVisu.id).toString()}>
+                    {currentVisu.description}
+                  </Description>
+                </TagButton>
+              ))}
           </TagsContainer>
         )}
       </BoxWrapper>

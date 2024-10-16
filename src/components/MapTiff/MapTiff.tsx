@@ -21,6 +21,7 @@ const MapTiff = ({
   loading,
   setLoading,
   onClick,
+  isReduced,
   ...props
 }: {
   mapsData: { fields: IEEInfo }[];
@@ -28,6 +29,7 @@ const MapTiff = ({
   loading: boolean;
   setLoading: (e: boolean) => void;
   onClick?: (e: any) => void;
+  isReduced: boolean;
 }) => {
   const { name, year } = data;
   const [map, setMap] = useState<maplibregl.Map | null>(null);
@@ -41,14 +43,16 @@ const MapTiff = ({
       const newMap = new maplibregl.Map({
         container: mapContainer.current!,
         style: MAP_TIFF_STYLE,
-        center: [-55, -15],
-        zoom: 3.6,
+        center: isReduced ? [-54.69, -15.13] : [-51.55, -15],
+        zoom: isReduced ? 3 : 3.6,
+        minZoom: isReduced ? 3 : 3.6,
         maxZoom: 10,
-        minZoom: 3.6,
       });
 
       newMap.on("load", () => {
-        newMap.addControl(new maplibregl.NavigationControl(), "bottom-left");
+        if (!isReduced) {
+          newMap.addControl(new maplibregl.NavigationControl(), "bottom-left");
+        }
 
         newMap.addSource("brazil-states", {
           type: "geojson",
@@ -107,7 +111,7 @@ const MapTiff = ({
 
       setMap(newMap);
     }
-  }, [mapContainer]);
+  }, [isReduced, mapContainer]);
 
   const loadMapLayer = useCallback(
     async (name: string, year: string) => {
@@ -130,7 +134,6 @@ const MapTiff = ({
             body,
           },
         );
-
         if (response.status !== 200) {
           setLoading(false);
 
@@ -239,7 +242,7 @@ const MapTiff = ({
     if (map && name) {
       const yearStr = year || "general";
       loadMapLayer(name, yearStr);
-      addPopupEffect(name, yearStr);
+      if (!isReduced) addPopupEffect(name, yearStr);
 
       return () => {
         if (map?.getLayer(name + yearStr)) {
@@ -252,6 +255,7 @@ const MapTiff = ({
     year,
     map,
     mapsData,
+    isReduced,
     setLoading,
     initializeMap,
     loadMapLayer,
