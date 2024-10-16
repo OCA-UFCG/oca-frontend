@@ -255,6 +255,7 @@ const MapTiff = ({
     year,
     map,
     mapsData,
+    isReduced,
     setLoading,
     initializeMap,
     loadMapLayer,
