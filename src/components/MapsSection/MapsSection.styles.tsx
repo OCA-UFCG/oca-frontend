@@ -36,6 +36,7 @@ export const BoxWrapper = styled.div`
   height: 550px;
   width: 100%;
   box-sizing: border-box;
+  z-index: 0;
   /* padding: 1rem; */
   @media screen and (max-width: 700px) {
     flex-direction: column;
@@ -141,7 +142,7 @@ export const ExpandBox = styled(Link)`
   border-radius: 6px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  z-index: 0;
+  z-index: 1;
   transition: 0.3s;
 
   &:hover {
