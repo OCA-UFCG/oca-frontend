@@ -49,13 +49,6 @@ const MapTiff = ({
         maxZoom: 10,
       });
 
-      if (isReduced) {
-        newMap.dragPan.disable();
-        newMap.scrollZoom.disable();
-        newMap.boxZoom.disable();
-        newMap.doubleClickZoom.disable();
-      }
-
       newMap.on("load", () => {
         if (!isReduced) {
           newMap.addControl(new maplibregl.NavigationControl(), "bottom-left");
@@ -249,7 +242,7 @@ const MapTiff = ({
     if (map && name) {
       const yearStr = year || "general";
       loadMapLayer(name, yearStr);
-      addPopupEffect(name, yearStr);
+      if (!isReduced) addPopupEffect(name, yearStr);
 
       return () => {
         if (map?.getLayer(name + yearStr)) {
