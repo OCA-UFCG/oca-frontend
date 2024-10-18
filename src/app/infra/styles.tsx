@@ -14,5 +14,5 @@ export const Tabloid = styled.div`
   flex-flow: column;
   align-items: center;
   gap: 0.75rem;
-  min-height: 80vh;
+  min-height: 80svh;
 `;
