@@ -236,9 +236,6 @@ const MapTiff = ({
   );
 
   useEffect(() => {
-    if (!map) {
-      initializeMap();
-    }
     if (map && name) {
       const yearStr = year || "general";
       loadMapLayer(name, yearStr);
@@ -250,17 +247,13 @@ const MapTiff = ({
         }
       };
     }
-  }, [
-    name,
-    year,
-    map,
-    mapsData,
-    isReduced,
-    setLoading,
-    initializeMap,
-    loadMapLayer,
-    addPopupEffect,
-  ]);
+  }, [name, year]);
+
+  useEffect(() => {
+    if (!map) {
+      initializeMap();
+    }
+  }, [map, mapsData, isReduced, initializeMap]);
 
   return (
     <MapContainer
