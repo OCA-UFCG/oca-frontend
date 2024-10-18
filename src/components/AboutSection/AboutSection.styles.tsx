@@ -7,7 +7,7 @@ export const TextContainer = styled.div`
   gap: 1rem;
   width: 100%;
   max-width: 1000px;
-  min-height: 60vh;
+  min-height: 60svh;
   flex-grow: 2;
 
   ol,

@@ -13,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100svh;
 
     ::-webkit-scrollbar {
       height: 0.5rem;
@@ -152,7 +152,7 @@ export const GlobalStyles = createGlobalStyle`
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100svh;
     justify-content: space-between;
   }
   ol, ul {
@@ -284,7 +284,7 @@ export const LinkButton = styled(Link)`
 export const LogoSection = styled.div`
   display: flex;
   align-items: center;
-  height: 50vh;
+  height: 50svh;
 `;
 
 export const OcaImage = styled(Icon)`
