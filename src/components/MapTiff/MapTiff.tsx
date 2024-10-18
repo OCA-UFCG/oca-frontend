@@ -162,7 +162,7 @@ const MapTiff = ({
           {
             type: "raster",
             source: `${name}${year}`,
-            id: `${name}${year}`,
+            id: `@oca/${name}${year}`,
           },
           symbolLayer.id,
         );
@@ -235,32 +235,42 @@ const MapTiff = ({
     [map, mapsData],
   );
 
-  useEffect(() => {
-    if (!map) {
-      initializeMap();
-    }
-    if (map && name) {
-      const yearStr = year || "general";
-      loadMapLayer(name, yearStr);
-      if (!isReduced) addPopupEffect(name, yearStr);
+  const cleanOcaLayers = (map: maplibregl.Map) => {
+    const mapLayers: string[] = map
+      ?.getLayersOrder()
+      .filter((layer: string) => layer.startsWith("@oca/"));
+    mapLayers.forEach((layer: string) => {
+      if (map?.getLayer(layer)) {
+        map?.removeLayer(layer);
+      }
+    });
+  };
 
-      return () => {
-        if (map?.getLayer(name + yearStr)) {
-          map?.removeLayer(name + yearStr);
-        }
-      };
-    }
-  }, [
-    name,
-    year,
-    map,
-    mapsData,
-    isReduced,
-    setLoading,
-    initializeMap,
-    loadMapLayer,
-    addPopupEffect,
-  ]);
+  useEffect(
+    () => {
+      if (map && name) {
+        const yearStr = year || "general";
+        if (!isReduced) addPopupEffect(name, yearStr);
+        loadMapLayer(name, yearStr);
+
+        return () => {
+          cleanOcaLayers(map);
+        };
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [name, year],
+  );
+
+  useEffect(
+    () => {
+      if (!map) {
+        initializeMap();
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [map, mapsData, isReduced, initializeMap],
+  );
 
   return (
     <MapContainer
