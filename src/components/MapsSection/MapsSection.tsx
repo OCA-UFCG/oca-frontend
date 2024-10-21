@@ -17,6 +17,8 @@ import {
   PreviewWrapper,
   ButtonsWrapper,
 } from "./MapsSection.styles";
+
+import { LoadingIcon } from "../VisuItem/VisuItem.styles";
 import { useEffect, useState } from "react";
 import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
 import { defaultEEInfo } from "@/utils/constants";
@@ -24,7 +26,6 @@ import { Icon } from "../Icon/Icon";
 import { SectionHeader } from "../SectionHeader/SectionHeader";
 import MapPageWrapper from "../MapTiff/Section/MapSectionReduced";
 import { IMapInfo } from "@/utils/interfaces";
-import { useRouter, usePathname } from "next/navigation";
 
 const MapsSection = ({
   sectionHead,
@@ -33,8 +34,7 @@ const MapsSection = ({
   sectionHead: ISectionHeader[];
   tiffInfo: { fields: IEEInfo }[];
 }) => {
-  const router = useRouter();
-  const pathname = usePathname();
+  const [isLoading, setLoading] = useState<boolean>(false);
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
   const [imageData, setImageData] = useState<IMapInfo>({
     name: "cisterna",
@@ -125,6 +125,8 @@ const MapsSection = ({
             mapsData={tiffInfo}
             ImgData={imageData}
             isReduced={true}
+            isLoading={isLoading}
+            setLoading={setLoading}
           />
         </PreviewWrapper>
         {tiffInfo.length != 0 && (
@@ -137,25 +139,29 @@ const MapsSection = ({
                 <TagButton
                   key={tag.id}
                   active={(tag.id === currentVisu.id).toString()}
-                  onClick={(e) => updateCurrentVisu(tag.id, e)}
+                  onClick={(e) => {
+                    if (!isLoading) updateCurrentVisu(tag.id, e);
+                  }}
+                  isLoading={isLoading}
                 >
                   <VisuHeader>
                     <VisuName active={(tag.id === currentVisu.id).toString()}>
                       {tag.name}
                     </VisuName>
-                    <IconWrapper
-                      onClick={(e) => {
-                        console.log(e, `${pathname}map?${tag.id}`);
-                        router.push(`${pathname}map?${tag.id}`);
-                      }}
-                    >
-                      <VisuIcon
-                        active={(tag.id === currentVisu.id).toString()}
-                        id={
-                          tag.id === currentVisu.id ? "open-eye" : "closed-eye"
-                        }
-                        size={20}
-                      />
+                    <IconWrapper>
+                      {isLoading ? (
+                        <LoadingIcon id={"loading"} size={18} />
+                      ) : (
+                        <VisuIcon
+                          active={(tag.id === currentVisu.id).toString()}
+                          id={
+                            tag.id === currentVisu.id
+                              ? "open-eye"
+                              : "closed-eye"
+                          }
+                          size={20}
+                        />
+                      )}
                       <Divider />
                       <LinkButton
                         active={(tag.id === currentVisu.id).toString()}
