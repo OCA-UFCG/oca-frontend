@@ -109,6 +109,9 @@ export const LoadingContainer = styled.div`
 `;
 
 export const PreviewWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
   position: relative;
   width: 100%;
   max-width: 950px;
@@ -131,11 +134,8 @@ export const MapPoster = styled(Image)`
 
 export const ExpandBox = styled(Link)`
   display: flex;
-  position: absolute;
   align-items: center;
   justify-content: center;
-  bottom: 1rem;
-  left: 1rem;
   background-color: ${({ theme }) => theme.colors.white};
   opacity: 0.8;
   padding: 0.3rem;
@@ -148,6 +148,33 @@ export const ExpandBox = styled(Link)`
   &:hover {
     scale: 1.1;
   }
+`;
+
+export const PinBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.white};
+  opacity: 0.8;
+  padding: 0.3rem;
+  border-radius: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 1;
+  transition: 0.3s;
+
+  &:hover {
+    scale: 1.1;
+  }
+`;
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  order: 2;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 0.5rem;
+  gap: 0.3rem;
 `;
 
 export const VisuHeader = styled.div`

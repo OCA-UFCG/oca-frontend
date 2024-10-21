@@ -3,6 +3,7 @@
 import {
   Description,
   ExpandBox,
+  PinBox,
   TagButton,
   TagsContainer,
   VisuHeader,
@@ -14,6 +15,7 @@ import {
   MapSectionWrapper,
   BoxWrapper,
   PreviewWrapper,
+  ButtonsWrapper,
 } from "./MapsSection.styles";
 import { useEffect, useState } from "react";
 import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
@@ -38,6 +40,7 @@ const MapsSection = ({
     name: "cisterna",
     year: "general",
   });
+  const [pinMap, setPinMap] = useState<boolean>(false);
 
   let handler: NodeJS.Timeout;
 
@@ -55,6 +58,10 @@ const MapsSection = ({
     }
   };
 
+  const handlePin = () => {
+    setPinMap(!pinMap);
+  };
+
   const nextVisu = () => {
     const currentIndex = tiffInfo.findIndex(
       (map) => map.fields.id === currentVisu.id,
@@ -70,7 +77,7 @@ const MapsSection = ({
   };
 
   useEffect(() => {
-    if (tiffInfo.length > 1) {
+    if (tiffInfo.length > 1 && !pinMap) {
       visuDebounce();
     }
 
@@ -78,7 +85,7 @@ const MapsSection = ({
       clearTimeout(handler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentVisu, tiffInfo]);
+  }, [currentVisu, tiffInfo, pinMap]);
 
   useEffect(() => {
     if (tiffInfo.length != 0) {
@@ -100,9 +107,20 @@ const MapsSection = ({
       <SectionHeader id="maps-visu" sectionHead={sectionHead} />
       <BoxWrapper>
         <PreviewWrapper>
-          <ExpandBox href={`/map?name=${currentVisu.id}`}>
-            <Icon id="expand" size={18} />
-          </ExpandBox>
+          <ButtonsWrapper>
+            <ExpandBox
+              href={`/map?name=${currentVisu.id}`}
+              title={`Expandir mapa: ${currentVisu.name}`}
+            >
+              <Icon id="expand" size={18} />
+            </ExpandBox>
+            <PinBox
+              onClick={handlePin}
+              title={`Fixar mapa: ${currentVisu.name}`}
+            >
+              <Icon id={`${pinMap ? "un" : ""}pin`} size={18} />
+            </PinBox>
+          </ButtonsWrapper>
           <MapPageWrapper
             mapsData={tiffInfo}
             ImgData={imageData}
