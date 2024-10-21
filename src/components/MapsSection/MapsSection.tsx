@@ -49,7 +49,7 @@ const MapsSection = ({
     event?: { preventDefault: () => void } | undefined,
   ) => {
     event?.preventDefault();
-
+    setPinMap(false);
     if (visuId !== currentVisu.id) {
       setCurrentVisu(
         tiffInfo.find((map) => map.fields.id === visuId)?.fields ||
