@@ -99,15 +99,12 @@ const MapsSection = ({
 
   useEffect(() => {
     if (tagsContainerRef.current && buttonRef.current) {
-      console.log("-------------------------------------");
-
       const currentIndex = tiffInfo.findIndex(
         (map) => map.fields.id === currentVisu.id,
       );
-      console.log(currentIndex);
 
       tagsContainerRef.current.scrollTo({
-        top: buttonRef.current.offsetTop,
+        top: buttonRef.current.getBoundingClientRect().height * currentIndex,
         behavior: "smooth",
       });
     }
