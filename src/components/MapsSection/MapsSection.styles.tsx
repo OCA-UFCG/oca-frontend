@@ -59,7 +59,7 @@ export const TagsContainer = styled.div`
   }
 `;
 
-export const TagButton = styled.span<{ active?: string }>`
+export const TagButton = styled.span<{ active?: string; isLoading?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -76,8 +76,10 @@ export const TagButton = styled.span<{ active?: string }>`
   z-index: 0;
   box-sizing: border-box;
   background-color: #ffffff95;
+  cursor: ${({ active, isLoading }) =>
+    isLoading ? "not-allowed" : active === "true" ? "" : "pointer"};
 
-  cursor: ${({ active }) => active !== "true" && "pointer"};
+  opacity: ${({ isLoading }) => (isLoading ? "0.6" : "1.0")};
 
   &:hover {
     transform: scale(${({ active }) => active !== "true" && "0.99"});
