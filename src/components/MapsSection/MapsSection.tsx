@@ -118,7 +118,7 @@ const MapsSection = ({
               onClick={handlePin}
               title={`Fixar mapa: ${currentVisu.name}`}
             >
-              <Icon id={`${pinMap ? "un" : ""}pin`} size={18} />
+              <Icon id={pinMap ? "unpin" : "pin"} size={18} />
             </PinBox>
           </ButtonsWrapper>
           <MapPageWrapper
