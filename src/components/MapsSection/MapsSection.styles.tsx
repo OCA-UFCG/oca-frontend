@@ -76,16 +76,8 @@ export const TagButton = styled.span<{ active?: string; isLoading?: boolean }>`
   z-index: 0;
   box-sizing: border-box;
   background-color: #ffffff95;
-
-  cursor: ${({ active, isLoading }) => {
-    if (isLoading) {
-      return "not-allowed";
-    } else if (active === "true") {
-      return "";
-    } else {
-      return "pointer";
-    }
-  }};
+  cursor: ${({ active, isLoading }) =>
+    isLoading ? "not-allowed" : active === "true" ? "" : "pointer"};
 
   opacity: ${({ isLoading }) => (isLoading ? "0.6" : "1.0")};
 
