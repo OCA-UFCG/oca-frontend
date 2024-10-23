@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
     const { imageId, imageParams } = imageInfo.imageData[year];
 
     let image = ee.Image(imageId).selfMask();
+    image = image.reduceResolution(ee.Reducer.mode(), true, 128);
 
     const filteredImageParams = imageParams.filter(
       (imageParam) => imageParam.pixelLimit,
