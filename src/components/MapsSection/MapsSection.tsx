@@ -37,7 +37,7 @@ const MapsSection = ({
   const [isLoading, setLoading] = useState<boolean>(false);
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
   const [imageData, setImageData] = useState<IMapInfo>({
-    name: "cisterna",
+    name: "default",
     year: "general",
   });
   const [pinMap, setPinMap] = useState<boolean>(false);
@@ -88,18 +88,20 @@ const MapsSection = ({
   }, [currentVisu, tiffInfo, pinMap]);
 
   useEffect(() => {
-    if (tiffInfo.length != 0) {
+    if (tiffInfo.length !== 0) {
       setCurrentVisu(tiffInfo.map((map) => map.fields)[0]);
     }
   }, [tiffInfo]);
 
   useEffect(() => {
-    setImageData({
-      name: currentVisu.id,
-      year: Object.keys(currentVisu.imageData)[
-        Object.keys(currentVisu.imageData).length - 1
-      ],
-    });
+    if (currentVisu.id !== "default") {
+      setImageData({
+        name: currentVisu.id,
+        year: Object.keys(currentVisu.imageData)[
+          Object.keys(currentVisu.imageData).length - 1
+        ],
+      });
+    }
   }, [currentVisu]);
 
   return (
