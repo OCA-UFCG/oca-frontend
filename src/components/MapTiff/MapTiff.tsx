@@ -113,11 +113,9 @@ const MapTiff = ({
     }
   }, [isReduced, mapContainer]);
 
-  const loadMapLayer = useCallback(
+  const loadSource = useCallback(
     async (name: string, year: string) => {
-      setLoading(true);
       if (!map?.getSource(name + year) && mapsData.length > 0) {
-        // Filter the contentful map data by name
         const mapData = mapsData.find(
           (data) => data.fields.id === name,
         )?.fields;
@@ -134,6 +132,7 @@ const MapTiff = ({
             body,
           },
         );
+
         if (response.status !== 200) {
           setLoading(false);
 
@@ -149,10 +148,25 @@ const MapTiff = ({
           });
         }
       }
+    },
+    [map, mapsData, setLoading],
+  );
 
-      // This code adds a raster layer on top of the first "symbol" layer in the map's style.
-      // It checks if the map and its layers exist, finds the first layer of type "symbol",
-      // and inserts the raster layer right above it.
+  const cacheMapData = useCallback(async () => {
+    mapsData.forEach(async (data) => {
+      const id = data.fields.id;
+      const imageData = data.fields.imageData;
+      Object.keys(imageData).forEach(async (element) => {
+        await loadSource(id, element);
+      });
+    });
+  }, [mapsData, loadSource]);
+
+  const loadMapLayer = useCallback(
+    async (name: string, year: string) => {
+      setLoading(true);
+      await loadSource(name, year);
+
       const symbolLayer = map
         ?.getStyle()
         ?.layers?.find((layer) => layer.type === "symbol");
@@ -167,9 +181,10 @@ const MapTiff = ({
           symbolLayer.id,
         );
       }
+      await cacheMapData();
       setLoading(false);
     },
-    [map, mapsData, setLoading],
+    [map, setLoading, loadSource, cacheMapData],
   );
 
   const addPopupEffect = useCallback(
