@@ -18,8 +18,8 @@ import {
   ButtonsWrapper,
 } from "./MapsSection.styles";
 
+import { useEffect, useRef, useState } from "react";
 import { LoadingIcon } from "../VisuItem/VisuItem.styles";
-import { useEffect, useState } from "react";
 import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
 import { defaultEEInfo } from "@/utils/constants";
 import { Icon } from "../Icon/Icon";
@@ -36,6 +36,8 @@ const MapsSection = ({
 }) => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const tagsContainerRef = useRef<HTMLDivElement>(null);
   const [imageData, setImageData] = useState<IMapInfo>({
     name: "cisterna",
     year: "general",
@@ -102,6 +104,21 @@ const MapsSection = ({
     });
   }, [currentVisu]);
 
+  useEffect(() => {
+    if (tagsContainerRef.current && buttonRef.current) {
+      const currentIndex = tiffInfo.findIndex(
+        (map) => map.fields.id === currentVisu.id,
+      );
+
+      if (currentIndex > 5) {
+        tagsContainerRef.current.scrollTo({
+          top: buttonRef.current.offsetHeight * (currentIndex - 5) - 10,
+          behavior: "smooth",
+        });
+      }
+    }
+  }, [currentVisu]);
+
   return (
     <MapSectionWrapper id="maps-visu">
       <SectionHeader id="maps-visu" sectionHead={sectionHead} />
@@ -130,13 +147,14 @@ const MapsSection = ({
           />
         </PreviewWrapper>
         {tiffInfo.length != 0 && (
-          <TagsContainer>
+          <TagsContainer ref={tagsContainerRef}>
             {tiffInfo
               .sort((a: { fields: IEEInfo }, b: { fields: IEEInfo }) =>
                 a.fields.name.localeCompare(b.fields.name),
               )
               .map(({ fields: tag }: { fields: IEEInfo }) => (
                 <TagButton
+                  ref={buttonRef}
                   key={tag.id}
                   active={(tag.id === currentVisu.id).toString()}
                   onClick={(e) => {
