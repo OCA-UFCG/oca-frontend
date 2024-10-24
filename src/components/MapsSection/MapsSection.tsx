@@ -110,10 +110,12 @@ const MapsSection = ({
         (map) => map.fields.id === currentVisu.id,
       );
 
-      tagsContainerRef.current.scrollTo({
-        top: buttonRef.current.getBoundingClientRect().height * currentIndex,
-        behavior: "smooth",
-      });
+      if (currentIndex > 5) {
+        tagsContainerRef.current.scrollTo({
+          top: buttonRef.current.offsetHeight * (currentIndex - 5) - 10,
+          behavior: "smooth",
+        });
+      }
     }
   }, [currentVisu]);
 
