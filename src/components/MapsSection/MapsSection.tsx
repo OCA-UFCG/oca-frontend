@@ -105,19 +105,55 @@ const MapsSection = ({
   }, [currentVisu]);
 
   useEffect(() => {
-    if (tagsContainerRef.current && buttonRef.current) {
+    const button = buttonRef.current;
+    const container = tagsContainerRef.current;
+
+    if (container && button) {
       const currentIndex = tiffInfo.findIndex(
         (map) => map.fields.id === currentVisu.id,
       );
 
-      if (currentIndex > 5) {
-        tagsContainerRef.current.scrollTo({
-          top: buttonRef.current.offsetHeight * (currentIndex - 5) - 10,
+      const containerTop = container.scrollTop;
+      const containerBottom = containerTop + container.clientHeight;
+
+      const buttonOffsetHeight = button.offsetHeight;
+      const buttonHeight = button.offsetTop;
+      +buttonOffsetHeight;
+
+      let tamBotao = buttonHeight / 100;
+      const isMobile = window.innerWidth <= 810;
+      const screen = window.innerHeight;
+      const maxVisibleBoxes = isMobile ? 1 : 5;
+      const needsScroll =
+        (buttonHeight / 9) * currentIndex > containerBottom ||
+        currentIndex === 0;
+
+      if (needsScroll) {
+        const scrollDesktop = Math.abs(
+          tamBotao + (currentIndex - maxVisibleBoxes) * buttonOffsetHeight,
+        );
+        const scrollToPositionDesktop = currentIndex === 0 ? 0 : scrollDesktop;
+
+        container.scrollTo({
+          top: scrollToPositionDesktop,
+          behavior: "smooth",
+        });
+      }
+
+      if (isMobile && needsScroll) {
+        tamBotao = buttonHeight / 10 + buttonOffsetHeight;
+        const scrollMobile = Math.abs(
+          (tamBotao * currentIndex) / (screen / 370),
+        );
+        const scrollToPositionMobile = currentIndex === 0 ? 0 : scrollMobile;
+
+        container.scrollTo({
+          top: scrollToPositionMobile,
           behavior: "smooth",
         });
       }
     }
-  }, [currentVisu]);
+  }, [currentVisu, tiffInfo]);
 
   return (
     <MapSectionWrapper id="maps-visu">
