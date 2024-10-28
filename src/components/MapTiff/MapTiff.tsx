@@ -144,7 +144,7 @@ const MapTiff = ({
           map?.addSource(name + year, {
             type: "raster",
             tiles: [url],
-            tileSize: 256,
+            tileSize: isReduced ? 128 : 256,
           });
         }
       }
@@ -156,9 +156,14 @@ const MapTiff = ({
     mapsData.forEach(async (data) => {
       const id = data.fields.id;
       const imageData = data.fields.imageData;
-      Object.keys(imageData).forEach(async (element) => {
-        await loadSource(id, element);
-      });
+      if (!isReduced) {
+        Object.keys(imageData).forEach(async (year) => {
+          if (map && !map?.getSource(data + year)) loadSource(id, year);
+        });
+      } else {
+        const dates = Object.keys(imageData);
+        loadSource(id, dates[dates.length - 1]);
+      }
     });
   }, [mapsData, loadSource]);
 
@@ -181,7 +186,9 @@ const MapTiff = ({
           symbolLayer.id,
         );
       }
-      await cacheMapData();
+
+      cacheMapData();
+
       setLoading(false);
     },
     [map, setLoading, loadSource, cacheMapData],
