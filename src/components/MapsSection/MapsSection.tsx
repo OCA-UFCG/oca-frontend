@@ -37,7 +37,7 @@ const MapsSection = ({
   const [isLoading, setLoading] = useState<boolean>(false);
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
   const [imageData, setImageData] = useState<IMapInfo>({
-    name: "default",
+    name: "",
     year: "general",
   });
   const [pinMap, setPinMap] = useState<boolean>(false);
@@ -94,7 +94,7 @@ const MapsSection = ({
   }, [tiffInfo]);
 
   useEffect(() => {
-    if (currentVisu.id !== "default") {
+    if (currentVisu.id) {
       setImageData({
         name: currentVisu.id,
         year: Object.keys(currentVisu.imageData)[

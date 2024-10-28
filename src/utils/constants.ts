@@ -70,7 +70,7 @@ export const sections: ISections = {
 };
 
 export const defaultEEInfo: IEEInfo = {
-  id: "default",
+  id: "",
   name: "--",
   description: "--",
   imageData: {
