@@ -149,7 +149,7 @@ const MapTiff = ({
         }
       }
     },
-    [map, mapsData, setLoading],
+    [map, mapsData, setLoading, isReduced],
   );
 
   const cacheMapData = useCallback(async () => {
@@ -165,7 +165,7 @@ const MapTiff = ({
         loadSource(id, dates[dates.length - 1]);
       }
     });
-  }, [mapsData, loadSource]);
+  }, [mapsData, loadSource, isReduced]);
 
   const loadMapLayer = useCallback(
     async (name: string, year: string) => {
