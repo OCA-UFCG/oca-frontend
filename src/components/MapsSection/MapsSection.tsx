@@ -117,10 +117,9 @@ const MapsSection = ({
       const containerBottom = containerTop + container.clientHeight;
 
       const buttonOffsetHeight = button.offsetHeight;
-      const buttonHeight = button.offsetTop;
-      +buttonOffsetHeight;
+      const buttonHeight = button.offsetTop + buttonOffsetHeight;
 
-      let tamBotao = buttonHeight / 100;
+      let openButtonHeight = buttonHeight / 100;
       const isMobile = window.innerWidth <= 810;
       const screen = window.innerHeight;
       const maxVisibleBoxes = isMobile ? 1 : 5;
@@ -130,7 +129,8 @@ const MapsSection = ({
 
       if (needsScroll) {
         const scrollDesktop = Math.abs(
-          tamBotao + (currentIndex - maxVisibleBoxes) * buttonOffsetHeight,
+          openButtonHeight +
+            (currentIndex - maxVisibleBoxes) * buttonOffsetHeight,
         );
         const scrollToPositionDesktop = currentIndex === 0 ? 0 : scrollDesktop;
 
@@ -141,9 +141,9 @@ const MapsSection = ({
       }
 
       if (isMobile && needsScroll) {
-        tamBotao = buttonHeight / 10 + buttonOffsetHeight;
+        openButtonHeight = buttonHeight / 10 + buttonOffsetHeight;
         const scrollMobile = Math.abs(
-          (tamBotao * currentIndex) / (screen / 370),
+          (openButtonHeight * currentIndex) / (screen / 370),
         );
         const scrollToPositionMobile = currentIndex === 0 ? 0 : scrollMobile;
 
