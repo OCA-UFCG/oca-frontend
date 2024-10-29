@@ -1,31 +1,23 @@
 "use client";
 
 import {
-  Description,
   ExpandBox,
   PinBox,
-  TagButton,
   TagsContainer,
-  VisuHeader,
-  VisuIcon,
-  IconWrapper,
-  Divider,
-  LinkButton,
-  VisuName,
   MapSectionWrapper,
   BoxWrapper,
   PreviewWrapper,
   ButtonsWrapper,
 } from "./MapsSection.styles";
 
-import { useEffect, useRef, useState } from "react";
-import { LoadingIcon } from "../VisuItem/VisuItem.styles";
+import { useEffect, useState } from "react";
 import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
 import { defaultEEInfo } from "@/utils/constants";
 import { Icon } from "../Icon/Icon";
 import { SectionHeader } from "../SectionHeader/SectionHeader";
 import MapPageWrapper from "../MapTiff/Section/MapSectionReduced";
 import { IMapInfo } from "@/utils/interfaces";
+import TagButtonMaps from "../TagButtonMaps/TagButtonMaps";
 
 const MapsSection = ({
   sectionHead,
@@ -36,8 +28,6 @@ const MapsSection = ({
 }) => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [currentVisu, setCurrentVisu] = useState<IEEInfo>(defaultEEInfo);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const tagsContainerRef = useRef<HTMLDivElement>(null);
   const [imageData, setImageData] = useState<IMapInfo>({
     name: "cisterna",
     year: "general",
@@ -104,57 +94,6 @@ const MapsSection = ({
     });
   }, [currentVisu]);
 
-  useEffect(() => {
-    const button = buttonRef.current;
-    const container = tagsContainerRef.current;
-
-    if (container && button) {
-      const currentIndex = tiffInfo.findIndex(
-        (map) => map.fields.id === currentVisu.id,
-      );
-
-      const containerTop = container.scrollTop;
-      const containerBottom = containerTop + container.clientHeight;
-
-      const buttonOffsetHeight = button.offsetHeight;
-      const buttonHeight = button.offsetTop + buttonOffsetHeight;
-
-      let openButtonHeight = buttonHeight / 100;
-      const isMobile = window.innerWidth <= 810;
-      const screen = window.innerHeight;
-      const maxVisibleBoxes = isMobile ? 1 : 5;
-      const needsScroll =
-        (buttonHeight / 9) * currentIndex > containerBottom ||
-        currentIndex === 0;
-
-      if (needsScroll) {
-        const scrollDesktop = Math.abs(
-          openButtonHeight +
-            (currentIndex - maxVisibleBoxes) * buttonOffsetHeight,
-        );
-        const scrollToPositionDesktop = currentIndex === 0 ? 0 : scrollDesktop;
-
-        container.scrollTo({
-          top: scrollToPositionDesktop,
-          behavior: "smooth",
-        });
-      }
-
-      if (isMobile && needsScroll) {
-        openButtonHeight = buttonHeight / 10 + buttonOffsetHeight;
-        const scrollMobile = Math.abs(
-          (openButtonHeight * currentIndex) / (screen / 370),
-        );
-        const scrollToPositionMobile = currentIndex === 0 ? 0 : scrollMobile;
-
-        container.scrollTo({
-          top: scrollToPositionMobile,
-          behavior: "smooth",
-        });
-      }
-    }
-  }, [currentVisu, tiffInfo]);
-
   return (
     <MapSectionWrapper id="maps-visu">
       <SectionHeader id="maps-visu" sectionHead={sectionHead} />
@@ -183,55 +122,20 @@ const MapsSection = ({
           />
         </PreviewWrapper>
         {tiffInfo.length != 0 && (
-          <TagsContainer ref={tagsContainerRef}>
+          <TagsContainer>
             {tiffInfo
-              .sort((a: { fields: IEEInfo }, b: { fields: IEEInfo }) =>
-                a.fields.name.localeCompare(b.fields.name),
-              )
+              .sort((a, b) => a.fields.name.localeCompare(b.fields.name))
               .map(({ fields: tag }: { fields: IEEInfo }) => (
-                <TagButton
-                  ref={buttonRef}
+                <TagButtonMaps
                   key={tag.id}
-                  active={(tag.id === currentVisu.id).toString()}
+                  tag={tag}
+                  isLoading={isLoading}
+                  isActive={tag.id === currentVisu.id}
                   onClick={(e) => {
                     if (!isLoading) updateCurrentVisu(tag.id, e);
                   }}
-                  isLoading={isLoading}
-                >
-                  <VisuHeader>
-                    <VisuName active={(tag.id === currentVisu.id).toString()}>
-                      {tag.name}
-                    </VisuName>
-                    <IconWrapper>
-                      {isLoading ? (
-                        <LoadingIcon id={"loading"} size={18} />
-                      ) : (
-                        <VisuIcon
-                          active={(tag.id === currentVisu.id).toString()}
-                          id={
-                            tag.id === currentVisu.id
-                              ? "open-eye"
-                              : "closed-eye"
-                          }
-                          size={20}
-                        />
-                      )}
-                      <Divider />
-                      <LinkButton
-                        active={(tag.id === currentVisu.id).toString()}
-                        href={`/map?name=${tag.id}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                        }}
-                      >
-                        Visualizar
-                      </LinkButton>
-                    </IconWrapper>
-                  </VisuHeader>
-                  <Description active={(tag.id === currentVisu.id).toString()}>
-                    {currentVisu.description}
-                  </Description>
-                </TagButton>
+                  currentVisu={currentVisu}
+                />
               ))}
           </TagsContainer>
         )}
