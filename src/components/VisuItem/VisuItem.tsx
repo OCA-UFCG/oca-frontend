@@ -4,32 +4,26 @@ import { Input, ItemWrapper, Label, LoadingIcon } from "./VisuItem.styles";
 export const VisuItem = ({
   info,
   isLoading,
-  onChange,
-  onClick,
+  onIconClick,
 }: {
   info: IVisuMenuItems;
   isLoading: boolean;
-  onChange: (newValue: string) => void;
-  onClick: (newValue: string, retract: boolean) => void;
+  onIconClick: (newValue: string, retract: boolean) => void;
 }) => {
   const { id, name, checked } = info;
 
   return (
     <ItemWrapper>
-      {isLoading ? (
-        <LoadingIcon id="loading" size={18} />
-      ) : (
-        <Input
-          type={isLoading ? "hidden" : "radio"}
-          id={id}
-          name={name}
-          checked={checked}
-          value={id}
-          disabled={isLoading}
-          onChange={() => onChange(id)}
-          onClick={() => onClick(id, false)}
-        />
-      )}
+      {isLoading && <LoadingIcon id="loading" size={18} />}
+      <Input
+        type={isLoading ? "hidden" : "radio"}
+        id={id}
+        name={"selectedVisu"}
+        value={id}
+        disabled={isLoading}
+        checked={checked}
+        onClick={() => onIconClick(id, false)}
+      />
       <Label isLoading={isLoading} htmlFor={id}>
         {name}
       </Label>

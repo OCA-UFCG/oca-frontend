@@ -25,7 +25,6 @@ const DateInput = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const dateKeys: string[] = Object.keys(dates);
-  const hasGeneralDate = "general" in dates;
 
   const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newDate = Object.keys(dates)[Number(event.target.value) - 1];
@@ -51,7 +50,7 @@ const DateInput = ({
 
   return (
     <Wrapper disabled={isLoading.toString()}>
-      {!hasGeneralDate && (
+      {Object.keys(dates).length > 0 && !dates.general && (
         <InputWrapper>
           <RangeInput
             disabled={isLoading}

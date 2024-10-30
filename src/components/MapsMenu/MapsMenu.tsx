@@ -1,15 +1,13 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import MenuModal from "@/components/MenuModal/MenuModal";
 import { VisuItem } from "@/components/VisuItem/VisuItem";
-import { useCallback, useEffect, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { IEEInfo, IFormItem, IImageData, IMapInfo } from "@/utils/interfaces";
 import DateInput from "@/components/DateInput/DateInput";
 import {
   ContentWrapper,
   Form,
   ItemWrapper,
-  NoDataContainer,
-  NoDataElement,
   QuestionMarkImg,
   SubSectionWrapper,
   FieldDetails,
@@ -18,6 +16,34 @@ import {
   InfoContainer,
   Title,
 } from "./MapsMenu.styles";
+
+const formatData = (newValue: string, mapsData: { fields: IEEInfo }[]) => {
+  const formValues = Object.values(mapsData).map(
+    (mapData: { fields: IEEInfo }) => {
+      const { id, name, type, imageData } = mapData.fields;
+
+      return {
+        id,
+        name,
+        checked: id === newValue,
+        imageData,
+        type,
+      };
+    },
+  );
+
+  const typesMap: { [key: string]: IFormItem[] } = {};
+
+  formValues.forEach((item) => {
+    if (!typesMap[item.type]) {
+      typesMap[item.type] = [];
+    }
+
+    typesMap[item.type].push(item);
+  });
+
+  return typesMap;
+};
 
 const MapsMenu = ({
   initialValues,
@@ -36,14 +62,16 @@ const MapsMenu = ({
   updateVisu: (newValues: IMapInfo) => void;
   onQuestionSelect: (newItem: string, retract?: boolean) => void;
 }) => {
-  const [formValues, setFormValues] = useState<IFormItem[]>([]);
-  const [mapTypes, setMapTypes] = useState<{ [key: string]: IFormItem[] }>({});
   const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
   const [currentName, setCurrentName] = useState<string>("");
-  const [currentCategory, setCurrentCategory] = useState<string>("");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const defaultCategory = Object.values(mapsData).find(
+    (mapData) => mapData.fields.id === initialValues.name,
+  )?.fields?.type;
+  const categorisedVisus = formatData(initialValues.name, mapsData);
 
   const handleVisuChange = useCallback(
     (newImageData: IMapInfo) => {
@@ -64,42 +92,16 @@ const MapsMenu = ({
   );
 
   const onItemChange = (newValue: string) => {
-    setFormValues(() =>
-      Object.values(mapsData).map((mapData) => {
-        const { fields: item } = mapData;
-        if (item.id === newValue) {
-          setCurrentName(item.id);
-          setcurrentImageData(item.imageData);
-          currentCategory === "" && setCurrentCategory(item.type);
-        }
-
-        return {
-          id: item.id,
-          name: item.name,
-          checked: item.id === newValue,
-          imageData: item.imageData,
-          type: item.type,
-        };
-      }),
+    const newData = Object.values(mapsData).find(
+      (mapData) => mapData.fields.id === newValue,
     );
 
-    const typesMap: { [key: string]: IFormItem[] } = {};
-
-    formValues.forEach((item) => {
-      if (!typesMap[item.type]) {
-        typesMap[item.type] = [];
-      }
-
-      typesMap[item.type].push(item);
-    });
-
-    setMapTypes(typesMap);
+    if (newData) {
+      const { id, imageData } = newData.fields;
+      setCurrentName(id);
+      setcurrentImageData(imageData);
+    }
   };
-
-  useEffect(() => {
-    onItemChange(initialValues.name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues]);
 
   return (
     <MenuModal
@@ -110,54 +112,49 @@ const MapsMenu = ({
       setRetracted={setRetracted}
     >
       <ContentWrapper>
-        {formValues.length > 0 ? (
-          <Form>
-            {Object.keys(mapTypes)
-              .sort((a, b) => b.localeCompare(a))
-              .map((type) => (
-                <FieldDetails key={type} open={currentCategory === type}>
-                  <Summary>
-                    <Title>{type}</Title>
-                    <IconWrapper id="close" size={16} stroke-width={2} />
-                  </Summary>
-                  <SubSectionWrapper>
-                    {mapTypes[type]
-                      .sort((element1, element2) =>
-                        element1.name.localeCompare(element2.name),
-                      )
-                      .map((item: IFormItem) => {
-                        return (
-                          <ItemWrapper key={item.id}>
-                            <VisuItem
-                              info={item}
-                              isLoading={isLoading}
-                              onClick={onQuestionSelect}
-                              onChange={onItemChange}
+        <Form
+          onChange={(e: FormEvent<HTMLFormElement>) =>
+            onItemChange((e.target as HTMLInputElement).value)
+          }
+        >
+          {Object.keys(categorisedVisus)
+            .sort((a, b) => b.localeCompare(a))
+            .map((type) => (
+              <FieldDetails key={type} open={defaultCategory === type}>
+                <Summary>
+                  <Title>{type}</Title>
+                  <IconWrapper id="close" size={16} stroke-width={2} />
+                </Summary>
+                <SubSectionWrapper>
+                  {categorisedVisus[type]
+                    .sort((element1, element2) =>
+                      element1.name.localeCompare(element2.name),
+                    )
+                    .map((item: IFormItem) => {
+                      return (
+                        <ItemWrapper key={item.id}>
+                          <VisuItem
+                            info={item}
+                            isLoading={isLoading}
+                            onIconClick={onQuestionSelect}
+                          />
+                          <InfoContainer
+                            onClick={() => onQuestionSelect(item.id)}
+                            title={`Sobre ${item.name}`}
+                          >
+                            <QuestionMarkImg
+                              id="question"
+                              height={20}
+                              width={20}
                             />
-                            <InfoContainer
-                              onClick={() => onQuestionSelect(item.id)}
-                              title={`Sobre ${item.name}`}
-                            >
-                              <QuestionMarkImg
-                                id="question"
-                                height={20}
-                                width={20}
-                              />
-                            </InfoContainer>
-                          </ItemWrapper>
-                        );
-                      })}
-                  </SubSectionWrapper>
-                </FieldDetails>
-              ))}
-          </Form>
-        ) : (
-          <NoDataContainer>
-            {new Array(6).fill(0).map((_, index) => (
-              <NoDataElement key={index} delay={index}></NoDataElement>
+                          </InfoContainer>
+                        </ItemWrapper>
+                      );
+                    })}
+                </SubSectionWrapper>
+              </FieldDetails>
             ))}
-          </NoDataContainer>
-        )}
+        </Form>
         <DateInput
           mapId={currentName}
           initialYear={initialValues?.year}

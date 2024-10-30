@@ -38,8 +38,8 @@ export const MapSection = ({
 }) => {
   const searchParams = useSearchParams();
   const [imageData, setImageData] = useState<IMapInfo>({
-    name: "",
-    year: "",
+    name: searchParams?.get("name") ?? DEFAULT_TIFF,
+    year: searchParams?.get("year") ?? "general",
   });
 
   const [loadingMap, setLoadingMap] = useState<boolean>(false);
@@ -74,8 +74,7 @@ export const MapSection = ({
   useEffect(() => {
     if (!mapsData || mapsData.length === 0) return;
 
-    let name = searchParams?.get("name") ?? DEFAULT_TIFF;
-    let year = searchParams?.get("year") ?? "general";
+    let { name, year } = imageData;
 
     const filteredData = mapsData.find(
       (data: { fields: { id: string } }) => data.fields.id === name,
@@ -89,7 +88,8 @@ export const MapSection = ({
       filteredData &&
       !mapsData.find(
         (data: { fields: { id: string; imageData: {} } }) =>
-          name === data.fields.id && year in Object.keys(data.fields.imageData),
+          (name === data.fields.id && year) ||
+          "" in Object.keys(data.fields.imageData),
       )
     ) {
       year = Object.keys(filteredData?.fields?.imageData)[0];
