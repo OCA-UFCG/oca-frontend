@@ -40,16 +40,12 @@ const TagButtonMaps = ({
     child: HTMLButtonElement,
   ) => {
     const parentRect = parent.getBoundingClientRect();
-    const parentViewableArea = {
-      height: parent.clientHeight,
-      width: parent.clientWidth,
-    };
-
+    const parentViewableArea = parent.clientHeight;
     const childRect = child.getBoundingClientRect();
 
     const isViewable =
       childRect.top >= parentRect.top &&
-      childRect.bottom <= parentRect.top + parentViewableArea.height;
+      childRect.bottom <= parentRect.top + parentViewableArea;
 
     if (!isViewable) {
       const scrollTop = childRect.top - parentRect.top;
