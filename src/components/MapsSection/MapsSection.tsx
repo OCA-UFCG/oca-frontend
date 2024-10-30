@@ -1,24 +1,15 @@
 "use client";
 
 import {
-  Description,
   ExpandBox,
   PinBox,
-  TagButton,
   TagsContainer,
-  VisuHeader,
-  VisuIcon,
-  IconWrapper,
-  Divider,
-  LinkButton,
-  VisuName,
   MapSectionWrapper,
   BoxWrapper,
   PreviewWrapper,
   ButtonsWrapper,
 } from "./MapsSection.styles";
 
-import { LoadingIcon } from "../VisuItem/VisuItem.styles";
 import { useEffect, useState } from "react";
 import { IEEInfo, ISectionHeader } from "@/utils/interfaces";
 import { defaultEEInfo } from "@/utils/constants";
@@ -26,6 +17,7 @@ import { Icon } from "../Icon/Icon";
 import { SectionHeader } from "../SectionHeader/SectionHeader";
 import MapPageWrapper from "../MapTiff/Section/MapSectionReduced";
 import { IMapInfo } from "@/utils/interfaces";
+import TagButtonMaps from "../TagButtonMaps/TagButtonMaps";
 
 const MapsSection = ({
   sectionHead,
@@ -134,52 +126,18 @@ const MapsSection = ({
         {tiffInfo.length != 0 && (
           <TagsContainer>
             {tiffInfo
-              .sort((a: { fields: IEEInfo }, b: { fields: IEEInfo }) =>
-                a.fields.name.localeCompare(b.fields.name),
-              )
+              .sort((a, b) => a.fields.name.localeCompare(b.fields.name))
               .map(({ fields: tag }: { fields: IEEInfo }) => (
-                <TagButton
+                <TagButtonMaps
                   key={tag.id}
-                  active={(tag.id === currentVisu.id).toString()}
+                  tag={tag}
+                  isLoading={isLoading}
+                  isActive={tag.id === currentVisu.id}
                   onClick={(e) => {
                     if (!isLoading) updateCurrentVisu(tag.id, e);
                   }}
-                  isLoading={isLoading}
-                >
-                  <VisuHeader>
-                    <VisuName active={(tag.id === currentVisu.id).toString()}>
-                      {tag.name}
-                    </VisuName>
-                    <IconWrapper>
-                      {isLoading ? (
-                        <LoadingIcon id={"loading"} size={18} />
-                      ) : (
-                        <VisuIcon
-                          active={(tag.id === currentVisu.id).toString()}
-                          id={
-                            tag.id === currentVisu.id
-                              ? "open-eye"
-                              : "closed-eye"
-                          }
-                          size={20}
-                        />
-                      )}
-                      <Divider />
-                      <LinkButton
-                        active={(tag.id === currentVisu.id).toString()}
-                        href={`/map?name=${tag.id}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                        }}
-                      >
-                        Visualizar
-                      </LinkButton>
-                    </IconWrapper>
-                  </VisuHeader>
-                  <Description active={(tag.id === currentVisu.id).toString()}>
-                    {currentVisu.description}
-                  </Description>
-                </TagButton>
+                  currentVisu={currentVisu}
+                />
               ))}
           </TagsContainer>
         )}
