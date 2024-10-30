@@ -14,12 +14,10 @@ export async function POST(req: NextRequest) {
     const year = req.nextUrl.searchParams.get("year") || "";
 
     if (hasKey(name + year)) {
-      console.log("Cache hit");
       const url = getCachedUrl(name + year);
 
       return NextResponse.json({ url }, { status: 200 });
     } else {
-      console.log("Cache miss");
       const imageInfo: IEEInfo = await req.json();
       const url = await getEarthEngineUrl(
         imageInfo.imageData[year].imageId,

@@ -152,21 +152,6 @@ const MapTiff = ({
     [map, mapsData, setLoading, isReduced],
   );
 
-  // const cacheMapData = useCallback(async () => {
-  //   mapsData.forEach(async (data) => {
-  //     const id = data.fields.id;
-  //     const imageData = data.fields.imageData;
-  //     if (!isReduced) {
-  //       Object.keys(imageData).forEach(async (year) => {
-  //         if (map && !map?.getSource(data + year)) loadSource(id, year);
-  //       });
-  //     } else {
-  //       const dates = Object.keys(imageData);
-  //       loadSource(id, dates[dates.length - 1]);
-  //     }
-  //   });
-  // }, [mapsData, loadSource, isReduced, map]);
-
   const loadMapLayer = useCallback(
     async (name: string, year: string) => {
       setLoading(true);
@@ -186,8 +171,6 @@ const MapTiff = ({
           symbolLayer.id,
         );
       }
-
-      // cacheMapData();
 
       setLoading(false);
     },
