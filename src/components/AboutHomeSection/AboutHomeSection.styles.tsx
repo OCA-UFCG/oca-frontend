@@ -5,7 +5,7 @@ import { Icon } from "../Icon/Icon";
 import { SectionHeader as DefaultSectionHeader } from "../SectionHeader/SectionHeader";
 
 export const Wrapper = styled(Section)`
-  background-image: url("Grass.png");
+  background-image: url("Grass.webp");
   background-repeat: repeat-x;
   min-height: 40rem;
   justify-content: center;
