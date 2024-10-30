@@ -59,7 +59,10 @@ export const getEarthEngineUrl = async (
 
   // console.log(imageId, imageParams, minScale, maxScale);
 
-  const GEEImage = ee.Image(imageId).selfMask();
+  const GEEImage = ee
+    .Image(imageId)
+    .selfMask()
+    .reduceResolution(ee.Reducer.mode(), true, 128);
   const { categorizedImage, visParams } = getImageScale(
     GEEImage,
     imageParams,
