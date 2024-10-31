@@ -1,86 +1,35 @@
-import ee from "@google/earthengine";
 import { NextResponse } from "next/server";
-import { IEEInfo, IMapId } from "@/utils/interfaces";
 import type { NextRequest } from "next/server";
+import { IEEInfo } from "@/utils/interfaces";
+import {
+  addUrlToCache,
+  getEarthEngineUrl,
+  hasKey,
+  getCachedUrl,
+} from "@/app/api/ee/services";
 
 export async function POST(req: NextRequest) {
   try {
-    const key = process.env.NEXT_PUBLIC_GEE_PRIVATE_KEY || "";
-
-    await authenticate(key);
-
+    const name = req.nextUrl.searchParams.get("name") || "";
     const year = req.nextUrl.searchParams.get("year") || "";
 
-    const imageInfo: IEEInfo = await req.json();
-    const { imageId, imageParams } = imageInfo.imageData[year];
+    if (hasKey(name + year)) {
+      const url = getCachedUrl(name + year);
 
-    let image = ee.Image(imageId).selfMask();
-    image = image.reduceResolution(ee.Reducer.mode(), true, 128);
-
-    const filteredImageParams = imageParams.filter(
-      (imageParam) => imageParam.pixelLimit,
-    );
-
-    if (filteredImageParams.length > 0) {
-      let categorizedImage = image.where(
-        image.lte(filteredImageParams[0].pixelLimit),
-        1,
+      return NextResponse.json({ url }, { status: 200 });
+    } else {
+      const imageInfo: IEEInfo = await req.json();
+      const url = await getEarthEngineUrl(
+        imageInfo.imageData[year].imageId,
+        imageInfo.imageData[year].imageParams,
+        imageInfo.minScale,
+        imageInfo.maxScale,
       );
+      addUrlToCache(name + year, url);
 
-      for (let index = 1; index < filteredImageParams.length; index++) {
-        categorizedImage = categorizedImage.where(
-          image
-            .gt(filteredImageParams[index - 1].pixelLimit)
-            .and(image.lte(filteredImageParams[index].pixelLimit)),
-          index + 1,
-        );
-      }
-
-      categorizedImage = categorizedImage.where(
-        image.gt(
-          filteredImageParams[filteredImageParams.length - 1].pixelLimit,
-        ),
-        filteredImageParams.length + 1,
-      );
-      image = categorizedImage;
+      return NextResponse.json({ url }, { status: 200 });
     }
-
-    const palette = imageParams.map((imageParam) => imageParam.color);
-    const visParams = {
-      min: imageInfo?.minScale ?? 0,
-      max: imageInfo?.maxScale ?? 1,
-      palette,
-    };
-
-    const mapId: IMapId = (await getMapId(image, visParams)) as IMapId;
-    const url = mapId.urlFormat;
-
-    return NextResponse.json({ url }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error }, { status: 500 });
   }
-}
-
-function authenticate(key: string) {
-  return new Promise<void>((resolve, reject) => {
-    ee.data.authenticateViaPrivateKey(
-      JSON.parse(key),
-      () =>
-        ee.initialize(
-          null,
-          null,
-          () => resolve(),
-          (error: any) => reject(new Error(error)),
-        ),
-      (error: any) => reject(new Error(error)),
-    );
-  });
-}
-
-function getMapId(image: any, visParams?: any) {
-  return new Promise((resolve, reject) => {
-    image.getMapId(visParams, (obj: any, error: any) =>
-      error ? reject(new Error(error)) : resolve(obj),
-    );
-  });
 }

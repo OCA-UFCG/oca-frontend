@@ -144,28 +144,13 @@ const MapTiff = ({
           map?.addSource(name + year, {
             type: "raster",
             tiles: [url],
-            tileSize: isReduced ? 128 : 256,
+            tileSize: isReduced ? 64 : 128,
           });
         }
       }
     },
     [map, mapsData, setLoading, isReduced],
   );
-
-  const cacheMapData = useCallback(async () => {
-    mapsData.forEach(async (data) => {
-      const id = data.fields.id;
-      const imageData = data.fields.imageData;
-      if (!isReduced) {
-        Object.keys(imageData).forEach(async (year) => {
-          if (map && !map?.getSource(data + year)) loadSource(id, year);
-        });
-      } else {
-        const dates = Object.keys(imageData);
-        loadSource(id, dates[dates.length - 1]);
-      }
-    });
-  }, [mapsData, loadSource, isReduced, map]);
 
   const loadMapLayer = useCallback(
     async (name: string, year: string) => {
@@ -187,11 +172,9 @@ const MapTiff = ({
         );
       }
 
-      cacheMapData();
-
       setLoading(false);
     },
-    [map, setLoading, loadSource, cacheMapData],
+    [map, setLoading, loadSource],
   );
 
   const addPopupEffect = useCallback(
