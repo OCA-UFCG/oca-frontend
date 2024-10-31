@@ -144,7 +144,7 @@ const MapTiff = ({
           map?.addSource(name + year, {
             type: "raster",
             tiles: [url],
-            tileSize: isReduced ? 128 : 256,
+            tileSize: isReduced ? 64 : 128,
           });
         }
       }

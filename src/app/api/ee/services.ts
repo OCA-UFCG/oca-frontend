@@ -1,11 +1,9 @@
-import ee from "@google/earthengine"; // GEE library for using the API
-import { IMapId } from "@/utils/interfaces"; // Interface for the map's data
-import { getContent } from "@/utils/functions"; // Function responsible to fetch Contentful's Tiffs data
+import ee from "@google/earthengine";
+import { IMapId } from "@/utils/interfaces";
+import { getContent } from "@/utils/functions";
 
-// Keeps track of the initialization of the cache. It is set to true when the first "cacheMapData" is executed.
 let cached = false;
 
-// create cache map
 const cacheUrls = new Map<string, string>();
 
 /**
@@ -40,10 +38,9 @@ export const addUrlToCache = (key: string, url: string) => {
  * Runs recursively every 12 hours to keep the cache updated.
  */
 export const cacheMapData = async () => {
-  cached = true; // Mark cache as initialized
-  const { tiffInfo } = await getContent(["tiffInfo"]); // Fetch Contenful Map's Tiffs
+  cached = true;
+  const { tiffInfo } = await getContent(["tiffInfo"]);
 
-  // Loop through each TIFF data (map visualization) and cache URLs for all available year of each one of those visualizations.
   tiffInfo.forEach(async (data: any) => {
     const id = data.fields.id;
     const imageData = data.fields.imageData;
@@ -58,17 +55,16 @@ export const cacheMapData = async () => {
         minScale,
         maxScale,
       );
-      addUrlToCache(id + year, url); // Store the URL in cache.
+      addUrlToCache(id + year, url);
     });
   });
 
-  // Schedule cache updates every 12 hours.
   setInterval(
     () => {
       cacheMapData();
     },
     1000 * 60 * 60 * 12,
-  ); // 12 hours
+  );
 };
 
 /**
@@ -85,22 +81,22 @@ export const getEarthEngineUrl = async (
   minScale: any,
   maxScale: any,
 ) => {
-  await authenticate(); //Authenticate with GEE.
+  await authenticate();
 
   const GEEImage = ee
     .Image(imageId)
     .selfMask()
-    .reduceResolution(ee.Reducer.mode(), true, 128); // create a masked image with reduced resolution.
+    .reduceResolution(ee.Reducer.mode(), true, 128);
   const { categorizedImage, visParams } = getImageScale(
     GEEImage,
     imageParams,
     minScale,
     maxScale,
-  ); // Apply scaling and visualization parameters.
+  );
 
-  const mapId: IMapId = (await getMapId(categorizedImage, visParams)) as IMapId; // Retrieve map ID.
+  const mapId: IMapId = (await getMapId(categorizedImage, visParams)) as IMapId;
 
-  return mapId.urlFormat; // Returns the URL
+  return mapId.urlFormat;
 };
 
 /**
@@ -108,7 +104,7 @@ export const getEarthEngineUrl = async (
  * @returns {Promise<void>} - Resolves when authentication is successful.
  */
 function authenticate() {
-  const key = process.env.NEXT_PUBLIC_GEE_PRIVATE_KEY || ""; // Retrieve private key from environment variables
+  const key = process.env.NEXT_PUBLIC_GEE_PRIVATE_KEY || "";
 
   return new Promise<void>((resolve, reject) => {
     ee.data.authenticateViaPrivateKey(
@@ -125,64 +121,48 @@ function authenticate() {
   });
 }
 
+/**
+ * Adjusts the scale of an image based on visualization parameters.
+ * This function applies category limits based on pixel values
+ * and assigns colors to different categories if there are pixel limits.
+ *
+ * @param {object} image - The Earth Engine image.
+ * @param {Array} imageParams - Array of parameters containing pixel limits and colors.
+ * @param {number} minScale - Minimum scale for visualization.
+ * @param {number} maxScale - Maximum scale for visualization.
+ * @returns {object} - The categorized image and visualization parameters.
+ */
 const getImageScale = (
   image: any,
-  imageParams: any,
-  minScale: any,
-  maxScale: any,
+  imageParams: Array<any>,
+  minScale: number,
+  maxScale: number,
 ) => {
-  // Check if any of the imageParams contain a 'pixelLimit' property
   const hasPixelLimits = imageParams.some(
     (imageParam: any) => imageParam.pixelLimit,
   );
 
-  // Initialize categorizedImage with the original input image
   let categorizedImage = image;
 
-  // If pixel limits are defined, iterate through imageParams to apply conditional masking
   if (hasPixelLimits) {
     for (let index = 0; index < imageParams.length; index++) {
-      // Define the lower limit: use MIN_SAFE_INTEGER for the first iteration
       const lowerLimit =
         index > 0 ? imageParams[index - 1].pixelLimit : Number.MIN_SAFE_INTEGER;
 
-      // Define the upper limit: use MAX_SAFE_INTEGER for the last iteration
       const upperLimit =
         index < imageParams.length - 1
           ? imageParams[index].pixelLimit
           : Number.MAX_SAFE_INTEGER;
 
-      // Apply different conditions based on the current index
-      switch (index) {
-        case 0:
-          // For the first range, mark pixels less than or equal to the upper limit
-          categorizedImage = categorizedImage.where(
-            image.lte(upperLimit),
-            index + 1,
-          );
-          break;
-        case imageParams.length - 1:
-          // For the last range, mark pixels greater than the lower limit
-          categorizedImage = categorizedImage.where(
-            image.gt(lowerLimit),
-            index + 1,
-          );
-          break;
-        default:
-          // For intermediate ranges, mark pixels between the lower and upper limits
-          categorizedImage = categorizedImage.where(
-            image.gt(lowerLimit).and(image.lte(upperLimit)),
-            index + 1,
-          );
-          break;
-      }
+      categorizedImage = categorizedImage.where(
+        image.gt(lowerLimit).and(image.lte(upperLimit)),
+        index + 1,
+      );
     }
   }
 
-  // Extract the palette (color mapping) from the image parameters
   const palette = imageParams.map((imageParam: any) => imageParam.color);
 
-  // Set up visualization parameters with the provided scale and palette
   const visParams = {
     min: minScale ?? 0,
     max: maxScale ?? 1,
@@ -206,5 +186,4 @@ function getMapId(image: any, visParams?: any) {
   });
 }
 
-// Initialize the cache if it hasn't been initialized yet.
 if (!cached) cacheMapData();
