@@ -64,3 +64,15 @@ export const Color = styled.div<{ color: string; $percent: number }>`
   border: solid thin #cdcdcd;
   margin-left: 0;
 `;
+
+export const List = styled.ul`
+  width: 95%;
+`;
+
+export const ListItem = styled.li`
+  text-align: left;
+  list-style: square;
+  line-height: 1.6;
+  padding: 0.05rem;
+  font-size: 0.9rem;
+`;

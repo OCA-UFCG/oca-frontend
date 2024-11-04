@@ -205,9 +205,17 @@ const MapTiff = ({
             const rasterMetadata = mapsData.filter(
               (data) => data.fields.id === name,
             )[0];
-            const rasterColors = rasterMetadata.fields.imageData[
-              year
-            ]?.imageParams.map((param: any) => param.color);
+
+            // const rasterColors = rasterMetadata.fields.imageData[
+            //   year
+            // ]?.imageParams.map((param: any) => param.color);
+
+            const rasterColors =
+              name === "cisterna"
+                ? []
+                : rasterMetadata.fields.imageData[year]?.imageParams.map(
+                    (param) => param.color,
+                  );
 
             root.render(
               <MapPopup
