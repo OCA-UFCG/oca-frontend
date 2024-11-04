@@ -21,7 +21,7 @@ interface MapLegendProps {
 }
 
 export const MapLegend = ({ imageInfo, year = "general" }: MapLegendProps) => {
-  const [retracted, setRetracted] = useState<string>("open");
+  const [retracted, setRetracted] = useState<string>("open"); // no need for this state here
 
   const { name, imageData, measurementUnit, extraInfo, graphLegendTitle } =
     imageInfo;
