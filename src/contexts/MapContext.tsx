@@ -14,13 +14,7 @@ interface ContextProps {
   loading: boolean;
   setLoading: (isRetracted: boolean) => void;
   currentVisu: { id: string; year: string | undefined };
-  setCurrentVisu: ({
-    id,
-    year,
-  }: {
-    id: string;
-    year: string | undefined;
-  }) => void;
+  setCurrentVisu: ({ id, year }: { id: string; year: string }) => void;
   currentTiff: IEEInfo;
   setCurrentTiff: (newTiff: IEEInfo) => void;
 }
@@ -58,7 +52,7 @@ export const MapTiffProvider = ({
   const [currentTiff, setCurrentTiff] = useState<IEEInfo>(defaultEEInfo);
   const [currentVisu, setCurrentVisu] = useState({
     id: searchParams?.get("id") ?? DEFAULT_TIFF,
-    year: searchParams?.get("year") || undefined,
+    year: searchParams?.get("year") || "",
   });
 
   useEffect(() => {

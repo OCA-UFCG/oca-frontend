@@ -1,27 +1,25 @@
 import { IVisuMenuItems } from "@/utils/interfaces";
 import { Input, ItemWrapper, Label, LoadingIcon } from "./VisuItem.styles";
+import { useContext } from "react";
+import { MapTiffContext } from "@/contexts/MapContext";
 
-export const VisuItem = ({
-  info,
-  isLoading,
-}: {
-  info: IVisuMenuItems;
-  isLoading: boolean;
-}) => {
+export const VisuItem = ({ info }: { info: IVisuMenuItems }) => {
+  const { loading } = useContext(MapTiffContext);
   const { id, name, checked } = info;
 
   return (
     <ItemWrapper>
-      {isLoading && <LoadingIcon id="loading" size={18} />}
+      <LoadingIcon loading={loading} id="loading" size={18} />
       <Input
-        type={isLoading ? "hidden" : "radio"}
+        type={loading ? "hidden" : "radio"}
         id={id}
         name={"selectedVisu"}
         value={id}
-        disabled={isLoading}
-        defaultChecked={checked}
+        disabled={loading}
+        checked={checked}
+        readOnly
       />
-      <Label isLoading={isLoading} htmlFor={id}>
+      <Label isloading={loading} htmlFor={id}>
         {name}
       </Label>
     </ItemWrapper>

@@ -1,6 +1,6 @@
 import MenuModal from "@/components/MenuModal/MenuModal";
 import { VisuItem } from "@/components/VisuItem/VisuItem";
-import { FormEvent, useContext } from "react";
+import { FormEvent, useContext, useMemo } from "react";
 import { IEEInfo, IFormItem } from "@/utils/interfaces";
 import {
   ContentWrapper,
@@ -15,6 +15,7 @@ import {
   Title,
 } from "./MapsMenu.styles";
 import { MapTiffContext } from "@/contexts/MapContext";
+import DateInput from "../DateInput/DateInput";
 
 const formatData = (newValue: string, tiffs: { fields: IEEInfo }[]) => {
   const typesMap: { [key: string]: IFormItem[] } = {};
@@ -30,13 +31,7 @@ const formatData = (newValue: string, tiffs: { fields: IEEInfo }[]) => {
   return typesMap;
 };
 
-const MapsMenu = ({
-  isLoading,
-  updateDescription,
-}: {
-  isLoading: boolean;
-  updateDescription: (newItem: string, retract?: boolean) => void;
-}) => {
+const MapsMenu = () => {
   const {
     currentVisu,
     setCurrentVisu,
@@ -44,10 +39,22 @@ const MapsMenu = ({
     menuRetracted,
     setMenuRetracted,
   } = useContext(MapTiffContext);
-  const defaultCategory = Object.values(tiffs).find(
-    (mapData) => mapData.fields.id === currentVisu.id,
-  )?.fields?.type;
-  const categorisedVisus = formatData(currentVisu.id, tiffs);
+  const defaultCategory = useMemo(
+    () =>
+      Object.values(tiffs).find(
+        (mapData) => mapData.fields.id === currentVisu.id,
+      )?.fields?.type,
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
+  const categorizedVisus = useMemo(
+    () => formatData(currentVisu.id, tiffs),
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentVisu.id],
+  );
 
   const onFormChange = (e: FormEvent<HTMLFormElement>) => {
     const id = (e.target as HTMLInputElement).value;
@@ -77,7 +84,7 @@ const MapsMenu = ({
     >
       <ContentWrapper>
         <Form onChange={onFormChange}>
-          {Object.keys(categorisedVisus)
+          {Object.keys(categorizedVisus)
             .sort((a, b) => b.localeCompare(a))
             .map((type) => (
               <FieldDetails key={type} open={defaultCategory === type}>
@@ -86,16 +93,16 @@ const MapsMenu = ({
                   <IconWrapper id="close" size={16} stroke-width={2} />
                 </Summary>
                 <SubSectionWrapper>
-                  {categorisedVisus[type]
+                  {categorizedVisus[type]
                     .sort((element1, element2) =>
                       element1.name.localeCompare(element2.name),
                     )
                     .map((item: IFormItem) => {
                       return (
                         <ItemWrapper key={item.id}>
-                          <VisuItem info={item} isLoading={isLoading} />
+                          <VisuItem info={item} />
                           <InfoContainer
-                            onClick={() => updateDescription(item.id)}
+                            // onClick={() => {updateDescription(item.id)}}
                             title={`Sobre ${item.name}`}
                           >
                             <QuestionMarkImg
@@ -111,13 +118,7 @@ const MapsMenu = ({
               </FieldDetails>
             ))}
         </Form>
-        {/* <DateInput
-          mapId={currentVisu.id}
-          initialYear={currentVisu?.year}
-          dates={currentImagedata}
-          isLoading={isLoading}
-          onChange={() => {}}
-        /> */}
+        <DateInput />
       </ContentWrapper>
     </MenuModal>
   );

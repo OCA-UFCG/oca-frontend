@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { Icon } from "../Icon/Icon";
 
-export const Wrapper = styled.div`
+export const SubtractImage = styled(Icon)`
+  transition: 0.3s;
+  width: 0.75rem;
+  height: fit-content;
+`;
+
+export const Wrapper = styled.details`
   display: flex;
   flex-flow: column;
   width: fit-content;
@@ -13,9 +19,13 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   padding: 0.75rem;
   z-index: 4;
+
+  &[open] ${SubtractImage} {
+    transform: rotate(180deg);
+  }
 `;
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.summary`
   display: flex;
   gap: 1rem;
   width: 100%;
@@ -29,18 +39,11 @@ export const Title = styled.h3`
   font-size: 0.9rem;
 `;
 
-export const SubtractImage = styled(Icon)<{ retracted: string }>`
-  ${({ retracted }) =>
-    retracted === "retracted" && "transform: rotate(180deg)"};
-  transition: 0.3s;
-  width: 0.75rem;
-  height: fit-content;
-`;
-
-export const ContentContainer = styled.div<{ retracted: string }>`
-  display: ${({ retracted }) => (retracted !== "retracted" ? "flex" : "none")};
+export const ContentContainer = styled.div`
+  display: flex;
   flex-flow: column;
   gap: 0.5rem;
+  margin-top: 1rem;
 `;
 
 export const DataLegendContainer = styled.div`
@@ -96,6 +99,6 @@ export const MetaInfoContainer = styled.div`
 `;
 
 export const MetaInfo = styled.span`
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   opacity: 0.7;
 `;
