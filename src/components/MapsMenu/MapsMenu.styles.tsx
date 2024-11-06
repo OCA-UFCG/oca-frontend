@@ -25,22 +25,6 @@ export const ItemWrapper = styled.div`
   align-items: center;
 `;
 
-export const InfoContainer = styled.div`
-  margin-right: 0.45rem;
-`;
-
-export const QuestionMarkImg = styled(Icon)`
-  max-width: 1rem;
-  height: fit-content;
-  transition: 300ms;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.6;
-    transform: scale(0.97);
-  }
-`;
-
 export const NoDataContainer = styled.div`
   display: flex;
   flex-flow: column;

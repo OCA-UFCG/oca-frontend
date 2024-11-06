@@ -1,24 +1,22 @@
 import MenuModal from "@/components/MenuModal/MenuModal";
 import { VisuItem } from "@/components/VisuItem/VisuItem";
 import { FormEvent, useContext, useMemo } from "react";
-import { IEEInfo, IFormItem } from "@/utils/interfaces";
+import { IEEInfo } from "@/utils/interfaces";
 import {
   ContentWrapper,
   Form,
   ItemWrapper,
-  QuestionMarkImg,
   SubSectionWrapper,
   FieldDetails,
   Summary,
   IconWrapper,
-  InfoContainer,
   Title,
 } from "./MapsMenu.styles";
 import { MapTiffContext } from "@/contexts/MapContext";
 import DateInput from "../DateInput/DateInput";
 
 const formatData = (newValue: string, tiffs: { fields: IEEInfo }[]) => {
-  const typesMap: { [key: string]: IFormItem[] } = {};
+  const typesMap: { [key: string]: IEEInfo[] } = {};
 
   Object.values(tiffs).forEach(({ fields: item }) => {
     if (!typesMap[item.type]) {
@@ -27,6 +25,8 @@ const formatData = (newValue: string, tiffs: { fields: IEEInfo }[]) => {
 
     typesMap[item.type].push({ ...item, checked: item.id === newValue });
   });
+
+  console.log(typesMap);
 
   return typesMap;
 };
@@ -97,20 +97,10 @@ const MapsMenu = () => {
                     .sort((element1, element2) =>
                       element1.name.localeCompare(element2.name),
                     )
-                    .map((item: IFormItem) => {
+                    .map((item: IEEInfo) => {
                       return (
                         <ItemWrapper key={item.id}>
                           <VisuItem info={item} />
-                          <InfoContainer
-                            // onClick={() => {updateDescription(item.id)}}
-                            title={`Sobre ${item.name}`}
-                          >
-                            <QuestionMarkImg
-                              id="question"
-                              height={20}
-                              width={20}
-                            />
-                          </InfoContainer>
                         </ItemWrapper>
                       );
                     })}

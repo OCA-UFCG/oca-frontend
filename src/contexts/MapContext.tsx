@@ -17,6 +17,11 @@ interface ContextProps {
   setCurrentVisu: ({ id, year }: { id: string; year: string }) => void;
   currentTiff: IEEInfo;
   setCurrentTiff: (newTiff: IEEInfo) => void;
+  currentDescription: { name: string; description: string };
+  setCurrentDescription: (newDesc: {
+    name: string;
+    description: string;
+  }) => void;
 }
 
 const DEFAULT_TIFF = "spei";
@@ -33,6 +38,8 @@ export const MapTiffContext = createContext<ContextProps>({
   setCurrentVisu: () => {},
   currentTiff: defaultEEInfo,
   setCurrentTiff: () => {},
+  currentDescription: { name: "", description: "" },
+  setCurrentDescription: () => {},
 });
 
 export const MapTiffProvider = ({
@@ -48,7 +55,11 @@ export const MapTiffProvider = ({
 
   const [loading, setLoading] = useState<boolean>(false);
   const [menuRetracted, setMenuRetracted] = useState<boolean>(false);
-  const [descRetracted, setDescRetracted] = useState<boolean>(true);
+  const [descRetracted, setDescRetracted] = useState<boolean>(false);
+  const [currentDescription, setCurrentDescription] = useState<{
+    name: string;
+    description: string;
+  }>({ name: "", description: "" });
   const [currentTiff, setCurrentTiff] = useState<IEEInfo>(defaultEEInfo);
   const [currentVisu, setCurrentVisu] = useState({
     id: searchParams?.get("id") ?? DEFAULT_TIFF,
@@ -71,6 +82,10 @@ export const MapTiffProvider = ({
       router.push(`${pathname}?${params.toString()}`);
     }
 
+    const { name, description } =
+      tiffs.find((tiff) => tiff.fields.id === id)?.fields || currentDescription;
+    setCurrentDescription({ name, description });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentVisu]);
 
@@ -86,6 +101,8 @@ export const MapTiffProvider = ({
     setCurrentVisu,
     currentTiff,
     setCurrentTiff,
+    currentDescription,
+    setCurrentDescription,
   };
 
   return (

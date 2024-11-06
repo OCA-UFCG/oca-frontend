@@ -15,7 +15,7 @@ export const ItemWrapper = styled.div`
   align-items: center;
   gap: 0.5rem;
   width: 100%;
-  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  padding: 0.5rem;
   border-radius: 4px;
 `;
 
@@ -89,4 +89,20 @@ export const SubItemsContainer = styled.div`
   flex-flow: column;
   gap: 0.5rem;
   margin: 0.75rem 0 0.75rem 0.5rem;
+`;
+
+export const InfoContainer = styled.div`
+  /* margin-right: 0.45rem; */
+`;
+
+export const QuestionMarkIcon = styled(Icon)`
+  max-width: 1rem;
+  height: fit-content;
+  transition: 300ms;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.6;
+    transform: scale(0.97);
+  }
 `;

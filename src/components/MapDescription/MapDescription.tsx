@@ -1,29 +1,23 @@
-import { IEEInfo } from "@/utils/interfaces";
 import MenuModal from "../MenuModal/MenuModal";
 import { ContentWrapper, Title, Description } from "./MapDescription.styles";
+import { MapTiffContext } from "@/contexts/MapContext";
+import { useContext } from "react";
 
-const MapDescription = ({
-  imageInfo,
-  retracted,
-  setRetracted = () => {},
-}: {
-  imageInfo: IEEInfo;
-  retracted: boolean;
-  setRetracted: (retracted: boolean) => void;
-}) => {
-  const { name, description } = imageInfo;
+const MapDescription = () => {
+  const { currentDescription, descRetracted, setDescRetracted } =
+    useContext(MapTiffContext);
 
   return (
     <MenuModal
       hasIcon={false}
       hasBackground={false}
       position="right"
-      retracted={retracted}
-      setRetracted={setRetracted}
+      retracted={descRetracted}
+      setRetracted={setDescRetracted}
     >
       <ContentWrapper>
-        <Title>{name}</Title>
-        <Description>{description}</Description>
+        <Title>{currentDescription.name}</Title>
+        <Description>{currentDescription.description}</Description>
       </ContentWrapper>
     </MenuModal>
   );

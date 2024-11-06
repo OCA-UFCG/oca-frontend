@@ -85,6 +85,7 @@ export interface IEEInfo {
   name: string;
   description: string;
   extraInfo?: string[];
+  checked?: boolean;
   measurementUnit: string;
   poster: { fields: { file: { url: string } } } | string;
   minScale?: number;

@@ -1,11 +1,38 @@
-import { IVisuMenuItems } from "@/utils/interfaces";
-import { Input, ItemWrapper, Label, LoadingIcon } from "./VisuItem.styles";
+import { IEEInfo } from "@/utils/interfaces";
+import {
+  InfoContainer,
+  Input,
+  ItemWrapper,
+  Label,
+  LoadingIcon,
+  QuestionMarkIcon,
+} from "./VisuItem.styles";
 import { useContext } from "react";
 import { MapTiffContext } from "@/contexts/MapContext";
 
-export const VisuItem = ({ info }: { info: IVisuMenuItems }) => {
-  const { loading } = useContext(MapTiffContext);
-  const { id, name, checked } = info;
+export const VisuItem = ({ info }: { info: IEEInfo }) => {
+  const {
+    currentDescription,
+    setCurrentDescription,
+    setDescRetracted,
+    descRetracted,
+    loading,
+  } = useContext(MapTiffContext);
+  const { id, name, checked, description } = info;
+
+  const handleIconClick = () => {
+    setDescRetracted(!descRetracted);
+
+    if (currentDescription.name === name) {
+      setDescRetracted(!descRetracted);
+    } else {
+      setDescRetracted(false);
+      setCurrentDescription({
+        name: name,
+        description: description,
+      });
+    }
+  };
 
   return (
     <ItemWrapper>
@@ -22,6 +49,9 @@ export const VisuItem = ({ info }: { info: IVisuMenuItems }) => {
       <Label isloading={loading} htmlFor={id}>
         {name}
       </Label>
+      <InfoContainer onClick={handleIconClick} title={`Sobre ${name}`}>
+        <QuestionMarkIcon id="question" height={20} width={20} />
+      </InfoContainer>
     </ItemWrapper>
   );
 };
