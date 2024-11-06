@@ -22,11 +22,11 @@ import { MapLegend } from "@/components/MapLegend/MapLegend";
 import MapDescription from "@/components/MapDescription/MapDescription";
 
 const MapPageWrapper = ({ tiffs }: { tiffs: { fields: IEEInfo }[] }) => (
-  <MapTiffProvider tiffs={tiffs}>
-    <Suspense fallback={<div>Carregando...</div>}>
+  <Suspense fallback={<div>Carregando...</div>}>
+    <MapTiffProvider tiffs={tiffs}>
       <MapSection />
-    </Suspense>
-  </MapTiffProvider>
+    </MapTiffProvider>
+  </Suspense>
 );
 
 export const MapSection = () => {

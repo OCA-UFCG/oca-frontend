@@ -34,7 +34,6 @@ const CollabTable = ({ content }: { content: any[] }) => {
         {content.map(({ fields }, index) => {
           const { name, institution, fieldWork, github, linkedin, lattes } =
             fields;
-          console.log("fieldWork:", fieldWork);
 
           return (
             <Row key={index}>

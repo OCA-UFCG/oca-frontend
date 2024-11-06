@@ -26,8 +26,6 @@ const formatData = (newValue: string, tiffs: { fields: IEEInfo }[]) => {
     typesMap[item.type].push({ ...item, checked: item.id === newValue });
   });
 
-  console.log(typesMap);
-
   return typesMap;
 };
 

@@ -44,7 +44,7 @@ const DateInput = () => {
               type="range"
               ref={inputRef}
               min={1}
-              defaultValue={
+              value={
                 Object.keys(dates).findIndex(
                   (date) => date === currentVisu.year,
                 ) + 1

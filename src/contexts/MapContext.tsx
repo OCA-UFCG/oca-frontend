@@ -67,8 +67,19 @@ export const MapTiffProvider = ({
   });
 
   useEffect(() => {
-    const { id, year } = currentVisu;
+    const { id } = currentVisu;
+    let year = currentVisu.year;
     const params = new URLSearchParams(searchParams.toString());
+    const { name, description, imageData } =
+      tiffs.find((tiff) => tiff.fields.id === id)?.fields || defaultEEInfo;
+
+    if (!("general" in imageData) && !year) {
+      Object.entries(imageData).forEach(([currentYear, yearInfo]) => {
+        if (yearInfo.default) year = currentYear;
+      });
+
+      setCurrentVisu({ id, year });
+    }
 
     params.set("id", id);
 
@@ -82,8 +93,6 @@ export const MapTiffProvider = ({
       router.push(`${pathname}?${params.toString()}`);
     }
 
-    const { name, description } =
-      tiffs.find((tiff) => tiff.fields.id === id)?.fields || currentDescription;
     setCurrentDescription({ name, description });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
