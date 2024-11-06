@@ -55,7 +55,7 @@ export const MapTiffProvider = ({
 
   const [loading, setLoading] = useState<boolean>(false);
   const [menuRetracted, setMenuRetracted] = useState<boolean>(false);
-  const [descRetracted, setDescRetracted] = useState<boolean>(false);
+  const [descRetracted, setDescRetracted] = useState<boolean>(true);
   const [currentDescription, setCurrentDescription] = useState<{
     name: string;
     description: string;

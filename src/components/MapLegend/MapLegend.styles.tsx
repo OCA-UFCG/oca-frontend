@@ -20,7 +20,7 @@ export const Wrapper = styled.details`
   padding: 0.75rem;
   z-index: 4;
 
-  &[open] ${SubtractImage} {
+  &:not([open]) ${SubtractImage} {
     transform: rotate(180deg);
   }
 `;
