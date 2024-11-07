@@ -1,7 +1,6 @@
 "use client";
 
-import { IImageData, IMapInfo } from "@/utils/interfaces";
-import { ChangeEvent, useEffect, useRef } from "react";
+import { useContext, useMemo, useRef } from "react";
 import {
   Wrapper,
   RangeInput,
@@ -10,75 +9,68 @@ import {
   DateSpan,
   Divider,
 } from "./DateInput.styles";
+import { MapTiffContext } from "@/contexts/MapContext";
 
-const DateInput = ({
-  mapId,
-  dates,
-  isLoading,
-  onChange,
-}: {
-  mapId: string;
-  isLoading: boolean;
-  initialYear?: string;
-  dates: IImageData;
-  onChange: (newValues: IMapInfo) => void;
-}) => {
+const DateInput = () => {
+  const { tiffs, loading, currentVisu, setCurrentVisu } =
+    useContext(MapTiffContext);
+  const dates = useMemo(
+    () =>
+      tiffs.find((tiff) => tiff.fields.id === currentVisu.id)?.fields
+        .imageData || {},
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentVisu.id],
+  );
+
   const inputRef = useRef<HTMLInputElement>(null);
-  const dateKeys: string[] = Object.keys(dates);
-  const hasGeneralDate = "general" in dates;
 
-  const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newDate = Object.keys(dates)[Number(event.target.value) - 1];
-    onChange({ name: mapId, year: newDate });
-  };
-
-  const updateFields = (year: string) => {
-    if (inputRef.current)
-      inputRef.current.value = [dateKeys.indexOf(year) + 1].toString();
+  const updateFields = (index: number) => {
+    const year = Object.keys(dates)[Number(index)];
+    if (inputRef.current) inputRef.current.value = [index + 1].toString();
     inputRef?.current?.focus();
 
-    onChange({ name: mapId, year: year });
+    const { id } = currentVisu;
+    setCurrentVisu({ id, year });
   };
 
-  useEffect(() => {
-    dateKeys.map((date: string) => {
-      if (dates[date].default) {
-        updateFields(date);
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapId]);
-
   return (
-    <Wrapper disabled={isLoading.toString()}>
-      {!hasGeneralDate && (
-        <InputWrapper>
-          <RangeInput
-            disabled={isLoading}
-            type="range"
-            ref={inputRef}
-            min={1}
-            max={Object.keys(dates).length}
-            onChange={handleRangeChange}
-          />
-          <DateContainer>
-            {Object.keys(dates).map((date, index) => (
-              <div key={date}>
-                <DateSpan
-                  isCurrent={(
-                    (index + 1).toString() === inputRef?.current?.value || false
-                  ).toString()}
-                  active={isLoading.toString()}
-                  onClick={() => updateFields(date)}
-                >
-                  {date}
-                </DateSpan>
-                <Divider />
-              </div>
-            ))}
-          </DateContainer>
-        </InputWrapper>
-      )}
+    <Wrapper disabled={loading.toString()}>
+      {Object.keys(dates).length > 0 &&
+        !(Object.keys(dates)[0] === "general") && (
+          <InputWrapper>
+            <RangeInput
+              disabled={loading}
+              type="range"
+              ref={inputRef}
+              min={1}
+              value={
+                Object.keys(dates).findIndex(
+                  (date) => date === currentVisu.year,
+                ) + 1
+              }
+              max={Object.keys(dates).length}
+              onChange={(e) => updateFields(Number(e.target.value) - 1)}
+            />
+            <DateContainer>
+              {Object.keys(dates).map((date, index) => (
+                <div key={date}>
+                  <DateSpan
+                    isCurrent={(
+                      (index + 1).toString() === inputRef?.current?.value ||
+                      false
+                    ).toString()}
+                    active={loading.toString()}
+                    onClick={() => updateFields(index)}
+                  >
+                    {date}
+                  </DateSpan>
+                  <Divider />
+                </div>
+              ))}
+            </DateContainer>
+          </InputWrapper>
+        )}
     </Wrapper>
   );
 };

@@ -5,6 +5,8 @@ import MapsSection from "@/components/MapsSection/MapsSection";
 import Template from "@/templates/hubTemplate";
 import { getContent } from "@/utils/functions";
 import AboutHomeSection from "@/components/AboutHomeSection/AboutHomeSection";
+import { MapTiffProvider } from "@/contexts/MapContext";
+import { Suspense } from "react";
 
 export const revalidate = 60;
 
@@ -31,7 +33,11 @@ export default async function Home() {
         content={content[0].fields?.about}
         photos={content[0].fields?.album}
       />
-      <MapsSection sectionHead={sectionHead} tiffInfo={tiffInfo} />
+      <Suspense>
+        <MapTiffProvider tiffs={tiffInfo}>
+          <MapsSection sectionHead={sectionHead} />
+        </MapTiffProvider>
+      </Suspense>
       <PublicationsSection
         sectionHead={sectionHead}
         publications={publications}

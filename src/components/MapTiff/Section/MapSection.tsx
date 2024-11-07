@@ -1,12 +1,10 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useState } from "react";
-import { IEEInfo, IMapInfo } from "@/utils/interfaces";
+import { Suspense, useContext, useMemo } from "react";
+import { IEEInfo } from "@/utils/interfaces";
 import MapTiff from "@/components/MapTiff/MapTiff";
 import MapTemplate from "@/templates/mapTemplate";
 import MapsMenu from "@/components/MapsMenu/MapsMenu";
-import { defaultEEInfo } from "@/utils/constants";
 import {
   HeaderWrapper,
   HomeImage,
@@ -18,152 +16,73 @@ import {
   QuestionWrapper,
   VisuName,
 } from "./MapsSections.styles";
+import { MapTiffContext, MapTiffProvider } from "@/contexts/MapContext";
 import Link from "next/link";
-import { capitalize } from "@/utils/functions";
-import MapDescription from "@/components/MapDescription/MapDescription";
 import { MapLegend } from "@/components/MapLegend/MapLegend";
+import MapDescription from "@/components/MapDescription/MapDescription";
 
-const DEFAULT_TIFF = "spei";
-
-const MapPageWrapper = ({ mapsData }: { mapsData: any }) => (
+const MapPageWrapper = ({ tiffs }: { tiffs: { fields: IEEInfo }[] }) => (
   <Suspense fallback={<div>Carregando...</div>}>
-    <MapSection mapsData={mapsData} />
+    <MapTiffProvider tiffs={tiffs}>
+      <MapSection />
+    </MapTiffProvider>
   </Suspense>
 );
 
-export const MapSection = ({
-  mapsData,
-}: {
-  mapsData: { fields: IEEInfo }[];
-}) => {
-  const searchParams = useSearchParams();
-  const [imageData, setImageData] = useState<IMapInfo>({
-    name: "",
-    year: "",
-  });
+export const MapSection = () => {
+  const {
+    currentVisu,
+    tiffs,
+    setDescRetracted,
+    currentDescription,
+    setCurrentDescription,
+    descRetracted,
+  } = useContext(MapTiffContext);
 
-  const [loadingMap, setLoadingMap] = useState<boolean>(false);
-  const [descriptionInfo, setDescriptionInfo] =
-    useState<IEEInfo>(defaultEEInfo);
-  const [isDescRetracted, setIsDescRetracted] = useState<boolean>(true);
-  const [isMenuRetracted, setIsmenuRetracted] = useState<boolean>(false);
-
-  const handleDescUpdate = useCallback(
-    (name: string, retract: boolean = true) => {
-      if (retract) {
-        if (name === descriptionInfo.id) {
-          setIsDescRetracted(!isDescRetracted);
-        } else {
-          setIsDescRetracted(false);
-        }
-      }
-      setDescriptionInfo(
-        mapsData.filter(
-          (data: { fields: { id: string } }) => data.fields.id === name,
-        )[0].fields,
-      );
-    },
-    [descriptionInfo.id, isDescRetracted, mapsData],
-  );
-
-  const handleMapClick = useCallback(() => {
-    setIsmenuRetracted(true);
-    setIsDescRetracted(true);
-  }, [setIsmenuRetracted, setIsDescRetracted]);
-
-  useEffect(() => {
-    if (!mapsData || mapsData.length === 0) return;
-
-    let name = searchParams?.get("name") ?? DEFAULT_TIFF;
-    let year = searchParams?.get("year") ?? "general";
-
-    const filteredData = mapsData.find(
-      (data: { fields: { id: string } }) => data.fields.id === name,
-    );
-
-    if (!filteredData) {
-      name = DEFAULT_TIFF;
-    }
-
-    if (
-      filteredData &&
-      !mapsData.find(
-        (data: { fields: { id: string; imageData: {} } }) =>
-          name === data.fields.id && year in Object.keys(data.fields.imageData),
-      )
-    ) {
-      year = Object.keys(filteredData?.fields?.imageData)[0];
-    }
-
-    setImageData({ name, year });
-    filteredData && setDescriptionInfo(filteredData?.fields);
-
+  const currentTiff = useMemo(
+    () => tiffs.find((tiff) => tiff.fields.id === currentVisu.id),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [currentVisu.id],
+  );
+  const handleDescUpdate = () => {
+    setDescRetracted(!descRetracted);
+
+    if (currentDescription.name === currentTiff?.fields.name) {
+      setDescRetracted(!descRetracted);
+    } else {
+      setDescRetracted(false);
+      setCurrentDescription({
+        name: currentTiff?.fields.name || "",
+        description: currentTiff?.fields.description || "",
+      });
+    }
+  };
 
   return (
     <MapTemplate>
       <MapContainer isReduced={false}>
-        <MapTiff
-          mapsData={mapsData}
-          data={imageData}
-          onClick={handleMapClick}
-          loading={loadingMap}
-          setLoading={setLoadingMap}
-          isReduced={false}
-        />
+        <MapTiff />
       </MapContainer>
-      <MapDescription
-        imageInfo={descriptionInfo}
-        retracted={isDescRetracted}
-        setRetracted={setIsDescRetracted}
-      />
+      <MapDescription />
       <HeaderWrapper>
         <MenuWrapper>
-          <MapsMenu
-            isLoading={loadingMap}
-            mapsData={mapsData}
-            initialValues={imageData}
-            retracted={isMenuRetracted}
-            setRetracted={setIsmenuRetracted}
-            updateVisu={setImageData}
-            onQuestionSelect={handleDescUpdate}
-          />
+          <MapsMenu />
           <Link href="/">
             <HomeImage id="home" size={16} />
           </Link>
         </MenuWrapper>
-        {imageData.name && (
-          <NameContainer>
-            <VisuName>
-              {capitalize(
-                mapsData.filter(
-                  (data: { fields: { id: string } }) =>
-                    data.fields.id === imageData.name,
-                )[0].fields.name,
-              )}
-            </VisuName>
-            <QuestionWrapper
-              onClick={() => handleDescUpdate(imageData.name)}
-              title={`Sobre ${mapsData.filter((data: { fields: { id: string } }) => data.fields.id === imageData.name)[0].fields.name}`}
-            >
-              <QuestionImage id="question" height={20} width={20} />
-            </QuestionWrapper>
-          </NameContainer>
-        )}
+        <NameContainer>
+          <VisuName>{currentTiff?.fields.name}</VisuName>
+          <QuestionWrapper
+            onClick={handleDescUpdate}
+            title={`Sobre ${currentTiff?.fields.name}`}
+          >
+            <QuestionImage id="question" height={20} width={20} />
+          </QuestionWrapper>
+        </NameContainer>
       </HeaderWrapper>
       <MapLegendContainer>
-        {imageData.name && (
-          <MapLegend
-            imageInfo={
-              mapsData.filter(
-                (data: { fields: { id: string } }) =>
-                  data.fields.id === imageData.name,
-              )[0].fields
-            }
-            year={imageData.year || "general"}
-          />
-        )}
+        <MapLegend />
       </MapLegendContainer>
     </MapTemplate>
   );

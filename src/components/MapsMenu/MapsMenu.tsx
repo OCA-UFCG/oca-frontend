@@ -1,170 +1,112 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import MenuModal from "@/components/MenuModal/MenuModal";
 import { VisuItem } from "@/components/VisuItem/VisuItem";
-import { useCallback, useEffect, useState } from "react";
-import { IEEInfo, IFormItem, IImageData, IMapInfo } from "@/utils/interfaces";
-import DateInput from "@/components/DateInput/DateInput";
+import { FormEvent, useContext, useMemo } from "react";
+import { IEEInfo } from "@/utils/interfaces";
 import {
   ContentWrapper,
   Form,
   ItemWrapper,
-  NoDataContainer,
-  NoDataElement,
-  QuestionMarkImg,
   SubSectionWrapper,
   FieldDetails,
   Summary,
   IconWrapper,
-  InfoContainer,
   Title,
 } from "./MapsMenu.styles";
+import { MapTiffContext } from "@/contexts/MapContext";
+import DateInput from "../DateInput/DateInput";
 
-const MapsMenu = ({
-  initialValues,
-  retracted,
-  mapsData,
-  isLoading,
-  setRetracted,
-  updateVisu,
-  onQuestionSelect,
-}: {
-  initialValues: IMapInfo;
-  retracted: boolean;
-  isLoading: boolean;
-  mapsData: { fields: IEEInfo }[];
-  setRetracted: (retracted: boolean) => void;
-  updateVisu: (newValues: IMapInfo) => void;
-  onQuestionSelect: (newItem: string, retract?: boolean) => void;
-}) => {
-  const [formValues, setFormValues] = useState<IFormItem[]>([]);
-  const [mapTypes, setMapTypes] = useState<{ [key: string]: IFormItem[] }>({});
-  const [currentImagedata, setcurrentImageData] = useState<IImageData>({});
-  const [currentName, setCurrentName] = useState<string>("");
-  const [currentCategory, setCurrentCategory] = useState<string>("");
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+const formatData = (newValue: string, tiffs: { fields: IEEInfo }[]) => {
+  const typesMap: { [key: string]: IEEInfo[] } = {};
 
-  const handleVisuChange = useCallback(
-    (newImageData: IMapInfo) => {
-      const { name, year } = newImageData;
-      const params = new URLSearchParams(searchParams.toString());
+  Object.values(tiffs).forEach(({ fields: item }) => {
+    if (!typesMap[item.type]) {
+      typesMap[item.type] = [];
+    }
 
-      params.set("name", name);
-      params.set("year", year || "general");
+    typesMap[item.type].push({ ...item, checked: item.id === newValue });
+  });
 
-      if (window.location.href.includes("/map")) {
-        router.push(`${pathname}?${params.toString()}`);
-      }
+  return typesMap;
+};
 
-      updateVisu(newImageData);
-    },
+const MapsMenu = () => {
+  const {
+    currentVisu,
+    setCurrentVisu,
+    tiffs,
+    menuRetracted,
+    setMenuRetracted,
+  } = useContext(MapTiffContext);
+  const defaultCategory = useMemo(
+    () =>
+      Object.values(tiffs).find(
+        (mapData) => mapData.fields.id === currentVisu.id,
+      )?.fields?.type,
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pathname, router, searchParams],
+    [],
   );
 
-  const onItemChange = (newValue: string) => {
-    setFormValues(() =>
-      Object.values(mapsData).map((mapData) => {
-        const { fields: item } = mapData;
-        if (item.id === newValue) {
-          setCurrentName(item.id);
-          setcurrentImageData(item.imageData);
-          currentCategory === "" && setCurrentCategory(item.type);
-        }
+  const categorizedVisus = useMemo(
+    () => formatData(currentVisu.id, tiffs),
 
-        return {
-          id: item.id,
-          name: item.name,
-          checked: item.id === newValue,
-          imageData: item.imageData,
-          type: item.type,
-        };
-      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentVisu.id],
+  );
+
+  const onFormChange = (e: FormEvent<HTMLFormElement>) => {
+    const id = (e.target as HTMLInputElement).value;
+    const selectedTiff = Object.values(tiffs).find(
+      (mapData) => mapData.fields.id === id,
+    )?.fields;
+
+    const newVisu = { id, year: "" };
+    Object.entries(selectedTiff?.imageData || []).map(
+      ([currentYear, { default: isDefault }]) => {
+        if (isDefault && currentYear !== "general") {
+          newVisu.year = currentYear;
+        }
+      },
     );
 
-    const typesMap: { [key: string]: IFormItem[] } = {};
-
-    formValues.forEach((item) => {
-      if (!typesMap[item.type]) {
-        typesMap[item.type] = [];
-      }
-
-      typesMap[item.type].push(item);
-    });
-
-    setMapTypes(typesMap);
+    setCurrentVisu(newVisu);
   };
-
-  useEffect(() => {
-    onItemChange(initialValues.name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues]);
 
   return (
     <MenuModal
       hasIcon={true}
       hasBackground={false}
       position="left"
-      retracted={retracted}
-      setRetracted={setRetracted}
+      retracted={menuRetracted}
+      setRetracted={setMenuRetracted}
     >
       <ContentWrapper>
-        {formValues.length > 0 ? (
-          <Form>
-            {Object.keys(mapTypes)
-              .sort((a, b) => b.localeCompare(a))
-              .map((type) => (
-                <FieldDetails key={type} open={currentCategory === type}>
-                  <Summary>
-                    <Title>{type}</Title>
-                    <IconWrapper id="close" size={16} stroke-width={2} />
-                  </Summary>
-                  <SubSectionWrapper>
-                    {mapTypes[type]
-                      .sort((element1, element2) =>
-                        element1.name.localeCompare(element2.name),
-                      )
-                      .map((item: IFormItem) => {
-                        return (
-                          <ItemWrapper key={item.id}>
-                            <VisuItem
-                              info={item}
-                              isLoading={isLoading}
-                              onClick={onQuestionSelect}
-                              onChange={onItemChange}
-                            />
-                            <InfoContainer
-                              onClick={() => onQuestionSelect(item.id)}
-                              title={`Sobre ${item.name}`}
-                            >
-                              <QuestionMarkImg
-                                id="question"
-                                height={20}
-                                width={20}
-                              />
-                            </InfoContainer>
-                          </ItemWrapper>
-                        );
-                      })}
-                  </SubSectionWrapper>
-                </FieldDetails>
-              ))}
-          </Form>
-        ) : (
-          <NoDataContainer>
-            {new Array(6).fill(0).map((_, index) => (
-              <NoDataElement key={index} delay={index}></NoDataElement>
+        <Form onChange={onFormChange}>
+          {Object.keys(categorizedVisus)
+            .sort((a, b) => b.localeCompare(a))
+            .map((type) => (
+              <FieldDetails key={type} open={defaultCategory === type}>
+                <Summary>
+                  <Title>{type}</Title>
+                  <IconWrapper id="close" size={16} stroke-width={2} />
+                </Summary>
+                <SubSectionWrapper>
+                  {categorizedVisus[type]
+                    .sort((element1, element2) =>
+                      element1.name.localeCompare(element2.name),
+                    )
+                    .map((item: IEEInfo) => {
+                      return (
+                        <ItemWrapper key={item.id}>
+                          <VisuItem info={item} />
+                        </ItemWrapper>
+                      );
+                    })}
+                </SubSectionWrapper>
+              </FieldDetails>
             ))}
-          </NoDataContainer>
-        )}
-        <DateInput
-          mapId={currentName}
-          initialYear={initialValues?.year}
-          dates={currentImagedata}
-          isLoading={isLoading}
-          onChange={handleVisuChange}
-        />
+        </Form>
+        <DateInput />
       </ContentWrapper>
     </MenuModal>
   );
