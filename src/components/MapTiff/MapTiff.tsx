@@ -25,7 +25,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
     setDescRetracted,
   } = useContext(MapTiffContext);
 
-  const { id: name, year } = currentVisu;
+  const { id, year } = currentVisu;
   const [map, setMap] = useState<maplibregl.Map | null>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const popupRef = useRef(
@@ -108,14 +108,14 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
   }, [isReduced, mapContainer]);
 
   const loadSource = useCallback(
-    async (name: string, year: string) => {
-      if (!map?.getSource(name + year) && tiffs.length > 0) {
-        const mapData = tiffs.find((data) => data.fields.id === name)?.fields;
+    async (id: string, year: string) => {
+      if (!map?.getSource(id + year) && tiffs.length > 0) {
+        const mapData = tiffs.find((data) => data.fields.id === id)?.fields;
         const body = JSON.stringify(mapData);
 
         // Fetch the raster layer from the ee API
         const response = await fetch(
-          `${HOST_URL}/api/ee?name=${name}&year=${year}`,
+          `${HOST_URL}/api/ee?name=${id}&year=${year}`,
           {
             method: "POST",
             headers: {
@@ -132,8 +132,8 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
         }
 
         const { url } = await response.json();
-        if (!map?.getSource(name + year)) {
-          map?.addSource(name + year, {
+        if (!map?.getSource(id + year)) {
+          map?.addSource(id + year, {
             type: "raster",
             tiles: [url],
             tileSize: isReduced ? 64 : 128,
@@ -145,9 +145,9 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
   );
 
   const loadMapLayer = useCallback(
-    async (name: string, year: string) => {
+    async (id: string, year: string) => {
       setLoading(true);
-      await loadSource(name, year);
+      await loadSource(id, year);
 
       const symbolLayer = map
         ?.getStyle()
@@ -157,8 +157,8 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
         map.addLayer(
           {
             type: "raster",
-            source: `${name}${year}`,
-            id: `@oca/${name}${year}`,
+            source: `${id}${year}`,
+            id: `@oca/${id}${year}`,
           },
           symbolLayer.id,
         );
@@ -170,7 +170,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
   );
 
   const addPopupEffect = useCallback(
-    async (name: string, year: string) => {
+    async (id: string, year: string) => {
       let hoveredStateId: string | number | undefined = undefined;
       const popupContainer = document.createElement("div");
       const root = createRoot(popupContainer);
@@ -191,11 +191,11 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
           );
 
           const fcProperties = e.features[0].properties;
-          if (!fcProperties[name + year]) popupRef.current.remove();
+          if (!fcProperties[id + year]) popupRef.current.remove();
           else {
-            const fcMetadata = JSON.parse(fcProperties[name + year]);
+            const fcMetadata = JSON.parse(fcProperties[id + year]);
             const rasterMetadata = tiffs.filter(
-              (data) => data.fields.id === name,
+              (data) => data.fields.id === id,
             )[0];
             const rasterColors = rasterMetadata.fields.imageData[
               year
@@ -244,10 +244,9 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
   };
 
   useEffect(() => {
-    if (map && name) {
-      const yearStr = year || "general";
-      if (!isReduced) addPopupEffect(name, yearStr);
-      loadMapLayer(name, yearStr);
+    if (map && id && year) {
+      if (!isReduced) addPopupEffect(id, year);
+      loadMapLayer(id, year);
 
       return () => {
         cleanOcaLayers(map);
@@ -255,7 +254,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentVisu, map]);
+  }, [id, year, map]);
 
   useEffect(() => {
     if (!map) {

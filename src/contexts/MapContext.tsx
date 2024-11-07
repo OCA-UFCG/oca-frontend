@@ -79,11 +79,13 @@ export const MapTiffProvider = ({
       });
 
       setCurrentVisu({ id, year });
+    } else if (!year) {
+      setCurrentVisu({ id, year: "general" });
     }
 
     params.set("id", id);
 
-    if (year) {
+    if (year !== "general") {
       params.set("year", year);
     } else {
       params.delete("year");
