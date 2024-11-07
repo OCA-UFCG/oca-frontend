@@ -67,7 +67,7 @@ const MapsSection = ({ sectionHead }: { sectionHead: ISectionHeader[] }) => {
         <PreviewWrapper>
           <ButtonsWrapper>
             <ExpandBox
-              href={`/map?name=${currentVisu.id}`}
+              href={`/map?id=${currentVisu.id}`}
               title={`Expandir mapa`}
             >
               <Icon id="expand" size={18} />
