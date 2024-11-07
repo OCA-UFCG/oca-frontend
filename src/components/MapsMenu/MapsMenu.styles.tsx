@@ -25,15 +25,6 @@ export const ItemWrapper = styled.div`
   align-items: center;
 `;
 
-export const NoDataContainer = styled.div`
-  display: flex;
-  flex-flow: column;
-  gap: 0.5rem;
-  width: 100%;
-  height: fit-content;
-  padding: 1rem 0;
-`;
-
 export const SubSectionWrapper = styled.div`
   display: flex;
   flex-flow: column;
