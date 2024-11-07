@@ -17,7 +17,7 @@ export const MapContainer = styled.div<{ loading: string }>`
   color: ${({ theme }) => theme.colors.white};
   align-items: center;
   background: ${({ loading }) => (Boolean(loading) ? "#00000080" : "")};
-  background-image: url("flower-background.png");
+  background-image: url("flower-background.webp");
   color: ${({ theme }) => theme.colors.white};
 `;
 
