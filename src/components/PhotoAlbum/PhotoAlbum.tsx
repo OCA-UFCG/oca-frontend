@@ -33,11 +33,12 @@ export const PhotoAlbum = ({ photos }: { photos: any[] }) => {
           distance={Math.abs(currentPhoto - index)}
           onClick={() => setCurrentPhoto(index)}
           active={(index === currentPhoto).toString()}
-          src={`https:${photo.fields.file.url}?&w=500`}
-          height={280}
-          width={500}
+          src={`https:${photo.fields.file.url}?&w=624&h=448`}
+          height={448}
+          width={624}
           alt=""
-          quality={currentPhoto === index ? 100 : 10}
+          quality={currentPhoto === index ? 100 : 5}
+          priority={currentPhoto === index ? true : false}
         />
       ))}
     </Wrapper>
