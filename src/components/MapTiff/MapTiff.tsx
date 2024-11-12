@@ -62,7 +62,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
 
   const loadAdditionalSources = useCallback(
     async (map: maplibregl.Map) => {
-      const yearStr = year ? year : "general";
+      const yearStr = year || "general";
       for (const additionalMapData of tiffs) {
         for (const newYear of Object.keys(additionalMapData.fields.imageData)) {
           const newId = additionalMapData.fields.id;
@@ -185,30 +185,27 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
           );
 
           const fcProperties = e.features[0].properties;
-          if (!fcProperties[id + year]) popupRef.current.remove();
-          else {
-            const fcMetadata = JSON.parse(fcProperties[id + year]);
-            const rasterMetadata = tiffs.filter(
-              (data) => data.fields.id === id,
-            )[0];
-            const rasterColors = rasterMetadata.fields.imageData[
-              year
-            ]?.imageParams.map((param: any) => param.color);
+          const fcMetadata = JSON.parse(fcProperties[id + year]);
+          const rasterMetadata = tiffs.filter(
+            (data) => data.fields.id === id,
+          )[0];
+          const rasterColors = rasterMetadata.fields.imageData[
+            year
+          ]?.imageParams.map((param: any) => param.color);
 
-            root.render(
-              <MapPopup
-                nameUF={fcProperties.NM_UF}
-                colors={rasterColors}
-                nameRaster={rasterMetadata.fields.name}
-                fcMetadata={fcMetadata}
-              />,
-            );
+          root.render(
+            <MapPopup
+              nameUF={fcProperties.NM_UF}
+              colors={rasterColors}
+              nameRaster={rasterMetadata.fields.name}
+              fcMetadata={fcMetadata}
+            />,
+          );
 
-            popupRef.current
-              .setLngLat(e.lngLat)
-              .setDOMContent(popupContainer)
-              .addTo(map);
-          }
+          popupRef.current
+            .setLngLat(e.lngLat)
+            .setDOMContent(popupContainer)
+            .addTo(map);
         }
       });
 
@@ -267,26 +264,23 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
   ]);
 
   useEffect(() => {
-    const yearStr = year ? year : "general";
+    const yearStr = year || "general";
     const sourceKey = `@oca/${id}${yearStr}`;
 
-    if (loadedSources.has(sourceKey)) {
-      if (map && !map.getLayer(sourceKey)) {
-        setLoading(true);
-        cleanOcaLayers(map);
-        addPopupEffect(id, yearStr);
-        showOcaLayer(map, sourceKey);
-        setLoading(false);
-      }
+    if (loadedSources.has(sourceKey) && map && !map.getLayer(sourceKey)) {
+      setLoading(true);
+      cleanOcaLayers(map);
+      addPopupEffect(id, yearStr);
+      showOcaLayer(map, sourceKey);
+      setLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, year, loadedSources]);
 
   useEffect(() => {
-    if (!map) {
-      initializeMap();
-    }
-  }, [map, tiffs, isReduced, initializeMap]);
+    initializeMap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const retrieveModals = useCallback(() => {
     setMenuRetracted(true);
