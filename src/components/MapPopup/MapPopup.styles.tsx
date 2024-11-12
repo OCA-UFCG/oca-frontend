@@ -34,17 +34,27 @@ export const InfoContent = styled.div`
   gap: 0.5rem;
 `;
 
-export const LineInfo = styled.div`
+export const LineInfo = styled.li<{ isColored: boolean }>`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
   width: 100%;
+  margin: 0.25rem;
+
+  ${({ isColored }) =>
+    !isColored &&
+    `
+    display: list-item;
+    margin-left: 1rem;
+    text-align: left;
+    list-style: square;
+  `}
 `;
 
 export const TotalArea = styled.h3`
   font-size: 0.75rem;
   font-weight: normal;
-  max-width: 70%;
+  width: 100%;
 `;
 
 export const PercentArea = styled.h3`
@@ -66,13 +76,5 @@ export const Color = styled.div<{ color: string; $percent: number }>`
 `;
 
 export const List = styled.ul`
-  width: 95%;
-`;
-
-export const ListItem = styled.li`
-  text-align: left;
-  list-style: square;
-  line-height: 1.6;
-  padding: 0.05rem;
-  font-size: 0.9rem;
+  margin: 0;
 `;
