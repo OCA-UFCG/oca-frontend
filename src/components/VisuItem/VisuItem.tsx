@@ -1,38 +1,57 @@
-import { IVisuMenuItems } from "@/utils/interfaces";
-import { Input, ItemWrapper, Label, LoadingIcon } from "./VisuItem.styles";
+import { IEEInfo } from "@/utils/interfaces";
+import {
+  InfoContainer,
+  Input,
+  ItemWrapper,
+  Label,
+  LoadingIcon,
+  QuestionMarkIcon,
+} from "./VisuItem.styles";
+import { useContext } from "react";
+import { MapTiffContext } from "@/contexts/MapContext";
 
-export const VisuItem = ({
-  info,
-  isLoading,
-  onChange,
-  onClick,
-}: {
-  info: IVisuMenuItems;
-  isLoading: boolean;
-  onChange: (newValue: string) => void;
-  onClick: (newValue: string, retract: boolean) => void;
-}) => {
-  const { id, name, checked } = info;
+export const VisuItem = ({ info }: { info: IEEInfo }) => {
+  const {
+    currentDescription,
+    setCurrentDescription,
+    setDescRetracted,
+    descRetracted,
+    loading,
+  } = useContext(MapTiffContext);
+  const { id, name, checked, description } = info;
+
+  const handleIconClick = () => {
+    setDescRetracted(!descRetracted);
+
+    if (currentDescription.name === name) {
+      setDescRetracted(!descRetracted);
+    } else {
+      setDescRetracted(false);
+      setCurrentDescription({
+        name: name,
+        description: description,
+      });
+    }
+  };
 
   return (
     <ItemWrapper>
-      {isLoading ? (
-        <LoadingIcon id="loading" size={18} />
-      ) : (
-        <Input
-          type={isLoading ? "hidden" : "radio"}
-          id={id}
-          name={name}
-          checked={checked}
-          value={id}
-          disabled={isLoading}
-          onChange={() => onChange(id)}
-          onClick={() => onClick(id, false)}
-        />
-      )}
-      <Label isLoading={isLoading} htmlFor={id}>
+      <LoadingIcon loading={loading} id="loading" size={18} />
+      <Input
+        type={loading ? "hidden" : "radio"}
+        id={id}
+        name={"selectedVisu"}
+        value={id}
+        disabled={loading}
+        checked={checked}
+        readOnly
+      />
+      <Label isloading={loading} htmlFor={id}>
         {name}
       </Label>
+      <InfoContainer onClick={handleIconClick} title={`Sobre ${name}`}>
+        <QuestionMarkIcon id="question" height={20} width={20} />
+      </InfoContainer>
     </ItemWrapper>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { LoadingIcon } from "../VisuItem/VisuItem.styles";
 import {
   TagButton,
@@ -10,22 +10,22 @@ import {
   LinkButton,
   Description,
 } from "./TagButtonMaps.styles";
+import { MapTiffContext } from "@/contexts/MapContext";
 
-const TagButtonMaps = ({
-  tag,
-  isLoading,
-  isActive,
-  onClick,
-  currentVisu,
-}: {
-  tag: { id: string; name: string };
-  isLoading: boolean;
-  isActive: boolean;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  currentVisu: { description: string };
-}) => {
+const TagButtonMaps = ({ tag }: { tag: { id: string; name: string } }) => {
+  const { tiffs, loading, currentVisu, setCurrentVisu } =
+    useContext(MapTiffContext);
+
+  const currentTiff = useMemo(
+    () => tiffs.find((tiff) => tiff?.fields.id === tag.id)?.fields,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentVisu.id],
+  );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const isActive = useMemo(() => tag.id === currentVisu.id, [currentVisu.id]);
+
   const buttonRef = useRef<HTMLButtonElement>(null);
-
   useEffect(() => {
     if (isActive && buttonRef.current) {
       const container = buttonRef.current.parentElement;
@@ -61,12 +61,16 @@ const TagButtonMaps = ({
   };
 
   return (
-    <TagButton ref={buttonRef} active={isActive.toString()} onClick={onClick}>
+    <TagButton
+      ref={buttonRef}
+      active={isActive.toString()}
+      onClick={() => setCurrentVisu({ id: currentTiff?.id || "", year: "" })}
+    >
       <VisuHeader>
         <VisuName active={isActive.toString()}>{tag.name}</VisuName>
         <IconWrapper>
-          {isLoading ? (
-            <LoadingIcon id={"loading"} size={18} />
+          {loading ? (
+            <LoadingIcon id="loading" size={18} loading={true} />
           ) : (
             <VisuIcon
               active={isActive.toString()}
@@ -77,7 +81,7 @@ const TagButtonMaps = ({
           <Divider />
           <LinkButton
             active={isActive.toString()}
-            href={`/map?name=${tag.id}`}
+            href={`/map?id=${tag.id}`}
             onClick={(e) => {
               e.stopPropagation();
             }}
@@ -87,7 +91,7 @@ const TagButtonMaps = ({
         </IconWrapper>
       </VisuHeader>
       <Description active={isActive.toString()}>
-        {currentVisu.description}
+        {currentTiff?.description}
       </Description>
     </TagButton>
   );

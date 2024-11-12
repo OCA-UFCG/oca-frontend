@@ -3,35 +3,29 @@
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { createRoot } from "react-dom/client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { MapContainer, Loading, LoadingText } from "./MapTiff.styles";
-import { IEEInfo, IMapInfo } from "@/utils/interfaces";
 import {
   MAP_TIFF_STYLE,
   MAP_TIFF_BRAZIL_STATES,
   MAP_TIFF_BRAZIL_CITIES,
 } from "@/utils/constants";
 import MapPopup from "../MapPopup/MapPopup";
+import { MapTiffContext } from "@/contexts/MapContext";
 
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
-const MapTiff = ({
-  mapsData,
-  data,
-  loading,
-  setLoading,
-  onClick,
-  isReduced,
-  ...props
-}: {
-  mapsData: { fields: IEEInfo }[];
-  data: IMapInfo;
-  loading: boolean;
-  setLoading: (e: boolean) => void;
-  onClick?: (e: any) => void;
-  isReduced: boolean;
-}) => {
-  const { name, year } = data;
+const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
+  const {
+    currentVisu,
+    tiffs,
+    loading,
+    setLoading,
+    setMenuRetracted,
+    setDescRetracted,
+  } = useContext(MapTiffContext);
+
+  const { id, year } = currentVisu;
   const [map, setMap] = useState<maplibregl.Map | null>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const popupRef = useRef(
@@ -114,16 +108,14 @@ const MapTiff = ({
   }, [isReduced, mapContainer]);
 
   const loadSource = useCallback(
-    async (name: string, year: string) => {
-      if (!map?.getSource(name + year) && mapsData.length > 0) {
-        const mapData = mapsData.find(
-          (data) => data.fields.id === name,
-        )?.fields;
+    async (id: string, year: string) => {
+      if (!map?.getSource(id + year) && tiffs.length > 0) {
+        const mapData = tiffs.find((data) => data.fields.id === id)?.fields;
         const body = JSON.stringify(mapData);
 
         // Fetch the raster layer from the ee API
         const response = await fetch(
-          `${HOST_URL}/api/ee?name=${name}&year=${year}`,
+          `${HOST_URL}/api/ee?name=${id}&year=${year}`,
           {
             method: "POST",
             headers: {
@@ -140,8 +132,8 @@ const MapTiff = ({
         }
 
         const { url } = await response.json();
-        if (!map?.getSource(name + year)) {
-          map?.addSource(name + year, {
+        if (!map?.getSource(id + year)) {
+          map?.addSource(id + year, {
             type: "raster",
             tiles: [url],
             tileSize: isReduced ? 64 : 128,
@@ -149,13 +141,13 @@ const MapTiff = ({
         }
       }
     },
-    [map, mapsData, setLoading, isReduced],
+    [map, tiffs, setLoading, isReduced],
   );
 
   const loadMapLayer = useCallback(
-    async (name: string, year: string) => {
+    async (id: string, year: string) => {
       setLoading(true);
-      await loadSource(name, year);
+      await loadSource(id, year);
 
       const symbolLayer = map
         ?.getStyle()
@@ -165,8 +157,8 @@ const MapTiff = ({
         map.addLayer(
           {
             type: "raster",
-            source: `${name}${year}`,
-            id: `@oca/${name}${year}`,
+            source: `${id}${year}`,
+            id: `@oca/${id}${year}`,
           },
           symbolLayer.id,
         );
@@ -178,7 +170,7 @@ const MapTiff = ({
   );
 
   const addPopupEffect = useCallback(
-    async (name: string, year: string) => {
+    async (id: string, year: string) => {
       let hoveredStateId: string | number | undefined = undefined;
       const popupContainer = document.createElement("div");
       const root = createRoot(popupContainer);
@@ -199,11 +191,11 @@ const MapTiff = ({
           );
 
           const fcProperties = e.features[0].properties;
-          if (!fcProperties[name + year]) popupRef.current.remove();
+          if (!fcProperties[id + year]) popupRef.current.remove();
           else {
-            const fcMetadata = JSON.parse(fcProperties[name + year]);
-            const rasterMetadata = mapsData.filter(
-              (data) => data.fields.id === name,
+            const fcMetadata = JSON.parse(fcProperties[id + year]);
+            const rasterMetadata = tiffs.filter(
+              (data) => data.fields.id === id,
             )[0];
 
             // const rasterColors = rasterMetadata.fields.imageData[
@@ -245,7 +237,7 @@ const MapTiff = ({
         popupRef.current.remove();
       });
     },
-    [map, mapsData],
+    [map, tiffs],
   );
 
   const cleanOcaLayers = (map: maplibregl.Map) => {
@@ -259,37 +251,35 @@ const MapTiff = ({
     });
   };
 
-  useEffect(
-    () => {
-      if (map && name) {
-        const yearStr = year || "general";
-        if (!isReduced) addPopupEffect(name, yearStr);
-        loadMapLayer(name, yearStr);
+  useEffect(() => {
+    if (map && id && year) {
+      if (!isReduced) addPopupEffect(id, year);
+      loadMapLayer(id, year);
 
-        return () => {
-          cleanOcaLayers(map);
-        };
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [name, year],
-  );
+      return () => {
+        cleanOcaLayers(map);
+      };
+    }
 
-  useEffect(
-    () => {
-      if (!map) {
-        initializeMap();
-      }
-    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [map, mapsData, isReduced, initializeMap],
-  );
+  }, [id, year, map]);
+
+  useEffect(() => {
+    if (!map) {
+      initializeMap();
+    }
+  }, [map, tiffs, isReduced, initializeMap]);
+
+  const retrieveModals = useCallback(() => {
+    setMenuRetracted(true);
+    setDescRetracted(true);
+  }, [setMenuRetracted, setDescRetracted]);
 
   return (
     <MapContainer
-      loading={loading.toString()}
       {...props}
-      onClick={onClick}
+      loading={loading.toString()}
+      onClick={retrieveModals}
       ref={mapContainer}
     >
       <LoadingText>Carregando mapa</LoadingText>

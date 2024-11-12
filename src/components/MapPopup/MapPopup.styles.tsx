@@ -63,7 +63,7 @@ export const PercentArea = styled.h3`
 `;
 
 export const Color = styled.div<{ color: string; $percent: number }>`
-  width: ${({ $percent }) => `${$percent / 15}rem`};
+  width: ${({ $percent }) => `${$percent / 10}rem`};
   max-width: 100%;
   min-width: 0.2rem;
   height: 1.25rem;

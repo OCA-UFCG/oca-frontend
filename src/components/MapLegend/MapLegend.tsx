@@ -1,4 +1,4 @@
-import { IEEInfo, IImageParam } from "@/utils/interfaces";
+import { IImageParam } from "@/utils/interfaces";
 import {
   DataLegendContainer,
   DataContainer,
@@ -13,57 +13,49 @@ import {
   MetaInfoContainer,
   ContentContainer,
 } from "./MapLegend.styles";
-import { useState } from "react";
+import { useContext, useMemo } from "react";
+import { MapTiffContext } from "@/contexts/MapContext";
 
-interface MapLegendProps {
-  imageInfo: IEEInfo;
-  year: string;
-}
+export const MapLegend = () => {
+  const { tiffs, currentVisu } = useContext(MapTiffContext);
 
-export const MapLegend = ({ imageInfo, year = "general" }: MapLegendProps) => {
-  const [retracted, setRetracted] = useState<string>("open");
-
-  const { name, imageData, measurementUnit, extraInfo, graphLegendTitle } =
-    imageInfo;
+  const imageInfo = useMemo(
+    () => tiffs.find((tiff) => tiff.fields.id === currentVisu.id)?.fields,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentVisu.id],
+  );
 
   return (
-    <Wrapper>
-      <HeaderContainer
-        onClick={() =>
-          setRetracted((previous) =>
-            previous === "retracted" ? "open" : "retracted",
-          )
-        }
-      >
-        <Title>{graphLegendTitle || name}</Title>
-        <SubtractImage
-          retracted={retracted}
-          id="subtract"
-          height={16}
-          width={16}
-        />
+    <Wrapper open={true}>
+      <HeaderContainer>
+        <Title>{imageInfo?.graphLegendTitle || imageInfo?.name}</Title>
+        <SubtractImage id="subtract" height={16} width={16} />
       </HeaderContainer>
-      <ContentContainer retracted={retracted}>
+      <ContentContainer>
         <DataLegendContainer>
-          {imageData[year]?.imageParams.map(({ color, label }: IImageParam) => {
+          {imageInfo?.imageData[
+            currentVisu?.year || "general"
+          ]?.imageParams.map(({ color, label }: IImageParam) => {
             return (
               <DataContainer
                 key={color}
-                title={`${label} ${measurementUnit !== "classes" ? measurementUnit : ""}`}
+                title={`${label} ${imageInfo?.measurementUnit !== "classes" ? imageInfo?.measurementUnit : ""}`}
               >
                 <Color color={color} />
                 <ColorLabel>{label}</ColorLabel>
 
                 <Measurement>
-                  {measurementUnit !== "classes" ? measurementUnit : ""}
+                  {imageInfo?.measurementUnit !== "classes"
+                    ? imageInfo?.measurementUnit
+                    : ""}
                 </Measurement>
               </DataContainer>
             );
           })}
         </DataLegendContainer>
-        {extraInfo && (
+        {imageInfo?.extraInfo && (
           <MetaInfoContainer>
-            {extraInfo.map((info: string) => (
+            {imageInfo?.extraInfo.map((info: string) => (
               <MetaInfo key={info}>{info}</MetaInfo>
             ))}
           </MetaInfoContainer>

@@ -142,6 +142,7 @@ export const PinBox = styled.div`
 
 export const ButtonsWrapper = styled.div`
   display: flex;
+  position: absolute;
   order: 2;
   justify-content: space-between;
   align-items: flex-end;

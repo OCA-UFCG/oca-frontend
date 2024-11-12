@@ -6,7 +6,7 @@ export const revalidate = 60;
 const MapPage = async () => {
   const { tiffInfo } = await getContent(["tiffInfo"]);
 
-  return <MapSection mapsData={tiffInfo} />;
+  return <MapSection tiffs={tiffInfo} />;
 };
 
 export default MapPage;
