@@ -60,45 +60,49 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
     });
   };
 
-  const loadSources = useCallback(
+  const loadAdditionalSources = useCallback(
     async (map: maplibregl.Map) => {
-      // === Add current raster source
       const yearStr = year ? year : "general";
-      const mapData = tiffs.find((data) => data.fields.id === id)?.fields;
-      fetchMapSources(id, yearStr, JSON.stringify(mapData))
-        .then(({ url }) => {
-          map.addSource(`@oca/${id}${yearStr}`, {
+      for (const additionalMapData of tiffs) {
+        for (const newYear of Object.keys(additionalMapData.fields.imageData)) {
+          const newId = additionalMapData.fields.id;
+          const sourceKey = `@oca/${newId}${newYear}`;
+          if (map.getSource(sourceKey) || (newId === id && newYear === yearStr))
+            continue;
+
+          const { url } = await fetchMapSources(
+            newId,
+            newYear,
+            JSON.stringify(additionalMapData.fields),
+          );
+
+          // Adiciona a nova fonte ao mapa
+          map.addSource(sourceKey, {
             type: "raster",
             tiles: [url],
             tileSize: isReduced ? 64 : 128,
           });
-        })
-        .then(() => {
-          for (const additionalMapData of tiffs) {
-            for (const y of Object.keys(additionalMapData.fields.imageData)) {
-              const cId = additionalMapData.fields.id;
-              const sourceKey = `@oca/${cId}${y}`;
+        }
+      }
+    },
+    [tiffs, id, year, isReduced],
+  );
 
-              if (map.getSource(sourceKey)) continue;
-              if (cId === id && y === yearStr) continue;
-
-              fetchMapSources(cId, y, JSON.stringify(additionalMapData.fields))
-                .then(({ url: additionalUrl }) => {
-                  map.addSource(sourceKey, {
-                    type: "raster",
-                    tiles: [additionalUrl],
-                    tileSize: isReduced ? 64 : 128,
-                  });
-                })
-                .catch((error) => {
-                  console.error("Erro ao carregar fontes de mapa.", error);
-                });
-            }
-          }
-        })
-        .catch((error) => {
-          console.error("Erro ao carregar fontes de mapa.", error);
-        });
+  const loadInitialSources = useCallback(
+    async (map: maplibregl.Map) => {
+      // === Add current raster source
+      const yearStr = year ? year : "general";
+      const mapData = tiffs.find((data) => data.fields.id === id)?.fields;
+      const { url } = await fetchMapSources(
+        id,
+        yearStr,
+        JSON.stringify(mapData),
+      );
+      map.addSource(`@oca/${id}${yearStr}`, {
+        type: "raster",
+        tiles: [url],
+        tileSize: isReduced ? 64 : 128,
+      });
 
       // === Add Brazil states source
       map.addSource("brazil-states", {
@@ -237,7 +241,8 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
         if (!isReduced)
           newMap.addControl(new maplibregl.NavigationControl(), "bottom-left");
 
-        loadSources(newMap);
+        loadInitialSources(newMap);
+        loadAdditionalSources(newMap);
       });
 
       newMap.on("sourcedata", (e) => {
@@ -253,7 +258,13 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
 
       setMap(newMap);
     }
-  }, [isReduced, mapContainer, loadedSources, loadSources]);
+  }, [
+    isReduced,
+    mapContainer,
+    loadedSources,
+    loadInitialSources,
+    loadAdditionalSources,
+  ]);
 
   useEffect(() => {
     const yearStr = year ? year : "general";
