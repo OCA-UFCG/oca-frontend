@@ -201,9 +201,8 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
             // const rasterColors = rasterMetadata.fields.imageData[
             //   year
             // ]?.imageParams.map((param: any) => param.color);
-
             const rasterColors =
-              name === "cisterna"
+              id === "cisterna"
                 ? []
                 : rasterMetadata.fields.imageData[year]?.imageParams.map(
                     (param) => param.color,
