@@ -61,8 +61,8 @@ jobs:
       - name: Prune unused Docker images
         run: sudo docker system prune -f
 
-  build-failover:
-    runs-on: x2-aws-self-hosted-runner
+  secondary-build:
+    runs-on: secondary-self-hosted-runner
     steps:
       - uses: actions/checkout@v4
 
