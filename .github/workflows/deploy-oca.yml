@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-primaria:
-    runs-on: oca-self-hosted-runner
+    runs-on: x1-aws-self-hosted-runner
     steps:
       - uses: actions/checkout@v4
 
@@ -62,7 +62,7 @@ jobs:
         run: sudo docker system prune -f
 
   build-failover:
-    runs-on: oca-self-hosted-runner
+    runs-on: x2-aws-self-hosted-runner
     steps:
       - uses: actions/checkout@v4
 
