@@ -5,8 +5,8 @@ on:
     tags: ["*"]
 
 jobs:
-  build-primaria:
-    runs-on: x1-aws-self-hosted-runner
+  primary-build:
+    runs-on: primary-self-hosted-runner
     steps:
       - uses: actions/checkout@v4
 
