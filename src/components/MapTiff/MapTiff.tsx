@@ -270,7 +270,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
     if (loadedSources.has(sourceKey) && map && !map.getLayer(sourceKey)) {
       setLoading(true);
       cleanOcaLayers(map);
-      addPopupEffect(id, yearStr);
+      if (!isReduced) addPopupEffect(id, yearStr);
       showOcaLayer(map, sourceKey);
       setLoading(false);
     }
