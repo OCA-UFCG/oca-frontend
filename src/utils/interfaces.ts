@@ -153,3 +153,8 @@ export interface ISectionHeader {
     subtitle?: string;
   };
 }
+
+export interface IFAQ {
+  question: string;
+  answer: string;
+}
