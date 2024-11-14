@@ -1,10 +1,6 @@
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
-export async function fetchMapSources(
-  id: string,
-  year: string,
-  body: BodyInit,
-) {
+export async function fetchMapURL(id: string, year: string, body: BodyInit) {
   try {
     const response = await fetch(`${HOST_URL}/api/ee?name=${id}&year=${year}`, {
       method: "POST",

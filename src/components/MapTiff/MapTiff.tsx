@@ -12,7 +12,7 @@ import {
 } from "@/utils/constants";
 import MapPopup from "../MapPopup/MapPopup";
 import { MapTiffContext } from "@/contexts/MapContext";
-import { fetchMapSources } from "@/services/mapServices";
+import { fetchMapURL } from "@/services/mapServices";
 
 const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
   const {
@@ -70,7 +70,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
           if (map.getSource(sourceKey) || (newId === id && newYear === yearStr))
             continue;
 
-          const { url } = await fetchMapSources(
+          const { url } = await fetchMapURL(
             newId,
             newYear,
             JSON.stringify(additionalMapData.fields),
@@ -93,11 +93,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
       // === Add current raster source
       const yearStr = year ? year : "general";
       const mapData = tiffs.find((data) => data.fields.id === id)?.fields;
-      const { url } = await fetchMapSources(
-        id,
-        yearStr,
-        JSON.stringify(mapData),
-      );
+      const { url } = await fetchMapURL(id, yearStr, JSON.stringify(mapData));
       map.addSource(`@oca/${id}${yearStr}`, {
         type: "raster",
         tiles: [url],
