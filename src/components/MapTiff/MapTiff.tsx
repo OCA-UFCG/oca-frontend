@@ -189,9 +189,17 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
           const rasterMetadata = tiffs.filter(
             (data) => data.fields.id === id,
           )[0];
-          const rasterColors = rasterMetadata.fields.imageData[
-            year
-          ]?.imageParams.map((param: any) => param.color);
+
+          // === Refact this in the future
+          // const rasterColors = rasterMetadata.fields.imageData[
+          //   year
+          // ]?.imageParams.map((param: any) => param.color);
+          const rasterColors =
+            id === "cisterna"
+              ? []
+              : rasterMetadata.fields.imageData[year]?.imageParams.map(
+                  (param) => param.color,
+                );
 
           root.render(
             <MapPopup

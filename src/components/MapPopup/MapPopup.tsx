@@ -9,7 +9,8 @@ import {
   PercentArea,
   Color,
   InfoContent,
-} from "./MapPopup.styles"; // Estilos importados
+  List,
+} from "./MapPopup.styles";
 
 interface AreaInfo {
   color: string;
@@ -44,13 +45,22 @@ const MapPopup: React.FC<MapPopupProps> = ({
         <Subtitle>{fcMetadata.Area_general}</Subtitle>
       </TopHeader>
       <InfoContent>
-        {areas.map((areaInfo: AreaInfo, index) => (
-          <LineInfo key={index}>
-            <Color color={areaInfo.color} $percent={areaInfo.percent || 45} />
-            <TotalArea>{areaInfo.area}</TotalArea>
-            {areaInfo.percent && <PercentArea>{areaInfo.percent}%</PercentArea>}
-          </LineInfo>
-        ))}
+        <List>
+          {areas.map((areaInfo: AreaInfo, index) => (
+            <LineInfo key={index} isColored={colors.length > 0}>
+              {colors.length > 0 && (
+                <Color
+                  color={areaInfo.color}
+                  $percent={areaInfo.percent || 45}
+                />
+              )}
+              <TotalArea>{areaInfo.area}</TotalArea>
+              {areaInfo.percent && (
+                <PercentArea>{areaInfo.percent}%</PercentArea>
+              )}
+            </LineInfo>
+          ))}
+        </List>
       </InfoContent>
     </PopupContent>
   );
