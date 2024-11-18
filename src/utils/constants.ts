@@ -42,6 +42,10 @@ export const sections: ISections = {
         name: "Parceiros",
         path: "/#sponsors",
       },
+      FAQ: {
+        name: "Perguntas frequentes",
+        path: "/#FAQ",
+      },
     },
   },
   about: {
