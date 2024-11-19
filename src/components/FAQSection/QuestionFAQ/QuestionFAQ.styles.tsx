@@ -24,7 +24,7 @@ export const QuestionContainer = styled.details`
   margin: 1rem;
   background-color: white;
 
-  box-shadow: 0px 0px 4px #cdcdcd;
+  box-shadow: 0px 0px 2px grey;
 
   &:not([open]) ${IconWrapper} {
     transform: rotate(45deg);
