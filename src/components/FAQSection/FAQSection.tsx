@@ -16,10 +16,7 @@ const FAQSection = ({
       <SectionHeader id="FAQ" sectionHead={sectionHead} />
       <FAQContainer>
         {FAQ.map((publications, index) => (
-          <QuestionFAQ
-            key={index}
-            data={publications.fields as unknown as IPublication}
-          />
+          <QuestionFAQ key={index} data={publications.fields} />
         ))}
       </FAQContainer>
     </Wrapper>

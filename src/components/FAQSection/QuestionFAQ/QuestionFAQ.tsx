@@ -1,6 +1,6 @@
 import { IPublication } from "@/utils/interfaces";
 import {
-  FieldDetails,
+  QuestionContainer,
   IconWrapper,
   SubSectionFAQ,
   Summary,
@@ -11,13 +11,13 @@ const QuestionFAQ = ({ data }: { data: IPublication }) => {
   const { title, type } = data;
 
   return (
-    <FieldDetails>
+    <QuestionContainer>
       <Summary>
         <Title>{type}</Title>
         <IconWrapper id="close" size={16} stroke-width={2} />
       </Summary>
       <SubSectionFAQ>{title}</SubSectionFAQ>
-    </FieldDetails>
+    </QuestionContainer>
   );
 };
 

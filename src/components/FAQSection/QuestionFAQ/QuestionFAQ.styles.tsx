@@ -17,8 +17,7 @@ export const IconWrapper = styled(Icon)`
   flex-shrink: 0;
 `;
 
-export const FieldDetails = styled.details`
-  box-sizing: border-box;
+export const QuestionContainer = styled.details`
   display: flex;
   width: 100%;
   padding: 1rem 0;
@@ -32,7 +31,7 @@ export const FieldDetails = styled.details`
   }
 
   &[open] ${SubSectionFAQ} {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
 
   @media (min-width: 768px) {
