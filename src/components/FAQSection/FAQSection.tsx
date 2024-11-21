@@ -1,4 +1,3 @@
-"use client";
 import { IPublication, ISectionHeader } from "@/utils/interfaces";
 import { FAQContainer, Wrapper } from "./FAQSection.styles";
 import { SectionHeader } from "../SectionHeader/SectionHeader";

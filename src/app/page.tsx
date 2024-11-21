@@ -45,7 +45,7 @@ export default async function Home() {
         publications={publications}
       />
       <SponsorsSection sponsors={sponsors} sectionHead={sectionHead} />
-      <FAQSection sectionHead={sectionHead} FAQ={publications}></FAQSection>
+      <FAQSection sectionHead={sectionHead} FAQ={publications} />
     </Template>
   );
 }
