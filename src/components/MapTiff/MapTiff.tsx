@@ -5,14 +5,12 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { createRoot } from "react-dom/client";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { MapContainer, Loading, LoadingText } from "./MapTiff.styles";
-import {
-  MAP_TIFF_STYLE,
-  MAP_TIFF_BRAZIL_STATES,
-  MAP_TIFF_BRAZIL_CITIES,
-} from "@/utils/constants";
+import { MAP_TIFF_STYLE, MAP_TIFF_BRAZIL_CITIES } from "@/utils/constants";
 import MapPopup from "../MapPopup/MapPopup";
 import { MapTiffContext } from "@/contexts/MapContext";
 import { fetchMapURL } from "@/services/mapServices";
+
+const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
 const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
   const {
@@ -102,14 +100,15 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
 
       // === Add Brazil states source
       map.addSource("brazil-states", {
-        type: "geojson",
-        data: MAP_TIFF_BRAZIL_STATES,
+        type: "vector",
+        tiles: [`${HOST_URL}/api/tiles/{z}/{x}/{y}`],
       });
 
       map.addLayer({
         id: "state-fills",
         type: "fill",
         source: "brazil-states",
+        "source-layer": "brazilstates",
         layout: {},
         paint: {
           "fill-color": "black",
@@ -126,6 +125,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
         id: "state-borders",
         type: "line",
         source: "brazil-states",
+        "source-layer": "brazilstates",
         layout: {},
         paint: {
           "line-color": "#2D2D2D",
