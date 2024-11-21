@@ -169,14 +169,22 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
         if (e.features && e.features.length > 0) {
           if (hoveredStateId) {
             map.setFeatureState(
-              { source: "brazil-states", id: hoveredStateId },
+              {
+                source: "brazil-states",
+                sourceLayer: "brazilstates",
+                id: hoveredStateId,
+              },
               { hover: false },
             );
           }
 
           hoveredStateId = e.features[0].id;
           map.setFeatureState(
-            { source: "brazil-states", id: hoveredStateId },
+            {
+              source: "brazil-states",
+              sourceLayer: "brazilstates",
+              id: hoveredStateId,
+            },
             { hover: true },
           );
 
@@ -216,7 +224,11 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
       map?.on("mouseleave", "state-fills", () => {
         if (hoveredStateId) {
           map.setFeatureState(
-            { source: "brazil-states", id: hoveredStateId },
+            {
+              source: "brazil-states",
+              sourceLayer: "brazilstates",
+              id: hoveredStateId,
+            },
             { hover: false },
           );
         }

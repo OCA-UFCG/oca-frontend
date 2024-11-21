@@ -10,7 +10,7 @@ type TileResponse = {
 const MBTILES_PATH = path.join(
   process.cwd(),
   "public",
-  "brasil-states.mbtiles",
+  "brazil-states.mbtiles",
 );
 
 // Open the MBTiles database
@@ -62,11 +62,6 @@ export async function GET(
         headers.set("Content-Encoding", "gzip");
 
         resolve(new NextResponse(row.tile_data, { status: 200, headers }));
-      } else {
-        // Tile not found
-        resolve(
-          NextResponse.json({ error: "Tile not found" }, { status: 404 }),
-        );
       }
     });
   });
