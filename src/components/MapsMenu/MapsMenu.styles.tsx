@@ -42,6 +42,7 @@ export const IconWrapper = styled(Icon)`
 export const FieldDetails = styled.details`
   box-sizing: border-box;
   display: flex;
+  flex-flow: column;
   gap: 0.5rem;
   width: 100%;
   padding: 0.5rem 0;
@@ -50,14 +51,6 @@ export const FieldDetails = styled.details`
 
   &:not([open]) ${IconWrapper} {
     transform: rotate(45deg);
-  }
-
-  &[open] ${SubSectionWrapper} {
-    margin-top: 1rem;
-  }
-
-  &:not([open]) ${SubSectionWrapper} {
-    margin-top: 0rem;
   }
 `;
 
