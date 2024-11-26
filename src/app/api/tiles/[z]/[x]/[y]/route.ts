@@ -6,14 +6,12 @@ type TileResponse = {
   tile_data: Buffer;
 };
 
-// Path to your MBTiles file
 const MBTILES_PATH = path.join(
   process.cwd(),
   "public",
   "brazil-states.mbtiles",
 );
 
-// Open the MBTiles database
 const db = new sqlite3.Database(MBTILES_PATH, (err) => {
   if (err) {
     console.error("Failed to open MBTiles file:", err.message);
@@ -22,17 +20,15 @@ const db = new sqlite3.Database(MBTILES_PATH, (err) => {
   }
 });
 
-// Convert TMS (Tile Map Service) Y coordinate to Google XYZ Y
 function tmsToGoogleY(y: number, zoom: number) {
   return Math.pow(2, zoom) - 1 - y;
 }
 
-// Handle API requests
 export async function GET(
   req: NextRequest,
   { params }: { params: { z: string; x: string; y: string } },
 ): Promise<Response> {
-  const { z, x, y } = params; // Extract z, x, y from the route parameters
+  const { z, x, y } = params;
   const zoom = parseInt(z);
   const col = parseInt(x);
   const row = tmsToGoogleY(parseInt(y), zoom);
@@ -67,7 +63,6 @@ export async function GET(
   });
 }
 
-// Close the database connection on shutdown
 process.on("SIGINT", () => {
   db.close((err) => {
     if (err) {
