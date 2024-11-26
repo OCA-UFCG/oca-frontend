@@ -20,7 +20,8 @@ const db = new sqlite3.Database(MBTILES_PATH, (err) => {
   }
 });
 
-function tmsToGoogleY(y: number, zoom: number) {
+//function needed to convert the Y axis scale received by mbtile to the way it is used in Maplibre
+function adaptToGoogleY(y: number, zoom: number) {
   return Math.pow(2, zoom) - 1 - y;
 }
 
@@ -31,7 +32,7 @@ export async function GET(
   const { z, x, y } = params;
   const zoom = parseInt(z);
   const col = parseInt(x);
-  const row = tmsToGoogleY(parseInt(y), zoom);
+  const row = adaptToGoogleY(parseInt(y), zoom);
 
   const query = `
     SELECT tile_data FROM tiles
