@@ -11,5 +11,5 @@ export const FAQContainer = styled.div`
   flex-flow: column;
   align-items: center;
   width: 100%;
-  gap: 0.5rem;
+  gap: 1rem;
 `;

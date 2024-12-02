@@ -7,7 +7,7 @@ export const SubSectionFAQ = styled.p`
   align-items: center;
   gap: 0.5rem;
   transition: 100ms;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem 1rem;
   margin: 0;
 `;
 
@@ -29,9 +29,9 @@ export const Summary = styled.summary`
 
 export const QuestionContainer = styled.details`
   display: flex;
+  flex-flow: column;
   width: 100%;
-  padding: 1rem 0;
-  margin: 1rem;
+  max-width: 60rem;
   background-color: white;
 
   box-shadow: 0px 0px 2px grey;
@@ -42,10 +42,6 @@ export const QuestionContainer = styled.details`
 
   summary:hover {
     background: #cdcdcd20;
-  }
-
-  @media (min-width: 768px) {
-    width: 50%;
   }
 `;
 
