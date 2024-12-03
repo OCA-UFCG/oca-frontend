@@ -1,4 +1,5 @@
-import { IPublication } from "@/utils/interfaces";
+import { IFAQ } from "@/utils/interfaces";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import {
   QuestionContainer,
   IconWrapper,
@@ -7,16 +8,14 @@ import {
   Title,
 } from "./QuestionFAQ.styles";
 
-const QuestionFAQ = ({ data }: { data: IPublication }) => {
-  const { title, type } = data;
-
+const QuestionFAQ = ({ data }: { data: IFAQ }) => {
   return (
     <QuestionContainer>
       <Summary>
-        <Title>{type}</Title>
+        <Title>{data.title}</Title>
         <IconWrapper id="close" size={16} stroke-width={2} />
       </Summary>
-      <SubSectionFAQ>{title}</SubSectionFAQ>
+      <SubSectionFAQ>{documentToReactComponents(data.details)}</SubSectionFAQ>
     </QuestionContainer>
   );
 };

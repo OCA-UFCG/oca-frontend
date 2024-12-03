@@ -18,6 +18,7 @@ export default async function Home() {
     sponsors,
     tiffInfo,
     sectionHead,
+    FAQ,
   } = await getContent([
     "news",
     "publications",
@@ -45,7 +46,7 @@ export default async function Home() {
         publications={publications}
       />
       <SponsorsSection sponsors={sponsors} sectionHead={sectionHead} />
-      <FAQSection sectionHead={sectionHead} FAQ={publications} />
+      <FAQSection sectionHead={sectionHead} FAQ={FAQ} />
     </Template>
   );
 }

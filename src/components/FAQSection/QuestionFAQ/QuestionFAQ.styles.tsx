@@ -3,12 +3,30 @@ import { Icon } from "@/components/Icon/Icon";
 import styled from "styled-components";
 
 export const SubSectionFAQ = styled.p`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   transition: 100ms;
   padding: 0.5rem 1rem 1rem;
-  margin: 0;
+  margin: 1rem;
+
+  h2 {
+    font-size: 1.7rem;
+    margin: 1rem 0;
+  }
+
+  h3,
+  h4 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
 `;
 
 export const IconWrapper = styled(Icon)`
