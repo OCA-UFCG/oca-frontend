@@ -1,3 +1,5 @@
+import { Document } from "@contentful/rich-text-types";
+
 export interface ISponsor {
   name: string;
   logo:
@@ -152,4 +154,9 @@ export interface ISectionHeader {
     title: string;
     subtitle?: string;
   };
+}
+
+export interface IFAQ {
+  title: string;
+  details: Document;
 }

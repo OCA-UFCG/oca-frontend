@@ -7,6 +7,7 @@ import { getContent } from "@/utils/functions";
 import AboutHomeSection from "@/components/AboutHomeSection/AboutHomeSection";
 import { MapTiffProvider } from "@/contexts/MapContext";
 import { Suspense } from "react";
+import FAQSection from "@/components/FAQSection/FAQSection";
 
 export const revalidate = 60;
 
@@ -17,12 +18,14 @@ export default async function Home() {
     sponsors,
     tiffInfo,
     sectionHead,
+    FAQ,
   } = await getContent([
     "news",
     "publications",
     "sponsors",
     "tiffInfo",
     "about",
+    "FAQ",
     "sectionHead",
   ]);
 
@@ -43,6 +46,7 @@ export default async function Home() {
         publications={publications}
       />
       <SponsorsSection sponsors={sponsors} sectionHead={sectionHead} />
+      <FAQSection sectionHead={sectionHead} FAQ={FAQ} />
     </Template>
   );
 }
