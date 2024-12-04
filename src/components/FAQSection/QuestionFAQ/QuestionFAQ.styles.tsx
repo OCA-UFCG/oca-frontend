@@ -2,7 +2,7 @@
 import { Icon } from "@/components/Icon/Icon";
 import styled from "styled-components";
 
-export const SubSectionFAQ = styled.p`
+export const SubSectionFAQ = styled.div`
   transition: 100ms;
   padding: 0.5rem 1rem 1rem;
   margin: 1rem;
