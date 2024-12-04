@@ -19,7 +19,7 @@ export const SubSectionFAQ = styled.p`
     margin: 1rem 0;
   }
 
-  strong {
+  b {
     font-weight: bold;
   }
 
