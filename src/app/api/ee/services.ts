@@ -29,8 +29,9 @@ export const getCachedUrl = (key: string) => {
  * @param {string} key - The unique key that refers to the URL to be returned.
  * @param {string} url - The URL to cache.
  */
-export const addUrlToCache = (key: string, url: string) => {
-  cacheUrls.set(key, url);
+export const addUrlToCache = (key: string, url: string | null) => {
+  if (url) cacheUrls.set(key, url);
+  else cacheUrls.delete(key);
 };
 
 /**
@@ -81,22 +82,31 @@ export const getEarthEngineUrl = async (
   minScale: any,
   maxScale: any,
 ) => {
-  await authenticate();
+  try {
+    await authenticate();
 
-  const GEEImage = ee
-    .Image(imageId)
-    .selfMask()
-    .reduceResolution(ee.Reducer.mode(), true, 128);
-  const { categorizedImage, visParams } = getImageScale(
-    GEEImage,
-    imageParams,
-    minScale,
-    maxScale,
-  );
+    const GEEImage = ee
+      .Image(imageId)
+      .selfMask()
+      .reduceResolution(ee.Reducer.mode(), true, 128);
+    const { categorizedImage, visParams } = getImageScale(
+      GEEImage,
+      imageParams,
+      minScale,
+      maxScale,
+    );
 
-  const mapId: IMapId = (await getMapId(categorizedImage, visParams)) as IMapId;
+    const mapId: IMapId = (await getMapId(
+      categorizedImage,
+      visParams,
+    )) as IMapId;
 
-  return mapId.urlFormat;
+    return mapId.urlFormat;
+  } catch (error: any) {
+    console.error("Error during authentication:", error.message);
+
+    return null;
+  }
 };
 
 /**
