@@ -2,71 +2,7 @@ import ee from "@google/earthengine";
 import { IMapId } from "@/utils/interfaces";
 import { getContent } from "@/utils/functions";
 
-let cached = false;
-
-const cacheUrls = new Map<string, string>();
-
-/**
- * Checks if a given key exists in cache.
- * @param {string} key - The unique key to be search in the cache.
- * @returns {boolean} - True if the key exists, false otherwise.
- */
-export const hasKey = (key: string) => {
-  return cacheUrls.has(key);
-};
-
-/**
- * Retrieves the caches URL for a given key.
- * @param {string} key - The unique key that refers to the URL to be returned.
- * @return {string | undefined} - The cached URL or undefined if the url is not present in the cache.
- */
-export const getCachedUrl = (key: string) => {
-  return cacheUrls.get(key);
-};
-
-/**
- * Adds a url to the cache, based on a key composed by the name and year of the map visualization.
- * @param {string} key - The unique key that refers to the URL to be returned.
- * @param {string} url - The URL to cache.
- */
-export const addUrlToCache = (key: string, url: string | null) => {
-  if (url) cacheUrls.set(key, url);
-  else cacheUrls.delete(key);
-};
-
-/**
- * Fetches and caches map data from Contentful/GEE API sources.
- * Runs recursively every 12 hours to keep the cache updated.
- */
-export const cacheMapData = async () => {
-  cached = true;
-  const { tiffInfo } = await getContent(["tiffInfo"]);
-
-  tiffInfo.forEach(async (data: any) => {
-    const id = data.fields.id;
-    const imageData = data.fields.imageData;
-    const minScale = data.fields.minScale;
-    const maxScale = data.fields.maxScale;
-
-    Object.keys(imageData).forEach(async (year) => {
-      const { imageId, imageParams } = imageData[year];
-      const url = await getEarthEngineUrl(
-        imageId,
-        imageParams,
-        minScale,
-        maxScale,
-      );
-      addUrlToCache(id + year, url);
-    });
-  });
-
-  setInterval(
-    () => {
-      cacheMapData();
-    },
-    1000 * 60 * 60 * 12,
-  );
-};
+// ====== GEE ======
 
 /**
  * Fetches a URL for an Earth Engine image with given parameters.
@@ -196,4 +132,67 @@ function getMapId(image: any, visParams?: any) {
   });
 }
 
-if (!cached) cacheMapData();
+// ====== Cache ======
+let cached = false;
+const cacheUrls = new Map<string, string>();
+
+/**
+ * Checks if a given key exists in cache.
+ * @param {string} key - The unique key to be search in the cache.
+ * @returns {boolean} - True if the key exists, false otherwise.
+ */
+export const hasKey = (key: string) => {
+  return cacheUrls.has(key);
+};
+
+/**
+ * Retrieves the caches URL for a given key.
+ * @param {string} key - The unique key that refers to the URL to be returned.
+ * @return {string | undefined} - The cached URL or undefined if the url is not present in the cache.
+ */
+export const getCachedUrl = (key: string) => {
+  return cacheUrls.get(key);
+};
+
+/**
+ * Adds a url to the cache, based on a key composed by the name and year of the map visualization.
+ * @param {string} key - The unique key that refers to the URL to be returned.
+ * @param {string} url - The URL to cache.
+ */
+export const addUrlToCache = (key: string, url: string | null) => {
+  if (url) cacheUrls.set(key, url);
+  else cacheUrls.delete(key);
+};
+
+/**
+ * Fetches and caches map data from Contentful/GEE API sources.
+ * Runs recursively every 12 hours to keep the cache updated.
+ */
+export const cacheMapData = async () => {
+  const { tiffInfo } = await getContent(["tiffInfo"]);
+  
+  for (const data of tiffInfo) {
+    const id = data.fields.id;
+    const imageData = data.fields.imageData;
+    const minScale = data.fields.minScale;
+    const maxScale = data.fields.maxScale;
+    
+    for (const year of Object.keys(imageData)) { 
+      const { imageId, imageParams } = imageData[year];
+      const url = await getEarthEngineUrl(
+        imageId,
+        imageParams,
+        minScale,
+        maxScale,
+      );
+      addUrlToCache(id + year, url);
+    }
+  }
+
+  cached = true;
+};
+
+if (!cached) {
+  cacheMapData();
+  setInterval(cacheMapData, 1000 * 60 * 60 * 12);
+}
