@@ -5,8 +5,8 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
-    runs-on: oca-self-hosted-runner
+  build-image:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -45,6 +45,10 @@ jobs:
             NEXT_PUBLIC_MAIL_APP_USER=${{ vars.NEXT_PUBLIC_MAIL_APP_USER }}
             NEXT_PUBLIC_MAIL_APP_PASS=${{ secrets.NEXT_PUBLIC_MAIL_APP_PASS }}
 
+  push-beta:
+    needs: build-image        
+    runs-on: beta-runner
+    steps:
       - name: Pull the latest image
         run: sudo docker pull ${{ vars.DOCKER_IMAGE_BETA }}:latest
 

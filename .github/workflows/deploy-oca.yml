@@ -46,9 +46,9 @@ jobs:
             NEXT_PUBLIC_MAIL_APP_USER=${{ vars.NEXT_PUBLIC_MAIL_APP_USER }}
             NEXT_PUBLIC_MAIL_APP_PASS=${{ secrets.NEXT_PUBLIC_MAIL_APP_PASS }}
 
-  deploy-prod:
+  push-deploy:
       needs: build-image
-      runs-on: primary-self-hosted-runner
+      runs-on: deploy-runner
       steps:
       - name: Pull the latest image
         run: sudo docker pull ${{ vars.DOCKER_IMAGE_PROD }}:latest
@@ -65,9 +65,9 @@ jobs:
       - name: Prune unused Docker images
         run: sudo docker system prune -f
 
-  deploy-failover:
+  push-failover:
       needs: build-image
-      runs-on: secondary-self-hosted-runner
+      runs-on: failover-runner
       steps:
       - name: Pull the latest image
         run: sudo docker pull ${{ vars.DOCKER_IMAGE_PROD }}:latest
