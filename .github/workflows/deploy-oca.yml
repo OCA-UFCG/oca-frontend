@@ -5,8 +5,8 @@ on:
     tags: ["*"]
 
 jobs:
-  primary-build:
-    runs-on: primary-self-hosted-runner
+  build-image:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -46,6 +46,10 @@ jobs:
             NEXT_PUBLIC_MAIL_APP_USER=${{ vars.NEXT_PUBLIC_MAIL_APP_USER }}
             NEXT_PUBLIC_MAIL_APP_PASS=${{ secrets.NEXT_PUBLIC_MAIL_APP_PASS }}
 
+  deploy-prod:
+      needs: build-image
+      runs-on: primary-self-hosted-runner
+      steps:
       - name: Pull the latest image
         run: sudo docker pull ${{ vars.DOCKER_IMAGE_PROD }}:latest
 
@@ -61,47 +65,10 @@ jobs:
       - name: Prune unused Docker images
         run: sudo docker system prune -f
 
-  secondary-build:
-    runs-on: secondary-self-hosted-runner
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Update docker metadata with the tag
-        uses: docker/metadata-action@v4
-        id: meta
-        with:
-          images: ${{ vars.DOCKER_IMAGE_PROD }}
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          file: Dockerfile.production
-          labels: ${{ steps.meta.outputs.labels }}
-          tags: |
-            ${{ vars.DOCKER_IMAGE_PROD }}:latest
-            ${{ steps.meta.outputs.tags }}
-          build-args: |
-            NEXT_PUBLIC_HOST_URL=${{ vars.NEXT_PUBLIC_HOST_URL }}
-            NEXT_PUBLIC_GEE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_GEE_PRIVATE_KEY }}
-            NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
-            NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
-            NEXT_PUBLIC_CONTENTFUL_SPACE=${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE  }}
-            NEXT_PUBLIC_MAIL_APP_TO=${{ vars.NEXT_PUBLIC_MAIL_APP_TO }}
-            NEXT_PUBLIC_MAIL_APP_CC=${{ vars.NEXT_PUBLIC_MAIL_APP_CC }}
-            NEXT_PUBLIC_MAIL_APP_USER=${{ vars.NEXT_PUBLIC_MAIL_APP_USER }}
-            NEXT_PUBLIC_MAIL_APP_PASS=${{ secrets.NEXT_PUBLIC_MAIL_APP_PASS }}
-
+  deploy-failover:
+      needs: build-image
+      runs-on: secondary-self-hosted-runner
+      steps:
       - name: Pull the latest image
         run: sudo docker pull ${{ vars.DOCKER_IMAGE_PROD }}:latest
 
@@ -111,7 +78,7 @@ jobs:
       - name: Run new container
         run: sudo docker run --restart unless-stopped --name ${{ vars.CONTAINER_NAME_PROD }} -p ${{ vars.HOST_PORT_PROD }}:${{ vars.CONTAINER_PORT }} -d ${{ vars.DOCKER_IMAGE_PROD }}:latest
 
-      - name: Connect to oca network
+      - name: Connect to oca-network
         run: docker network connect oca-network oca-frontend-app
 
       - name: Prune unused Docker images
