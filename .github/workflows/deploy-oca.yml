@@ -16,6 +16,9 @@ jobs:
         with:
           images: ${{ vars.DOCKER_IMAGE_PROD }}
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+          
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -31,6 +34,7 @@ jobs:
           context: .
           push: true
           file: Dockerfile.production
+          platforms: linux/amd64,linux/arm64
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
             ${{ vars.DOCKER_IMAGE_PROD }}:latest
