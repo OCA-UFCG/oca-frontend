@@ -11,10 +11,12 @@ import {
 } from "./ContactForm.styles";
 import { FormEvent, useState } from "react";
 import { contactStatus } from "@/utils/constants";
+import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
 const ContactForm = () => {
+  const [token, setToken] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [sendStatus, setSendStatus] = useState<
@@ -47,6 +49,7 @@ const ContactForm = () => {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       message: formData.get("message") as string,
+      captchaToken: token,
     };
 
     const response = await fetch(`${HOST_URL}/api/mail`, {
@@ -83,6 +86,7 @@ const ContactForm = () => {
         Mensagem:
         <FormularyTextArea id="message" name="message" required />
       </FormularyLabel>
+      <GoogleReCaptcha onVerify={setToken} action="submit" />
       <DinamicButton
         isFormValid={isFormValid}
         className={sendStatus || "default"}

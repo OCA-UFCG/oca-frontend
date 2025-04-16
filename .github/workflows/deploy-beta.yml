@@ -48,6 +48,8 @@ jobs:
             NEXT_PUBLIC_MAIL_APP_CC=${{ vars.NEXT_PUBLIC_MAIL_APP_CC }}
             NEXT_PUBLIC_MAIL_APP_USER=${{ vars.NEXT_PUBLIC_MAIL_APP_USER }}
             NEXT_PUBLIC_MAIL_APP_PASS=${{ secrets.NEXT_PUBLIC_MAIL_APP_PASS }}
+            NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+            NEXT_PUBLIC_RECAPTCHA_SECRET_KEY=${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY }}
 
   push-beta:
     needs: build-image        
