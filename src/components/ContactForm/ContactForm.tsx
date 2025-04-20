@@ -9,19 +9,24 @@ import {
   Icon,
   TextInButton,
 } from "./ContactForm.styles";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { contactStatus } from "@/utils/constants";
-import { GoogleReCaptcha } from "react-google-recaptcha-v3";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
 const ContactForm = () => {
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [token, setToken] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [sendStatus, setSendStatus] = useState<
     "success" | "error" | "loading" | "default"
   >("default");
+
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const validateForm = (form: HTMLFormElement) => {
     const formData = new FormData(form);
@@ -32,9 +37,6 @@ const ContactForm = () => {
       name.trim() != "" && email.trim() != "" && message.trim() != "";
     setIsFormValid(isValid);
   };
-
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
 
   const sendEmail = async (event: FormEvent) => {
     setIsLoading(true);
@@ -86,12 +88,17 @@ const ContactForm = () => {
         Mensagem:
         <FormularyTextArea id="message" name="message" required />
       </FormularyLabel>
-      <GoogleReCaptcha onVerify={setToken} action="submit" />
+      <ReCAPTCHA
+        sitekey={RECAPTCHA_SITE_KEY}
+        ref={recaptchaRef}
+        onChange={(token) => token && setToken(token)}
+        onExpired={() => setToken("")}
+      />
       <DinamicButton
-        isFormValid={isFormValid}
-        className={sendStatus || "default"}
         type="submit"
-        disabled={!isFormValid || isLoading}
+        className={sendStatus || "default"}
+        isFormValid={isFormValid && !!token}
+        disabled={!isFormValid || !token || isLoading}
       >
         <TextInButton>{contactStatus[sendStatus].message}</TextInButton>
         <Icon
