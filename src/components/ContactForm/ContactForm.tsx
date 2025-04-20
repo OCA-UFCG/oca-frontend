@@ -64,7 +64,9 @@ const ContactForm = () => {
     if (response.ok) {
       setSendStatus("success");
       sleep(4000).then(() => setSendStatus("default"));
+      recaptchaRef.current?.reset();
       form.reset();
+      setToken("");
       setIsFormValid(false);
     } else {
       setSendStatus("error");
