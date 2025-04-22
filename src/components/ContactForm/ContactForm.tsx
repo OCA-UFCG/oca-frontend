@@ -11,6 +11,7 @@ import {
 } from "./ContactForm.styles";
 import { FormEvent, useRef, useState } from "react";
 import { contactStatus } from "@/utils/constants";
+import { sleep } from "@/utils/functions";
 import ReCAPTCHA from "react-google-recaptcha";
 
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
@@ -24,9 +25,6 @@ const ContactForm = () => {
   const [sendStatus, setSendStatus] = useState<
     "success" | "error" | "loading" | "default"
   >("default");
-
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
 
   const validateForm = (form: HTMLFormElement) => {
     const formData = new FormData(form);
