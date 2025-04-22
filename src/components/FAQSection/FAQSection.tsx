@@ -11,7 +11,7 @@ const FAQSection = ({
   FAQ: { fields: IFAQ }[];
 }) => {
   return (
-    <Wrapper full={"false"} id="FAQ">
+    <Wrapper $full={"false"} id="FAQ">
       <SectionHeader id="FAQ" sectionHead={sectionHead} />
       <FAQContainer>
         {FAQ.map((FAQ, index) => (

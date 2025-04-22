@@ -63,24 +63,24 @@ const TagButtonMaps = ({ tag }: { tag: { id: string; name: string } }) => {
   return (
     <TagButton
       ref={buttonRef}
-      active={isActive.toString()}
+      $active={isActive.toString()}
       onClick={() => setCurrentVisu({ id: currentTiff?.id || "", year: "" })}
     >
       <VisuHeader>
-        <VisuName active={isActive.toString()}>{tag.name}</VisuName>
+        <VisuName $active={isActive.toString()}>{tag.name}</VisuName>
         <IconWrapper>
           {loading ? (
-            <LoadingIcon id="loading" size={18} loading={true} />
+            <LoadingIcon id="loading" size={18} $loading={true} />
           ) : (
             <VisuIcon
-              active={isActive.toString()}
+              $active={isActive.toString()}
               id={isActive ? "open-eye" : "closed-eye"}
               size={20}
             />
           )}
           <Divider />
           <LinkButton
-            active={isActive.toString()}
+            $active={isActive.toString()}
             href={`/map?id=${tag.id}`}
             onClick={(e) => {
               e.stopPropagation();
@@ -90,7 +90,7 @@ const TagButtonMaps = ({ tag }: { tag: { id: string; name: string } }) => {
           </LinkButton>
         </IconWrapper>
       </VisuHeader>
-      <Description active={isActive.toString()}>
+      <Description $active={isActive.toString()}>
         {currentTiff?.description}
       </Description>
     </TagButton>

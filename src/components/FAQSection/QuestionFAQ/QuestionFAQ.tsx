@@ -13,7 +13,7 @@ const QuestionFAQ = ({ data }: { data: IFAQ }) => {
     <QuestionContainer>
       <Summary>
         <Title>{data.title}</Title>
-        <IconWrapper id="close" size={16} stroke-width={2} />
+        <IconWrapper id="close" size={16} strokeWidth={2} />
       </Summary>
       <SubSectionFAQ>{documentToReactComponents(data.details)}</SubSectionFAQ>
     </QuestionContainer>

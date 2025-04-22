@@ -37,18 +37,18 @@ const MenuModal = ({
       {hasBackground && (
         <Background
           onClick={updateRetracted}
-          retracted={retracted.toString()}
+          $retracted={retracted.toString()}
         />
       )}
       <ModalWrapper
-        retracted={retracted.toString()}
+        $retracted={retracted.toString()}
         ref={modalRef}
-        position={position}
+        $position={position}
       >
         <HeadWrapper>
           {hasIcon && <Icon id="logo-oca-full" width={120} height={60} />}
           <div onClick={updateRetracted}>
-            <RetractIcon id="retract" size={20} position={position} />
+            <RetractIcon id="retract" size={20} $position={position} />
           </div>
         </HeadWrapper>
         <ContentWrapper>{children}</ContentWrapper>

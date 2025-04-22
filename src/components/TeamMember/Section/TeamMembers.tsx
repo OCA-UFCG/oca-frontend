@@ -11,7 +11,7 @@ const TeamMembersSection = ({
   teamMembers: { fields: ITeamMember }[];
 }) => {
   return (
-    <Section full="false" id="teamMembers">
+    <Section $full="false" id="teamMembers">
       <TeamMembersContainer>
         {teamMembers
           .sort(

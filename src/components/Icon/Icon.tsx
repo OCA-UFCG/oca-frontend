@@ -4,6 +4,7 @@ export const Icon = ({
   width,
   height,
   onClick,
+  strokeWidth,
   ...props
 }: {
   id: string;
@@ -13,6 +14,7 @@ export const Icon = ({
   props?: object;
   onClick?: (arg0: any) => void;
   className?: string;
+  strokeWidth?: number;
 }) => {
   return (
     <svg
@@ -21,6 +23,7 @@ export const Icon = ({
       width={size ? size : width}
       height={size ? size : height}
       className={props.className}
+      strokeWidth={strokeWidth}
     >
       <use href={`/sprite.svg#${id}`} />
     </svg>

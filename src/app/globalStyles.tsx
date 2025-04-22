@@ -226,7 +226,7 @@ export const ContentContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const Main = styled.main<{ backThumb: string }>`
+export const Main = styled.main<{ $backThumb: string }>`
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -235,16 +235,16 @@ export const Main = styled.main<{ backThumb: string }>`
   box-sizing: border-box;
   transition: 0.3s;
 
-  background-image: url(${({ backThumb }) =>
-    backThumb === "true" ? "background.png" : "padrao-verde.png"});
+  background-image: url(${({ $backThumb }) =>
+    $backThumb === "true" ? "background.png" : "padrao-verde.png"});
 
-  background-size: ${({ backThumb }) => backThumb === "false" && "60vw"};
-  background-repeat: ${({ backThumb }) =>
-    backThumb === "true" ? "repeat-x" : "repeat"};
+  background-size: ${({ $backThumb }) => $backThumb === "false" && "60vw"};
+  background-repeat: ${({ $backThumb }) =>
+    $backThumb === "true" ? "repeat-x" : "repeat"};
   background-position: bottom;
 `;
 
-export const Section = styled.section<{ full?: string }>`
+export const Section = styled.section<{ $full?: string }>`
   padding: 1rem 1rem;
   display: flex;
   align-items: center;
@@ -252,8 +252,8 @@ export const Section = styled.section<{ full?: string }>`
   gap: 1.5rem;
   box-sizing: border-box;
   width: 100%;
-  max-width: ${({ full }) =>
-    full !== "false" ? "100%" : "var(--main-section-width)"};
+  max-width: ${({ $full }) =>
+    $full !== "false" ? "100%" : "var(--main-section-width)"};
 `;
 
 export const SectionTitle = styled.h2<{ variation?: "black" | "white" }>`

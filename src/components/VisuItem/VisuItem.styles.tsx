@@ -19,11 +19,11 @@ export const ItemWrapper = styled.div`
   border-radius: 4px;
 `;
 
-export const LoadingIcon = styled(Icon)<{ loading: boolean }>`
+export const LoadingIcon = styled(Icon)<{ $loading: boolean }>`
   opacity: 0.7;
   cursor: not-allowed;
   animation: spin 1s linear infinite;
-  display: ${({ loading }) => (Boolean(loading) ? "block" : "none")};
+  display: ${({ $loading }) => (Boolean($loading) ? "block" : "none")};
 `;
 
 export const Input = styled.input`
@@ -75,13 +75,13 @@ export const Input = styled.input`
   }
 `;
 
-export const Label = styled.label<{ isloading: boolean }>`
+export const Label = styled.label<{ $isloading: boolean }>`
   font-size: 1rem;
   width: 100%;
   transition: 0.3s;
-  cursor: ${({ isloading }) =>
-    Boolean(isloading) ? "not-allowed" : "pointer"};
-  opacity: ${({ isloading }) => (Boolean(isloading) ? "0.7" : "1")};
+  cursor: ${({ $isloading }) =>
+    Boolean($isloading) ? "not-allowed" : "pointer"};
+  opacity: ${({ $isloading }) => (Boolean($isloading) ? "0.7" : "1")};
 `;
 
 export const SubItemsContainer = styled.div`

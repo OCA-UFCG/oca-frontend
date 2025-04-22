@@ -60,7 +60,7 @@ export const MapSection = () => {
 
   return (
     <MapTemplate>
-      <MapContainer isReduced={false}>
+      <MapContainer $isReduced={false}>
         <MapTiff />
       </MapContainer>
       <MapDescription />

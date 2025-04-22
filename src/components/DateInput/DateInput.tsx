@@ -35,7 +35,7 @@ const DateInput = () => {
   };
 
   return (
-    <Wrapper disabled={loading.toString()}>
+    <Wrapper $disabled={loading.toString()}>
       {Object.keys(dates).length > 0 &&
         !(Object.keys(dates)[0] === "general") && (
           <InputWrapper>
@@ -56,11 +56,11 @@ const DateInput = () => {
               {Object.keys(dates).map((date, index) => (
                 <div key={date}>
                   <DateSpan
-                    isCurrent={(
+                    $isCurrent={(
                       (index + 1).toString() === inputRef?.current?.value ||
                       false
                     ).toString()}
-                    active={loading.toString()}
+                    $active={loading.toString()}
                     onClick={() => updateFields(index)}
                   >
                     {date}

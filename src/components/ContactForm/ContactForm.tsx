@@ -97,7 +97,7 @@ const ContactForm = () => {
       <DinamicButton
         type="submit"
         className={sendStatus || "default"}
-        isFormValid={isFormValid && !!token}
+        $isFormValid={isFormValid && !!token}
         disabled={!isFormValid || !token || isLoading}
       >
         <TextInButton>{contactStatus[sendStatus].message}</TextInButton>

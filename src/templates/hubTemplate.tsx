@@ -13,7 +13,7 @@ const HubTemplate = ({
   return (
     <>
       <HeaderSection />
-      <Main id="root" backThumb={backThumb.toString()}>
+      <Main id="root" $backThumb={backThumb.toString()}>
         {children}
       </Main>
       <Footer />
