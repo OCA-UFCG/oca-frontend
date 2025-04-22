@@ -35,3 +35,6 @@ export const getPriority = (role: string): string => {
 
   return priority;
 };
+
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

@@ -198,6 +198,10 @@ export const GlobalStyles = createGlobalStyle`
   .maplibregl-popup-tip {
     visibility: hidden;
   }
+
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
 `;
 
 export const MapWrapper = styled.main`
