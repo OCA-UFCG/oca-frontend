@@ -43,7 +43,7 @@ const InfraSection = ({
   }[];
 }) => {
   return (
-    <Section full={"false"} id="publications">
+    <Section $full={"false"} id="publications">
       <Gallery>
         <LightGallery
           mode="lg-fade"

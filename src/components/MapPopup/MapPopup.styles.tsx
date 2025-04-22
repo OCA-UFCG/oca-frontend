@@ -34,15 +34,15 @@ export const InfoContent = styled.div`
   gap: 0.5rem;
 `;
 
-export const LineInfo = styled.li<{ isColored: boolean }>`
+export const LineInfo = styled.li<{ $colored: boolean }>`
   display: flex;
   align-items: center;
   gap: 0.25rem;
   width: 100%;
   margin: 0.25rem;
 
-  ${({ isColored }) =>
-    !isColored &&
+  ${({ $colored }) =>
+    !$colored &&
     `
     display: list-item;
     margin-left: 1rem;

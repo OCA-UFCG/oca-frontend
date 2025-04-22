@@ -46,13 +46,13 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
       htmlFor={name.replace(" ", "_").toLowerCase()}
       // eslint-disable-next-line lines-around-comment
       //active={(institution || fieldWork)?.toString() || "false"}
-      active={"true"}
+      $active={"true"}
     >
       <AvatarFrame>
         <AvatarCircle
           href={firstMedia?.href || ""}
           target="_blank"
-          active={"true"}
+          $active={"true"}
         >
           <Avatar
             src={
@@ -72,8 +72,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           <Checkbox
             id={name.replace(" ", "_").toLowerCase()}
             type="checkbox"
-            checked={false}
-            defaultChecked={true}
+            defaultChecked={false}
             hidden
             readOnly
             disabled={!(institution || fieldWork)}

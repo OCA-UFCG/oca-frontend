@@ -47,7 +47,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
       <InfoContent>
         <List>
           {areas.map((areaInfo: AreaInfo, index) => (
-            <LineInfo key={index} isColored={colors.length > 0}>
+            <LineInfo key={index} $colored={colors.length > 0}>
               {colors.length > 0 && (
                 <Color
                   color={areaInfo.color}

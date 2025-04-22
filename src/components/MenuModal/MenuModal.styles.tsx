@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Image from "next/image";
 import { Icon } from "../Icon/Icon";
 
-export const RetractIcon = styled(Icon)<{ position: "left" | "right" }>`
-  ${({ position }) => position === "right" && "transform: rotate(180deg)"};
+export const RetractIcon = styled(Icon)<{ $position: "left" | "right" }>`
+  ${({ $position }) => $position === "right" && "transform: rotate(180deg)"};
   cursor: pointer;
   transition: 300ms;
 
@@ -25,9 +25,9 @@ export const MenuImage = styled(Icon)`
   }
 `;
 
-export const Background = styled.div<{ retracted: string }>`
-  display: ${({ retracted }) => (retracted === "true" ? "none" : "flex")};
-  animation: ${(props) => (props.retracted === "true" ? "fadeOut" : "fadeIn")}
+export const Background = styled.div<{ $retracted: string }>`
+  display: ${({ $retracted }) => ($retracted === "true" ? "none" : "flex")};
+  animation: ${(props) => (props.$retracted === "true" ? "fadeOut" : "fadeIn")}
     0.5s ease-in-out;
   width: 100vw;
   height: 100svh;
@@ -58,7 +58,10 @@ export const Background = styled.div<{ retracted: string }>`
   }
 `;
 
-export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
+export const ModalWrapper = styled.div<{
+  $retracted: string;
+  $position: string;
+}>`
   position: fixed;
   top: 50%;
   bottom: 50%;
@@ -83,8 +86,8 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
   }
 
   ${(props) => {
-    const { position, retracted } = props;
-    const isLeft = position === "left";
+    const { $position, $retracted } = props;
+    const isLeft = $position === "left";
 
     const transformExpanded = isLeft
       ? "translateX(0.5rem)"
@@ -95,7 +98,7 @@ export const ModalWrapper = styled.div<{ retracted: string; position: string }>`
 
     return `
       ${isLeft ? "left: 0;" : "right: 0;"}
-      transform: ${retracted === "true" ? transformRetracted : transformExpanded};
+      transform: ${$retracted === "true" ? transformRetracted : transformExpanded};
     `;
   }}
 `;
@@ -110,7 +113,7 @@ export const OcaImage = styled(Image)`
   height: fit-content;
 `;
 
-export const RetractImage = styled(Image)<{ position: string }>`
+export const RetractImage = styled(Image)<{ $position: string }>`
   max-width: 1.25rem;
   height: fit-content;
   transition: 0.2s;
@@ -122,7 +125,7 @@ export const RetractImage = styled(Image)<{ position: string }>`
   }
 
   ${(props) =>
-    props.position === "right" &&
+    props.$position === "right" &&
     `
       transform: rotate(180deg);
 

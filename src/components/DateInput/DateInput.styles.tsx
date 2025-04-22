@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div<{ disabled: string }>`
+export const Wrapper = styled.div<{ $disabled: string }>`
   display: flex;
   gap: 0.5rem;
   width: 100%;
   margin-top: 0.5rem;
   align-items: center;
   justify-content: space-around;
-  ${({ disabled }) =>
-    disabled === "true" &&
+  ${({ $disabled }) =>
+    $disabled === "true" &&
     `
   opacity: 0.6;
   cursor: not-allowed;
@@ -99,21 +99,21 @@ export const Divider = styled.hr`
   margin: 0;
 `;
 
-export const DateSpan = styled.p<{ isCurrent: string; active: string }>`
+export const DateSpan = styled.p<{ $isCurrent: string; $active: string }>`
   font-size: 12px;
   margin: 0;
   color: ${({ theme }) => theme.colors.black};
   cursor: pointer;
   margin-top: 0.25rem;
-  pointer-events: ${({ active }) => (active !== "true" ? "all" : "none")};
+  pointer-events: ${({ $active }) => ($active !== "true" ? "all" : "none")};
 
   &:hover {
     font-weight: bold;
   }
 
   & + ${Divider} {
-    width: ${({ isCurrent }) => isCurrent === "true" && "100%"};
-    opacity: ${({ isCurrent }) => isCurrent === "true" && "1"};
+    width: ${({ $isCurrent }) => $isCurrent === "true" && "100%"};
+    opacity: ${({ $isCurrent }) => $isCurrent === "true" && "1"};
   }
 
   &:hover + ${Divider} {

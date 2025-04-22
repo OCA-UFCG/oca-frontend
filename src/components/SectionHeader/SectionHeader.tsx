@@ -21,7 +21,7 @@ export const SectionHeader = ({
   };
 
   return (
-    <Wrapper alignment={alignment}>
+    <Wrapper $alignment={alignment}>
       <SectionTitle>{title}</SectionTitle>
       {subtitle && <SubTitle>{subtitle}</SubTitle>}
     </Wrapper>

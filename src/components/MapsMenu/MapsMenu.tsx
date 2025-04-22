@@ -88,7 +88,7 @@ const MapsMenu = () => {
               <FieldDetails key={type} open={defaultCategory === type}>
                 <Summary>
                   <Title>{type}</Title>
-                  <IconWrapper id="close" size={16} stroke-width={2} />
+                  <IconWrapper id="close" size={16} strokeWidth={2} />
                 </Summary>
                 <SubSectionWrapper>
                   {categorizedVisus[type]

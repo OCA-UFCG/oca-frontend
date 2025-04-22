@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { getRandomColor } from "@/utils/themes";
 import { Icon } from "../Icon/Icon";
 
 export const IconContainer = styled.div`
@@ -37,13 +36,9 @@ export const Card = styled.a`
   overflow: hidden;
   border-radius: 4px;
 
-  background-color: ${({ theme }) =>
-    getRandomColor([
-      theme.colors.green,
-      theme.colors.maroon,
-      theme.colors.yellow,
-      theme.colors.orange,
-    ])};
+  /* We cannot use dynamic colors like this for SSR */
+  /* background-color set in the component */
+  background-color: ${({ theme }) => theme.colors.green};
 
   display: flex;
   flex-direction: column;

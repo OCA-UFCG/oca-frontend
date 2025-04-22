@@ -61,21 +61,21 @@ export const FormularyTextArea = styled.textarea`
   resize: vertical;
 `;
 
-export const DinamicButton = styled.button<{ isFormValid: boolean }>`
+export const DinamicButton = styled.button<{ $isFormValid: boolean }>`
   background-color: ${({ theme }) => theme.colors.green};
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;
-  cursor: ${({ isFormValid }) => (isFormValid ? "pointer" : "not-allowed")};
+  cursor: ${({ $isFormValid }) => ($isFormValid ? "pointer" : "not-allowed")};
   max-width: 120px;
   align-self: center;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   transition: 0.3s;
-  opacity: ${({ isFormValid }) => (isFormValid ? 1 : 0.5)};
+  opacity: ${({ $isFormValid }) => ($isFormValid ? 1 : 0.5)};
   &:hover {
-    opacity: ${({ isFormValid }) => (isFormValid ? 0.8 : 0.5)};
+    opacity: ${({ $isFormValid }) => ($isFormValid ? 0.8 : 0.5)};
   }
 
   &.loading {

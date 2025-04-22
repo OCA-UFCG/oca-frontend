@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { Icon } from "../Icon/Icon";
 
-export const Wrapper = styled.div<{ loading: string }>`
+export const Wrapper = styled.div<{ $loading: string }>`
   width: 100%;
   height: 100%;
   overflow: hidden;
 `;
 
-export const MapContainer = styled.div<{ loading: string }>`
+export const MapContainer = styled.div<{ $loading: string }>`
   width: 100%;
   height: 100%;
   display: flex;
@@ -16,7 +16,8 @@ export const MapContainer = styled.div<{ loading: string }>`
   justify-content: center;
   color: ${({ theme }) => theme.colors.white};
   align-items: center;
-  background: ${({ loading }) => (Boolean(loading) ? "#00000080" : "")};
+  background: ${({ $loading }) =>
+    Boolean($loading === "true") ? "#00000080" : ""};
   background-image: url("flower-background.webp");
   color: ${({ theme }) => theme.colors.white};
 `;

@@ -36,7 +36,7 @@ export const VisuItem = ({ info }: { info: IEEInfo }) => {
 
   return (
     <ItemWrapper>
-      <LoadingIcon loading={loading} id="loading" size={18} />
+      <LoadingIcon $loading={loading} id="loading" size={18} />
       <Input
         type={loading ? "hidden" : "radio"}
         id={id}
@@ -46,7 +46,7 @@ export const VisuItem = ({ info }: { info: IEEInfo }) => {
         checked={checked}
         readOnly
       />
-      <Label isloading={loading} htmlFor={id}>
+      <Label $isloading={loading} htmlFor={id}>
         {name}
       </Label>
       <InfoContainer onClick={handleIconClick} title={`Sobre ${name}`}>

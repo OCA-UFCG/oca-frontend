@@ -12,7 +12,7 @@ const PublicationsSection = ({
   sectionHead: ISectionHeader[];
   publications: { fields: IPublication }[];
 }) => (
-  <Wrapper full={"false"} id="publications">
+  <Wrapper $full={"false"} id="publications">
     <SectionHeader id="publications" sectionHead={sectionHead} />
     <PublicationsContainer>
       {publications.map((publications, index) => (

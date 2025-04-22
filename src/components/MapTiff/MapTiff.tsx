@@ -306,7 +306,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
   return (
     <MapContainer
       {...props}
-      loading={loading.toString()}
+      $loading={loading.toString()}
       onClick={retrieveModals}
       ref={mapContainer}
     >
