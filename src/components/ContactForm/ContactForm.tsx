@@ -9,12 +9,17 @@ import {
   Icon,
   TextInButton,
 } from "./ContactForm.styles";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { contactStatus } from "@/utils/constants";
+import { sleep } from "@/utils/functions";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
 const ContactForm = () => {
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [token, setToken] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [sendStatus, setSendStatus] = useState<
@@ -31,9 +36,6 @@ const ContactForm = () => {
     setIsFormValid(isValid);
   };
 
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
-
   const sendEmail = async (event: FormEvent) => {
     setIsLoading(true);
     setSendStatus("loading");
@@ -47,6 +49,7 @@ const ContactForm = () => {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       message: formData.get("message") as string,
+      captchaToken: token,
     };
 
     const response = await fetch(`${HOST_URL}/api/mail`, {
@@ -59,7 +62,9 @@ const ContactForm = () => {
     if (response.ok) {
       setSendStatus("success");
       sleep(4000).then(() => setSendStatus("default"));
+      recaptchaRef.current?.reset();
       form.reset();
+      setToken("");
       setIsFormValid(false);
     } else {
       setSendStatus("error");
@@ -83,11 +88,17 @@ const ContactForm = () => {
         Mensagem:
         <FormularyTextArea id="message" name="message" required />
       </FormularyLabel>
+      <ReCAPTCHA
+        sitekey={RECAPTCHA_SITE_KEY}
+        ref={recaptchaRef}
+        onChange={(token) => token && setToken(token)}
+        onExpired={() => setToken("")}
+      />
       <DinamicButton
-        isFormValid={isFormValid}
-        className={sendStatus || "default"}
         type="submit"
-        disabled={!isFormValid || isLoading}
+        className={sendStatus || "default"}
+        isFormValid={isFormValid && !!token}
+        disabled={!isFormValid || !token || isLoading}
       >
         <TextInButton>{contactStatus[sendStatus].message}</TextInButton>
         <Icon
