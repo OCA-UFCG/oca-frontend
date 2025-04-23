@@ -79,6 +79,7 @@ const InfraSection = ({
                   height={photo.fields.image.fields.file.details.image.height}
                   width={photo.fields.image.fields.file.details.image.width}
                   src={`https:${photo.fields.image.fields.file.url}`}
+                  unoptimized={true}
                 />
               </ImageContainer>
             </ImageLink>

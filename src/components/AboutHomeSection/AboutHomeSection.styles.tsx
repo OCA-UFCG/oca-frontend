@@ -8,6 +8,7 @@ export const Wrapper = styled(Section)`
   background-image: url("Grass.webp");
   background-repeat: repeat-x;
   min-height: 40rem;
+  height: 100%;
   justify-content: center;
   background-position: bottom;
 `;
@@ -23,6 +24,7 @@ export const ContentWrapper = styled.div`
   align-items: center;
   max-width: 1440px;
   width: 100%;
+  flex-shrink: 0;
   margin-bottom: 3rem;
 
   @media screen and (max-width: 900px) {
@@ -39,6 +41,7 @@ export const ContentModal = styled.div`
   background-color: #ffffff;
   height: fit-content;
   max-width: 550px;
+  height: 17rem;
   padding: 1rem;
   box-shadow: 0px 0px 4px #cdcdcd;
   border-radius: 4px;

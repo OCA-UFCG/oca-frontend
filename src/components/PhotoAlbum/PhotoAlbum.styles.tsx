@@ -5,14 +5,24 @@ export const Wrapper = styled.div`
   display: flex;
   gap: 0.75rem;
   align-items: center;
+  width: 550px;
+  max-width: 550px;
+
+  @media screen and (max-width: 1000px) {
+    width: 450px;
+  }
 
   @media screen and (max-width: 542px) {
     flex-flow: column;
+    max-width: none;
     width: 100%;
   }
 `;
 
 export const PhotoWrapper = styled.div`
+  position: relative;
+  flex-shrink: 0;
+
   &:before {
     position: absolute;
     width: 100%;
