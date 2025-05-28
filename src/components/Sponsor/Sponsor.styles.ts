@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export const Wrapper = styled.a`
-  display: flex;
+  display: inline-flex;
   flex-flow: column;
   align-items: center;
   width: fit-content;
@@ -22,16 +22,12 @@ export const Wrapper = styled.a`
 
 export const LogoImage = styled(Image)`
   border-radius: 4px;
-  height: 100%;
   max-height: 8rem;
-  min-width: 4rem;
-  max-width: 100%;
-  width: fit-content;
-  object-fit: cover;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 
   @media screen and (max-width: 800px) {
-    width: fit-content;
-    max-height: 6rem;
-    min-width: 3rem;
+    max-height: 5rem;
   }
 `;
