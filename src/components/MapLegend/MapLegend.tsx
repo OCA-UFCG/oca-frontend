@@ -20,7 +20,7 @@ export const MapLegend = () => {
   const { tiffs, currentVisu } = useContext(MapTiffContext);
 
   const imageInfo = useMemo(
-    () => tiffs.find((tiff) => tiff.fields.id === currentVisu.id)?.fields,
+    () => tiffs.find((tiff) => tiff.id === currentVisu.id),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentVisu.id],
   );

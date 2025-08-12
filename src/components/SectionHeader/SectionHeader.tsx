@@ -11,11 +11,9 @@ export const SectionHeader = ({
   alignment?: "start" | "center" | "end";
   sectionHead: ISectionHeader[];
 }) => {
-  const header = sectionHead?.find(
-    (head: ISectionHeader) => head.fields.id === id,
-  );
+  const header = sectionHead?.find((head: ISectionHeader) => head.id === id);
 
-  const { title, subtitle } = header?.fields || {
+  const { title, subtitle } = header || {
     title: "",
     subtitle: undefined,
   };

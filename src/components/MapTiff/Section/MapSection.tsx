@@ -21,7 +21,7 @@ import Link from "next/link";
 import { MapLegend } from "@/components/MapLegend/MapLegend";
 import MapDescription from "@/components/MapDescription/MapDescription";
 
-const MapPageWrapper = ({ tiffs }: { tiffs: { fields: IEEInfo }[] }) => (
+const MapPageWrapper = ({ tiffs }: { tiffs: IEEInfo[] }) => (
   <Suspense fallback={<div>Carregando...</div>}>
     <MapTiffProvider tiffs={tiffs}>
       <MapSection />
@@ -40,20 +40,20 @@ export const MapSection = () => {
   } = useContext(MapTiffContext);
 
   const currentTiff = useMemo(
-    () => tiffs.find((tiff) => tiff.fields.id === currentVisu.id),
+    () => tiffs.find((tiff) => tiff.id === currentVisu.id),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentVisu.id],
   );
   const handleDescUpdate = () => {
     setDescRetracted(!descRetracted);
 
-    if (currentDescription.name === currentTiff?.fields.name) {
+    if (currentDescription.name === currentTiff?.name) {
       setDescRetracted(!descRetracted);
     } else {
       setDescRetracted(false);
       setCurrentDescription({
-        name: currentTiff?.fields.name || "",
-        description: currentTiff?.fields.description || "",
+        name: currentTiff?.name || "",
+        description: currentTiff?.description || "",
       });
     }
   };
@@ -72,10 +72,10 @@ export const MapSection = () => {
           </Link>
         </MenuWrapper>
         <NameContainer>
-          <VisuName>{currentTiff?.fields.name}</VisuName>
+          <VisuName>{currentTiff?.name}</VisuName>
           <QuestionWrapper
             onClick={handleDescUpdate}
-            title={`Sobre ${currentTiff?.fields.name}`}
+            title={`Sobre ${currentTiff?.name}`}
           >
             <QuestionImage id="question" height={20} width={20} />
           </QuestionWrapper>

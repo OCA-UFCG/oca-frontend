@@ -28,6 +28,9 @@ docker-build-dev:
 docker-run-dev:
 	docker run -p 3000:$(CONTAINER_PORT) --name $(IMAGE_NAME) -v node_modules -v $(PWD):/app --user $(id -u):$(id -g) $(IMAGE_NAME)
 
+docker-run-dev-mac:
+	docker run -p 3000:$(CONTAINER_PORT) --name $(IMAGE_NAME) -v /app/node_modules -v $(PWD):/app -w /app --user $(id -u):$(id -g) $(IMAGE_NAME)
+
 docker-build-prod:
 	docker build \
 		--build-arg NEXT_PUBLIC_GA_ID=${NEXT_PUBLIC_GA_ID} \

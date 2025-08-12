@@ -15,7 +15,9 @@ const QuestionFAQ = ({ data }: { data: IFAQ }) => {
         <Title>{data.title}</Title>
         <IconWrapper id="close" size={16} strokeWidth={2} />
       </Summary>
-      <SubSectionFAQ>{documentToReactComponents(data.details)}</SubSectionFAQ>
+      <SubSectionFAQ>
+        {documentToReactComponents(data.details.json)}
+      </SubSectionFAQ>
     </QuestionContainer>
   );
 };

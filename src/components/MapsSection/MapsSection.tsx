@@ -35,11 +35,9 @@ const MapsSection = ({ sectionHead }: { sectionHead: ISectionHeader[] }) => {
   };
 
   const nextVisu = () => {
-    const currentIndex = tiffs.findIndex(
-      (map) => map.fields.id === currentVisu.id,
-    );
+    const currentIndex = tiffs.findIndex((map) => map.id === currentVisu.id);
     const nextIndex = (currentIndex + 1) % tiffs.length;
-    updateCurrentVisu(tiffs[nextIndex].fields.id);
+    updateCurrentVisu(tiffs[nextIndex].id);
   };
 
   let handler: NodeJS.Timeout;
@@ -84,8 +82,8 @@ const MapsSection = ({ sectionHead }: { sectionHead: ISectionHeader[] }) => {
         {tiffs.length != 0 && (
           <TagsContainer>
             {tiffs
-              .sort((a, b) => a.fields.name.localeCompare(b.fields.name))
-              .map(({ fields: tag }: { fields: IEEInfo }) => (
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((tag: IEEInfo) => (
                 <TagButtonMaps key={tag.id} tag={tag} />
               ))}
           </TagsContainer>

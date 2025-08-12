@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface ContextProps {
-  tiffs: { fields: IEEInfo }[];
+  tiffs: IEEInfo[];
   menuRetracted: boolean;
   setMenuRetracted: (isRetracted: boolean) => void;
   descRetracted: boolean;
@@ -46,7 +46,7 @@ export const MapTiffProvider = ({
   tiffs,
   children,
 }: {
-  tiffs: { fields: IEEInfo }[];
+  tiffs: IEEInfo[];
   children: ReactNode;
 }) => {
   const router = useRouter();
@@ -71,7 +71,7 @@ export const MapTiffProvider = ({
     let year = currentVisu.year;
     const params = new URLSearchParams(searchParams.toString());
     const { name, description, imageData } =
-      tiffs.find((tiff) => tiff.fields.id === id)?.fields || defaultEEInfo;
+      tiffs.find((tiff) => tiff.id === id) || defaultEEInfo;
 
     if (!("general" in imageData) && !year) {
       Object.entries(imageData).forEach(([currentYear, yearInfo]) => {

@@ -10,20 +10,25 @@ import Sponsor from "../Sponsor";
 import { ISectionHeader, ISponsor } from "@/utils/interfaces";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 
+const NO_VALUE = "undefined";
+
 const SponsorsSection = ({
   sponsors,
   sectionHead,
 }: {
   sectionHead: ISectionHeader[];
-  sponsors: { fields: ISponsor }[];
+  sponsors: ISponsor[];
 }) => {
   const tierSponsors: { [key: string]: ISponsor[] } = {};
 
-  sponsors.forEach((sponsor: { fields: ISponsor }) => {
-    if (!tierSponsors[sponsor.fields.tier]) {
-      tierSponsors[sponsor.fields.tier] = [];
+  sponsors.forEach((sponsor: ISponsor) => {
+    const sponsorKey = sponsor.tier ? sponsor.tier : NO_VALUE;
+
+    if (!tierSponsors[sponsorKey]) {
+      tierSponsors[sponsorKey] = [];
     }
-    tierSponsors[sponsor.fields.tier].push(sponsor.fields);
+
+    tierSponsors[sponsorKey].push(sponsor);
   });
 
   return (
@@ -33,7 +38,7 @@ const SponsorsSection = ({
         .sort((a, b) => b.localeCompare(a))
         .map((tier) => (
           <TierContainer key={tier}>
-            {tier && tier !== "undefined" && <SubTitle>{tier}</SubTitle>}
+            {tier && tier !== NO_VALUE && <SubTitle>{tier}</SubTitle>}
             <SponsorsContainer>
               {tierSponsors[tier]
                 .sort((a, b) => a.name.localeCompare(b.name))
