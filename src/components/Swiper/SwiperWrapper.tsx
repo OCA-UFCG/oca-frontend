@@ -8,8 +8,9 @@ import "swiper/css/pagination"; // Ensure Swiper styles are imported globally.
 import "swiper/css/navigation"; // Ensure Swiper styles are imported globally.
 import "swiper/css/zoom";
 import "./swiper-styles.css";
+import { IAbout, IImage } from "@/utils/interfaces";
 
-const SwiperWrapper = ({ content }: { content: any }) => {
+const SwiperWrapper = ({ content }: { content: IAbout }) => {
   return (
     <Swiper
       className="swiper"
@@ -22,15 +23,15 @@ const SwiperWrapper = ({ content }: { content: any }) => {
       autoplay={{ delay: 7000 }}
       zoom={true}
     >
-      {content[0].fields.pictures.map((item: any, key: number) => (
+      {content.picturesCollection.items.map((item: IImage, key: number) => (
         <SwiperSlide key={key}>
           <div key={key} className="carousel-image swiper-zoom-container">
             <img
               key={key}
-              alt={item.fields.title || ""}
-              height={item.fields.file.details.image.height || 300}
-              width={item.fields.file.details.image.width || 400}
-              src={`https:${item.fields.file.url}`}
+              alt={item.title || ""}
+              height={item.height || 300}
+              width={item.width || 400}
+              src={item.url}
             />
           </div>
         </SwiperSlide>

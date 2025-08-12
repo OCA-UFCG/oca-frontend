@@ -5,26 +5,44 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { Options } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import { ArticleImage } from "@/app/globalStyles";
+import { Document } from "@contentful/rich-text-types";
+import { Asset } from "@/utils/interfaces";
 
-export const renderOptions: Options = {
-  renderNode: {
-    [BLOCKS.EMBEDDED_ASSET]: (node) => {
-      return (
-        <ArticleImage
-          alt=""
-          width={node.data.target.fields.file.details.image.width}
-          height={node.data.target.fields.file.details.image.height}
-          src={`https:${node.data.target.fields.file.url}`}
-        />
-      );
+export const AboutSection = ({
+  content,
+}: {
+  content: {
+    json: Document;
+    links: {
+      assets: { block: Asset[] };
+    };
+  };
+}) => {
+  const renderOptions: Options = {
+    renderNode: {
+      [BLOCKS.EMBEDDED_ASSET]: (node) => {
+        const assetId = node.data.target.sys.id;
+        const asset = content.links.assets.block.find(
+          (a) => a.sys.id === assetId,
+        );
+
+        if (!asset) return null;
+
+        return (
+          <ArticleImage
+            alt=""
+            width={asset.width}
+            height={asset.height}
+            src={asset.url}
+          />
+        );
+      },
     },
-  },
-};
+  };
 
-const AboutSection = ({ content }: { content: any }) => {
   return (
     <TextContainer>
-      {documentToReactComponents(content, renderOptions)}
+      {documentToReactComponents(content.json, renderOptions)}
     </TextContainer>
   );
 };

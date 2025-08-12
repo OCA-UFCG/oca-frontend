@@ -173,3 +173,34 @@ export interface IFAQ {
     json: Document;
   };
 }
+
+export interface IImage {
+  url: string;
+  width: number;
+  height: number;
+  title: string;
+}
+
+export interface Asset {
+  sys: { id: string };
+  url: string;
+  title?: string;
+  description?: string;
+  width: number;
+  height: number;
+}
+export interface IAbout {
+  ttulo: string;
+  conteudo: {
+    json: Document;
+    links: {
+      assets: { block: Asset[] };
+    };
+  };
+  cover: {
+    url: string;
+  };
+  picturesCollection: {
+    items: IImage[];
+  };
+}

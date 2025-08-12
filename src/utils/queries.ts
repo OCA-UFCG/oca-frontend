@@ -105,3 +105,38 @@ export const IEE_QUERY = `
     }
   }
 `;
+
+export const ABOUT_PAGE_QUERY = `
+  query ABOUT_QUERY($preview: Boolean) {
+    nossaHistoriaCollection(limit: 1, preview: $preview) {
+      items {
+        ttulo
+        conteudo {
+          json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                url
+                title
+                description
+                width
+                height
+              }
+            }
+          }
+        }
+        picturesCollection {
+          items {
+            url
+            width
+            height
+            title
+          }
+        }
+      }
+    }
+  }
+`;
