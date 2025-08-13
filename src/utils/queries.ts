@@ -89,19 +89,21 @@ export const MAIN_PAGE_QUERY = `
 export const IEE_QUERY = `
   query IEE_QUERY($preview: Boolean) {
     tiffInfoCollection(preview: $preview) {
-      id
-      name
-      description
-      extraInfo
-      measurementUnit
-      poster {
-        url
+      items {
+        id
+        name
+        description
+        extraInfo
+        measurementUnit
+        poster {
+          url
+        }
+        minScale
+        maxScale
+        graphLegendTitle
+        imageData
+        type
       }
-      minScale
-      maxScale
-      graphLegendTitle
-      imageData
-      type
     }
   }
 `;

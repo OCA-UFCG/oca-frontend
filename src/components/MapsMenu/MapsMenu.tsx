@@ -15,10 +15,10 @@ import {
 import { MapTiffContext } from "@/contexts/MapContext";
 import DateInput from "../DateInput/DateInput";
 
-const formatData = (newValue: string, tiffs: { fields: IEEInfo }[]) => {
+const formatData = (newValue: string, tiffs: IEEInfo[]) => {
   const typesMap: { [key: string]: IEEInfo[] } = {};
 
-  Object.values(tiffs).forEach(({ fields: item }) => {
+  Object.values(tiffs).forEach((item) => {
     if (!typesMap[item.type]) {
       typesMap[item.type] = [];
     }
@@ -39,9 +39,8 @@ const MapsMenu = () => {
   } = useContext(MapTiffContext);
   const defaultCategory = useMemo(
     () =>
-      Object.values(tiffs).find(
-        (mapData) => mapData.fields.id === currentVisu.id,
-      )?.fields?.type,
+      Object.values(tiffs).find((mapData) => mapData.id === currentVisu.id)
+        ?.type,
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -57,8 +56,8 @@ const MapsMenu = () => {
   const onFormChange = (e: FormEvent<HTMLFormElement>) => {
     const id = (e.target as HTMLInputElement).value;
     const selectedTiff = Object.values(tiffs).find(
-      (mapData) => mapData.fields.id === id,
-    )?.fields;
+      (mapData) => mapData.id === id,
+    );
 
     const newVisu = { id, year: "" };
     Object.entries(selectedTiff?.imageData || []).map(

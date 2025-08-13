@@ -19,12 +19,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ url }, { status: 200 });
     } else {
       const imageInfo: IEEInfo = await req.json();
+      console.log(imageInfo);
       const url = await getEarthEngineUrl(
         imageInfo.imageData[year].imageId,
         imageInfo.imageData[year].imageParams,
         imageInfo.minScale,
         imageInfo.maxScale,
       );
+      console.log("again!!\n\n\n\nn\n", imageInfo);
       addUrlToCache(name + year, url);
 
       return NextResponse.json({ url }, { status: 200 });

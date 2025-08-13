@@ -42,6 +42,7 @@ docker-build-prod:
 		--build-arg NEXT_PUBLIC_MAIL_APP_CC=${NEXT_PUBLIC_MAIL_APP_CC} \
         --build-arg NEXT_PUBLIC_MAIL_APP_USER=${NEXT_PUBLIC_MAIL_APP_USER} \
         --build-arg NEXT_PUBLIC_MAIL_APP_PASS=${NEXT_PUBLIC_MAIL_APP_PASS} \
+		--platform linux/arm64 \
 		-t $(IMAGE_NAME) \
 		-f Dockerfile.production .
 

@@ -46,7 +46,7 @@ const MenuModal = ({
         $position={position}
       >
         <HeadWrapper>
-          {hasIcon && <Icon id="logo-oca-full" width={120} height={60} />}
+          {hasIcon && <Icon id="logo-oca" width={45} height={45} />}
           <div onClick={updateRetracted}>
             <RetractIcon id="retract" size={20} $position={position} />
           </div>
