@@ -23,7 +23,7 @@ run-prod:
 	npm run start
 
 docker-build-dev:
-	docker build -t $(IMAGE_NAME) .
+	docker build --platform linux/arm64 -t $(IMAGE_NAME) .
 
 docker-run-dev:
 	docker run -p 3000:$(CONTAINER_PORT) --name $(IMAGE_NAME) -v node_modules -v $(PWD):/app --user $(id -u):$(id -g) $(IMAGE_NAME)

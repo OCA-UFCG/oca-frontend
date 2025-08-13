@@ -62,8 +62,8 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
     async (map: maplibregl.Map) => {
       const yearStr = year || "general";
       for (const additionalMapData of tiffs) {
-        for (const newYear of Object.keys(additionalMapData.fields.imageData)) {
-          const newId = additionalMapData.fields.id;
+        for (const newYear of Object.keys(additionalMapData.imageData)) {
+          const newId = additionalMapData.id;
           const sourceKey = `@oca/${newId}${newYear}`;
           if (map.getSource(sourceKey) || (newId === id && newYear === yearStr))
             continue;
@@ -71,7 +71,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
           const { url } = await fetchMapURL(
             newId,
             newYear,
-            JSON.stringify(additionalMapData.fields),
+            JSON.stringify(additionalMapData),
           );
 
           // Adiciona a nova fonte ao mapa
@@ -90,7 +90,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
     async (map: maplibregl.Map) => {
       // === Add current raster source
       const yearStr = year ? year : "general";
-      const mapData = tiffs.find((data) => data.fields.id === id)?.fields;
+      const mapData = tiffs.find((data) => data.id === id);
       const { url } = await fetchMapURL(id, yearStr, JSON.stringify(mapData));
       map.addSource(`@oca/${id}${yearStr}`, {
         type: "raster",
@@ -190,18 +190,16 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
 
           const fcProperties = e.features[0].properties;
           const fcMetadata = JSON.parse(fcProperties[id + year]);
-          const rasterMetadata = tiffs.filter(
-            (data) => data.fields.id === id,
-          )[0];
+          const rasterMetadata = tiffs.filter((data) => data.id === id)[0];
 
           // === Refact this in the future
-          // const rasterColors = rasterMetadata.fields.imageData[
+          // const rasterColors = rasterMetadata.imageData[
           //   year
           // ]?.imageParams.map((param: any) => param.color);
           const rasterColors =
             id === "cisterna"
               ? []
-              : rasterMetadata.fields.imageData[year]?.imageParams.map(
+              : rasterMetadata.imageData[year]?.imageParams.map(
                   (param) => param.color,
                 );
 
@@ -209,7 +207,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
             <MapPopup
               nameUF={fcProperties.NM_UF}
               colors={rasterColors}
-              nameRaster={rasterMetadata.fields.name}
+              nameRaster={rasterMetadata.name}
               fcMetadata={fcMetadata}
             />,
           );
