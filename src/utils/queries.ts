@@ -142,3 +142,29 @@ export const ABOUT_PAGE_QUERY = `
     }
   }
 `;
+
+const COLLAB_PAGES_ID = ["collaborators"];
+
+export const COLLAB_PAGE_QUERY = `
+  query COLLAB_PAGE_QUERY($preview: Boolean) {
+    collaboratorsCollection(preview: $preview) {
+      items {
+        name
+        institution
+        fieldWork
+        github
+        linkedin
+        lattes
+      }
+    }
+
+    sectionHeadCollection(limit: ${COLLAB_PAGES_ID.length}, where: { id_in: ${JSON.stringify(COLLAB_PAGES_ID)}}, preview: $preview) {
+      items {
+        title
+        subtitle
+        id
+      }
+    }
+  }
+
+`;
