@@ -204,3 +204,9 @@ export interface IAbout {
     items: IImage[];
   };
 }
+
+export interface IGallery {
+  title: string;
+  description: string;
+  image: IImage;
+}

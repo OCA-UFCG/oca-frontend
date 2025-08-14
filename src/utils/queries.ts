@@ -168,3 +168,30 @@ export const COLLAB_PAGE_QUERY = `
   }
 
 `;
+
+const INFRA_PAGES_ID = ["infra"];
+
+export const INFRA_PAGE_QUERY = `
+  query INFRA_PAGE_QUERY($preview: Boolean) {
+    infrastructureCollection(preview: $preview) {
+      items {
+        title
+        description
+        image {
+          url
+          width
+          height
+        }
+      }
+    }
+
+    sectionHeadCollection(limit: ${INFRA_PAGES_ID.length}, where: { id_in: ${JSON.stringify(INFRA_PAGES_ID)}}, preview: $preview) {
+      items {
+        title
+        subtitle
+        id
+      }
+    }
+  }
+
+`;
