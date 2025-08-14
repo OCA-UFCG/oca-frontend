@@ -193,5 +193,18 @@ export const INFRA_PAGE_QUERY = `
       }
     }
   }
+`;
 
+export const CONTACT_PAGES_ID = ["contact-us"];
+
+export const CONTACT_PAGE_QUERY = `
+  query CONTACT_PAGE_QUERY($preview: Boolean) {
+    sectionHeadCollection(limit: ${CONTACT_PAGES_ID.length}, where: { id_in: ${JSON.stringify(CONTACT_PAGES_ID)}}, preview: $preview) {
+      items {
+        title
+        subtitle
+        id
+      }
+    }
+  }
 `;
