@@ -1,5 +1,12 @@
 import { Document } from "@contentful/rich-text-types";
 
+export interface IImage {
+  url: string;
+  width: number;
+  height: number;
+  title: string;
+}
+
 export interface IAboutSection {
   title: string;
   cover: {
@@ -32,16 +39,7 @@ export interface ISponsor {
 export interface ITeamMember {
   name: string;
   role: string;
-  avatar:
-    | {
-        fields: {
-          file: {
-            url: string;
-            details: { image: { width: number; height: number } };
-          };
-        };
-      }
-    | string;
+  avatar: IImage;
   github?: string;
   linkedin?: string;
   lattes?: string;
@@ -172,13 +170,6 @@ export interface IFAQ {
   details: {
     json: Document;
   };
-}
-
-export interface IImage {
-  url: string;
-  width: number;
-  height: number;
-  title: string;
 }
 
 export interface Asset {

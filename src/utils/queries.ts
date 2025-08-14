@@ -208,3 +208,34 @@ export const CONTACT_PAGE_QUERY = `
     }
   }
 `;
+
+export const TEAM_PAGES_ID = ["teamMembers"];
+
+export const TEAM_PAGE_QUERY = `
+  query TEAM_PAGE_QUERY($preview: Boolean) {
+    membersCollection(preview: $preview) {
+      items {
+        name
+        role
+        github
+        linkedin
+        lattes
+        fieldWork
+        institution
+        avatar {
+          url
+          width
+          height
+        }
+      }
+    }
+
+    sectionHeadCollection(limit: ${TEAM_PAGES_ID.length}, where: { id_in: ${JSON.stringify(TEAM_PAGES_ID)}}, preview: $preview) {
+      items {
+        title
+        subtitle
+        id
+      }
+    }
+  }
+`;

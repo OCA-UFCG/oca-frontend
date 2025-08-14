@@ -55,10 +55,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
           $active={"true"}
         >
           <Avatar
-            src={
-              `https:${typeof avatar === "object" ? avatar.fields.file.url : avatar}` ||
-              "avatar.svg"
-            }
+            src={avatar?.url || "avatar.svg"}
             title={firstMedia?.href}
             alt="Profile picture"
             width={300}
