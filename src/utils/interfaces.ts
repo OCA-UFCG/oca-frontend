@@ -1,34 +1,45 @@
 import { Document } from "@contentful/rich-text-types";
 
+export interface IImage {
+  url: string;
+  width: number;
+  height: number;
+  title: string;
+}
+
+export interface IAboutSection {
+  title: string;
+  cover: {
+    url: string;
+  };
+  about: {
+    json: any;
+  };
+  albumCollection: {
+    items: {
+      url: string;
+      width: string;
+      height: string;
+      description: string;
+    }[];
+  };
+}
+
 export interface ISponsor {
   name: string;
-  logo:
-    | {
-        fields: {
-          file: {
-            url: string;
-            details: { image: { width: number; height: number } };
-          };
-        };
-      }
-    | string;
+  logo: {
+    url: string;
+    width: number;
+    height: number;
+  };
   link: string;
-  tier: string;
+  tier?: string;
 }
 
 export interface ITeamMember {
   name: string;
   role: string;
-  avatar:
-    | {
-        fields: {
-          file: {
-            url: string;
-            details: { image: { width: number; height: number } };
-          };
-        };
-      }
-    | string;
+  avatar: IImage;
   github?: string;
   linkedin?: string;
   lattes?: string;
@@ -149,14 +160,44 @@ export interface IContactStatus {
 }
 
 export interface ISectionHeader {
-  fields: {
-    id: string;
-    title: string;
-    subtitle?: string;
-  };
+  id: string;
+  title: string;
+  subtitle?: string;
 }
 
 export interface IFAQ {
   title: string;
-  details: Document;
+  details: {
+    json: Document;
+  };
+}
+
+export interface Asset {
+  sys: { id: string };
+  url: string;
+  title?: string;
+  description?: string;
+  width: number;
+  height: number;
+}
+export interface IAbout {
+  ttulo: string;
+  conteudo: {
+    json: Document;
+    links: {
+      assets: { block: Asset[] };
+    };
+  };
+  cover: {
+    url: string;
+  };
+  picturesCollection: {
+    items: IImage[];
+  };
+}
+
+export interface IGallery {
+  title: string;
+  description: string;
+  image: IImage;
 }

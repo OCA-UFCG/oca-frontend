@@ -309,4 +309,6 @@ export const ArticleImage = styled(Image)`
   align-self: center;
   border-radius: 4px;
   height: fit-content;
+  background: red;
+  height: 10rem;
 `;

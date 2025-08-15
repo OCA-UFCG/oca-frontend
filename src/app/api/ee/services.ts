@@ -170,14 +170,14 @@ export const addUrlToCache = (key: string, url: string | null) => {
  */
 export const cacheMapData = async () => {
   const { tiffInfo } = await getContent(["tiffInfo"]);
-  
+
   for (const data of tiffInfo) {
-    const id = data.fields.id;
-    const imageData = data.fields.imageData;
-    const minScale = data.fields.minScale;
-    const maxScale = data.fields.maxScale;
-    
-    for (const year of Object.keys(imageData)) { 
+    const id = data.id;
+    const imageData = data.imageData;
+    const minScale = data.minScale;
+    const maxScale = data.maxScale;
+
+    for (const year of Object.keys(imageData)) {
       const { imageId, imageParams } = imageData[year];
       const url = await getEarthEngineUrl(
         imageId,

@@ -55,10 +55,10 @@ interface TileData {
 
 /**
  * Converts Y coordinates from TMS format to Google/MapLibre format
- * 
+ *
  * In MapLibre, Y increases from top to bottom (Google format)
  * In MBTiles, Y increases from bottom to top (TMS format)
- * 
+ *
  * @param y - Y coordinate in TMS format
  * @param zoom - Zoom level
  * @returns Y coordinate converted to Google/MapLibre format
@@ -69,15 +69,19 @@ function convertTMStoGoogleY(y: number, zoom: number): number {
 
 /**
  * Fetches tile data from the database
- * 
+ *
  * @param zoom - Zoom level
  * @param x - X coordinate
  * @param y - Y coordinate
  * @returns Promise with tile data or null if not found
  */
-function getTileData(zoom: number, x: number, y: number): Promise<TileData | null> {
+function getTileData(
+  zoom: number,
+  x: number,
+  y: number,
+): Promise<TileData | null> {
   const adjustedY = convertTMStoGoogleY(y, zoom);
-  
+
   const query = `
     SELECT tile_data FROM tiles
     WHERE zoom_level = ? AND tile_column = ? AND tile_row = ?
@@ -102,7 +106,7 @@ function getTileData(zoom: number, x: number, y: number): Promise<TileData | nul
 
 /**
  * Handles GET requests to serve map tiles
- * 
+ *
  * @param req - Next.js request object
  * @param params - URL parameters (z: zoom, x: column, y: row)
  * @returns HTTP response with the tile or error message
@@ -117,26 +121,34 @@ export async function GET(
     const col = parseInt(x);
     const row = parseInt(y);
 
-    if (isNaN(zoom) || isNaN(col) || isNaN(row)) 
-      return NextResponse.json({ error: "Invalid tile coordinates" },{ status: 400 });
-    
+    if (isNaN(zoom) || isNaN(col) || isNaN(row))
+      return NextResponse.json(
+        { error: "Invalid tile coordinates" },
+        { status: 400 },
+      );
+
     const tileData = await getTileData(zoom, col, row);
 
     if (tileData) {
       const headers = new Headers();
       headers.set("Content-Type", "application/vnd.mapbox-vector-tile");
       headers.set("Content-Encoding", "gzip");
-      
-      return new NextResponse(tileData.tile_data, { 
-        status: 200, 
-        headers 
+
+      const uint8array = new Uint8Array(tileData.tile_data);
+
+      return new NextResponse(uint8array.buffer, {
+        status: 200,
+        headers,
       });
     } else {
-      return NextResponse.json({ error: "Tile not found" },{ status: 404 });
+      return new NextResponse(null, { status: 204 });
     }
   } catch (error) {
     console.error("Error serving tile:", error);
-    
-    return NextResponse.json({ error: "Internal server error" },{ status: 500 });
+
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

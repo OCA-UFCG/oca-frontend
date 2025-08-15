@@ -8,14 +8,14 @@ const FAQSection = ({
   FAQ,
 }: {
   sectionHead: ISectionHeader[];
-  FAQ: { fields: IFAQ }[];
+  FAQ: IFAQ[];
 }) => {
   return (
     <Wrapper $full={"false"} id="FAQ">
       <SectionHeader id="FAQ" sectionHead={sectionHead} />
       <FAQContainer>
         {FAQ.map((FAQ, index) => (
-          <QuestionFAQ key={index} data={FAQ.fields} />
+          <QuestionFAQ key={index} data={FAQ} />
         ))}
       </FAQContainer>
     </Wrapper>

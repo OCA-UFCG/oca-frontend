@@ -1,12 +1,20 @@
-import { getContent } from "@/utils/functions";
 import MapSection from "@/components/MapTiff/Section/MapSection";
+import { REVALIDATE } from "@/utils/constants";
+import { getContent } from "@/utils/contentful";
+import { IEEInfo } from "@/utils/interfaces";
+import { IEE_QUERY } from "@/utils/queries";
 
-export const revalidate = 60;
+export const revalidate = REVALIDATE;
+
+interface IMapContent {
+  tiffInfoCollection: { items: IEEInfo[] };
+}
 
 const MapPage = async () => {
-  const { tiffInfo } = await getContent(["tiffInfo"]);
+  const { tiffInfoCollection: tiffInfo }: IMapContent =
+    await getContent(IEE_QUERY);
 
-  return <MapSection tiffs={tiffInfo} />;
+  return <MapSection tiffs={tiffInfo.items} />;
 };
 
 export default MapPage;

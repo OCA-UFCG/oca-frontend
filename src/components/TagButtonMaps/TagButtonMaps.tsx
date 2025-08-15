@@ -17,7 +17,7 @@ const TagButtonMaps = ({ tag }: { tag: { id: string; name: string } }) => {
     useContext(MapTiffContext);
 
   const currentTiff = useMemo(
-    () => tiffs.find((tiff) => tiff?.fields.id === tag.id)?.fields,
+    () => tiffs.find((tiff) => tiff.id === tag.id),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentVisu.id],
   );

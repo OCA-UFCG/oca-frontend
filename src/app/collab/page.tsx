@@ -1,25 +1,33 @@
 import CollabTable from "@/components/CollabTable/CollabTable";
 import Template from "@/templates/hubTemplate";
-import { getContent } from "@/utils/functions";
 import { ContentWrapper, Wrapper } from "./styles";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import { REVALIDATE } from "@/utils/constants";
+import { COLLAB_PAGE_QUERY } from "@/utils/queries";
+import { getContent } from "@/utils/contentful";
+import { ISectionHeader, ITeamMember } from "@/utils/interfaces";
 
-export const revalidate = 60;
+export const revalidate = REVALIDATE;
+
+interface ICollabInterface {
+  collaboratorsCollection: { items: ITeamMember[] };
+  sectionHeadCollection: { items: ISectionHeader[] };
+}
 
 const About = async () => {
-  const { collaborators: content, sectionHead } = await getContent([
-    "collaborators",
-    "sectionHead",
-  ]);
+  const {
+    collaboratorsCollection: content,
+    sectionHeadCollection: sectionHead,
+  }: ICollabInterface = await getContent(COLLAB_PAGE_QUERY);
 
   const id = "collaborators";
 
   return (
     <Template backThumb={true}>
       <Wrapper>
-        <SectionHeader id={id} sectionHead={sectionHead} />
+        <SectionHeader id={id} sectionHead={sectionHead.items} />
         <ContentWrapper>
-          <CollabTable content={content} />
+          <CollabTable content={content.items} />
         </ContentWrapper>
       </Wrapper>
     </Template>

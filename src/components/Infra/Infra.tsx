@@ -23,25 +23,9 @@ import {
   InfoContainer,
   Title,
 } from "./Infra.styles";
+import { IGallery } from "@/utils/interfaces";
 
-const InfraSection = ({
-  gallery,
-}: {
-  gallery: {
-    fields: {
-      title: string;
-      description: string;
-      image: {
-        fields: {
-          file: {
-            url: string;
-            details: { image: { height: number; width: number } };
-          };
-        };
-      };
-    };
-  }[];
-}) => {
+const InfraSection = ({ gallery }: { gallery: IGallery[] }) => {
   return (
     <Section $full={"false"} id="publications">
       <Gallery>
@@ -64,21 +48,21 @@ const InfraSection = ({
           {gallery.map((photo, index) => (
             <ImageLink
               key={index}
-              data-lg-size={`${photo.fields.image.fields.file.details.image.width}-${photo.fields.image.fields.file.details.image.height}`}
+              data-lg-size={`${photo.image.width}-${photo.image.height}`}
               className="gallery__item"
-              data-src={`https:${photo.fields.image.fields.file.url}`}
-              data-sub-html={`<h2 style=\"color: white\">${photo.fields.title}</h2><p style=\"color: white; text-align: center\"><strong>Descrição: </strong>${photo.fields.description}</p>`}
+              data-src={photo.image.url}
+              data-sub-html={`<h2 style=\"color: white\">${photo.title}</h2><p style=\"color: white; text-align: center\"><strong>Descrição: </strong>${photo.description}</p>`}
             >
               <ImageContainer>
                 <InfoContainer>
-                  <Title>{photo.fields.title}</Title>
-                  <Subtitle>{photo.fields.description}</Subtitle>
+                  <Title>{photo.title}</Title>
+                  <Subtitle>{photo.description}</Subtitle>
                 </InfoContainer>
                 <Image
-                  alt={photo.fields.description}
-                  height={photo.fields.image.fields.file.details.image.height}
-                  width={photo.fields.image.fields.file.details.image.width}
-                  src={`https:${photo.fields.image.fields.file.url}`}
+                  alt={photo.description}
+                  height={photo.image.height}
+                  width={photo.image.width}
+                  src={photo.image.url}
                   unoptimized={true}
                 />
               </ImageContainer>

@@ -6,6 +6,10 @@ import {
   IContactStatus,
 } from "./interfaces";
 
+export const REVALIDATE = process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW
+  ? 60
+  : 3600;
+
 export const channels: IOCAChannel[] = [
   {
     name: "GitHub",

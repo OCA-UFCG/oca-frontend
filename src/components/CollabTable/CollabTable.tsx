@@ -1,3 +1,4 @@
+import { ITeamMember } from "@/utils/interfaces";
 import { Icon } from "../Icon/Icon";
 import {
   BodyItem,
@@ -9,10 +10,10 @@ import {
   TableHead,
 } from "./CollabTable.styles";
 
-const CollabTable = ({ content }: { content: any[] }) => {
+const CollabTable = ({ content }: { content: ITeamMember[] }) => {
   content.sort((a, b) => {
-    const nameA = a.fields.name.toLowerCase();
-    const nameB = b.fields.name.toLowerCase();
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
 
     if (nameA < nameB) return -1;
     if (nameA > nameB) return 1;
@@ -31,9 +32,9 @@ const CollabTable = ({ content }: { content: any[] }) => {
         </Row>
       </TableHead>
       <TableBody>
-        {content.map(({ fields }, index) => {
+        {content.map((collaborator, index) => {
           const { name, institution, fieldWork, github, linkedin, lattes } =
-            fields;
+            collaborator;
 
           return (
             <Row key={index}>

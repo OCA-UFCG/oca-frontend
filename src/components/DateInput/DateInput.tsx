@@ -15,9 +15,7 @@ const DateInput = () => {
   const { tiffs, loading, currentVisu, setCurrentVisu } =
     useContext(MapTiffContext);
   const dates = useMemo(
-    () =>
-      tiffs.find((tiff) => tiff.fields.id === currentVisu.id)?.fields
-        .imageData || {},
+    () => tiffs.find((tiff) => tiff.id === currentVisu.id)?.imageData || {},
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentVisu.id],

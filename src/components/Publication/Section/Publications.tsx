@@ -10,16 +10,13 @@ const PublicationsSection = ({
   publications,
 }: {
   sectionHead: ISectionHeader[];
-  publications: { fields: IPublication }[];
+  publications: IPublication[];
 }) => (
   <Wrapper $full={"false"} id="publications">
     <SectionHeader id="publications" sectionHead={sectionHead} />
     <PublicationsContainer>
       {publications.map((publications, index) => (
-        <Publication
-          key={index}
-          data={publications.fields as unknown as IPublication}
-        />
+        <Publication key={index} data={publications} />
       ))}
     </PublicationsContainer>
   </Wrapper>
