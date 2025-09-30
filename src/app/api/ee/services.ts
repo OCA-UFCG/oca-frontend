@@ -17,33 +17,37 @@ export const getEarthEngineUrl = async (
   imageParams: any,
   minScale: any,
   maxScale: any,
-) => {
-  try {
-    await authenticate();
+) =>
+  authenticate()
+    .then(async () => {
+      console.log("Authentication successfull");
 
-    const GEEImage = ee
-      .Image(imageId)
-      .selfMask()
-      .reduceResolution(ee.Reducer.mode(), true, 128);
-    const { categorizedImage, visParams } = getImageScale(
-      GEEImage,
-      imageParams,
-      minScale,
-      maxScale,
-    );
+      const GEEImage = ee
+        .Image(imageId)
+        .selfMask()
+        .reduceResolution(ee.Reducer.mode(), true, 128);
 
-    const mapId: IMapId = (await getMapId(
-      categorizedImage,
-      visParams,
-    )) as IMapId;
+      console.log("Image reduced");
 
-    return mapId.urlFormat;
-  } catch (error: any) {
-    console.error("Error during authentication:", error.message);
+      const { categorizedImage, visParams } = getImageScale(
+        GEEImage,
+        imageParams,
+        minScale,
+        maxScale,
+      );
 
-    return null;
-  }
-};
+      const mapId: IMapId = (await getMapId(
+        categorizedImage,
+        visParams,
+      )) as IMapId;
+
+      return mapId.urlFormat;
+    })
+    .catch((error: any) => {
+      console.error("Error during authentication:", error.message);
+
+      return null;
+    });
 
 /**
  * Authenticates with Google Earth Engine using a private key.
@@ -52,17 +56,26 @@ export const getEarthEngineUrl = async (
 function authenticate() {
   const key = process.env.NEXT_PUBLIC_GEE_PRIVATE_KEY || "";
 
+  console.log("Entered authenticate");
+
   return new Promise<void>((resolve, reject) => {
     ee.data.authenticateViaPrivateKey(
       JSON.parse(key),
-      () =>
-        ee.initialize(
+      () => {
+        console.log("Inside Authenticate, worked");
+
+        return ee.initialize(
           null,
           null,
           () => resolve(),
           (error: any) => reject(new Error(error)),
-        ),
-      (error: any) => reject(new Error(error)),
+        );
+      },
+      (error: any) => {
+        console.log("Inside Authenticate, didn't work");
+
+        return reject(new Error(error));
+      },
     );
   });
 }
@@ -151,6 +164,8 @@ export const hasKey = (key: string) => {
  * @return {string | undefined} - The cached URL or undefined if the url is not present in the cache.
  */
 export const getCachedUrl = (key: string) => {
+  console.log(cacheUrls.get(key));
+
   return cacheUrls.get(key);
 };
 

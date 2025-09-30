@@ -25,6 +25,9 @@ export async function POST(req: NextRequest) {
         imageInfo.minScale,
         imageInfo.maxScale,
       );
+
+      console.log(url);
+
       addUrlToCache(name + year, url);
 
       return NextResponse.json({ url }, { status: 200 });
