@@ -20,14 +20,14 @@ export const getEarthEngineUrl = async (
 ) =>
   authenticate()
     .then(async () => {
-      console.log("Authentication successfull");
+      console.log(new Date().toISOString(), " - Authentication successfull");
 
       const GEEImage = ee
         .Image(imageId)
         .selfMask()
         .reduceResolution(ee.Reducer.mode(), true, 128);
 
-      console.log("Image reduced");
+      console.log(new Date().toISOString(), " - Image reduced");
 
       const { categorizedImage, visParams } = getImageScale(
         GEEImage,
@@ -44,7 +44,11 @@ export const getEarthEngineUrl = async (
       return mapId.urlFormat;
     })
     .catch((error: any) => {
-      console.error("Error during authentication:", error.message);
+      console.log(
+        new Date().toISOString(),
+        " - Error while authenticating:",
+        error.message,
+      );
 
       return null;
     });
@@ -56,23 +60,39 @@ export const getEarthEngineUrl = async (
 function authenticate() {
   const key = process.env.NEXT_PUBLIC_GEE_PRIVATE_KEY || "";
 
-  console.log("Entered authenticate");
+  console.log(new Date().toISOString(), " - Entered authenticate");
 
   return new Promise<void>((resolve, reject) => {
     ee.data.authenticateViaPrivateKey(
       JSON.parse(key),
       () => {
-        console.log("Inside Authenticate, worked");
+        console.log(new Date().toISOString(), " - Inside Authenticate, worked");
 
         return ee.initialize(
           null,
           null,
-          () => resolve(),
-          (error: any) => reject(new Error(error)),
+          () => {
+            console.log(new Date().toISOString(), " - Initiated successfully");
+
+            return resolve();
+          },
+          (error: any) => {
+            console.log(
+              new Date().toISOString(),
+              " - Error while initiating:",
+              error.message,
+            );
+
+            return reject(new Error(error));
+          },
         );
       },
       (error: any) => {
-        console.log("Inside Authenticate, didn't work");
+        console.log(
+          new Date().toISOString(),
+          " - Error while authenticating:",
+          error.message,
+        );
 
         return reject(new Error(error));
       },
@@ -164,9 +184,15 @@ export const hasKey = (key: string) => {
  * @return {string | undefined} - The cached URL or undefined if the url is not present in the cache.
  */
 export const getCachedUrl = (key: string) => {
-  console.log(cacheUrls.get(key));
-
   return cacheUrls.get(key);
+};
+
+/**
+ * Removes a URL from the cache for a given key.
+ * @param {string} key - The unique key that refers to the URL to be removed.
+ */
+export const removeCacheUrl = (key: string) => {
+  cacheUrls.delete(key);
 };
 
 /**

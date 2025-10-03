@@ -14,11 +14,16 @@ export async function POST(req: NextRequest) {
     const year = req.nextUrl.searchParams.get("year") || "";
 
     if (hasKey(name + year)) {
+      console.log(new Date().toISOString(), " - Getting URL on cache");
+
       const url = getCachedUrl(name + year);
 
       return NextResponse.json({ url }, { status: 200 });
     } else {
       const imageInfo: IEEInfo = await req.json();
+
+      console.log(new Date().toISOString(), " - Starting URL queries");
+
       const url = await getEarthEngineUrl(
         imageInfo.imageData[year].imageId,
         imageInfo.imageData[year].imageParams,
@@ -26,9 +31,11 @@ export async function POST(req: NextRequest) {
         imageInfo.maxScale,
       );
 
-      console.log(url);
+      console.log(new Date().toISOString(), " - Saving URL to cache");
 
       addUrlToCache(name + year, url);
+
+      console.log(new Date().toISOString(), " - URL saved");
 
       return NextResponse.json({ url }, { status: 200 });
     }
