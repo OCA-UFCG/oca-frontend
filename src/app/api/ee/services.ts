@@ -2,6 +2,23 @@ import ee from "@google/earthengine";
 import { IMapId } from "@/utils/interfaces";
 import { getContent } from "@/utils/functions";
 
+// ====== GEE Singleton for Authentication and Initialization ======
+
+let geeInitialized: Promise<void> | null = null;
+
+/**
+ * Ensures that Google Earth Engine is authenticated and initialized, but only runs the process once.
+ * This is a singleton pattern to prevent re-authentication on every API call.
+ */
+const initializeGee = async () => {
+  if (geeInitialized) {
+    return geeInitialized;
+  }
+  geeInitialized = authenticateAndInitialize();
+
+  return geeInitialized;
+};
+
 // ====== GEE ======
 
 /**
@@ -17,88 +34,30 @@ export const getEarthEngineUrl = async (
   imageParams: any,
   minScale: any,
   maxScale: any,
-) =>
-  authenticate()
-    .then(async () => {
-      console.log(new Date().toISOString(), " - Authentication successfull");
+) => {
+  try {
+    await initializeGee();
+    console.log(new Date().toISOString(), " - GEE Initialized successfully");
 
-      const GEEImage = ee
-        .Image(imageId)
-        .selfMask()
-        .reduceResolution(ee.Reducer.mode(), true, 128);
-
-      console.log(new Date().toISOString(), " - Image reduced");
-
-      const { categorizedImage, visParams } = getImageScale(
-        GEEImage,
-        imageParams,
-        minScale,
-        maxScale,
-      );
-
-      const mapId: IMapId = (await getMapId(
-        categorizedImage,
-        visParams,
-      )) as IMapId;
-
-      return mapId.urlFormat;
-    })
-    .catch((error: any) => {
-      console.log(
-        new Date().toISOString(),
-        " - Error while authenticating:",
-        error.message,
-      );
-
-      return null;
-    });
-
-/**
- * Authenticates with Google Earth Engine using a private key.
- * @returns {Promise<void>} - Resolves when authentication is successful.
- */
-function authenticate() {
-  const key = process.env.NEXT_PUBLIC_GEE_PRIVATE_KEY || "";
-
-  console.log(new Date().toISOString(), " - Entered authenticate");
-
-  return new Promise<void>((resolve, reject) => {
-    ee.data.authenticateViaPrivateKey(
-      JSON.parse(key),
-      () => {
-        console.log(new Date().toISOString(), " - Inside Authenticate, worked");
-
-        return ee.initialize(
-          null,
-          null,
-          () => {
-            console.log(new Date().toISOString(), " - Initiated successfully");
-
-            return resolve();
-          },
-          (error: any) => {
-            console.log(
-              new Date().toISOString(),
-              " - Error while initiating:",
-              error.message,
-            );
-
-            return reject(new Error(error));
-          },
-        );
-      },
-      (error: any) => {
-        console.log(
-          new Date().toISOString(),
-          " - Error while authenticating:",
-          error.message,
-        );
-
-        return reject(new Error(error));
-      },
+    const GEEImage = ee
+      .Image(imageId)
+      .selfMask()
+      .reduceResolution(ee.Reducer.mode(), true, 128);
+    const { categorizedImage, visParams } = getImageScale(
+      GEEImage,
+      imageParams,
+      minScale,
+      maxScale,
     );
-  });
-}
+    const mapId = (await getMapId(categorizedImage, visParams)) as IMapId;
+
+    return mapId.urlFormat;
+  } catch (error: any) {
+    console.error("Error in getEarthEngineUrl:", error.message);
+
+    return null;
+  }
+};
 
 /**
  * Adjusts the scale of an image based on visualization parameters.
@@ -165,9 +124,55 @@ function getMapId(image: any, visParams?: any) {
   });
 }
 
+/**
+ * Authenticates and initializes Google Earth Engine using a private key.
+ * This function should only be called by the `initializeGee` singleton.
+ * @returns {Promise<void>} - Resolves when initialization is successful.
+ */
+async function authenticateAndInitialize(): Promise<void> {
+  // IMPORTANT: Rename NEXT_PUBLIC_GEE_PRIVATE_KEY to GEE_PRIVATE_KEY in your .env file
+  // and Vercel environment variables. Public keys are exposed to the browser.
+  const key = process.env.GEE_PRIVATE_KEY;
+  if (!key) {
+    throw new Error("GEE_PRIVATE_KEY environment variable not set.");
+  }
+
+  console.log(new Date().toISOString(), " - Starting GEE authentication...");
+
+  return new Promise((resolve, reject) => {
+    ee.data.authenticateViaPrivateKey(
+      JSON.parse(key),
+      () => {
+        console.log(
+          new Date().toISOString(),
+          " - GEE Authentication successful. Initializing...",
+        );
+        ee.initialize(null, null, resolve, reject);
+      },
+      (err: string) => {
+        console.error(
+          new Date().toISOString(),
+          " - GEE Authentication failed:",
+          err,
+        );
+        reject(new Error(err));
+      },
+    );
+  }).then(() => {
+    console.log(new Date().toISOString(), " - GEE Initialized.");
+  });
+}
+
 // ====== Cache ======
+const TTL = 1000 * 60 * 30; // 0.5 hour in milliseconds
+
+interface CacheEntry {
+  url: string;
+  timestamp: number;
+}
+
 let cached = false;
-const cacheUrls = new Map<string, string>();
+const cacheUrls = new Map<string, CacheEntry>();
 
 /**
  * Checks if a given key exists in cache.
@@ -175,25 +180,35 @@ const cacheUrls = new Map<string, string>();
  * @returns {boolean} - True if the key exists, false otherwise.
  */
 export const hasKey = (key: string) => {
-  return cacheUrls.has(key);
+  const entry = cacheUrls.get(key);
+  if (!entry) {
+    return false;
+  }
+
+  // Check if the entry has expired
+  const expired = Date.now() - entry.timestamp > TTL;
+  if (expired) {
+    cacheUrls.delete(key); // Clean up expired entry
+  }
+
+  return !expired;
 };
 
 /**
  * Retrieves the caches URL for a given key.
  * @param {string} key - The unique key that refers to the URL to be returned.
- * @return {string | undefined} - The cached URL or undefined if the url is not present in the cache.
+ * @return {string | undefined} - The cached URL or undefined if the url is not present or has expired.
  */
 export const getCachedUrl = (key: string) => {
-  return cacheUrls.get(key);
+  // The hasKey function also handles expiration checks and cleanup
+  return cacheUrls.get(key)?.url || undefined;
 };
 
 /**
  * Removes a URL from the cache for a given key.
  * @param {string} key - The unique key that refers to the URL to be removed.
  */
-export const removeCacheUrl = (key: string) => {
-  cacheUrls.delete(key);
-};
+export const removeCacheUrl = (key: string) => cacheUrls.delete(key);
 
 /**
  * Adds a url to the cache, based on a key composed by the name and year of the map visualization.
@@ -201,8 +216,12 @@ export const removeCacheUrl = (key: string) => {
  * @param {string} url - The URL to cache.
  */
 export const addUrlToCache = (key: string, url: string | null) => {
-  if (url) cacheUrls.set(key, url);
-  else cacheUrls.delete(key);
+  if (url) {
+    const entry: CacheEntry = { url, timestamp: Date.now() };
+    cacheUrls.set(key, entry);
+  } else {
+    cacheUrls.delete(key);
+  }
 };
 
 /**
