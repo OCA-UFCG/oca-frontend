@@ -130,8 +130,6 @@ function getMapId(image: any, visParams?: any) {
  * @returns {Promise<void>} - Resolves when initialization is successful.
  */
 async function authenticateAndInitialize(): Promise<void> {
-  // IMPORTANT: Rename NEXT_PUBLIC_GEE_PRIVATE_KEY to GEE_PRIVATE_KEY in your .env file
-  // and Vercel environment variables. Public keys are exposed to the browser.
   const key = process.env.GEE_PRIVATE_KEY;
   if (!key) {
     throw new Error("GEE_PRIVATE_KEY environment variable not set.");
