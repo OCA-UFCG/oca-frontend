@@ -4,7 +4,7 @@ import { Icon } from "../Icon/Icon";
 export const SubtractImage = styled(Icon)`
   transition: 0.3s;
   width: 0.75rem;
-  height: fit-content;
+  height: 100%;
 `;
 
 export const Wrapper = styled.details`
