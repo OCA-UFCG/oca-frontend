@@ -97,7 +97,7 @@ export const InfoContainer = styled.div`
 
 export const QuestionMarkIcon = styled(Icon)`
   max-width: 1rem;
-  height: fit-content;
+  height: 100%;
   transition: 300ms;
   cursor: pointer;
 
