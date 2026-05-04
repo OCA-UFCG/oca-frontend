@@ -19,7 +19,7 @@
   "dependencies": {
     "@apollo/client": "^3.13.9",
     "@contentful/rich-text-react-renderer": "^16.2.1",
-    "@google/earthengine": "^0.1.402",
+    "@google/earthengine": "^1.7.25",
     "@next/third-parties": "^14.2.3",
     "@types/google-earth": "^0.0.8",
     "braces": ">=3.0.3",
