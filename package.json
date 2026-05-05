@@ -17,7 +17,7 @@
     ]
   },
   "dependencies": {
-    "@apollo/client": "^3.13.9",
+    "@apollo/client": "^4.1.9",
     "@contentful/rich-text-react-renderer": "^16.2.1",
     "@google/earthengine": "^1.7.25",
     "@next/third-parties": "^14.2.3",
