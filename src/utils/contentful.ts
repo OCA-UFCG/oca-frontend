@@ -3,13 +3,15 @@ const ACCESS_TOKEN = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN || "";
 const SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE || "";
 const USE_PREVIEW = process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW ? true : false;
 const CONTENTFUL_ENDPOINT = `https://graphql.contentful.com/content/v1/spaces/${SPACE_ID}/environments/${ENVIRONMENT}`;
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 
 export const client = new ApolloClient({
-  uri: CONTENTFUL_ENDPOINT,
-  headers: {
-    Authorization: `Bearer ${ACCESS_TOKEN}`,
-  },
+  link: new HttpLink({
+    uri: CONTENTFUL_ENDPOINT,
+    headers: {
+      Authorization: `Bearer ${ACCESS_TOKEN}`,
+    },
+  }),
   cache: new InMemoryCache(),
 });
 
