@@ -74,11 +74,11 @@ export const sections: ISections = {
     },
   },
   map: { name: "Plataforma", path: "/map" },
-  contact: { name: "Fale conosco", path: "/contact-us" },
   croqui: {
     name: "Croqui",
-    path: "https://observatorio-croqui.oca-portal.com/s",
+    path: "/croqui",
   },
+  contact: { name: "Fale conosco", path: "/contact-us" },
 };
 
 export const defaultEEInfo: IEEInfo = {
