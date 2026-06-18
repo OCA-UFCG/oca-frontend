@@ -6,18 +6,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  async rewrites() {
-    return [
-      {
-        source: "/croqui",
-        destination: "https://observatorio-croqui.oca-portal.com",
-      },
-      {
-        source: "/croqui/:path*",
-        destination: "https://observatorio-croqui.oca-portal.com/:path*",
-      },
-    ];
-  },
   images: {
     unoptimized: true,
     remotePatterns: [
