@@ -23,7 +23,7 @@
     "@next/third-parties": "^14.2.3",
     "@types/google-earth": "^0.0.8",
     "braces": ">=3.0.3",
-    "contentful": "^10.11.10",
+    "contentful": "^11.12.2",
     "express": "^5.2.1",
     "graphql": "^16.13.2",
     "lightgallery": "^2.7.2",
