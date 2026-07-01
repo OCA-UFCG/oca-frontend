@@ -6,10 +6,13 @@ import {
   getEarthEngineUrl,
   hasKey,
   getCachedUrl,
+  ensureCacheWarmupStarted,
 } from "@/app/api/ee/services";
 
 export async function POST(req: NextRequest) {
   try {
+    ensureCacheWarmupStarted();
+
     const name = req.nextUrl.searchParams.get("name") || "";
     const year = req.nextUrl.searchParams.get("year") || "";
 
@@ -40,6 +43,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ url }, { status: 200 });
     }
   } catch (error: any) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.error("Error serving Earth Engine URL:", error);
+    return NextResponse.json(
+      { error: error?.message ?? String(error) },
+      { status: 500 },
+    );
   }
 }
