@@ -7,6 +7,7 @@ import {
   ViewMore,
   Wrapper,
   ContentWrapper,
+  PhotoColumn,
 } from "./AboutHomeSection.styles";
 import { PhotoAlbum } from "../PhotoAlbum/PhotoAlbum";
 import { IAboutSection, ISectionHeader } from "@/utils/interfaces";
@@ -92,7 +93,9 @@ const AboutHomeSection = ({
           </TextContainer>
           <ViewMore href="/about">Ler mais</ViewMore>
         </ContentModal>
-        <PhotoAlbum photos={content.albumCollection.items} />
+        <PhotoColumn>
+          <PhotoAlbum photos={content.albumCollection.items} />
+        </PhotoColumn>
       </ContentWrapper>
     </Wrapper>
   );

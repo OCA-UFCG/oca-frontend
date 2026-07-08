@@ -2,15 +2,18 @@ import Image from "next/image";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  align-self: flex-start;
+  display: grid;
+  grid-template-rows: auto auto;
   gap: 0.75rem;
   width: 100%;
-  max-width: 520px;
   position: sticky;
   top: 6rem;
+  overflow: hidden;
 
   @media screen and (max-width: 1100px) {
+    display: flex;
+    flex-direction: column;
     position: static;
     max-width: 680px;
   }
@@ -26,19 +29,15 @@ export const ActivePhoto = styled(Image)`
 `;
 
 export const ThumbnailList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
   gap: 0.5rem;
-
-  @media screen and (max-width: 540px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 `;
 
 export const Thumbnail = styled(Image)<{ $active: string }>`
-  aspect-ratio: 3 / 2;
+  flex: 1 1 0;
+  min-width: 0;
   width: 100%;
-  height: auto;
+  height: 6rem;
   object-fit: cover;
   border-radius: 4px;
   box-shadow: 0px 0px 3px #9e9e9e;
@@ -54,5 +53,9 @@ export const Thumbnail = styled(Image)<{ $active: string }>`
   &:hover {
     opacity: 1;
     transform: scale(0.98);
+  }
+
+  @media screen and (max-width: 540px) {
+    height: 4.5rem;
   }
 `;

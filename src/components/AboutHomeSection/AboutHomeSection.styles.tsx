@@ -46,11 +46,23 @@ export const ContentModal = styled.div`
   gap: 1rem;
   box-sizing: border-box;
   background-color: #ffffff;
-  height: fit-content;
   max-width: 680px;
   padding: 1rem;
   box-shadow: 0px 0px 4px #cdcdcd;
   border-radius: 4px;
+`;
+
+export const PhotoColumn = styled.div`
+  align-self: flex-start;
+  flex: 0 1 560px;
+  width: 100%;
+  max-width: 560px;
+  height: 39rem;
+
+  @media screen and (max-width: 1100px) {
+    height: auto;
+    max-width: 680px;
+  }
 `;
 
 export const OcaLogo = styled(Icon)``;
