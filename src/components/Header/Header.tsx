@@ -31,7 +31,13 @@ const Header = (props?: any) => {
   return (
     <Wrapper {...props}>
       <Link href="/">
-        <LogoImage id="logo-oca" />
+        <LogoImage
+          src="/oca_logan.svg"
+          alt="OCA"
+          width={148}
+          height={75}
+          priority
+        />
       </Link>
       <Navbar>
         <NavList>

@@ -9,7 +9,7 @@ const HeaderSection = () => {
     <Wrapper>
       <HeaderModal />
       <Link href="/">
-        <LogoImage id="logo-oca" size={48} />
+        <LogoImage src="/oca_logan.svg" alt="OCA" width={148} height={75} />
       </Link>
       <MainHeader />
     </Wrapper>

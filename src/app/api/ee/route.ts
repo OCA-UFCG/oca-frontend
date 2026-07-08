@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
     }
   } catch (error: any) {
     console.error("Error serving Earth Engine URL:", error);
+
     return NextResponse.json(
       { error: error?.message ?? String(error) },
       { status: 500 },

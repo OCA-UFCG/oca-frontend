@@ -106,11 +106,12 @@ export const ModalWrapper = styled.div<{
 export const HeadWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const OcaImage = styled(Image)`
-  max-width: 6.5rem;
-  height: fit-content;
+  width: 6.5rem;
+  height: auto;
 `;
 
 export const RetractImage = styled(Image)<{ $position: string }>`

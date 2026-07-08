@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Icon } from "../Icon/Icon";
 import Link from "next/link";
+import Image from "next/image";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -18,9 +18,9 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const LogoImage = styled(Icon)`
-  height: 3.5rem;
-  width: 3.5rem;
+export const LogoImage = styled(Image)`
+  height: auto;
+  width: 7rem;
   pointer-events: all;
 
   @media screen and (max-width: 1000px) {

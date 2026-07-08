@@ -1,4 +1,4 @@
-import { Section } from "@/app/globalStyles";
+import { Section, SectionTitle } from "@/app/globalStyles";
 import Link from "next/link";
 import styled from "styled-components";
 import { Icon } from "../Icon/Icon";
@@ -17,19 +17,26 @@ export const SectionHeader = styled(DefaultSectionHeader)`
   align-items: flex-end;
 `;
 
+export const AboutTitle = styled(SectionTitle)`
+  text-align: left;
+  align-self: flex-start;
+  margin-bottom: 0.5rem;
+`;
+
 export const ContentWrapper = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1.25rem;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   max-width: 1440px;
   width: 100%;
   flex-shrink: 0;
   margin-bottom: 3rem;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1100px) {
     justify-content: center;
-    flex-flow: column-reverse;
+    align-items: center;
+    flex-flow: column;
   }
 `;
 
@@ -40,8 +47,7 @@ export const ContentModal = styled.div`
   box-sizing: border-box;
   background-color: #ffffff;
   height: fit-content;
-  max-width: 550px;
-  height: 17rem;
+  max-width: 680px;
   padding: 1rem;
   box-shadow: 0px 0px 4px #cdcdcd;
   border-radius: 4px;
@@ -66,6 +72,29 @@ export const TextContainer = styled.div`
 
   p {
     margin: 0;
+  }
+
+  h3 {
+    color: ${({ theme }) => theme.colors.green};
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  h4 {
+    color: ${({ theme }) => theme.colors.black};
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  ul {
+    margin: 0 0 0 1rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
   }
 
   @media screen and (max-width: 980px) {
