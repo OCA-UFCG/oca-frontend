@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { Icon } from "../Icon/Icon";
+import Image from "next/image";
 
 export const Wrapper = styled.footer`
   display: flex;
@@ -29,7 +29,11 @@ export const Divider = styled.hr`
   margin-top: 0px;
 `;
 
-export const LogoImage = styled(Icon)``;
+export const LogoImage = styled(Image)`
+  width: 11.5rem;
+  height: auto;
+  filter: brightness(0) invert(1);
+`;
 
 export const References = styled.div`
   display: flex;

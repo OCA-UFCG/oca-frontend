@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Photo, Wrapper } from "./PhotoAlbum.styles";
+import {
+  ActivePhoto,
+  Thumbnail,
+  ThumbnailList,
+  Wrapper,
+} from "./PhotoAlbum.styles";
 
 // poster: { fields: { file: { url: string } } } | string;
 
@@ -27,20 +32,28 @@ export const PhotoAlbum = ({ photos }: { photos: any[] }) => {
 
   return (
     <Wrapper>
-      {photos.map((photo, index) => (
-        <Photo
-          key={index}
-          distance={Math.abs(currentPhoto - index)}
-          onClick={() => setCurrentPhoto(index)}
-          $active={(index === currentPhoto).toString()}
-          src={`${photo.url}?&w=624&h=448`}
-          height={448}
-          width={624}
-          alt=""
-          quality={currentPhoto === index ? 100 : 5}
-          priority={currentPhoto === index ? true : false}
-        />
-      ))}
+      <ActivePhoto
+        src={`${photos[currentPhoto].url}?&w=624&h=448`}
+        height={448}
+        width={624}
+        alt=""
+        quality={100}
+        priority
+      />
+      <ThumbnailList>
+        {photos.map((photo, index) => (
+          <Thumbnail
+            key={index}
+            onClick={() => setCurrentPhoto(index)}
+            $active={(index === currentPhoto).toString()}
+            src={`${photo.url}?&w=180&h=120`}
+            height={120}
+            width={180}
+            alt=""
+            quality={40}
+          />
+        ))}
+      </ThumbnailList>
     </Wrapper>
   );
 };

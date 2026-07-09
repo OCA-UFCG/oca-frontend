@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Header from "../Header";
-import { Icon } from "@/components/Icon/Icon";
+import Image from "next/image";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -18,9 +18,9 @@ export const Wrapper = styled.div`
   background-repeat: repeat;
 `;
 
-export const LogoImage = styled(Icon)`
-  width: 3rem;
-  height: 3rem;
+export const LogoImage = styled(Image)`
+  width: 6rem;
+  height: auto;
   pointer-events: all;
 
   @media screen and (min-width: 1000px) {
