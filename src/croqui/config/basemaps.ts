@@ -10,6 +10,10 @@ export interface Basemap {
   maxZoom: number;
 }
 
+// Só provedores com uso permitido sem chave de API: os estilos do Carto e o
+// Esri World Imagery como opção de satélite (ambos exigem a atribuição abaixo).
+// OpenStreetMap e Google foram removidos: o servidor oficial do OSM não admite
+// tráfego de produção, e o endpoint de tiles do Google exige a API oficial.
 export const BASEMAPS: Basemap[] = [
   {
     id: "carto-positron",
@@ -19,10 +23,17 @@ export const BASEMAPS: Basemap[] = [
     maxZoom: 19,
   },
   {
-    id: "osm",
-    name: "OpenStreetMap",
-    url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-    attribution: "© OpenStreetMap contributors",
+    id: "carto-voyager",
+    name: "Carto Voyager",
+    url: "https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
+    attribution: "© OpenStreetMap · © CARTO",
+    maxZoom: 19,
+  },
+  {
+    id: "carto-dark-matter",
+    name: "Carto Dark Matter (escuro)",
+    url: "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+    attribution: "© OpenStreetMap · © CARTO",
     maxZoom: 19,
   },
   {
@@ -31,15 +42,6 @@ export const BASEMAPS: Basemap[] = [
     url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
     attribution: "Tiles © Esri — Esri, Maxar, Earthstar Geographics",
     maxZoom: 19,
-  },
-  {
-    // Google's tile endpoint is fine for internal/academic prototypes; for a
-    // public production deploy review Google Maps Platform ToS.
-    id: "google-sat",
-    name: "Google Satélite",
-    url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-    attribution: "© Google",
-    maxZoom: 20,
   },
 ];
 
