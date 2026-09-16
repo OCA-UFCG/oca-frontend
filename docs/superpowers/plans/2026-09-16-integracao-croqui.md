@@ -14,10 +14,11 @@
 
 - **Não subir versão de Next ou React.** O oca-frontend permanece em `next@^14.2.28` e `react@^18`. O croqui não usa nenhuma API exclusiva do React 19; nenhum arquivo dele precisa mudar por causa de versão.
 - **`maplibre-gl` em versão única, `^5`.** Nunca instalar as duas versões em paralelo.
-- **A rota `/croqui` deve ficar visualmente idêntica ao iframe de hoje:** header próprio do croqui, tela cheia, sem a navegação do oca.
+- **A rota `/croqui` exibe o Header do OCA no topo, o header próprio do croqui abaixo dele, e o croqui ocupando a altura restante.** O Footer do site não entra. (Decisão revista durante a execução; ver "Emenda: Header do OCA" no fim da spec.)
+- **O grupo `(croqui)` carrega `StyledComponentsRegistry` e `ThemeProvider`, mas NUNCA o `GlobalStyles`.** É o `GlobalStyles` que traz `details { display: none }`, a regra que esconderia as seções recolhíveis do `StatsPanel`.
 - **Nenhuma URL pública muda.** Route groups entre parênteses não entram no path.
 - **`src/app/globalStyles.tsx` NÃO pode ser movido** — 11 componentes o importam por `@/app/globalStyles`. O mesmo vale para `src/app/Providers.tsx` e `src/app/theme.ts`, que permanecem na raiz de `src/app/`.
-- **Todo o código migrado do croqui é copiado sem alteração de lógica.** As únicas edições permitidas são: caminhos de import, nomes de variáveis de ambiente, as duas entradas de fonte em `src/croqui/config/theme.ts` e a declaração `font-family` da regra `body` em `src/croqui/croqui.css`. Qualquer outra alteração de conteúdo é escopo vazado.
+- **Todo o código migrado do croqui é copiado sem alteração de lógica.** As únicas edições permitidas são: caminhos de import, nomes de variáveis de ambiente, as duas entradas de fonte em `src/croqui/config/theme.ts`, a declaração `font-family` da regra `body` em `src/croqui/croqui.css` e a altura da raiz em `src/croqui/components/App.tsx` (`height: "100vh"` → `height: "100%"`, exigida pelo Header do OCA). Qualquer outra alteração de conteúdo é escopo vazado.
 - **Idioma dos commits e comentários: português**, seguindo o histórico do repositório.
 - **Autoria:** `Marcos Antônio <marcos.pereira@lsd.ufcg.edu.br>`. Nunca registrar co-autor.
 
@@ -401,9 +402,11 @@ Troca o iframe pelo import dinâmico do `App` e completa o root layout do grupo 
 
 **Files:**
 - Modify: `src/app/(croqui)/layout.tsx`
+- Create: `src/app/(croqui)/CroquiSiteHeader.tsx`
 - Modify: `src/app/(croqui)/croqui/page.tsx`
 - Modify: `src/croqui/croqui.css`
 - Modify: `src/croqui/config/theme.ts:49-52`
+- Modify: `src/croqui/components/App.tsx` (só a altura da raiz)
 
 **Interfaces:**
 - Consumes: o default export `App` de `src/croqui/components/App.tsx` e o arquivo `src/croqui/croqui.css`, ambos da Task 3.
@@ -420,6 +423,8 @@ import { DM_Sans, DM_Mono } from "next/font/google";
 import "@/croqui/croqui.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+
+import { CroquiSiteHeader } from "./CroquiSiteHeader";
 
 const dmSans = DM_Sans({
   weight: ["400", "500", "600", "700"],
@@ -448,11 +453,98 @@ export default function CroquiRootLayout({
       lang="pt-BR"
       className={`${dmSans.variable} ${dmMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {/* Coluna: Header do OCA com altura natural, croqui ocupando o resto.
+            O `min-height: 0` é necessário para o filho flex poder encolher e
+            deixar o StatsPanel rolar em vez de estourar a viewport. */}
+        <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+          <CroquiSiteHeader />
+          <div style={{ flex: 1, minHeight: 0 }}>{children}</div>
+        </div>
+      </body>
     </html>
   );
 }
 ```
+
+- [ ] **Step 1b: Criar o wrapper do Header do OCA**
+
+O Header do OCA é feito de styled-components e precisa do `ThemeProvider`
+(`theme.colors.green`, `theme.colors.black`). Mas o grupo `(croqui)` **não pode**
+carregar o `GlobalStyles`, cujo `details { display: none }` esconderia as seções
+recolhíveis do `StatsPanel`.
+
+Auditoria da árvore do Header (`HeaderSection`, `Header`, `HeaderModal`,
+`Dropdown`, `Icon`): nenhum deles importa `@/app/globalStyles`; eles usam apenas
+`a`, `div`, `li`, `nav` e `ul`; `Dropdown.styles.tsx` já zera `margin` e
+`list-style` no `NavItem`, e `ChildrenWrapper` define a própria `padding`. A
+**única** regra do reset de que a árvore depende é a `padding` zerada do `<ul>`:
+`Header.styles.ts` define `margin: 0` no `NavList` mas não a `padding`.
+
+Crie `src/app/(croqui)/CroquiSiteHeader.tsx`:
+
+```tsx
+"use client";
+
+import { ThemeProvider, createGlobalStyle } from "styled-components";
+
+import StyledComponentsRegistry from "@/lib/registry";
+import { theme } from "@/app/theme";
+import HeaderSection from "@/components/Header/Section/HeaderSection";
+
+// O GlobalStyles do site NÃO entra neste grupo: o reset dele traz
+// `details { display: none }`, que esconderia as seções recolhíveis do
+// StatsPanel do croqui. A árvore do Header depende de uma única regra desse
+// reset — a padding zerada do <ul> do NavList — então repomos só ela, escopada
+// por classe para não alcançar a subárvore do croqui.
+const OcaHeaderScope = createGlobalStyle`
+  .oca-header-scope ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+`;
+
+export function CroquiSiteHeader() {
+  return (
+    <StyledComponentsRegistry>
+      <ThemeProvider theme={theme}>
+        <OcaHeaderScope />
+        <div className="oca-header-scope">
+          <HeaderSection />
+        </div>
+      </ThemeProvider>
+    </StyledComponentsRegistry>
+  );
+}
+```
+
+Confira antes de seguir que `src/lib/registry.tsx` exporta o
+`StyledComponentsRegistry` como **default** e que `src/app/theme.ts` exporta
+`theme` como **named** — é assim que `src/app/Providers.tsx` os consome. Se a
+forma de export for outra, ajuste o import e registre isso no relatório.
+
+- [ ] **Step 1c: Ajustar a altura da raiz do App do croqui**
+
+A raiz do `src/croqui/components/App.tsx` usa `height: "100vh"`, o que agora
+estouraria a viewport somado ao Header do OCA. Dentro da coluna flex do layout,
+ela deve preencher o espaço restante.
+
+Em `src/croqui/components/App.tsx`, no `<div>` mais externo do `return`, troque:
+
+```tsx
+        height: "100vh",
+```
+
+por:
+
+```tsx
+        height: "100%",
+```
+
+Essa é a **única** alteração autorizada no código migrado do croqui além dos
+imports, das variáveis de ambiente e das fontes. Não mexa em mais nada nesse
+arquivo.
 
 - [ ] **Step 2: Apontar o CSS e o theme para as variáveis de fonte**
 
@@ -509,7 +601,9 @@ const App = dynamic(() => import("@/croqui/components/App"), {
   loading: () => (
     <div
       style={{
-        position: "fixed",
+        // `absolute` (e não `fixed`) para o placeholder ficar contido abaixo
+        // dos dois headers, no mesmo espaço que o App vai ocupar.
+        position: "absolute",
         inset: 0,
         display: "grid",
         placeItems: "center",
@@ -525,7 +619,11 @@ const App = dynamic(() => import("@/croqui/components/App"), {
 });
 
 export default function CroquiPage() {
-  return <App />;
+  return (
+    <div style={{ position: "relative", height: "100%" }}>
+      <App />
+    </div>
+  );
 }
 ```
 
@@ -546,7 +644,12 @@ npm run dev
 Em `http://localhost:3000/croqui`, percorra o roteiro completo:
 
 - A tela "Carregando mapa…" aparece e dá lugar ao mapa
-- O header do croqui ocupa o topo, com o logo e o título "Gerador de Croquis" — e **sem** o header do oca
+- **O Header do OCA aparece no topo**, com o logo, a navegação e as redes sociais
+- **Os dropdowns da navegação do OCA abrem no hover** e os links levam às rotas do site (`/about`, `/map`, …) a partir do `/croqui`
+- **A lista da navegação não tem recuo indevido à esquerda nem marcadores de lista** — é a prova de que a regra escopada `.oca-header-scope ul` repôs o que o `GlobalStyles` faria
+- O header do croqui aparece **logo abaixo** do header do OCA, com o logo, o título "Gerador de Croquis" e o botão "Gerar croqui"
+- **O mapa ocupa toda a altura restante abaixo dos dois headers**, a página não rola, e o `StatsPanel` não fica cortado
+- **Abaixo de 1000px de largura** o Header do OCA troca para o logo compacto e o menu modal, sem quebrar o layout do croqui
 - `SearchBar`: buscar um endereço move o mapa
 - `BasemapSwitcher`: alternar entre Carto Positron, OpenStreetMap, Esri Satélite e Google Satélite troca o fundo
 - `DrawToolbar`: desenhar um polígono (o cursor vira mira), editar vértices e limpar o desenho
@@ -566,20 +669,32 @@ Confirme que o `croqui.css` não vazou para fora do grupo:
 - `http://localhost:3000/about` — parágrafos justificados e listas como antes
 - `http://localhost:3000/map` — segue funcionando
 
+Confirme também, no sentido inverso, que o `GlobalStyles` **não** entrou no grupo
+`(croqui)`: em `/croqui`, inspecione o `<head>` e verifique que não existe a regra
+`details { display: none }`. O teste funcional equivalente é o `<details>` do
+`StatsPanel` abrir, já checado no Step 5.
+
 - [ ] **Step 7: Commit**
 
 ```bash
-git add "src/app/(croqui)" src/croqui/croqui.css src/croqui/config/theme.ts
+git add "src/app/(croqui)" src/croqui/croqui.css src/croqui/config/theme.ts src/croqui/components/App.tsx
 git commit -m "feat: serve o croqui nativamente em /croqui, sem iframe
 
 A rota passa a importar src/croqui/components/App dinamicamente com
 ssr: false, reproduzindo o comportamento do app original.
 
 O root layout do grupo (croqui) carrega DM Sans e DM Mono por
-next/font/google e os CSS do croqui, do maplibre e do mapbox-gl-draw.
-Como o grupo tem <html>/<body> próprios, o GlobalStyles do oca não
-alcança o croqui — em particular a regra 'details { display: none }',
-que escondia as seções recolhíveis do StatsPanel."
+next/font/google, os CSS do croqui, do maplibre e do mapbox-gl-draw, e
+monta uma coluna flex com o Header do OCA no topo.
+
+O Header entra com StyledComponentsRegistry e ThemeProvider, mas sem o
+GlobalStyles: o reset dele traz 'details { display: none }', que
+esconderia as seções recolhíveis do StatsPanel. A única regra do reset
+de que a árvore do Header depende — a padding zerada do <ul> do NavList
+— é reposta escopada por classe em CroquiSiteHeader.
+
+A raiz do App do croqui passa de height 100vh para 100% para preencher
+o espaço abaixo do header em vez da viewport inteira."
 ```
 
 ---
@@ -731,7 +846,7 @@ Esperado: build sem erro; o servidor sobe na porta 3000.
 
 Com `npm start` rodando, percorra em `http://localhost:3000`:
 
-**Croqui (`/croqui`)** — busca de endereço; desenho, edição e limpeza de polígono; importação de vértices (válida e inválida); os quatro basemaps; painel de camadas e legenda; **as seções `<details>` do `StatsPanel`**; área, perímetro, centroide e municípios com percentuais; as três camadas temáticas estáticas; a consulta CAR ao GeoServer, incluindo o estado de erro "GeoServer indisponível"; o `OverlayChart`; o reCAPTCHA do `ExportModal`; a geração do PDF com as tabelas; e o registro na planilha.
+**Croqui (`/croqui`)** — o Header do OCA no topo, com dropdowns abrindo no hover, links levando às rotas do site e a lista de navegação sem recuo nem marcadores; o header do croqui logo abaixo; o mapa preenchendo toda a altura restante sem rolagem na página; busca de endereço; desenho, edição e limpeza de polígono; importação de vértices (válida e inválida); os quatro basemaps; painel de camadas e legenda; **as seções `<details>` do `StatsPanel`** (prova de que o `ThemeProvider` entrou sem o `GlobalStyles` junto); área, perímetro, centroide e municípios com percentuais; as três camadas temáticas estáticas; a consulta CAR ao GeoServer, incluindo o estado de erro "GeoServer indisponível"; o `OverlayChart`; o reCAPTCHA do `ExportModal`; a geração do PDF com as tabelas; o registro na planilha; e o comportamento responsivo abaixo de 1000px.
 
 **Regressão do oca** — `/` (home), `/about`, `/collab`, `/contact-us` (com reCAPTCHA), `/infra`, `/map` (MapTiff em maplibre v5: tiffs, popups, contornos de estados e municípios), `/team`, e `/health` respondendo.
 
@@ -751,8 +866,17 @@ próprio.
 
 Ele fica no route group `(croqui)`, que tem `<html>`/`<body>` próprios e **não**
 carrega o `GlobalStyles` (styled-components) do restante do site — o reset
-global do oca é incompatível com o CSS do croqui. As demais rotas ficam no
-grupo `(site)`. Os dois grupos não alteram nenhuma URL.
+global do oca é incompatível com o CSS do croqui, em particular a regra
+`details { display: none }`, que esconderia as seções recolhíveis do
+`StatsPanel`. As demais rotas ficam no grupo `(site)`. Os dois grupos não
+alteram nenhuma URL.
+
+O Header do site aparece no topo do `/croqui` mesmo assim: o
+`CroquiSiteHeader` o envolve em `StyledComponentsRegistry` e `ThemeProvider`
+sem o `GlobalStyles`, repondo por conta própria a única regra do reset de que a
+árvore do Header depende (a `padding` zerada do `<ul>` do `NavList`), escopada
+pela classe `.oca-header-scope` para não alcançar a subárvore do croqui. O
+Footer do site não entra: o croqui é uma ferramenta de tela cheia.
 
 Os GeoJSONs das camadas ficam em `public/data/` e são buscados em runtime.
 A configuração opcional do registro de exports está no `.env.sample`, nas

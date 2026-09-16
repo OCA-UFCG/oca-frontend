@@ -32,9 +32,11 @@ header do oca. O usuário vê apenas o header próprio do croqui.
    atual. O croqui não usa nenhuma API exclusiva do React 19 — importa apenas
    `Metadata`, `next/image`, `next/dynamic` e hooks básicos. Custo de adaptação
    de código: zero.
-2. **A rota `/croqui` fica visualmente idêntica ao iframe de hoje**: header
-   próprio do croqui, tela cheia, sem a navegação do oca. A migração é
-   puramente técnica.
+2. **A rota `/croqui` exibe o Header do OCA acima do croqui.** (Decisão
+   revista durante a execução — ver "Emenda: Header do OCA" no fim deste
+   documento. A decisão original era manter a rota visualmente idêntica ao
+   iframe.) O header próprio do croqui permanece logo abaixo, com o título e o
+   botão "Gerar croqui". O Footer do site **não** entra.
 3. **O código do croqui vira um módulo autocontido em `src/croqui/`**, em vez de
    ser dissolvido nas pastas compartilhadas do oca. Evita colisão de nomes
    (`Header`, `SearchBar` já existem no oca), mantém a fronteira da feature
@@ -296,3 +298,83 @@ distinga mudança estrutural de código importado:
 - Preservar o histórico git do croqui dentro do oca-frontend
 - Unificar a identidade visual do croqui com a do site (fonte, cores, header)
 - Introduzir testes automatizados
+
+
+---
+
+# Emenda: Header do OCA na rota /croqui
+
+Data: 2026-09-16, durante a execução do plano (após a Task 1, durante a Task 2).
+
+## O que muda
+
+A decisão 2 original — "a rota fica visualmente idêntica ao iframe de hoje" — foi
+revista a pedido do usuário. A rota `/croqui` passa a exibir, de cima para baixo:
+
+1. O `HeaderSection` do OCA (logo, navegação, redes sociais)
+2. O header próprio do croqui (logo, "Gerador de Croquis", botão "Gerar croqui")
+3. O croqui ocupando toda a altura restante
+
+O Footer do site não entra: o croqui é uma ferramenta de tela cheia, e um footer
+exigiria rolagem numa página que usa `overflow: hidden`.
+
+## Por que isso é delicado
+
+O grupo `(croqui)` existe justamente para não carregar o `GlobalStyles` do oca,
+cujo `details { display: none }` esconderia as seções recolhíveis do
+`StatsPanel`. Mas o Header do OCA é feito de styled-components e depende do
+`ThemeProvider` (usa `theme.colors.green`, `theme.colors.black`).
+
+Auditei a árvore do Header — `HeaderSection`, `Header`, `HeaderModal`,
+`Dropdown`, `Icon` — e apurei:
+
+- **Nenhum deles importa `@/app/globalStyles`.** Todos se estilizam sozinhos.
+- Eles usam apenas os elementos `a`, `div`, `li`, `nav` e `ul` (mais `Image` e
+  `Link` do Next, e `svg` do `Icon`).
+- `Dropdown.styles.tsx` já zera `margin` e `list-style` no `NavItem`, e
+  `ChildrenWrapper` define a própria `padding`.
+- A **única** regra do reset do oca de que a árvore realmente depende é a
+  `padding` zerada do `<ul>`: `Header.styles.ts` define `margin: 0` no `NavList`
+  mas não a `padding`, contando com o reset Meyer do `GlobalStyles`.
+
+Ou seja: dá para trazer o Header sem trazer o `GlobalStyles`, repondo uma regra.
+
+## Solução
+
+O grupo `(croqui)` passa a ter `StyledComponentsRegistry` e `ThemeProvider` —
+mas **não** o `GlobalStyles`. No lugar dele, um `createGlobalStyle` mínimo,
+escopado a um wrapper, com a única regra que falta:
+
+```
+.oca-header-scope ul { margin: 0; padding: 0; list-style: none; }
+```
+
+O escopo por classe garante que a regra não alcance a subárvore do croqui, e a
+ausência do `GlobalStyles` mantém o isolamento que a spec original estabeleceu.
+
+## Layout
+
+O root layout do grupo `(croqui)` passa a montar uma coluna flex de altura
+`100vh`: o header do OCA no topo, com altura natural, e o `children` ocupando o
+resto com `flex: 1; min-height: 0`.
+
+Isso exige **uma alteração no código migrado do croqui**, abrindo exceção à
+restrição global de copiá-lo sem mudanças: a raiz do `src/croqui/components/App.tsx`
+troca `height: "100vh"` por `height: "100%"`, para preencher o espaço restante
+em vez da viewport inteira. É a única mudança de layout autorizada.
+
+## Verificação adicional
+
+Além do roteiro já previsto:
+
+- O Header do OCA renderiza em `/croqui` com o logo, a navegação e as redes
+  sociais, e os dropdowns abrem no hover
+- A navegação do header leva às rotas do site a partir do `/croqui`
+- O `<ul>` da navegação não tem recuo indevido à esquerda (a regra escopada
+  reposta) e não exibe marcadores de lista
+- As seções `<details>` do `StatsPanel` continuam abrindo — prova de que o
+  `ThemeProvider` entrou sem o `GlobalStyles` junto
+- O mapa ocupa toda a altura abaixo dos dois headers, sem rolagem na página e
+  sem corte do `StatsPanel`
+- O comportamento responsivo do Header do OCA abaixo de 1000px (troca de logo e
+  menu modal) não quebra o layout do croqui
