@@ -23,14 +23,23 @@ export function Header() {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-        <Image
-          src="/logo-observatorio.png"
-          alt="Observatório da Caatinga e Desertificação"
-          width={56}
-          height={56}
-          style={{ height: 48, width: "auto", objectFit: "contain" }}
-          priority
-        />
+        {/* Logo do OCA, igual ao do site, levando à página inicial. É um <a>
+            comum e não <Link>: /croqui e o site estão em root layouts
+            diferentes, então a navegação entre eles recarrega a página. */}
+        <a
+          href="/"
+          title="Voltar para a página inicial do OCA"
+          style={{ display: "flex" }}
+        >
+          <Image
+            src="/oca_logan.svg"
+            alt="OCA — página inicial"
+            width={148}
+            height={75}
+            style={{ height: 48, width: "auto", objectFit: "contain" }}
+            priority
+          />
+        </a>
         <div
           style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}
         >
