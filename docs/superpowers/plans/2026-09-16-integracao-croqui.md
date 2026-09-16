@@ -17,7 +17,7 @@
 - **A rota `/croqui` deve ficar visualmente idêntica ao iframe de hoje:** header próprio do croqui, tela cheia, sem a navegação do oca.
 - **Nenhuma URL pública muda.** Route groups entre parênteses não entram no path.
 - **`src/app/globalStyles.tsx` NÃO pode ser movido** — 11 componentes o importam por `@/app/globalStyles`. O mesmo vale para `src/app/Providers.tsx` e `src/app/theme.ts`, que permanecem na raiz de `src/app/`.
-- **Todo o código migrado do croqui é copiado sem alteração de lógica.** As únicas edições permitidas são: caminhos de import, nomes de variáveis de ambiente e as duas entradas de fonte em `config/theme.ts`.
+- **Todo o código migrado do croqui é copiado sem alteração de lógica.** As únicas edições permitidas são: caminhos de import, nomes de variáveis de ambiente, as duas entradas de fonte em `src/croqui/config/theme.ts` e a declaração `font-family` da regra `body` em `src/croqui/croqui.css`. Qualquer outra alteração de conteúdo é escopo vazado.
 - **Idioma dos commits e comentários: português**, seguindo o histórico do repositório.
 - **Autoria:** `Marcos Antônio <marcos.pereira@lsd.ufcg.edu.br>`. Nunca registrar co-autor.
 
@@ -710,10 +710,14 @@ Roda o roteiro completo da spec contra um build de produção e remove o que fic
 - [ ] **Step 1: Confirmar que nada aponta mais para o croqui externo**
 
 ```bash
-grep -rn "observatorio-croqui" src/ README.md
+grep -rn "observatorio-croqui" src/
 ```
 
 Esperado: **nenhuma saída**. Se a URL do iframe ainda aparecer em `src/`, a Task 4 não foi concluída.
+
+O grep é restrito a `src/` de propósito: o Step 4 desta mesma tarefa acrescenta
+a string `observatorio-croqui` ao `README.md`, ao documentar a origem do código.
+Incluir o README aqui faria o passo falhar depois do Step 4.
 
 - [ ] **Step 2: Build de produção e execução**
 
