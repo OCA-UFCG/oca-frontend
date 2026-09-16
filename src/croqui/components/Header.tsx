@@ -31,7 +31,9 @@ export function Header() {
           style={{ height: 48, width: "auto", objectFit: "contain" }}
           priority
         />
-        <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}
+        >
           <span
             style={{
               fontSize: 11,

@@ -90,7 +90,7 @@ export const useStore = create<StoreState>((set) => ({
   setResults: (results) => set({ results }),
   updateResults: (patch) =>
     set((state) =>
-      state.results ? { results: { ...state.results, ...patch } } : {}
+      state.results ? { results: { ...state.results, ...patch } } : {},
     ),
   setResultsLoading: (resultsLoading) => set({ resultsLoading }),
 
@@ -117,16 +117,21 @@ export const useStore = create<StoreState>((set) => ({
       },
     })),
   setOpacity: (id, opacity) =>
-    set((state) => ({ layerOpacity: { ...state.layerOpacity, [id]: opacity } })),
+    set((state) => ({
+      layerOpacity: { ...state.layerOpacity, [id]: opacity },
+    })),
   setRasterTileUrl: (id, url) =>
     set((state) => {
       const next = { ...state.rasterTileUrls };
       if (url === null) delete next[id];
       else next[id] = url;
+
       return { rasterTileUrls: next };
     }),
   setRasterLoading: (id, loading) =>
-    set((state) => ({ rasterLoading: { ...state.rasterLoading, [id]: loading } })),
+    set((state) => ({
+      rasterLoading: { ...state.rasterLoading, [id]: loading },
+    })),
   setRasterError: (id, error) =>
     set((state) => ({ rasterError: { ...state.rasterError, [id]: error } })),
 
@@ -134,7 +139,8 @@ export const useStore = create<StoreState>((set) => ({
   setBasemap: (basemapId) => set({ basemapId }),
 
   layersPanelOpen: false,
-  toggleLayersPanel: () => set((state) => ({ layersPanelOpen: !state.layersPanelOpen })),
+  toggleLayersPanel: () =>
+    set((state) => ({ layersPanelOpen: !state.layersPanelOpen })),
   setLayersPanelOpen: (layersPanelOpen) => set({ layersPanelOpen }),
 
   exporting: false,

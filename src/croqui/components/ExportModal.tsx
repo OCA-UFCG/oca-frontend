@@ -6,7 +6,11 @@ import { FaTimes, FaFilePdf, FaSpinner } from "react-icons/fa";
 import { theme } from "@/croqui/config/theme";
 import { useStore } from "@/croqui/lib/store";
 import { exportCroquiPdf } from "@/croqui/lib/exportPdf";
-import { saveCroquiExport, buildExportPayload, type ExportMeta } from "@/croqui/lib/saveExport";
+import {
+  saveCroquiExport,
+  buildExportPayload,
+  type ExportMeta,
+} from "@/croqui/lib/saveExport";
 import { loadRecaptcha } from "@/croqui/lib/recaptcha";
 import { RECAPTCHA_SITE_KEY } from "@/croqui/config/exportSink";
 
@@ -35,7 +39,8 @@ export function ExportModal({ open, onClose }: ExportModalProps) {
     let cancelled = false;
     loadRecaptcha()
       .then((g) => {
-        if (cancelled || !recaptchaRef.current || widgetIdRef.current !== null) return;
+        if (cancelled || !recaptchaRef.current || widgetIdRef.current !== null)
+          return;
         widgetIdRef.current = g.render(recaptchaRef.current, {
           sitekey: RECAPTCHA_SITE_KEY,
           callback: (t: string) => setCaptchaToken(t),
@@ -46,6 +51,7 @@ export function ExportModal({ open, onClose }: ExportModalProps) {
       .catch(() => {
         /* failed to load — submit stays blocked; check the console */
       });
+
     return () => {
       cancelled = true;
       widgetIdRef.current = null;
@@ -74,6 +80,7 @@ export function ExportModal({ open, onClose }: ExportModalProps) {
     setBusy(true);
     try {
       await exportCroquiPdf({ results, drawnFeatures, meta });
+
       // Fire-and-forget: register on the spreadsheet without blocking the PDF.
       void saveCroquiExport({
         ...buildExportPayload(results, drawnFeatures, meta),
@@ -123,7 +130,14 @@ export function ExportModal({ open, onClose }: ExportModalProps) {
             background: theme.colors.panelMuted,
           }}
         >
-          <h3 style={{ margin: 0, fontSize: 14, fontWeight: 600, color: theme.colors.sageDark }}>
+          <h3
+            style={{
+              margin: 0,
+              fontSize: 14,
+              fontWeight: 600,
+              color: theme.colors.sageDark,
+            }}
+          >
             Exportar relatório
           </h3>
           <button
@@ -132,13 +146,26 @@ export function ExportModal({ open, onClose }: ExportModalProps) {
             disabled={busy}
             className="ui-press"
             aria-label="Fechar"
-            style={{ background: "none", border: "none", color: theme.colors.textMuted, cursor: "pointer", padding: 4 }}
+            style={{
+              background: "none",
+              border: "none",
+              color: theme.colors.textMuted,
+              cursor: "pointer",
+              padding: 4,
+            }}
           >
             <FaTimes size={14} />
           </button>
         </header>
 
-        <div style={{ padding: 18, display: "flex", flexDirection: "column", gap: 12 }}>
+        <div
+          style={{
+            padding: 18,
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+          }}
+        >
           <Field label="Nome" required>
             <input
               value={nome}
@@ -178,11 +205,22 @@ export function ExportModal({ open, onClose }: ExportModalProps) {
           {RECAPTCHA_SITE_KEY && (
             <div
               ref={recaptchaRef}
-              style={{ display: "flex", justifyContent: "center", marginTop: 2 }}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: 2,
+              }}
             />
           )}
 
-          <p style={{ margin: "2px 0 0", fontSize: 11, color: theme.colors.textFaint, lineHeight: 1.5 }}>
+          <p
+            style={{
+              margin: "2px 0 0",
+              fontSize: 11,
+              color: theme.colors.textFaint,
+              lineHeight: 1.5,
+            }}
+          >
             Ao gerar, o PDF é baixado e as coordenadas do croqui podem ser
             registradas para fins de pesquisa do Observatório.
           </p>
@@ -227,7 +265,9 @@ export function ExportModal({ open, onClose }: ExportModalProps) {
               padding: "9px 16px",
               border: "none",
               borderRadius: theme.radius.md,
-              background: canSubmit ? theme.colors.sage : theme.colors.borderStrong,
+              background: canSubmit
+                ? theme.colors.sage
+                : theme.colors.borderStrong,
               color: "#fff",
               fontSize: 13,
               fontWeight: 600,
@@ -237,7 +277,10 @@ export function ExportModal({ open, onClose }: ExportModalProps) {
           >
             {busy ? (
               <>
-                <FaSpinner size={12} style={{ animation: "spin 1s linear infinite" }} />
+                <FaSpinner
+                  size={12}
+                  style={{ animation: "spin 1s linear infinite" }}
+                />
                 Gerando…
               </>
             ) : (
@@ -250,7 +293,7 @@ export function ExportModal({ open, onClose }: ExportModalProps) {
         </footer>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
 
@@ -277,7 +320,9 @@ function Field({
 }) {
   return (
     <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-      <span style={{ fontSize: 12, fontWeight: 500, color: theme.colors.textMuted }}>
+      <span
+        style={{ fontSize: 12, fontWeight: 500, color: theme.colors.textMuted }}
+      >
         {label}
         {required && <span style={{ color: theme.colors.danger }}> *</span>}
       </span>

@@ -8,12 +8,20 @@ import { Header } from "./Header";
 import { MapView } from "./MapView";
 import { StatsPanel } from "./StatsPanel";
 import { useStore } from "@/croqui/lib/store";
-import { computePolygonResults, type OverlayLayerInput } from "@/croqui/lib/computeStats";
+import {
+  computePolygonResults,
+  type OverlayLayerInput,
+} from "@/croqui/lib/computeStats";
 import { queryCarOverlay } from "@/croqui/lib/carWfs";
-import { STATIC_OVERLAY_LAYERS, WFS_OVERLAY_LAYERS } from "@/croqui/config/layers";
+import {
+  STATIC_OVERLAY_LAYERS,
+  WFS_OVERLAY_LAYERS,
+} from "@/croqui/config/layers";
 
 export default function App() {
-  const [municipios, setMunicipios] = useState<MunicipiosCollection | null>(null);
+  const [municipios, setMunicipios] = useState<MunicipiosCollection | null>(
+    null,
+  );
   const [fetchError, setFetchError] = useState<string | null>(null);
 
   const drawnFeatures = useStore((s) => s.drawnFeatures);
@@ -32,6 +40,7 @@ export default function App() {
     fetch(MUNICIPIOS_C5_URL)
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
+
         return r.json();
       })
       .then((data: MunicipiosCollection) => {
@@ -40,6 +49,7 @@ export default function App() {
       .catch((err) => {
         if (!cancelled) setFetchError(err.message);
       });
+
     return () => {
       cancelled = true;
     };
@@ -58,6 +68,7 @@ export default function App() {
           /* missing/optional overlay — layer just stays empty */
         });
     }
+
     return () => {
       cancelled = true;
     };
@@ -72,19 +83,22 @@ export default function App() {
       lastDrawnKey.current = "";
       carReqId.current++;
       carAbort.current?.abort();
+
       return;
     }
     if (!municipios) return;
 
     const overlayKeys = Object.keys(overlayData).sort().join(",");
     const key =
-      JSON.stringify(drawnFeatures.map((f) => f.geometry.coordinates)) + "|" + overlayKeys;
+      JSON.stringify(drawnFeatures.map((f) => f.geometry.coordinates)) +
+      "|" +
+      overlayKeys;
     if (key === lastDrawnKey.current) return;
     lastDrawnKey.current = key;
 
     setResultsLoading(true);
     const staticInputs: OverlayLayerInput[] = STATIC_OVERLAY_LAYERS.filter(
-      (l) => overlayData[l.id]
+      (l) => overlayData[l.id],
     ).map((l) => ({
       layerId: l.id,
       layerName: l.shortName || l.name,
@@ -92,7 +106,11 @@ export default function App() {
       nameProp: l.nameProp,
       features: overlayData[l.id].features,
     }));
-    const base = computePolygonResults(drawnFeatures, municipios.features, staticInputs);
+    const base = computePolygonResults(
+      drawnFeatures,
+      municipios.features,
+      staticInputs,
+    );
 
     // CAR (WFS) — only when the drawing is inside the study area (we need a UF).
     const car = WFS_OVERLAY_LAYERS[0];
@@ -129,7 +147,7 @@ export default function App() {
           wfsTypePrefix: car.wfsTypePrefix!,
           maxFeatures: car.maxFeatures,
         },
-        ctrl.signal
+        ctrl.signal,
       )
         .then((layer) => {
           if (reqId !== carReqId.current) return;
@@ -147,12 +165,19 @@ export default function App() {
             layers: cur.layers.map((l) =>
               l.layerId === car.id
                 ? { ...l, loading: false, error: "GeoServer indisponível" }
-                : l
+                : l,
             ),
           });
         });
     }
-  }, [drawnFeatures, municipios, overlayData, setResults, updateResults, setResultsLoading]);
+  }, [
+    drawnFeatures,
+    municipios,
+    overlayData,
+    setResults,
+    updateResults,
+    setResultsLoading,
+  ]);
 
   return (
     <div
@@ -165,7 +190,9 @@ export default function App() {
     >
       <Header />
 
-      <main style={{ flex: 1, display: "flex", overflow: "hidden", minHeight: 0 }}>
+      <main
+        style={{ flex: 1, display: "flex", overflow: "hidden", minHeight: 0 }}
+      >
         <div
           id="croqui-map-region"
           style={{ flex: 1, position: "relative", minWidth: 0 }}

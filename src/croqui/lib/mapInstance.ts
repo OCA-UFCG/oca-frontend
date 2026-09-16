@@ -8,6 +8,7 @@ let _map: MaplibreMap | null = null;
 
 export function setMapInstance(m: MaplibreMap | null): void {
   _map = m;
+
   // Dev-only: expose for debugging / e2e checks in the browser console.
   if (process.env.NODE_ENV !== "production") {
     (window as unknown as { __map?: MaplibreMap | null }).__map = m;
@@ -28,6 +29,7 @@ export function captureMapToCanvas(): Promise<HTMLCanvasElement> {
     const map = _map;
     if (!map) {
       reject(new Error("Map instance not registered"));
+
       return;
     }
     const onRender = () => {
@@ -40,8 +42,10 @@ export function captureMapToCanvas(): Promise<HTMLCanvasElement> {
         const ctx = out.getContext("2d");
         if (!ctx) {
           reject(new Error("2D context unavailable"));
+
           return;
         }
+
         // Synchronous read inside the render frame — buffer is still valid.
         ctx.drawImage(src, 0, 0);
         resolve(out);

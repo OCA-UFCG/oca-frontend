@@ -4,7 +4,12 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import { theme } from "@/croqui/config/theme";
 import { useStore } from "@/croqui/lib/store";
 import { OverlayChart } from "./OverlayChart";
-import { formatHa, formatPct, coord6, MAX_DRAW_AREA_HA } from "@/croqui/lib/format";
+import {
+  formatHa,
+  formatPct,
+  coord6,
+  MAX_DRAW_AREA_HA,
+} from "@/croqui/lib/format";
 import type { DrawnFeature, LayerOverlay } from "@/croqui/types";
 
 const fmt = new Intl.NumberFormat("pt-BR", {
@@ -89,8 +94,8 @@ export function StatsPanel() {
 
           {results.geometry.areaHa > MAX_DRAW_AREA_HA && (
             <WarnBox>
-              A área total desenhada ({formatHa(results.geometry.areaHa)}) ultrapassa o
-              limite de {MAX_DRAW_AREA_HA} ha.
+              A área total desenhada ({formatHa(results.geometry.areaHa)})
+              ultrapassa o limite de {MAX_DRAW_AREA_HA} ha.
             </WarnBox>
           )}
 
@@ -131,7 +136,12 @@ export function StatsPanel() {
               </p>
             ) : (
               <ul
-                style={{ listStyle: "none", margin: 0, padding: 0, fontSize: 12 }}
+                style={{
+                  listStyle: "none",
+                  margin: 0,
+                  padding: 0,
+                  fontSize: 12,
+                }}
               >
                 {results.municipios.slice(0, 12).map((m) => (
                   <li
@@ -147,7 +157,10 @@ export function StatsPanel() {
                   >
                     <span style={{ minWidth: 0, flex: 1 }}>
                       <span style={{ fontWeight: 500 }}>{m.NM_MUN}</span>
-                      <span style={{ color: theme.colors.textMuted }}> — {m.NM_UF}</span>
+                      <span style={{ color: theme.colors.textMuted }}>
+                        {" "}
+                        — {m.NM_UF}
+                      </span>
                     </span>
                     <span
                       style={{
@@ -203,7 +216,8 @@ export function StatsPanel() {
                         fontSize: 11,
                       }}
                     >
-                      {formatHa(results.outsideAreaHa)} · {formatPct(results.outsidePct)}
+                      {formatHa(results.outsideAreaHa)} ·{" "}
+                      {formatPct(results.outsidePct)}
                     </span>
                   </li>
                 )}
@@ -251,15 +265,29 @@ function WarnBox({ children }: { children: React.ReactNode }) {
         color={theme.colors.danger}
         style={{ marginTop: 2, flexShrink: 0 }}
       />
-      <p style={{ margin: 0, fontSize: 12, color: theme.colors.danger, lineHeight: 1.45 }}>
+      <p
+        style={{
+          margin: 0,
+          fontSize: 12,
+          color: theme.colors.danger,
+          lineHeight: 1.45,
+        }}
+      >
         {children}
       </p>
     </div>
   );
 }
 
-function ValidationWarning({ invalid, total }: { invalid: number; total: number }) {
+function ValidationWarning({
+  invalid,
+  total,
+}: {
+  invalid: number;
+  total: number;
+}) {
   const allOutside = invalid >= total;
+
   return (
     <WarnBox>
       {allOutside
@@ -271,6 +299,7 @@ function ValidationWarning({ invalid, total }: { invalid: number; total: number 
 
 function LayerOverlaySection({ layer }: { layer: LayerOverlay }) {
   const isPolygon = layer.kind === "polygon";
+
   return (
     <Section
       title={
@@ -291,11 +320,20 @@ function LayerOverlaySection({ layer }: { layer: LayerOverlay }) {
       }
     >
       {layer.loading ? (
-        <p style={{ fontSize: 12, color: theme.colors.textMuted, margin: 0, fontStyle: "italic" }}>
+        <p
+          style={{
+            fontSize: 12,
+            color: theme.colors.textMuted,
+            margin: 0,
+            fontStyle: "italic",
+          }}
+        >
           Consultando o GeoServer do CAR…
         </p>
       ) : layer.error ? (
-        <p style={{ fontSize: 12, color: theme.colors.danger, margin: 0 }}>{layer.error}</p>
+        <p style={{ fontSize: 12, color: theme.colors.danger, margin: 0 }}>
+          {layer.error}
+        </p>
       ) : layer.featureCount === 0 ? (
         <p
           style={{
@@ -319,54 +357,66 @@ function LayerOverlaySection({ layer }: { layer: LayerOverlay }) {
                 marginBottom: 6,
               }}
             >
-              <span style={{ color: theme.colors.textMuted }}>Área cruzada</span>
-              <span style={{ fontWeight: 500, fontFamily: theme.font.mono, fontSize: 11.5 }}>
+              <span style={{ color: theme.colors.textMuted }}>
+                Área cruzada
+              </span>
+              <span
+                style={{
+                  fontWeight: 500,
+                  fontFamily: theme.font.mono,
+                  fontSize: 11.5,
+                }}
+              >
                 {formatHa(layer.areaHa)} · {formatPct(layer.pctOfDrawn)}
               </span>
             </div>
           )}
           {layer.items.length > 0 && (
-          <ul style={{ listStyle: "none", margin: 0, padding: 0, fontSize: 12 }}>
-            {layer.items.map((it, i) => (
-              <li
-                key={`${it.name}-${i}`}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "baseline",
-                  gap: 8,
-                  padding: "5px 0",
-                  borderBottom: `1px dashed ${theme.colors.border}`,
-                }}
-              >
-                <span style={{ minWidth: 0, flex: 1, fontWeight: 500 }}>{it.name}</span>
-                {isPolygon && (
-                  <span
-                    style={{
-                      color: theme.colors.textMuted,
-                      fontFamily: theme.font.mono,
-                      whiteSpace: "nowrap",
-                      fontSize: 11,
-                    }}
-                  >
-                    {formatHa(it.areaHa)} · {formatPct(it.pctOfDrawn)}
+            <ul
+              style={{ listStyle: "none", margin: 0, padding: 0, fontSize: 12 }}
+            >
+              {layer.items.map((it, i) => (
+                <li
+                  key={`${it.name}-${i}`}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                    gap: 8,
+                    padding: "5px 0",
+                    borderBottom: `1px dashed ${theme.colors.border}`,
+                  }}
+                >
+                  <span style={{ minWidth: 0, flex: 1, fontWeight: 500 }}>
+                    {it.name}
                   </span>
-                )}
-              </li>
-            ))}
-            {layer.featureCount > layer.items.length && (
-              <li
-                style={{
-                  padding: "5px 0",
-                  color: theme.colors.textMuted,
-                  fontSize: 11,
-                  fontStyle: "italic",
-                }}
-              >
-                +{layer.featureCount - layer.items.length} outros…
-              </li>
-            )}
-          </ul>
+                  {isPolygon && (
+                    <span
+                      style={{
+                        color: theme.colors.textMuted,
+                        fontFamily: theme.font.mono,
+                        whiteSpace: "nowrap",
+                        fontSize: 11,
+                      }}
+                    >
+                      {formatHa(it.areaHa)} · {formatPct(it.pctOfDrawn)}
+                    </span>
+                  )}
+                </li>
+              ))}
+              {layer.featureCount > layer.items.length && (
+                <li
+                  style={{
+                    padding: "5px 0",
+                    color: theme.colors.textMuted,
+                    fontSize: 11,
+                    fontStyle: "italic",
+                  }}
+                >
+                  +{layer.featureCount - layer.items.length} outros…
+                </li>
+              )}
+            </ul>
           )}
           {layer.note && (
             <p
@@ -401,6 +451,7 @@ const vtd: React.CSSProperties = {
 
 function VertexSection({ features }: { features: DrawnFeature[] }) {
   if (features.length === 0) return null;
+
   return (
     <Section title="Vértices">
       {features.map((f, i) => {
@@ -410,6 +461,7 @@ function VertexSection({ features }: { features: DrawnFeature[] }) {
           ring[0][0] === ring[ring.length - 1][0] &&
           ring[0][1] === ring[ring.length - 1][1];
         const pts = closed ? ring.slice(0, -1) : ring;
+
         return (
           <details key={i} open style={{ marginBottom: 8 }}>
             <summary
@@ -444,8 +496,12 @@ function VertexSection({ features }: { features: DrawnFeature[] }) {
                 {pts.map((p, j) => (
                   <tr key={j}>
                     <td style={vtd}>{j + 1}</td>
-                    <td style={{ ...vtd, textAlign: "right" }}>{coord6(p[1])}</td>
-                    <td style={{ ...vtd, textAlign: "right" }}>{coord6(p[0])}</td>
+                    <td style={{ ...vtd, textAlign: "right" }}>
+                      {coord6(p[1])}
+                    </td>
+                    <td style={{ ...vtd, textAlign: "right" }}>
+                      {coord6(p[0])}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -457,7 +513,13 @@ function VertexSection({ features }: { features: DrawnFeature[] }) {
   );
 }
 
-function Section({ title, children }: { title: React.ReactNode; children: React.ReactNode }) {
+function Section({
+  title,
+  children,
+}: {
+  title: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <section style={{ marginBottom: 18 }}>
       <h3
@@ -477,7 +539,15 @@ function Section({ title, children }: { title: React.ReactNode; children: React.
   );
 }
 
-function Row({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
+function Row({
+  label,
+  value,
+  mono,
+}: {
+  label: string;
+  value: string;
+  mono?: boolean;
+}) {
   return (
     <div
       style={{
@@ -507,7 +577,11 @@ function SkeletonStats() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
       {[120, 80, 60, 100, 90, 70].map((w, i) => (
-        <div key={i} className="skeleton" style={{ height: 14, width: `${w}%` }} />
+        <div
+          key={i}
+          className="skeleton"
+          style={{ height: 14, width: `${w}%` }}
+        />
       ))}
     </div>
   );

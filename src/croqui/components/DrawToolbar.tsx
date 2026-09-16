@@ -68,7 +68,10 @@ export function DrawToolbar() {
           border: "none",
           borderRadius: theme.radius.md,
           background: "transparent",
-          color: hasDrawn || isDrawing ? theme.colors.danger : theme.colors.textFaint,
+          color:
+            hasDrawn || isDrawing
+              ? theme.colors.danger
+              : theme.colors.textFaint,
           fontSize: 13,
           fontWeight: 500,
           fontFamily: theme.font.ui,
@@ -80,7 +83,14 @@ export function DrawToolbar() {
         Limpar
       </button>
 
-      <div style={{ width: 1, alignSelf: "stretch", background: theme.colors.border, margin: "2px 2px" }} />
+      <div
+        style={{
+          width: 1,
+          alignSelf: "stretch",
+          background: theme.colors.border,
+          margin: "2px 2px",
+        }}
+      />
 
       <button
         type="button"
@@ -105,7 +115,10 @@ export function DrawToolbar() {
         Importar
       </button>
 
-      <ImportVerticesModal open={importOpen} onClose={() => setImportOpen(false)} />
+      <ImportVerticesModal
+        open={importOpen}
+        onClose={() => setImportOpen(false)}
+      />
     </div>
   );
 }

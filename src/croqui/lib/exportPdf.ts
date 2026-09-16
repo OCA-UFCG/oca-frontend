@@ -9,7 +9,12 @@ import type { UserOptions } from "jspdf-autotable";
 import type { PolygonResults, DrawnFeature } from "@/croqui/types";
 import type { ExportMeta } from "@/croqui/lib/saveExport";
 import { captureMapToCanvas } from "@/croqui/lib/mapInstance";
-import { formatHa, formatPct, coord6, MAX_DRAW_AREA_HA } from "@/croqui/lib/format";
+import {
+  formatHa,
+  formatPct,
+  coord6,
+  MAX_DRAW_AREA_HA,
+} from "@/croqui/lib/format";
 
 interface ExportOpts {
   results: PolygonResults;
@@ -30,13 +35,18 @@ const DANGER: RGB = [176, 74, 58];
 const HEAD_FILL: RGB = [243, 241, 235];
 const BORDER: RGB = [210, 205, 188];
 
-export async function exportCroquiPdf({ results, drawnFeatures, meta }: ExportOpts): Promise<void> {
+export async function exportCroquiPdf({
+  results,
+  drawnFeatures,
+  meta,
+}: ExportOpts): Promise<void> {
   const { jsPDF } = await import("jspdf");
   const autoTable = (await import("jspdf-autotable")).default;
 
   const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
   const finalY = () =>
-    (doc as unknown as { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? MARGIN;
+    (doc as unknown as { lastAutoTable?: { finalY: number } }).lastAutoTable
+      ?.finalY ?? MARGIN;
 
   let y = await drawHeader(doc, meta);
 
@@ -52,6 +62,7 @@ export async function exportCroquiPdf({ results, drawnFeatures, meta }: ExportOp
       w = h * ratio;
     }
     const x = MARGIN + (CONTENT_W - w) / 2;
+
     // JPEG + downscale keeps the PDF small (a full-res PNG of the WebGL canvas
     // was ~14 MB; this brings it under ~1 MB).
     doc.addImage(canvasToJpeg(canvas), "JPEG", x, y, w, h);
@@ -86,7 +97,7 @@ export async function exportCroquiPdf({ results, drawnFeatures, meta }: ExportOp
       doc,
       y,
       `Atenção: a área total ultrapassa o limite de ${MAX_DRAW_AREA_HA} ha.`,
-      DANGER
+      DANGER,
     );
   }
   y += 3;
@@ -108,7 +119,11 @@ export async function exportCroquiPdf({ results, drawnFeatures, meta }: ExportOp
     ]);
   }
   if (munBody.length === 0) {
-    y = mutedLine(doc, y, "Nenhum polígono intersecta município de alta prioridade (C5).");
+    y = mutedLine(
+      doc,
+      y,
+      "Nenhum polígono intersecta município de alta prioridade (C5).",
+    );
   } else {
     autoTable(doc, {
       startY: y,
@@ -126,10 +141,14 @@ export async function exportCroquiPdf({ results, drawnFeatures, meta }: ExportOp
       doc,
       y,
       `${layer.layerName} (${layer.loading ? "…" : layer.featureCount})`,
-      hexToRgb(layer.color)
+      hexToRgb(layer.color),
     );
     if (layer.loading) {
-      y = mutedLine(doc, y, "Consulta ao GeoServer não concluída no momento da exportação.");
+      y = mutedLine(
+        doc,
+        y,
+        "Consulta ao GeoServer não concluída no momento da exportação.",
+      );
       continue;
     }
     if (layer.error) {
@@ -144,19 +163,31 @@ export async function exportCroquiPdf({ results, drawnFeatures, meta }: ExportOp
     doc.setFontSize(9.5);
     doc.setTextColor(...TEXT);
     y = ensureSpace(doc, y, 6);
-    doc.text(`Área cruzada: ${formatHa(layer.areaHa)} · ${formatPct(layer.pctOfDrawn)}`, MARGIN, y);
+    doc.text(
+      `Área cruzada: ${formatHa(layer.areaHa)} · ${formatPct(layer.pctOfDrawn)}`,
+      MARGIN,
+      y,
+    );
     y += 5.5;
     if (layer.items.length > 0) {
       autoTable(doc, {
         startY: y,
         head: [["Feição", "Área", "%"]],
-        body: layer.items.map((it) => [it.name, formatHa(it.areaHa), formatPct(it.pctOfDrawn)]),
+        body: layer.items.map((it) => [
+          it.name,
+          formatHa(it.areaHa),
+          formatPct(it.pctOfDrawn),
+        ]),
         ...tableStyle(),
         columnStyles: { 1: { halign: "right" }, 2: { halign: "right" } },
       });
       y = finalY() + 2;
       if (layer.featureCount > layer.items.length) {
-        y = mutedLine(doc, y, `+${layer.featureCount - layer.items.length} outros…`);
+        y = mutedLine(
+          doc,
+          y,
+          `+${layer.featureCount - layer.items.length} outros…`,
+        );
       }
     }
     if (layer.note) y = mutedLine(doc, y, layer.note);
@@ -183,7 +214,11 @@ export async function exportCroquiPdf({ results, drawnFeatures, meta }: ExportOp
       head: [["#", "Latitude", "Longitude"]],
       body: pts.map((p, j) => [String(j + 1), coord6(p[1]), coord6(p[0])]),
       ...tableStyle(),
-      columnStyles: { 0: { cellWidth: 14 }, 1: { halign: "right" }, 2: { halign: "right" } },
+      columnStyles: {
+        0: { cellWidth: 14 },
+        1: { halign: "right" },
+        2: { halign: "right" },
+      },
     });
     y = finalY() + 5;
   });
@@ -195,8 +230,14 @@ export async function exportCroquiPdf({ results, drawnFeatures, meta }: ExportOp
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7.5);
     doc.setTextColor(...MUTED);
-    doc.text("Fontes: OpenStreetMap · Carto · FUNAI · INCRA · SICAR/CAR", MARGIN, PAGE_H - 8);
-    doc.text(`Página ${i}/${pages}`, PAGE_W - MARGIN, PAGE_H - 8, { align: "right" });
+    doc.text(
+      "Fontes: OpenStreetMap · Carto · FUNAI · INCRA · SICAR/CAR",
+      MARGIN,
+      PAGE_H - 8,
+    );
+    doc.text(`Página ${i}/${pages}`, PAGE_W - MARGIN, PAGE_H - 8, {
+      align: "right",
+    });
   }
 
   const stamp = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 13);
@@ -206,7 +247,11 @@ export async function exportCroquiPdf({ results, drawnFeatures, meta }: ExportOp
 // ─── Drawing helpers ─────────────────────────────────────────────────────────
 
 // Downscale + JPEG-encode the map canvas to keep the PDF small.
-function canvasToJpeg(src: HTMLCanvasElement, maxW = 1400, quality = 0.82): string {
+function canvasToJpeg(
+  src: HTMLCanvasElement,
+  maxW = 1400,
+  quality = 0.82,
+): string {
   const scale = Math.min(1, maxW / src.width);
   if (scale === 1) return src.toDataURL("image/jpeg", quality);
   const c = document.createElement("canvas");
@@ -217,13 +262,21 @@ function canvasToJpeg(src: HTMLCanvasElement, maxW = 1400, quality = 0.82): stri
   ctx.fillStyle = "#ffffff"; // JPEG has no alpha — avoid black on any transparency
   ctx.fillRect(0, 0, c.width, c.height);
   ctx.drawImage(src, 0, 0, c.width, c.height);
+
   return c.toDataURL("image/jpeg", quality);
 }
 
 function hexToRgb(hex: string): RGB {
   const h = hex.replace("#", "");
-  const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+  const full =
+    h.length === 3
+      ? h
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : h;
   const n = parseInt(full, 16);
+
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
@@ -231,12 +284,23 @@ function tableStyle(): Partial<UserOptions> {
   return {
     theme: "grid",
     margin: { left: MARGIN, right: MARGIN },
-    styles: { fontSize: 8, cellPadding: 1.6, lineColor: BORDER, lineWidth: 0.1, textColor: TEXT },
+    styles: {
+      fontSize: 8,
+      cellPadding: 1.6,
+      lineColor: BORDER,
+      lineWidth: 0.1,
+      textColor: TEXT,
+    },
     headStyles: { fillColor: HEAD_FILL, textColor: SAGE, fontStyle: "bold" },
   };
 }
 
-function heading(doc: JsPdf, y: number, text: string, color: RGB = SAGE): number {
+function heading(
+  doc: JsPdf,
+  y: number,
+  text: string,
+  color: RGB = SAGE,
+): number {
   y = ensureSpace(doc, y, 10);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
@@ -245,24 +309,33 @@ function heading(doc: JsPdf, y: number, text: string, color: RGB = SAGE): number
   doc.setDrawColor(...BORDER);
   doc.setLineWidth(0.2);
   doc.line(MARGIN, y + 1.5, PAGE_W - MARGIN, y + 1.5);
+
   return y + 6.5;
 }
 
-function mutedLine(doc: JsPdf, y: number, text: string, color: RGB = MUTED): number {
+function mutedLine(
+  doc: JsPdf,
+  y: number,
+  text: string,
+  color: RGB = MUTED,
+): number {
   y = ensureSpace(doc, y, 6);
   doc.setFont("helvetica", "italic");
   doc.setFontSize(8.5);
   doc.setTextColor(...color);
   const lines = doc.splitTextToSize(text, CONTENT_W) as string[];
   doc.text(lines, MARGIN, y);
+
   return y + lines.length * 4.5 + 1.5;
 }
 
 function ensureSpace(doc: JsPdf, y: number, needed: number): number {
   if (y + needed > PAGE_H - 14) {
     doc.addPage();
+
     return MARGIN + 6;
   }
+
   return y;
 }
 
@@ -294,19 +367,27 @@ async function drawHeader(doc: JsPdf, meta?: ExportMeta): Promise<number> {
   doc.text("Observatório da Caatinga e Desertificação", titleX, 20.5);
   if (meta?.nome) {
     const by =
-      "Elaborado por: " + meta.nome + (meta.instituicao ? ` — ${meta.instituicao}` : "");
+      "Elaborado por: " +
+      meta.nome +
+      (meta.instituicao ? ` — ${meta.instituicao}` : "");
     doc.setFontSize(8.5);
     doc.setTextColor(...TEXT);
     doc.text(by, titleX, 25);
   }
   doc.setFontSize(8);
   doc.setTextColor(...MUTED);
-  doc.text(`Gerado em ${new Date().toLocaleString("pt-BR")}`, PAGE_W - MARGIN, 11, {
-    align: "right",
-  });
+  doc.text(
+    `Gerado em ${new Date().toLocaleString("pt-BR")}`,
+    PAGE_W - MARGIN,
+    11,
+    {
+      align: "right",
+    },
+  );
   doc.setDrawColor(...BORDER);
   doc.setLineWidth(0.3);
   doc.line(MARGIN, 28, PAGE_W - MARGIN, 28);
+
   return 34;
 }
 

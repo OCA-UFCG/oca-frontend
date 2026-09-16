@@ -30,11 +30,11 @@ export const theme = {
     info: "#3d6b7d",
 
     // Map highlights
-    priorityRed: "#dc2626",      // C5 / Alta Prioridade — fill + outline
-    priorityRedDark: "#991b1b",  // selected/hover outline accent
-    drawnYellow: "#facc15",      // drawn-polygon fill (vivid yellow)
-    drawnYellowDark: "#a16207",  // gold accent
-    drawnHalo: "#1e293b",        // dark slate halo behind the yellow stroke — keeps the polygon legible on any background
+    priorityRed: "#dc2626", // C5 / Alta Prioridade — fill + outline
+    priorityRedDark: "#991b1b", // selected/hover outline accent
+    drawnYellow: "#facc15", // drawn-polygon fill (vivid yellow)
+    drawnYellowDark: "#a16207", // gold accent
+    drawnHalo: "#1e293b", // dark slate halo behind the yellow stroke — keeps the polygon legible on any background
   },
   radius: {
     sm: 4,

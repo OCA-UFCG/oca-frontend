@@ -38,6 +38,7 @@ function parseLatLonBlock(text: string): LonLat[] {
     const pt: LonLat = [lon, lat];
     if (validLonLat(pt)) out.push(pt);
   }
+
   return out;
 }
 
@@ -54,27 +55,33 @@ function ringsFromText(text: string): LonLat[][] {
 function ringsFromGeoJson(obj: any): LonLat[][] {
   const rings: LonLat[][] = [];
   const pushPolygon = (coords: any) => {
-    if (Array.isArray(coords) && Array.isArray(coords[0])) rings.push(coords[0] as LonLat[]);
+    if (Array.isArray(coords) && Array.isArray(coords[0]))
+      rings.push(coords[0] as LonLat[]);
   };
   const fromGeom = (g: any) => {
     if (!g) return;
     if (g.type === "Polygon") pushPolygon(g.coordinates);
-    else if (g.type === "MultiPolygon") for (const poly of g.coordinates) pushPolygon(poly);
+    else if (g.type === "MultiPolygon")
+      for (const poly of g.coordinates) pushPolygon(poly);
   };
 
   if (obj?.type === "FeatureCollection" && Array.isArray(obj.features)) {
     const polys = obj.features.filter(
-      (f: any) => f?.geometry?.type === "Polygon" || f?.geometry?.type === "MultiPolygon"
+      (f: any) =>
+        f?.geometry?.type === "Polygon" || f?.geometry?.type === "MultiPolygon",
     );
     if (polys.length) {
       polys.forEach((f: any) => fromGeom(f.geometry));
+
       return rings;
     }
     const points = obj.features
       .filter((f: any) => f?.geometry?.type === "Point")
       .map((f: any) => f.geometry.coordinates as LonLat);
     if (points.length >= 3) return [points];
-    const line = obj.features.find((f: any) => f?.geometry?.type === "LineString");
+    const line = obj.features.find(
+      (f: any) => f?.geometry?.type === "LineString",
+    );
     if (line) return [line.geometry.coordinates as LonLat[]];
     throw new Error("GeoJSON sem polígono, linha ou ≥3 pontos.");
   }
@@ -82,6 +89,7 @@ function ringsFromGeoJson(obj: any): LonLat[][] {
   if (obj?.type === "Feature") return ringsFromGeoJson(obj.geometry);
   if (obj?.type === "Polygon" || obj?.type === "MultiPolygon") {
     fromGeom(obj);
+
     return rings;
   }
   if (obj?.type === "LineString") return [obj.coordinates as LonLat[]];
@@ -96,6 +104,7 @@ function ringToFeature(ring: LonLat[]): DrawnFeature {
   const first = coords[0];
   const last = coords[coords.length - 1];
   if (first[0] !== last[0] || first[1] !== last[1]) coords = [...coords, first];
+
   return {
     type: "Feature",
     properties: {},
@@ -121,9 +130,14 @@ export function parseVerticesInput(raw: string): DrawnFeature[] {
     rings = ringsFromText(trimmed);
   }
 
-  const valid = rings.map((r) => r.filter(validLonLat)).filter((r) => r.length >= 3);
+  const valid = rings
+    .map((r) => r.filter(validLonLat))
+    .filter((r) => r.length >= 3);
   if (valid.length === 0) {
-    throw new Error("São necessários ao menos 3 vértices válidos por polígono.");
+    throw new Error(
+      "São necessários ao menos 3 vértices válidos por polígono.",
+    );
   }
+
   return valid.map(ringToFeature);
 }

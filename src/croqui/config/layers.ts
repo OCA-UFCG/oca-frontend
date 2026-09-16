@@ -34,20 +34,28 @@ export interface VectorLayer {
   defaultVisible: boolean;
   defaultOpacity: number;
   color: string;
+
   /** Whether the drawing is crossed against this layer for stats. */
   overlay?: boolean;
+
   /** Feature property used as the display name in the crossing breakdown. */
   nameProp?: string;
+
   /** Geometry kind — controls rendering (fill vs circle) and stats display. */
   geomType?: "polygon" | "point";
+
   /** "geojson" (static file under /public, default) or "wfs" (live GeoServer). */
   source?: "geojson" | "wfs";
+
   /** WFS base URL (when source: "wfs"). */
   wfsUrl?: string;
+
   /** WFS typeName prefix; the UF sigla is appended (e.g. "sicar:sicar_imoveis_"). */
   wfsTypePrefix?: string;
+
   /** Min map zoom before WFS features are fetched for display. */
   minZoomForLoad?: number;
+
   /** Max features per WFS request. */
   maxFeatures?: number;
 }
@@ -136,12 +144,14 @@ export const VECTOR_LAYERS: VectorLayer[] = [
 ];
 
 // Convenience views over the layer list.
-export const OVERLAY_LAYERS: VectorLayer[] = VECTOR_LAYERS.filter((l) => l.overlay);
+export const OVERLAY_LAYERS: VectorLayer[] = VECTOR_LAYERS.filter(
+  (l) => l.overlay,
+);
 export const STATIC_OVERLAY_LAYERS: VectorLayer[] = OVERLAY_LAYERS.filter(
-  (l) => l.source !== "wfs"
+  (l) => l.source !== "wfs",
 );
 export const WFS_OVERLAY_LAYERS: VectorLayer[] = OVERLAY_LAYERS.filter(
-  (l) => l.source === "wfs"
+  (l) => l.source === "wfs",
 );
 
 // ─── Raster layers ───────────────────────────────────────────────────────────

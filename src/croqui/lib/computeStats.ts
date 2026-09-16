@@ -9,7 +9,13 @@ import booleanIntersects from "@turf/boolean-intersects";
 import intersect from "@turf/intersect";
 import union from "@turf/union";
 import { featureCollection, multiPolygon } from "@turf/helpers";
-import type { Feature, Polygon, MultiPolygon, Geometry, GeoJsonProperties } from "geojson";
+import type {
+  Feature,
+  Polygon,
+  MultiPolygon,
+  Geometry,
+  GeoJsonProperties,
+} from "geojson";
 
 import type {
   DrawnFeature,
@@ -42,8 +48,12 @@ export function computeGeometryStats(features: DrawnFeature[]): GeometryStats {
   for (const f of features) {
     for (const ring of f.geometry.coordinates) {
       perimeterKm += length(
-        { type: "Feature", geometry: { type: "LineString", coordinates: ring }, properties: {} },
-        { units: "kilometers" }
+        {
+          type: "Feature",
+          geometry: { type: "LineString", coordinates: ring },
+          properties: {},
+        },
+        { units: "kilometers" },
       );
       vertexCount += Math.max(0, ring.length - 1); // closing point repeats first
     }
@@ -72,7 +82,7 @@ export function computeGeometryStats(features: DrawnFeature[]): GeometryStats {
 function computeMunicipioOverlay(
   combined: Feature<MultiPolygon>,
   drawnAreaM2: number,
-  municipios: MunicipioFeature[]
+  municipios: MunicipioFeature[],
 ): MunicipioOverlay[] {
   if (drawnAreaM2 <= 0) return [];
 
@@ -83,7 +93,7 @@ function computeMunicipioOverlay(
     let interM2 = 0;
     try {
       const clipped = intersect(
-        featureCollection([combined as PolyFeature, m as PolyFeature])
+        featureCollection([combined as PolyFeature, m as PolyFeature]),
       );
       if (clipped) interM2 = area(clipped);
     } catch {
@@ -99,19 +109,21 @@ function computeMunicipioOverlay(
       pctOfDrawn: (interM2 / drawnAreaM2) * 100,
     });
   }
+
   return hits.sort((a, b) => b.areaHa - a.areaHa);
 }
 
 /** Count drawn polygons that lie entirely outside every C5 municipality. */
 function countInvalidPolygons(
   features: DrawnFeature[],
-  municipios: MunicipioFeature[]
+  municipios: MunicipioFeature[],
 ): number {
   let invalid = 0;
   for (const f of features) {
     const insideAny = municipios.some((m) => booleanIntersects(f, m));
     if (!insideAny) invalid++;
   }
+
   return invalid;
 }
 
@@ -125,6 +137,7 @@ export interface OverlayLayerInput {
   layerId: string;
   layerName: string;
   color: string;
+
   /** Property whose value labels each feature in the breakdown. */
   nameProp?: string;
   features: OverlayFeature[];
@@ -135,15 +148,17 @@ const MAX_ITEMS = 8;
 export function computeLayerOverlay(
   combined: Feature<MultiPolygon>,
   drawnAreaM2: number,
-  layer: OverlayLayerInput
+  layer: OverlayLayerInput,
 ): LayerOverlay {
   const label = (props: GeoJsonProperties): string => {
     const v = layer.nameProp ? props?.[layer.nameProp] : undefined;
+
     return v != null && String(v).trim() !== "" ? String(v) : "(sem nome)";
   };
 
   const isPointLayer = layer.features.every((f) => {
     const t = f.geometry?.type;
+
     return t === "Point" || t === "MultiPoint";
   });
 
@@ -166,7 +181,9 @@ export function computeLayerOverlay(
 
     let clipped: Feature<Polygon | MultiPolygon> | null = null;
     try {
-      clipped = intersect(featureCollection([combined as PolyFeature, f as PolyFeature]));
+      clipped = intersect(
+        featureCollection([combined as PolyFeature, f as PolyFeature]),
+      );
     } catch {
       clipped = null;
     }
@@ -177,7 +194,8 @@ export function computeLayerOverlay(
     items.push({
       name: label(f.properties),
       areaHa: interM2 / M2_PER_HA,
-      pctOfDrawn: drawnAreaM2 > 0 ? Math.min(100, (interM2 / drawnAreaM2) * 100) : 0,
+      pctOfDrawn:
+        drawnAreaM2 > 0 ? Math.min(100, (interM2 / drawnAreaM2) * 100) : 0,
     });
   }
 
@@ -207,7 +225,8 @@ export function computeLayerOverlay(
     kind: isPointLayer ? "point" : "polygon",
     featureCount,
     areaHa: totalM2 / M2_PER_HA,
-    pctOfDrawn: drawnAreaM2 > 0 ? Math.min(100, (totalM2 / drawnAreaM2) * 100) : 0,
+    pctOfDrawn:
+      drawnAreaM2 > 0 ? Math.min(100, (totalM2 / drawnAreaM2) * 100) : 0,
     items: items.slice(0, MAX_ITEMS),
   };
 }
@@ -217,19 +236,24 @@ export function computeLayerOverlay(
 export function computePolygonResults(
   features: DrawnFeature[],
   municipios: MunicipioFeature[],
-  overlayLayers: OverlayLayerInput[] = []
+  overlayLayers: OverlayLayerInput[] = [],
 ): PolygonResults {
   const geometry = computeGeometryStats(features);
   const combined = combine(features);
   const drawnAreaM2 = geometry.areaHa * M2_PER_HA;
 
-  const municipiosOverlay = computeMunicipioOverlay(combined, drawnAreaM2, municipios);
+  const municipiosOverlay = computeMunicipioOverlay(
+    combined,
+    drawnAreaM2,
+    municipios,
+  );
   const insideHa = municipiosOverlay.reduce((s, m) => s + m.areaHa, 0);
   const outsideAreaHa = Math.max(0, geometry.areaHa - insideHa);
-  const outsidePct = geometry.areaHa > 0 ? (outsideAreaHa / geometry.areaHa) * 100 : 0;
+  const outsidePct =
+    geometry.areaHa > 0 ? (outsideAreaHa / geometry.areaHa) * 100 : 0;
 
   const layers = overlayLayers.map((l) =>
-    computeLayerOverlay(combined, drawnAreaM2, l)
+    computeLayerOverlay(combined, drawnAreaM2, l),
   );
 
   return {

@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { FaLayerGroup, FaTimes, FaCircleNotch, FaExclamationTriangle } from "react-icons/fa";
+import {
+  FaLayerGroup,
+  FaTimes,
+  FaCircleNotch,
+  FaExclamationTriangle,
+} from "react-icons/fa";
 import { theme } from "@/croqui/config/theme";
 import { useStore } from "@/croqui/lib/store";
 import { VECTOR_LAYERS, RASTER_LAYERS } from "@/croqui/config/layers";
@@ -28,8 +33,13 @@ export function LayersPanel() {
         setOpen(false);
       }
     };
+
     // Defer so the click that opened the panel doesn't immediately close it.
-    const t = setTimeout(() => document.addEventListener("mousedown", onDocClick), 0);
+    const t = setTimeout(
+      () => document.addEventListener("mousedown", onDocClick),
+      0,
+    );
+
     return () => {
       clearTimeout(t);
       document.removeEventListener("mousedown", onDocClick);
@@ -242,7 +252,12 @@ function LayerRow({
           type="checkbox"
           checked={visible}
           onChange={onToggle}
-          style={{ marginTop: 4, accentColor: theme.colors.sage, width: 14, height: 14 }}
+          style={{
+            marginTop: 4,
+            accentColor: theme.colors.sage,
+            width: 14,
+            height: 14,
+          }}
         />
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -268,7 +283,13 @@ function LayerRow({
                 }}
               />
             )}
-            <span style={{ fontSize: 13, fontWeight: 500, color: theme.colors.text }}>
+            <span
+              style={{
+                fontSize: 13,
+                fontWeight: 500,
+                color: theme.colors.text,
+              }}
+            >
               {name}
             </span>
             {loading && (
@@ -305,8 +326,21 @@ function LayerRow({
             </p>
           )}
           {visible && (
-            <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ fontSize: 10, color: theme.colors.textFaint, width: 50 }}>
+            <div
+              style={{
+                marginTop: 8,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 10,
+                  color: theme.colors.textFaint,
+                  width: 50,
+                }}
+              >
                 Opacidade
               </span>
               <input

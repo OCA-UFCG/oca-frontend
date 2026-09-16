@@ -63,7 +63,7 @@ function drawBeforeId(map: MaplibreMap): string | undefined {
 /** Axis-aligned bbox overlap test ([minx,miny,maxx,maxy]). */
 function boxesOverlap(
   a: [number, number, number, number],
-  b: [number, number, number, number]
+  b: [number, number, number, number],
 ): boolean {
   return a[0] <= b[2] && a[2] >= b[0] && a[1] <= b[3] && a[3] >= b[1];
 }
@@ -80,10 +80,12 @@ function boxesOverlap(
 function whenStyleReady(map: MaplibreMap, cb: () => void): void {
   // Bail if the map was destroyed (e.g. HMR/unmount) — otherwise the poll would
   // keep calling into a removed map and MapLibre logs "There is no style…".
-  const removed = () => (map as unknown as { _removed?: boolean })._removed === true;
+  const removed = () =>
+    (map as unknown as { _removed?: boolean })._removed === true;
   if (removed()) return;
   if (map.isStyleLoaded()) {
     cb();
+
     return;
   }
   let tries = 0;
@@ -98,7 +100,6 @@ function whenStyleReady(map: MaplibreMap, cb: () => void): void {
     }
   }, 100);
 }
-
 
 interface MapViewProps {
   municipios: MunicipiosCollection | null;
@@ -124,7 +125,9 @@ export function MapView({ municipios }: MapViewProps) {
   const layerOpacity = useStore((s) => s.layerOpacity);
   const basemapId = useStore((s) => s.basemapId);
   const overlayData = useStore((s) => s.overlayData);
-  const carVisible = useStore((s) => (CAR ? !!s.layerVisibility[CAR.id] : false));
+  const carVisible = useStore((s) =>
+    CAR ? !!s.layerVisibility[CAR.id] : false,
+  );
 
   // ─── Init map once ─────────────────────────────────────────────────────────
   useEffect(() => {
@@ -138,12 +141,12 @@ export function MapView({ municipios }: MapViewProps) {
     HTMLCanvasElement.prototype.getContext = function (
       this: HTMLCanvasElement,
       type: string,
-      attrs?: object
+      attrs?: object,
     ) {
       if (type === "webgl" || type === "webgl2") {
         attrs = { ...(attrs ?? {}), preserveDrawingBuffer: true };
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, newline-before-return
       return (originalGetContext as any).call(this, type, attrs);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any;
@@ -167,16 +170,20 @@ export function MapView({ municipios }: MapViewProps) {
 
     mapRef.current = map;
     setMapInstance(map);
+
     // In some embed/preview layouts the map is constructed before the container
     // has its final size, leaving the transform at 0×0 so no tiles are ever
     // requested and the style never finishes loading. Nudge resize a few times
     // early on to recompute the transform.
     const resizeKicks = [0, 150, 400, 1000, 2000].map((d) =>
-      window.setTimeout(() => map.resize(), d)
+      window.setTimeout(() => map.resize(), d),
     );
 
     // ─── Controls (top-right) ────────────────────────────────────────────────
-    map.addControl(new maplibregl.NavigationControl({ showCompass: true }), "top-right");
+    map.addControl(
+      new maplibregl.NavigationControl({ showCompass: true }),
+      "top-right",
+    );
     map.addControl(
       new maplibregl.GeolocateControl({
         positionOptions: { enableHighAccuracy: true },
@@ -184,11 +191,11 @@ export function MapView({ municipios }: MapViewProps) {
         showAccuracyCircle: true,
         fitBoundsOptions: { maxZoom: 12 },
       }),
-      "top-right"
+      "top-right",
     );
     map.addControl(
       new maplibregl.ScaleControl({ maxWidth: 120, unit: "metric" }),
-      "bottom-left"
+      "bottom-left",
     );
 
     // ─── Draw control (no built-in UI; we drive it via DrawToolbar) ─────────
@@ -199,6 +206,7 @@ export function MapView({ municipios }: MapViewProps) {
       styles: drawStyles,
     });
     drawRef.current = draw;
+
     // mapbox-gl-draw expects IControl shape that maplibre also implements.
     map.addControl(draw as unknown as maplibregl.IControl, "top-right");
 
@@ -207,7 +215,7 @@ export function MapView({ municipios }: MapViewProps) {
       const polys = draw
         .getAll()
         .features.filter(
-          (f) => f.geometry?.type === "Polygon"
+          (f) => f.geometry?.type === "Polygon",
         ) as unknown as DrawnFeature[];
       setDrawnFeatures(polys);
     };
@@ -216,7 +224,8 @@ export function MapView({ municipios }: MapViewProps) {
     map.on("draw.update", syncDrawn);
     map.on("draw.delete", syncDrawn);
     map.on("draw.modechange", (e: { mode: string }) => {
-      if (e.mode === "simple_select" || e.mode === "direct_select") setDrawMode("idle");
+      if (e.mode === "simple_select" || e.mode === "direct_select")
+        setDrawMode("idle");
     });
 
     return () => {
@@ -246,6 +255,7 @@ export function MapView({ municipios }: MapViewProps) {
         attribution: basemap.attribution,
         maxzoom: basemap.maxZoom,
       });
+
       // Insert just above the background layer so every other layer (municípios,
       // overlay layers, drawing) stays on top.
       const beforeId = map.getLayer("background")
@@ -253,7 +263,7 @@ export function MapView({ municipios }: MapViewProps) {
         : map.getStyle().layers[0]?.id;
       map.addLayer(
         { id: BASEMAP_LAYER_ID, type: "raster", source: BASEMAP_SOURCE_ID },
-        beforeId
+        beforeId,
       );
     };
 
@@ -318,21 +328,28 @@ export function MapView({ municipios }: MapViewProps) {
       });
 
       // ─── Hover ───────────────────────────────────────────────────────────
-      map.on("mousemove", MUN_FILL_LAYER, (e: MapMouseEvent & { features?: maplibregl.MapGeoJSONFeature[] }) => {
-        // While drawing, leave the crosshair cursor and don't highlight.
-        if (useStore.getState().drawMode !== "idle") return;
-        map.getCanvas().style.cursor = "pointer";
-        const code = e.features?.[0]?.id as string | undefined;
-        if (!code || code === hoveredCodeRef.current) return;
-        if (hoveredCodeRef.current) {
+      map.on(
+        "mousemove",
+        MUN_FILL_LAYER,
+        (e: MapMouseEvent & { features?: maplibregl.MapGeoJSONFeature[] }) => {
+          // While drawing, leave the crosshair cursor and don't highlight.
+          if (useStore.getState().drawMode !== "idle") return;
+          map.getCanvas().style.cursor = "pointer";
+          const code = e.features?.[0]?.id as string | undefined;
+          if (!code || code === hoveredCodeRef.current) return;
+          if (hoveredCodeRef.current) {
+            map.setFeatureState(
+              { source: MUN_SOURCE_ID, id: hoveredCodeRef.current },
+              { hover: false },
+            );
+          }
+          hoveredCodeRef.current = code;
           map.setFeatureState(
-            { source: MUN_SOURCE_ID, id: hoveredCodeRef.current },
-            { hover: false }
+            { source: MUN_SOURCE_ID, id: code },
+            { hover: true },
           );
-        }
-        hoveredCodeRef.current = code;
-        map.setFeatureState({ source: MUN_SOURCE_ID, id: code }, { hover: true });
-      });
+        },
+      );
 
       map.on("mouseleave", MUN_FILL_LAYER, () => {
         if (useStore.getState().drawMode !== "idle") return;
@@ -340,21 +357,25 @@ export function MapView({ municipios }: MapViewProps) {
         if (hoveredCodeRef.current) {
           map.setFeatureState(
             { source: MUN_SOURCE_ID, id: hoveredCodeRef.current },
-            { hover: false }
+            { hover: false },
           );
           hoveredCodeRef.current = null;
         }
       });
 
       // ─── Click → select & fit (ignored while drawing) ───────────────────
-      map.on("click", MUN_FILL_LAYER, (e: MapMouseEvent & { features?: maplibregl.MapGeoJSONFeature[] }) => {
-        // During drawing a click is a vertex, not a municipality selection.
-        if (useStore.getState().drawMode !== "idle") return;
-        const f = e.features?.[0];
-        if (!f) return;
-        const code = String(f.id);
-        setSelectedMunCode(code);
-      });
+      map.on(
+        "click",
+        MUN_FILL_LAYER,
+        (e: MapMouseEvent & { features?: maplibregl.MapGeoJSONFeature[] }) => {
+          // During drawing a click is a vertex, not a municipality selection.
+          if (useStore.getState().drawMode !== "idle") return;
+          const f = e.features?.[0];
+          if (!f) return;
+          const code = String(f.id);
+          setSelectedMunCode(code);
+        },
+      );
 
       // ─── Fit to bbox of class-5 on first load ───────────────────────────
       map.fitBounds(MUNICIPIOS_META.bbox as [number, number, number, number], {
@@ -373,6 +394,7 @@ export function MapView({ municipios }: MapViewProps) {
     if (!draw || !map) return;
     if (drawMode === "polygon") {
       draw.changeMode("draw_polygon");
+
       // Crosshair signals "drawing" instead of the default grab/hand cursor.
       // Force it directly (and via CSS class) so the municípios hover handler,
       // which we suppress during draw, doesn't fight it.
@@ -406,7 +428,7 @@ export function MapView({ municipios }: MapViewProps) {
     const polys = draw
       .getAll()
       .features.filter(
-        (f) => f.geometry?.type === "Polygon"
+        (f) => f.geometry?.type === "Polygon",
       ) as unknown as DrawnFeature[];
     setDrawnFeatures(polys); // …so sync the store manually
 
@@ -440,18 +462,40 @@ export function MapView({ municipios }: MapViewProps) {
       for (const l of STATIC_OVERLAY_LAYERS) {
         const fc = overlayData[l.id];
         if (!fc || map.getSource(ovSrc(l.id))) continue;
-        map.addSource(ovSrc(l.id), { type: "geojson", data: fc, promoteId: l.promoteId });
+        map.addSource(ovSrc(l.id), {
+          type: "geojson",
+          data: fc,
+          promoteId: l.promoteId,
+        });
         const beforeId = drawBeforeId(map);
         const st = useStore.getState();
-        const vis0: "visible" | "none" = st.layerVisibility[l.id] ? "visible" : "none";
+        const vis0: "visible" | "none" = st.layerVisibility[l.id]
+          ? "visible"
+          : "none";
         const op0 = (st.layerOpacity[l.id] ?? 100) / 100;
         map.addLayer(
-          { id: ovFill(l.id), type: "fill", source: ovSrc(l.id), layout: { visibility: vis0 }, paint: { "fill-color": l.color, "fill-opacity": 0.3 * op0 } },
-          beforeId
+          {
+            id: ovFill(l.id),
+            type: "fill",
+            source: ovSrc(l.id),
+            layout: { visibility: vis0 },
+            paint: { "fill-color": l.color, "fill-opacity": 0.3 * op0 },
+          },
+          beforeId,
         );
         map.addLayer(
-          { id: ovLine(l.id), type: "line", source: ovSrc(l.id), layout: { visibility: vis0 }, paint: { "line-color": l.color, "line-width": 1.2, "line-opacity": op0 } },
-          beforeId
+          {
+            id: ovLine(l.id),
+            type: "line",
+            source: ovSrc(l.id),
+            layout: { visibility: vis0 },
+            paint: {
+              "line-color": l.color,
+              "line-width": 1.2,
+              "line-opacity": op0,
+            },
+          },
+          beforeId,
         );
       }
     };
@@ -478,15 +522,33 @@ export function MapView({ municipios }: MapViewProps) {
       });
       const beforeId = drawBeforeId(map);
       const st = useStore.getState();
-      const vis0: "visible" | "none" = st.layerVisibility[CAR.id] ? "visible" : "none";
+      const vis0: "visible" | "none" = st.layerVisibility[CAR.id]
+        ? "visible"
+        : "none";
       const op0 = (st.layerOpacity[CAR.id] ?? 100) / 100;
       map.addLayer(
-        { id: ovFill(CAR.id), type: "fill", source: ovSrc(CAR.id), layout: { visibility: vis0 }, paint: { "fill-color": CAR.color, "fill-opacity": 0.3 * op0 } },
-        beforeId
+        {
+          id: ovFill(CAR.id),
+          type: "fill",
+          source: ovSrc(CAR.id),
+          layout: { visibility: vis0 },
+          paint: { "fill-color": CAR.color, "fill-opacity": 0.3 * op0 },
+        },
+        beforeId,
       );
       map.addLayer(
-        { id: ovLine(CAR.id), type: "line", source: ovSrc(CAR.id), layout: { visibility: vis0 }, paint: { "line-color": CAR.color, "line-width": 0.8, "line-opacity": op0 } },
-        beforeId
+        {
+          id: ovLine(CAR.id),
+          type: "line",
+          source: ovSrc(CAR.id),
+          layout: { visibility: vis0 },
+          paint: {
+            "line-color": CAR.color,
+            "line-width": 0.8,
+            "line-opacity": op0,
+          },
+        },
+        beforeId,
       );
     };
     whenStyleReady(map, ensure);
@@ -495,26 +557,46 @@ export function MapView({ municipios }: MapViewProps) {
     let debounce: number | undefined;
 
     const load = () => {
-      const src = map.getSource(ovSrc(CAR.id)) as maplibregl.GeoJSONSource | undefined;
+      const src = map.getSource(ovSrc(CAR.id)) as
+        | maplibregl.GeoJSONSource
+        | undefined;
       if (!src) return;
       const visible = !!useStore.getState().layerVisibility[CAR.id];
       if (!visible || map.getZoom() < (CAR.minZoomForLoad ?? 12)) {
         src.setData({ type: "FeatureCollection", features: [] });
+
         return;
       }
       const b = map.getBounds();
-      const vb: [number, number, number, number] = [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()];
-      const ufs = ufsFromNames(munBoxes.filter((m) => boxesOverlap(m.bb, vb)).map((m) => m.uf));
+      const vb: [number, number, number, number] = [
+        b.getWest(),
+        b.getSouth(),
+        b.getEast(),
+        b.getNorth(),
+      ];
+      const ufs = ufsFromNames(
+        munBoxes.filter((m) => boxesOverlap(m.bb, vb)).map((m) => m.uf),
+      );
       if (ufs.length === 0) {
         src.setData({ type: "FeatureCollection", features: [] });
+
         return;
       }
       const bboxStr = `${vb[0]},${vb[1]},${vb[2]},${vb[3]},EPSG:4326`;
       ctrl?.abort();
       ctrl = new AbortController();
-      fetchCarFeatures(CAR.wfsUrl!, CAR.wfsTypePrefix!, ufs, bboxStr, CAR.maxFeatures ?? 4000, ctrl.signal)
+      fetchCarFeatures(
+        CAR.wfsUrl!,
+        CAR.wfsTypePrefix!,
+        ufs,
+        bboxStr,
+        CAR.maxFeatures ?? 4000,
+        ctrl.signal,
+      )
         .then((features) => {
-          const s = map.getSource(ovSrc(CAR.id)) as maplibregl.GeoJSONSource | undefined;
+          const s = map.getSource(ovSrc(CAR.id)) as
+            | maplibregl.GeoJSONSource
+            | undefined;
           s?.setData({ type: "FeatureCollection", features });
         })
         .catch((err: Error) => {
@@ -567,20 +649,24 @@ export function MapView({ municipios }: MapViewProps) {
     if (!map || !municipios) return;
     if (!map.getSource(MUN_SOURCE_ID)) return;
 
-    if (lastSelectedRef.current && lastSelectedRef.current !== selectedMunCode) {
+    if (
+      lastSelectedRef.current &&
+      lastSelectedRef.current !== selectedMunCode
+    ) {
       map.setFeatureState(
         { source: MUN_SOURCE_ID, id: lastSelectedRef.current },
-        { selected: false }
+        { selected: false },
       );
     }
     if (selectedMunCode) {
       map.setFeatureState(
         { source: MUN_SOURCE_ID, id: selectedMunCode },
-        { selected: true }
+        { selected: true },
       );
+
       // Find feature → fit
       const feature = municipios.features.find(
-        (f) => f.properties.CD_MUN === selectedMunCode
+        (f) => f.properties.CD_MUN === selectedMunCode,
       );
       if (feature) {
         const bb = bbox(feature) as [number, number, number, number];
@@ -611,7 +697,12 @@ const drawStyles = [
   {
     id: "gl-draw-polygon-fill-inactive",
     type: "fill",
-    filter: ["all", ["==", "active", "false"], ["==", "$type", "Polygon"], ["!=", "mode", "static"]],
+    filter: [
+      "all",
+      ["==", "active", "false"],
+      ["==", "$type", "Polygon"],
+      ["!=", "mode", "static"],
+    ],
     paint: { "fill-color": theme.colors.drawnYellow, "fill-opacity": 0.18 },
   },
   {
@@ -625,23 +716,41 @@ const drawStyles = [
   {
     id: "gl-draw-polygon-halo-inactive",
     type: "line",
-    filter: ["all", ["==", "active", "false"], ["==", "$type", "Polygon"], ["!=", "mode", "static"]],
+    filter: [
+      "all",
+      ["==", "active", "false"],
+      ["==", "$type", "Polygon"],
+      ["!=", "mode", "static"],
+    ],
     layout: { "line-cap": "round", "line-join": "round" },
-    paint: { "line-color": theme.colors.drawnHalo, "line-width": 6, "line-opacity": 0.9 },
+    paint: {
+      "line-color": theme.colors.drawnHalo,
+      "line-width": 6,
+      "line-opacity": 0.9,
+    },
   },
   {
     id: "gl-draw-polygon-halo-active",
     type: "line",
     filter: ["all", ["==", "active", "true"], ["==", "$type", "Polygon"]],
     layout: { "line-cap": "round", "line-join": "round" },
-    paint: { "line-color": theme.colors.drawnHalo, "line-width": 6, "line-opacity": 0.9 },
+    paint: {
+      "line-color": theme.colors.drawnHalo,
+      "line-width": 6,
+      "line-opacity": 0.9,
+    },
   },
 
   // Main stroke — bright yellow on top of the halo
   {
     id: "gl-draw-polygon-stroke-inactive",
     type: "line",
-    filter: ["all", ["==", "active", "false"], ["==", "$type", "Polygon"], ["!=", "mode", "static"]],
+    filter: [
+      "all",
+      ["==", "active", "false"],
+      ["==", "$type", "Polygon"],
+      ["!=", "mode", "static"],
+    ],
     layout: { "line-cap": "round", "line-join": "round" },
     paint: { "line-color": theme.colors.drawnYellow, "line-width": 3 },
   },
@@ -650,14 +759,23 @@ const drawStyles = [
     type: "line",
     filter: ["all", ["==", "active", "true"], ["==", "$type", "Polygon"]],
     layout: { "line-cap": "round", "line-join": "round" },
-    paint: { "line-color": theme.colors.drawnYellow, "line-width": 3, "line-dasharray": [0.2, 2] },
+    paint: {
+      "line-color": theme.colors.drawnYellow,
+      "line-width": 3,
+      "line-dasharray": [0.2, 2],
+    },
   },
 
   // Vertices — yellow with dark halo ring
   {
     id: "gl-draw-polygon-and-line-vertex-inactive",
     type: "circle",
-    filter: ["all", ["==", "meta", "vertex"], ["==", "$type", "Point"], ["!=", "mode", "static"]],
+    filter: [
+      "all",
+      ["==", "meta", "vertex"],
+      ["==", "$type", "Point"],
+      ["!=", "mode", "static"],
+    ],
     paint: {
       "circle-radius": 5,
       "circle-color": theme.colors.drawnYellow,

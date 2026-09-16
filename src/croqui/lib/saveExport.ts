@@ -15,6 +15,7 @@ export interface ExportMeta {
 
 function round(n: number, d: number): number {
   const f = 10 ** d;
+
   return Math.round(n * f) / f;
 }
 
@@ -22,9 +23,10 @@ function round(n: number, d: number): number {
 export function buildExportPayload(
   results: PolygonResults,
   drawnFeatures: DrawnFeature[],
-  meta: ExportMeta
+  meta: ExportMeta,
 ) {
   const g = results.geometry;
+
   return {
     createdAt: new Date().toISOString(),
     nome: meta.nome,
@@ -58,6 +60,7 @@ export function buildExportPayload(
 export async function saveCroquiExport(payload: object): Promise<void> {
   if (!EXPORT_WEBHOOK_URL) {
     console.info("[export] planilha não configurada — salvamento ignorado.");
+
     return;
   }
   try {

@@ -8,7 +8,11 @@ import area from "@turf/area";
 import bbox from "@turf/bbox";
 import { multiPolygon } from "@turf/helpers";
 import type { Feature, MultiPolygon } from "geojson";
-import type { DrawnFeature, LayerOverlay, MunicipioOverlay } from "@/croqui/types";
+import type {
+  DrawnFeature,
+  LayerOverlay,
+  MunicipioOverlay,
+} from "@/croqui/types";
 import { computeLayerOverlay, type OverlayFeature } from "./computeStats";
 
 /** Full UF name (as in the municipios GeoJSON) → IBGE sigla used by SICAR. */
@@ -53,7 +57,7 @@ export async function fetchCarFeatures(
   ufs: string[],
   bboxStr: string,
   maxFeatures: number,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<Feature[]> {
   const all: Feature[] = [];
   for (const uf of ufs) {
@@ -68,6 +72,7 @@ export async function fetchCarFeatures(
     const gj = (await res.json()) as { features?: Feature[] };
     if (gj?.features?.length) all.push(...gj.features);
   }
+
   return all;
 }
 
@@ -90,7 +95,7 @@ export async function queryCarOverlay(
   features: DrawnFeature[],
   municipios: MunicipioOverlay[],
   cfg: CarConfig,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<LayerOverlay> {
   const empty: LayerOverlay = {
     layerId: cfg.layerId,
@@ -108,7 +113,7 @@ export async function queryCarOverlay(
   if (ufs.length === 0) return empty;
 
   const combined = multiPolygon(
-    features.map((f) => f.geometry.coordinates)
+    features.map((f) => f.geometry.coordinates),
   ) as Feature<MultiPolygon>;
   const drawnAreaM2 = area(combined);
   const [minx, miny, maxx, maxy] = bbox(combined);
@@ -121,8 +126,9 @@ export async function queryCarOverlay(
     ufs,
     bboxStr,
     max,
-    signal
+    signal,
   );
+
   // If the fetch saturated the cap, the count/area may be undercounted.
   const capped = feats.length >= max * ufs.length;
 

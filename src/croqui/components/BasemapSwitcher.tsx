@@ -17,7 +17,11 @@ export function BasemapSwitcher() {
     const onDoc = (e: MouseEvent) => {
       if (!ref.current?.contains(e.target as Node)) setOpen(false);
     };
-    const t = setTimeout(() => document.addEventListener("mousedown", onDoc), 0);
+    const t = setTimeout(
+      () => document.addEventListener("mousedown", onDoc),
+      0,
+    );
+
     return () => {
       clearTimeout(t);
       document.removeEventListener("mousedown", onDoc);
@@ -54,6 +58,7 @@ export function BasemapSwitcher() {
         >
           {BASEMAPS.map((b) => {
             const active = b.id === basemapId;
+
             return (
               <button
                 key={b.id}
@@ -111,7 +116,13 @@ export function BasemapSwitcher() {
         }}
       >
         <FaMap size={12} color={theme.colors.sageDark} />
-        <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+        <span
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
           {current.name}
         </span>
       </button>

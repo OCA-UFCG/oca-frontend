@@ -14,10 +14,10 @@ interface OverlayChartProps {
 // Distinct (but on-brand) colors for UFs hit by the polygon.
 const UF_COLORS: Record<string, string> = {
   Bahia: "#7d8c5e",
-  "Paraíba": "#a8b393",
+  Paraíba: "#a8b393",
   "Rio Grande do Norte": "#c4a880",
-  "Ceará": "#a08560",
-  "Piauí": "#5a6843",
+  Ceará: "#a08560",
+  Piauí: "#5a6843",
   Pernambuco: "#e0cba8",
   Alagoas: "#3d6b7d",
   Sergipe: "#b04a3a",
@@ -30,7 +30,7 @@ export function OverlayChart({ overlay }: OverlayChartProps) {
     byUf.set(m.NM_UF, (byUf.get(m.NM_UF) ?? 0) + m.pctOfDrawn);
   }
   const data = Array.from(byUf, ([uf, pct]) => ({ uf, pct })).sort(
-    (a, b) => b.pct - a.pct
+    (a, b) => b.pct - a.pct,
   );
   if (data.length === 0) return null;
   const max = Math.max(...data.map((d) => d.pct), 1);
@@ -40,7 +40,12 @@ export function OverlayChart({ overlay }: OverlayChartProps) {
       {data.map((d) => (
         <div
           key={d.uf}
-          style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11 }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            fontSize: 11,
+          }}
         >
           <span
             style={{

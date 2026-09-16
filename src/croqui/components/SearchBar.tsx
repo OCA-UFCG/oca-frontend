@@ -17,7 +17,10 @@ interface Match {
 }
 
 function deaccent(s: string) {
-  return s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+  return s
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase();
 }
 
 export function SearchBar({ municipios }: SearchBarProps) {
@@ -31,6 +34,7 @@ export function SearchBar({ municipios }: SearchBarProps) {
   // Build a search index lazily once municipios are loaded
   const index = useMemo(() => {
     if (!municipios) return null;
+
     return municipios.features.map((f) => ({
       feature: f,
       munNorm: deaccent(f.properties.NM_MUN),
@@ -58,6 +62,7 @@ export function SearchBar({ municipios }: SearchBarProps) {
       }
       if (found.length >= 30) break;
     }
+
     return found;
   }, [index, query]);
 
@@ -67,6 +72,7 @@ export function SearchBar({ municipios }: SearchBarProps) {
       if (!containerRef.current?.contains(e.target as Node)) setOpen(false);
     };
     document.addEventListener("mousedown", onDocClick);
+
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
@@ -180,6 +186,7 @@ export function SearchBar({ municipios }: SearchBarProps) {
         >
           {matches.map((m, i) => {
             const isActive = i === activeIdx;
+
             return (
               <button
                 key={`${m.feature.properties.CD_MUN}-${m.matchedField}`}
@@ -193,7 +200,9 @@ export function SearchBar({ municipios }: SearchBarProps) {
                   width: "100%",
                   padding: "8px 12px",
                   border: "none",
-                  background: isActive ? theme.colors.panelMuted : "transparent",
+                  background: isActive
+                    ? theme.colors.panelMuted
+                    : "transparent",
                   borderBottom: `1px solid ${theme.colors.border}`,
                   textAlign: "left",
                   fontSize: 13,
@@ -206,7 +215,8 @@ export function SearchBar({ municipios }: SearchBarProps) {
                   {m.feature.properties.NM_MUN}
                 </span>
                 <span style={{ fontSize: 11, color: theme.colors.textMuted }}>
-                  {m.feature.properties.NM_UF} · {m.feature.properties.NM_REGIAO}
+                  {m.feature.properties.NM_UF} ·{" "}
+                  {m.feature.properties.NM_REGIAO}
                 </span>
               </button>
             );

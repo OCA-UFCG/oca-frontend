@@ -25,7 +25,10 @@ Deixe uma LINHA EM BRANCO entre polígonos:
 
 Ou cole/importe um GeoJSON (Polygon, MultiPolygon ou vários features).`;
 
-export function ImportVerticesModal({ open, onClose }: ImportVerticesModalProps) {
+export function ImportVerticesModal({
+  open,
+  onClose,
+}: ImportVerticesModalProps) {
   const setPendingImport = useStore((s) => s.setPendingImport);
   const [text, setText] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -114,7 +117,13 @@ export function ImportVerticesModal({ open, onClose }: ImportVerticesModalProps)
             onClick={onClose}
             className="ui-press"
             aria-label="Fechar"
-            style={{ background: "none", border: "none", color: theme.colors.textMuted, cursor: "pointer", padding: 4 }}
+            style={{
+              background: "none",
+              border: "none",
+              color: theme.colors.textMuted,
+              cursor: "pointer",
+              padding: 4,
+            }}
           >
             <FaTimes size={14} />
           </button>
@@ -144,7 +153,14 @@ export function ImportVerticesModal({ open, onClose }: ImportVerticesModalProps)
             }}
           />
 
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 10 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              marginTop: 10,
+            }}
+          >
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
@@ -178,13 +194,28 @@ export function ImportVerticesModal({ open, onClose }: ImportVerticesModalProps)
               style={{ display: "none" }}
             />
             {fileName && (
-              <span style={{ fontSize: 11.5, color: theme.colors.textMuted, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <span
+                style={{
+                  fontSize: 11.5,
+                  color: theme.colors.textMuted,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
                 {fileName}
               </span>
             )}
           </div>
 
-          <p style={{ margin: "12px 0 0", fontSize: 11, color: theme.colors.textFaint, lineHeight: 1.5 }}>
+          <p
+            style={{
+              margin: "12px 0 0",
+              fontSize: 11,
+              color: theme.colors.textFaint,
+              lineHeight: 1.5,
+            }}
+          >
             Texto/CSV: uma coordenada por linha em <strong>lat, lon</strong>;
             uma <strong>linha em branco</strong> separa cada polígono. GeoJSON
             (Polygon/MultiPolygon/vários features) também vale. A importação
@@ -192,7 +223,13 @@ export function ImportVerticesModal({ open, onClose }: ImportVerticesModalProps)
           </p>
 
           {error && (
-            <p style={{ margin: "10px 0 0", fontSize: 12, color: theme.colors.danger }}>
+            <p
+              style={{
+                margin: "10px 0 0",
+                fontSize: 12,
+                color: theme.colors.danger,
+              }}
+            >
               {error}
             </p>
           )}
@@ -236,7 +273,9 @@ export function ImportVerticesModal({ open, onClose }: ImportVerticesModalProps)
               padding: "9px 16px",
               border: "none",
               borderRadius: theme.radius.md,
-              background: text.trim() ? theme.colors.sage : theme.colors.borderStrong,
+              background: text.trim()
+                ? theme.colors.sage
+                : theme.colors.borderStrong,
               color: "#fff",
               fontSize: 13,
               fontWeight: 600,
@@ -250,6 +289,6 @@ export function ImportVerticesModal({ open, onClose }: ImportVerticesModalProps)
         </footer>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

@@ -10,8 +10,7 @@ export const EXPORT_WEBHOOK_URL =
 
 // Token compartilhado opcional; precisa bater com TOKEN no sheets_webhook.gs.
 // Vazio = sem checagem de token.
-export const EXPORT_TOKEN =
-  process.env.NEXT_PUBLIC_EXPORT_TOKEN?.trim() || "";
+export const EXPORT_TOKEN = process.env.NEXT_PUBLIC_EXPORT_TOKEN?.trim() || "";
 
 // reCAPTCHA v2 (checkbox) — Site Key (PÚBLICA, pode ficar no cliente).
 // Crie em https://www.google.com/recaptcha/admin e registre os domínios

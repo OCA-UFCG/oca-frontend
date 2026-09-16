@@ -63,10 +63,22 @@ export function FloatingLegend() {
       </button>
 
       {!collapsed && (
-        <div style={{ padding: "10px 12px", display: "flex", flexDirection: "column", gap: 10 }}>
+        <div
+          style={{
+            padding: "10px 12px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+          }}
+        >
           {munVisible && (
             <LegendItem
-              swatch={<FillBox color={theme.colors.priorityRed} border={theme.colors.priorityRed} />}
+              swatch={
+                <FillBox
+                  color={theme.colors.priorityRed}
+                  border={theme.colors.priorityRed}
+                />
+              }
               label="Alta Prioridade (C5)"
               sub="249 municípios"
             />
@@ -82,7 +94,12 @@ export function FloatingLegend() {
 
           {hasDrawn && (
             <LegendItem
-              swatch={<FillBox color={theme.colors.drawnYellow} border={theme.colors.drawnYellowDark} />}
+              swatch={
+                <FillBox
+                  color={theme.colors.drawnYellow}
+                  border={theme.colors.drawnYellowDark}
+                />
+              }
               label="Área desenhada"
             />
           )}
@@ -104,12 +121,18 @@ function LegendItem({
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
       {swatch}
-      <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.2 }}>
-        <span style={{ fontSize: 12, color: theme.colors.text, fontWeight: 500 }}>
+      <div
+        style={{ display: "flex", flexDirection: "column", lineHeight: 1.2 }}
+      >
+        <span
+          style={{ fontSize: 12, color: theme.colors.text, fontWeight: 500 }}
+        >
           {label}
         </span>
         {sub && (
-          <span style={{ fontSize: 10, color: theme.colors.textMuted }}>{sub}</span>
+          <span style={{ fontSize: 10, color: theme.colors.textMuted }}>
+            {sub}
+          </span>
         )}
       </div>
     </div>

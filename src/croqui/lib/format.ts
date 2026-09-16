@@ -13,6 +13,7 @@ const _fmtCoord6 = new Intl.NumberFormat("pt-BR", {
 export function formatHa(ha: number): string {
   if (ha >= 100) return `${_fmt0.format(Math.round(ha))} ha`;
   if (ha >= 1) return `${ha.toFixed(1)} ha`;
+
   return `${ha.toFixed(2)} ha`;
 }
 
@@ -21,6 +22,7 @@ export function formatPct(p: number): string {
   if (p <= 0) return "0%";
   if (p < 0.1) return "<0,1%";
   if (p < 10) return `${p.toFixed(1).replace(".", ",")}%`;
+
   return `${Math.round(p)}%`;
 }
 

@@ -12,7 +12,7 @@ interface Grecaptcha {
       "error-callback"?: () => void;
       size?: "normal" | "compact" | "invisible";
       theme?: "light" | "dark";
-    }
+    },
   ) => number;
   reset: (id?: number) => void;
   getResponse: (id?: number) => string;
@@ -31,6 +31,7 @@ export function loadRecaptcha(): Promise<Grecaptcha> {
   scriptPromise = new Promise<Grecaptcha>((resolve, reject) => {
     if (window.grecaptcha?.render) {
       resolve(window.grecaptcha);
+
       return;
     }
     const s = document.createElement("script");
@@ -53,5 +54,6 @@ export function loadRecaptcha(): Promise<Grecaptcha> {
     };
     document.head.appendChild(s);
   });
+
   return scriptPromise;
 }

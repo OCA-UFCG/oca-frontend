@@ -11,7 +11,10 @@
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     // add new line above comment
-    "lines-around-comment": [
+    // usa a extensão do @typescript-eslint: a regra base do ESLint não conhece
+    // corpos de interface/type/enum, então allowBlockStart não os cobre
+    "lines-around-comment": "off",
+    "@typescript-eslint/lines-around-comment": [
       "error",
       {
         "beforeLineComment": true,
@@ -19,7 +22,11 @@
         "allowBlockStart": true,
         "allowClassStart": true,
         "allowObjectStart": true,
-        "allowArrayStart": true
+        "allowArrayStart": true,
+        "allowInterfaceStart": true,
+        "allowTypeStart": true,
+        "allowEnumStart": true,
+        "allowModuleStart": true
       }
     ],
     // add new line above return
