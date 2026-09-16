@@ -1,0 +1,27 @@
+{
+  "feature_count": 249,
+  "bbox": [
+    -43.7215084,
+    -15.617153,
+    -35.187182899999996,
+    -4.010903000000001
+  ],
+  "center": [
+    -39.45434564999999,
+    -9.814028
+  ],
+  "uf_counts": {
+    "Bahia": 47,
+    "Paraíba": 45,
+    "Rio Grande do Norte": 42,
+    "Ceará": 34,
+    "Piauí": 29,
+    "Pernambuco": 26,
+    "Alagoas": 14,
+    "Sergipe": 8,
+    "Minas Gerais": 4
+  },
+  "source": "electre_tri_b_por_estado.gpkg",
+  "filter": "class_electre == 5",
+  "simplify_tolerance_deg": 0.001
+}

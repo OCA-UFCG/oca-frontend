@@ -1,0 +1,56 @@
+/* ─── Reset ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #2a2a26;
+  background: #fafaf7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+button { font-family: inherit; cursor: pointer; }
+button:focus-visible { outline: 2px solid #7d8c5e; outline-offset: 2px; }
+
+/* ─── App layout root ────────────────────────────────────────────────────── */
+html, body { overflow: hidden; }
+
+/* ─── MapLibre overrides ──────────────────────────────────────────────────── */
+.maplibregl-canvas { outline: none; }
+.maplibregl-ctrl-attrib { font-size: 10px; opacity: 0.7; }
+
+/* Crosshair while drawing a polygon — overrides MapboxDraw's default cursor. */
+.croqui-drawing .maplibregl-canvas,
+.croqui-drawing .maplibregl-canvas-container.maplibregl-interactive { cursor: crosshair; }
+
+/* ─── Animations ──────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #ecebe5 0%, #f6f5ef 50%, #ecebe5 100%);
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 180ms ease-out; }
+
+.ui-press { transition: transform 80ms ease-out; }
+.ui-press:active { transform: scale(0.96); }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─── Scrollbar (subtle) ─────────────────────────────────────────────────── */
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: #cfc9b8; border-radius: 4px; }
+*::-webkit-scrollbar-thumb:hover { background: #a08560; }
+*::-webkit-scrollbar-track { background: transparent; }
