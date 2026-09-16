@@ -27,32 +27,36 @@ You can run the development server manually with **Makefile** commands:
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Estrutura
+## Structure
 
 ### Croqui
 
-O gerador de croquis vive em `src/croqui/` e é servido pela rota `/croqui`.
-É um módulo autocontido, inteiramente client-side: o mapa (MapLibre), as
-estatísticas zonais e a exportação em PDF rodam no navegador, sem backend
-próprio.
+The sketch-map generator lives in `src/croqui/` and is served at the `/croqui`
+route. It's a self-contained, entirely client-side module: the map
+(MapLibre), the vector statistics (area, perimeter, intersection with
+municipalities and thematic layers, CAR lookup) and the PDF export all run in
+the browser, with no backend of its own.
 
-Ele fica no route group `(croqui)`, que tem `<html>`/`<body>` próprios e **não**
-carrega o `GlobalStyles` (styled-components) do restante do site — o reset
-global do oca é incompatível com o CSS do croqui, em particular a regra
-`details { display: none }`, que esconderia as seções recolhíveis do
-`StatsPanel`. As demais rotas ficam no grupo `(site)`. Os dois grupos não
-alteram nenhuma URL.
+It lives in the `(croqui)` route group, which has its own `<html>`/`<body>`
+and does **not** load the rest of the site's `GlobalStyles`
+(styled-components) — the site-wide reset is incompatible with croqui's CSS,
+in particular the `details { display: none }` rule, which would hide
+`StatsPanel`'s collapsible sections. The remaining routes live in the `(site)`
+group. Neither group changes any URL.
 
-O logo no header do croqui aponta para `/oca_logan.svg` e fica dentro de um
-link para a página inicial do site.
+The logo in the croqui header points to `/oca_logan.svg` and is wrapped in a
+link back to the site's home page.
 
-Os GeoJSONs das camadas ficam em `public/data/` e são buscados em runtime.
-A configuração opcional do registro de exports está no `.env.sample`, nas
-variáveis prefixadas com `NEXT_PUBLIC_CROQUI_`.
+The layers' GeoJSONs live in `public/data/` and are fetched at runtime. The
+optional export-registration config is in `.env.sample`, under the
+`NEXT_PUBLIC_CROQUI_` variables. These are `NEXT_PUBLIC_*`, so they only exist
+at build time; in production/beta they aren't read from `.env` but passed in
+as build-args by the deploy workflows
+(`.github/workflows/deploy-beta.yml` and `deploy-oca.yml`).
 
-Origem do código: repositório `croqui` (`observatorio-croqui`), mantido como
-histórico. O deploy antigo segue no ar como fallback até esta versão ser
-validada em produção.
+Code origin: the `croqui` (`observatorio-croqui`) repository, kept as
+history. The old deployment stays up as a fallback until this version is
+validated in production.
 
 ## Conventions
 
