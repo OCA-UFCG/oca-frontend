@@ -950,7 +950,7 @@ Esperado: build sem erro; o servidor sobe na porta 3000.
 
 Com `npm start` rodando, percorra em `http://localhost:3000`:
 
-**Croqui (`/croqui`)** — o Header do OCA no topo, com dropdowns abrindo no hover, links levando às rotas do site e a lista de navegação sem recuo nem marcadores; o header do croqui logo abaixo; o mapa preenchendo toda a altura restante sem rolagem na página; busca de endereço; desenho, edição e limpeza de polígono; importação de vértices (válida e inválida); os quatro basemaps; painel de camadas e legenda; **as seções `<details>` do `StatsPanel`** (prova de que o `ThemeProvider` entrou sem o `GlobalStyles` junto); área, perímetro, centroide e municípios com percentuais; as três camadas temáticas estáticas; a consulta CAR ao GeoServer, incluindo o estado de erro "GeoServer indisponível"; o `OverlayChart`; o reCAPTCHA do `ExportModal`; a geração do PDF com as tabelas; o registro na planilha; e o comportamento responsivo abaixo de 1000px.
+**Croqui (`/croqui`)** — o header próprio do croqui em tela cheia, **sem** o Header do OCA; o mapa preenchendo a altura da janela sem rolagem na página; busca de endereço; desenho, edição e limpeza de polígono; importação de vértices (válida e inválida); os quatro basemaps; painel de camadas e legenda; **as seções `<details>` do `StatsPanel`** (prova de que o `GlobalStyles` não vazou para o grupo); área, perímetro, centroide e municípios com percentuais; as três camadas temáticas estáticas; a consulta CAR ao GeoServer, incluindo o estado de erro "GeoServer indisponível"; o `OverlayChart`; o reCAPTCHA do `ExportModal`; a geração do PDF com as tabelas; e o registro na planilha.
 
 **Regressão do oca** — `/` (home), `/about`, `/collab`, `/contact-us` (com reCAPTCHA), `/infra`, `/map` (MapTiff em maplibre v5: tiffs, popups, contornos de estados e municípios), `/team`, e `/health` respondendo.
 
@@ -974,13 +974,6 @@ global do oca é incompatível com o CSS do croqui, em particular a regra
 `details { display: none }`, que esconderia as seções recolhíveis do
 `StatsPanel`. As demais rotas ficam no grupo `(site)`. Os dois grupos não
 alteram nenhuma URL.
-
-O Header do site aparece no topo do `/croqui` mesmo assim: o
-`CroquiSiteHeader` o envolve em `StyledComponentsRegistry` e `ThemeProvider`
-sem o `GlobalStyles`, repondo por conta própria a única regra do reset de que a
-árvore do Header depende (a `padding` zerada do `<ul>` do `NavList`), escopada
-pela classe `.oca-header-scope` para não alcançar a subárvore do croqui. O
-Footer do site não entra: o croqui é uma ferramenta de tela cheia.
 
 Os GeoJSONs das camadas ficam em `public/data/` e são buscados em runtime.
 A configuração opcional do registro de exports está no `.env.sample`, nas
