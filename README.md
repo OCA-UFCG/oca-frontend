@@ -27,6 +27,33 @@ You can run the development server manually with **Makefile** commands:
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Estrutura
+
+### Croqui
+
+O gerador de croquis vive em `src/croqui/` e é servido pela rota `/croqui`.
+É um módulo autocontido, inteiramente client-side: o mapa (MapLibre), as
+estatísticas zonais e a exportação em PDF rodam no navegador, sem backend
+próprio.
+
+Ele fica no route group `(croqui)`, que tem `<html>`/`<body>` próprios e **não**
+carrega o `GlobalStyles` (styled-components) do restante do site — o reset
+global do oca é incompatível com o CSS do croqui, em particular a regra
+`details { display: none }`, que esconderia as seções recolhíveis do
+`StatsPanel`. As demais rotas ficam no grupo `(site)`. Os dois grupos não
+alteram nenhuma URL.
+
+O logo no header do croqui aponta para `/oca_logan.svg` e fica dentro de um
+link para a página inicial do site.
+
+Os GeoJSONs das camadas ficam em `public/data/` e são buscados em runtime.
+A configuração opcional do registro de exports está no `.env.sample`, nas
+variáveis prefixadas com `NEXT_PUBLIC_CROQUI_`.
+
+Origem do código: repositório `croqui` (`observatorio-croqui`), mantido como
+histórico. O deploy antigo segue no ar como fallback até esta versão ser
+validada em produção.
+
 ## Conventions
 
 ### Branches
