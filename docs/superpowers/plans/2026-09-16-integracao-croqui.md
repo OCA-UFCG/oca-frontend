@@ -18,7 +18,8 @@
 - **O grupo `(croqui)` carrega `StyledComponentsRegistry` e `ThemeProvider`, mas NUNCA o `GlobalStyles`.** É o `GlobalStyles` que traz `details { display: none }`, a regra que esconderia as seções recolhíveis do `StatsPanel`.
 - **Nenhuma URL pública muda.** Route groups entre parênteses não entram no path.
 - **`src/app/globalStyles.tsx` NÃO pode ser movido** — 11 componentes o importam por `@/app/globalStyles`. O mesmo vale para `src/app/Providers.tsx` e `src/app/theme.ts`, que permanecem na raiz de `src/app/`.
-- **Todo o código migrado do croqui é copiado sem alteração de lógica.** As únicas edições permitidas são: caminhos de import, nomes de variáveis de ambiente, as duas entradas de fonte em `src/croqui/config/theme.ts`, a declaração `font-family` da regra `body` em `src/croqui/croqui.css` e a altura da raiz em `src/croqui/components/App.tsx` (`height: "100vh"` → `height: "100%"`, exigida pelo Header do OCA). Qualquer outra alteração de conteúdo é escopo vazado.
+- **Todo o código migrado do croqui é copiado sem alteração de lógica.** As únicas edições **manuais** permitidas são: caminhos de import, nomes de variáveis de ambiente, as duas entradas de fonte em `src/croqui/config/theme.ts`, a declaração `font-family` da regra `body` em `src/croqui/croqui.css` e a altura da raiz em `src/croqui/components/App.tsx` (`height: "100vh"` → `height: "100%"`, exigida pelo Header do OCA). Qualquer outra alteração manual de conteúdo é escopo vazado.
+- **Formatação é exceção, e só quando gerada por ferramenta.** O código migrado adota as convenções do oca-frontend: `prettier --write` e `npx eslint --fix` podem reformatá-lo à vontade. O que nenhuma ferramenta autoriza é edição manual de formatação — se o `eslint --fix` não resolver um erro sozinho, isso volta para decisão do coordenador, não é para corrigir à mão.
 - **Idioma dos commits e comentários: português**, seguindo o histórico do repositório.
 - **Autoria:** `Marcos Antônio <marcos.pereira@lsd.ufcg.edu.br>`. Nunca registrar co-autor.
 
@@ -291,6 +292,7 @@ Copia o módulo e os assets, reescrevendo os caminhos de import. Nada ainda é r
 - Create: `src/croqui/types/index.ts`
 - Create: `src/croqui/data/municipios_c5_meta.json`
 - Create: `src/croqui/croqui.css`
+- Modify: `tsconfig.json` (acrescenta `"target": "ES2017"`)
 - Create: `public/data/municipios_c5.geojson`, `public/data/assentamentos.geojson`, `public/data/territorios_indigenas.geojson`, `public/data/territorios_quilombolas.geojson`
 - Create: `public/logo-observatorio.png`
 
@@ -331,15 +333,25 @@ cp "$CROQUI/public/logo-observatorio.png" public/
 
 O alias `@/` aponta para a raiz no croqui e para `src/` no oca. São 6 prefixos, todos mecânicos. Rode na ordem exata abaixo — `@/types` por último, para não colidir com os demais:
 
+O shell da sessão é zsh, que **não** faz word-splitting de variável multi-linha
+— por isso `FILES=$(find ...)` seguido de `sed ... $FILES` falha silenciosamente.
+Use `-print0 | xargs -0`, que funciona em qualquer shell:
+
 ```bash
 cd /home/marcos-antonio/Projetos/oca/oca-frontend
-FILES=$(find src/croqui -name "*.ts" -o -name "*.tsx")
 
-sed -i 's|@/components/|@/croqui/components/|g' $FILES
-sed -i 's|@/lib/|@/croqui/lib/|g'               $FILES
-sed -i 's|@/config/|@/croqui/config/|g'         $FILES
-sed -i 's|"@/types"|"@/croqui/types"|g'         $FILES
+find src/croqui \( -name "*.ts" -o -name "*.tsx" \) -print0 \
+  | xargs -0 sed -i 's|@/components/|@/croqui/components/|g'
+find src/croqui \( -name "*.ts" -o -name "*.tsx" \) -print0 \
+  | xargs -0 sed -i 's|@/lib/|@/croqui/lib/|g'
+find src/croqui \( -name "*.ts" -o -name "*.tsx" \) -print0 \
+  | xargs -0 sed -i 's|@/config/|@/croqui/config/|g'
+find src/croqui \( -name "*.ts" -o -name "*.tsx" \) -print0 \
+  | xargs -0 sed -i 's|"@/types"|"@/croqui/types"|g'
 ```
+
+Note também os parênteses escapados no `find`: sem eles, o `-o` faz o `-print0`
+valer só para o segundo padrão, e os arquivos `.ts` ficam de fora.
 
 Imports relativos entre componentes (`./Header`, `./MapView`) continuam válidos e **não** devem ser tocados.
 
@@ -368,6 +380,38 @@ grep -rn '"@/types"' src/croqui/
 
 Esperado: **nenhuma saída**. Qualquer linha impressa é um import que os Steps 2–3 não cobriram.
 
+- [ ] **Step 4b: Definir `target` no `tsconfig.json`**
+
+O `tsconfig.json` do oca não declara `target`, caindo no default pré-ES6 do
+TypeScript, enquanto o do croqui declara `"target": "ES2017"`. Sem isso, o
+`deaccent()` de `src/croqui/components/SearchBar.tsx` não compila:
+
+```
+src/croqui/components/SearchBar.tsx(20,53): error TS1501: This regular
+expression flag is only available when targeting 'es6' or later.
+```
+
+(A regex é `s.normalize("NFD").replace(/\p{Diacritic}/gu, "")` — a flag `u`
+exige ES6+.)
+
+Em `src/../tsconfig.json`, acrescente `"target": "ES2017"` como primeira chave de
+`compilerOptions`, alinhando ao tsconfig do croqui:
+
+```json
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+```
+
+Isto é seguro e corrige uma inconsistência que já existia no projeto: o `lib` já
+era `esnext`, ou seja, a configuração já assumia APIs modernas enquanto o
+`target` ausente restringia a sintaxe. Como o projeto usa `"noEmit": true`, o
+`target` afeta **apenas** a checagem de tipos — o build de produção é feito pelo
+SWC do Next, que não lê esta chave. Subir o `target` relaxa restrições de
+sintaxe; não introduz erros de tipo novos.
+
+Não copie mais nada do `tsconfig.json` do croqui. Esta é a única chave a mudar.
+
 - [ ] **Step 5: Portão automatizado — typecheck**
 
 ```bash
@@ -378,11 +422,20 @@ Esperado: passa. Erros aqui são de import não resolvido (alias esquecido) ou d
 
 O `npm run build` ainda **não** compila esses arquivos, porque nenhuma rota os importa — por isso o portão desta tarefa é o `tsc`.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 6: Commit A — a importação verbatim**
+
+O hook de pre-commit (husky + lint-staged) roda `prettier --write` e `next lint`
+sobre os arquivos staged. A config do oca tem duas regras de estilo que a do
+croqui não tinha — `lines-around-comment` e `newline-before-return` — e elas
+produzem cerca de 90 erros no código recém-copiado.
+
+Esta tarefa resolve isso em **dois commits**, para que a revisão consiga separar
+o que foi copiado do que foi reformatado por ferramenta. O primeiro registra a
+cópia fiel e por isso precisa passar ao largo do hook:
 
 ```bash
-git add src/croqui public/data public/logo-observatorio.png
-git commit -m "feat: importa o código do croqui em src/croqui/
+git add src/croqui public/data public/logo-observatorio.png tsconfig.json
+git commit --no-verify -m "feat: importa o código do croqui em src/croqui/
 
 Traz components, lib, config e types do repositório croqui como módulo
 autocontido, com os aliases de import reescritos de @/x para @/croqui/x.
@@ -391,7 +444,58 @@ O meta JSON dos municípios vira módulo em src/croqui/data/ porque é
 consumido em build; os GeoJSONs pesados ficam em public/data/ e seguem
 sendo buscados por fetch em runtime.
 
-Nenhuma rota consome esse código ainda."
+Define "target": "ES2017" no tsconfig.json, alinhando ao tsconfig do
+croqui: sem isso a flag Unicode da regex de deaccent() em SearchBar.tsx
+não compila. Corrige de passagem uma inconsistência que já existia — o
+lib já era esnext enquanto o target ausente restringia a sintaxe.
+
+Nenhuma rota consome esse código ainda.
+
+Commit feito com --no-verify de propósito: este registra a cópia fiel,
+e o commit seguinte aplica prettier e eslint --fix. A branch termina
+com o lint limpo."
+```
+
+O `--no-verify` aqui é deliberado e tem escopo de um commit só. Não o use em
+nenhum outro.
+
+- [ ] **Step 7: Commit B — normalização pelas ferramentas do repositório**
+
+Agora deixe as ferramentas do próprio projeto normalizarem o código importado.
+Ambas as regras que falharam são auto-fixáveis pelo ESLint.
+
+```bash
+npx prettier --write "src/croqui/**/*.{ts,tsx,css,json}"
+npx eslint --fix src/croqui
+npx eslint src/croqui
+```
+
+O terceiro comando deve sair **limpo**. Se sobrar algum erro que o `--fix` não
+resolveu, **pare e reporte** — não corrija à mão.
+
+Confirme que a normalização não mexeu em nada substantivo:
+
+```bash
+npx tsc --noEmit
+git diff -w --ignore-blank-lines --stat
+```
+
+O `tsc` deve passar. O `git diff -w --ignore-blank-lines` ignora mudanças de
+espaçamento e linhas em branco: o que sobrar são as quebras de linha que o
+prettier reposicionou. Inspecione o que aparecer e confirme no relatório que
+nenhuma expressão, nome ou literal mudou — só a disposição do texto.
+
+```bash
+git add src/croqui
+git commit -m "style: aplica prettier e eslint --fix ao código do croqui
+
+O código importado passa a seguir as convenções do oca-frontend. As
+regras lines-around-comment e newline-before-return existem na config
+do oca e não existiam na do croqui, gerando ~90 erros na importação.
+
+Mudanças geradas inteiramente por ferramenta, sem edição manual: o
+commit anterior tem a cópia fiel, e este isola o que a formatação
+alterou."
 ```
 
 ---
