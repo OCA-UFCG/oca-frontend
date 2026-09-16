@@ -1,4 +1,4 @@
-import { SectionTitle } from "../globalStyles";
+import { SectionTitle } from "@/app/globalStyles";
 import { ContentWrapper } from "./styles";
 
 import Template from "@/templates/hubTemplate";

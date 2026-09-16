@@ -44,7 +44,7 @@ const TeamMember = ({ data }: { data: ITeamMember }) => {
   return (
     <Wrapper
       htmlFor={name.replace(" ", "_").toLowerCase()}
-      // eslint-disable-next-line lines-around-comment
+      // eslint-disable-next-line @typescript-eslint/lines-around-comment
       //active={(institution || fieldWork)?.toString() || "false"}
       $active={"true"}
     >

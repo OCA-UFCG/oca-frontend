@@ -27,6 +27,37 @@ You can run the development server manually with **Makefile** commands:
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Structure
+
+### Croqui
+
+The sketch-map generator lives in `src/croqui/` and is served at the `/croqui`
+route. It's a self-contained, entirely client-side module: the map
+(MapLibre), the vector statistics (area, perimeter, intersection with
+municipalities and thematic layers, CAR lookup) and the PDF export all run in
+the browser, with no backend of its own.
+
+It lives in the `(croqui)` route group, which has its own `<html>`/`<body>`
+and does **not** load the rest of the site's `GlobalStyles`
+(styled-components) — the site-wide reset is incompatible with croqui's CSS,
+in particular the `details { display: none }` rule, which would hide
+`StatsPanel`'s collapsible sections. The remaining routes live in the `(site)`
+group. Neither group changes any URL.
+
+The logo in the croqui header points to `/oca_logan.svg` and is wrapped in a
+link back to the site's home page.
+
+The layers' GeoJSONs live in `public/data/` and are fetched at runtime. The
+optional export-registration config is in `.env.sample`, under the
+`NEXT_PUBLIC_CROQUI_` variables. These are `NEXT_PUBLIC_*`, so they only exist
+at build time; in production/beta they aren't read from `.env` but passed in
+as build-args by the deploy workflows
+(`.github/workflows/deploy-beta.yml` and `deploy-oca.yml`).
+
+Code origin: the `croqui` (`observatorio-croqui`) repository, kept as
+history. The old deployment stays up as a fallback until this version is
+validated in production.
+
 ## Conventions
 
 ### Branches
