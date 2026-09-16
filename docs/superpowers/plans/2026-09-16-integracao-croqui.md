@@ -14,11 +14,11 @@
 
 - **Não subir versão de Next ou React.** O oca-frontend permanece em `next@^14.2.28` e `react@^18`. O croqui não usa nenhuma API exclusiva do React 19; nenhum arquivo dele precisa mudar por causa de versão.
 - **`maplibre-gl` em versão única, `^5`.** Nunca instalar as duas versões em paralelo.
-- **A rota `/croqui` exibe o Header do OCA no topo, o header próprio do croqui abaixo dele, e o croqui ocupando a altura restante.** O Footer do site não entra. (Decisão revista durante a execução; ver "Emenda: Header do OCA" no fim da spec.)
-- **O grupo `(croqui)` carrega `StyledComponentsRegistry` e `ThemeProvider`, mas NUNCA o `GlobalStyles`.** É o `GlobalStyles` que traz `details { display: none }`, a regra que esconderia as seções recolhíveis do `StatsPanel`.
+- **A rota `/croqui` fica visualmente idêntica ao iframe de hoje:** header próprio do croqui, tela cheia, sem a navegação do oca. (O Header do OCA chegou a ser adicionado durante a execução e foi removido a pedido do usuário; ver a emenda no fim da spec.)
+- **O grupo `(croqui)` NUNCA carrega o `GlobalStyles`.** É ele que traz `details { display: none }`, a regra que esconderia as seções recolhíveis do `StatsPanel`.
 - **Nenhuma URL pública muda.** Route groups entre parênteses não entram no path.
 - **`src/app/globalStyles.tsx` NÃO pode ser movido** — 11 componentes o importam por `@/app/globalStyles`. O mesmo vale para `src/app/Providers.tsx` e `src/app/theme.ts`, que permanecem na raiz de `src/app/`.
-- **Todo o código migrado do croqui é copiado sem alteração de lógica.** As únicas edições **manuais** permitidas são: caminhos de import, nomes de variáveis de ambiente, as duas entradas de fonte em `src/croqui/config/theme.ts`, a declaração `font-family` da regra `body` em `src/croqui/croqui.css` e a altura da raiz em `src/croqui/components/App.tsx` (`height: "100vh"` → `height: "100%"`, exigida pelo Header do OCA). Qualquer outra alteração manual de conteúdo é escopo vazado.
+- **Todo o código migrado do croqui é copiado sem alteração de lógica.** As únicas edições **manuais** permitidas são: caminhos de import, nomes de variáveis de ambiente, as duas entradas de fonte em `src/croqui/config/theme.ts` e a declaração `font-family` da regra `body` em `src/croqui/croqui.css`. Qualquer outra alteração manual de conteúdo é escopo vazado.
 - **Formatação é exceção, e só quando gerada por ferramenta.** O código migrado adota as convenções do oca-frontend: `prettier --write` e `npx eslint --fix` podem reformatá-lo à vontade. O que nenhuma ferramenta autoriza é edição manual de formatação — se o `eslint --fix` não resolver um erro sozinho, isso volta para decisão do coordenador, não é para corrigir à mão.
 - **Idioma dos commits e comentários: português**, seguindo o histórico do repositório.
 - **Autoria:** `Marcos Antônio <marcos.pereira@lsd.ufcg.edu.br>`. Nunca registrar co-autor.
