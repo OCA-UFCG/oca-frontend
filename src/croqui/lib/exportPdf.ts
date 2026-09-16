@@ -344,7 +344,7 @@ async function drawHeader(doc: JsPdf, meta?: ExportMeta): Promise<number> {
   // so it never overlaps it.
   let titleX = MARGIN;
   try {
-    const logo = await loadImage("/logo-observatorio.png");
+    const logo = await loadImage("/oca_logan.png");
     let h = 14;
     let w = logo.naturalWidth * (h / logo.naturalHeight);
     const maxW = 52;
