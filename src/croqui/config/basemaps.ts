@@ -10,8 +10,12 @@ export interface Basemap {
   maxZoom: number;
 }
 
-// Só provedores com uso permitido sem chave de API: os estilos do Carto e o
-// Esri World Imagery como opção de satélite (ambos exigem a atribuição abaixo).
+// Provedores sem necessidade de conta/chave de API para uso básico: os
+// estilos do Carto (gratuitos para uso não comercial e dentro de limites de
+// volume de requisições) e o Esri World Imagery como opção de satélite (uso
+// sem conta ArcGIS também sujeito a termos e limites próprios). Ambos exigem
+// a atribuição abaixo. Antes de esperar tráfego alto em produção, revise os
+// termos de uso vigentes de cada provedor — eles podem mudar.
 // OpenStreetMap e Google foram removidos: o servidor oficial do OSM não admite
 // tráfego de produção, e o endpoint de tiles do Google exige a API oficial.
 export const BASEMAPS: Basemap[] = [

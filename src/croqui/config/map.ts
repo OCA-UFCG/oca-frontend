@@ -1,4 +1,4 @@
-// Initial map setup, derived from public/data/municipios_c5_meta.json.
+// Initial map setup, derived from src/croqui/data/municipios_c5_meta.json.
 // Hard-coded so the MapView doesn't need to fetch the meta file before init.
 
 import meta from "@/croqui/data/municipios_c5_meta.json";
