@@ -12,7 +12,7 @@ body {
 }
 body {
   font-family:
-    "DM Sans",
+    var(--croqui-font-sans),
     system-ui,
     -apple-system,
     "Segoe UI",

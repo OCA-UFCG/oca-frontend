@@ -47,8 +47,8 @@ export const theme = {
     lg: "0 6px 16px rgba(40,40,30,0.12)",
   },
   font: {
-    ui: '"DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
-    mono: '"DM Mono", ui-monospace, "Cascadia Code", "Consolas", monospace',
+    ui: 'var(--croqui-font-sans), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
+    mono: 'var(--croqui-font-mono), ui-monospace, "Cascadia Code", "Consolas", monospace',
   },
 } as const;
 
