@@ -10,9 +10,7 @@ const App = dynamic(() => import("@/croqui/components/App"), {
   loading: () => (
     <div
       style={{
-        // `absolute` (e não `fixed`) para o placeholder ficar contido abaixo
-        // dos dois headers, no mesmo espaço que o App vai ocupar.
-        position: "absolute",
+        position: "fixed",
         inset: 0,
         display: "grid",
         placeItems: "center",
@@ -28,9 +26,5 @@ const App = dynamic(() => import("@/croqui/components/App"), {
 });
 
 export default function CroquiPage() {
-  return (
-    <div style={{ position: "relative", height: "100%" }}>
-      <App />
-    </div>
-  );
+  return <App />;
 }

@@ -184,7 +184,7 @@ export default function App() {
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "100%",
+        height: "100vh",
         background: theme.colors.bg,
       }}
     >
