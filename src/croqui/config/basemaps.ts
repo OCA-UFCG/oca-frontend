@@ -10,33 +10,44 @@ export interface Basemap {
   maxZoom: number;
 }
 
-// Provedores sem necessidade de conta/chave de API para uso básico: os
-// estilos do Carto (gratuitos para uso não comercial e dentro de limites de
-// volume de requisições) e o Esri World Imagery como opção de satélite (uso
-// sem conta ArcGIS também sujeito a termos e limites próprios). Ambos exigem
-// a atribuição abaixo. Antes de esperar tráfego alto em produção, revise os
-// termos de uso vigentes de cada provedor — eles podem mudar.
+// Provedores: os estilos do Carto (gratuitos para uso não comercial, até 5
+// milhões de tiles/mês, mas exigem chave de API — sem ela os tiles vêm com a
+// marca d'água "API KEY REQUIRED"; chave em carto.com/basemaps/apikey) e o
+// Esri World Imagery como opção de satélite (uso sem conta ArcGIS, sujeito a
+// termos e limites próprios). Ambos exigem a atribuição abaixo. Antes de
+// esperar tráfego alto em produção, revise os termos de uso vigentes de cada
+// provedor — eles podem mudar.
 // OpenStreetMap e Google foram removidos: o servidor oficial do OSM não admite
 // tráfego de produção, e o endpoint de tiles do Google exige a API oficial.
+
+// NEXT_PUBLIC_*: embutida no bundle em build-time (ver .env.sample).
+const CARTO_KEY = process.env.NEXT_PUBLIC_CROQUI_CARTO_API_KEY?.trim() || "";
+
+function cartoUrl(style: string): string {
+  const url = `https://basemaps.cartocdn.com/${style}/{z}/{x}/{y}.png`;
+
+  return CARTO_KEY ? `${url}?key=${encodeURIComponent(CARTO_KEY)}` : url;
+}
+
 export const BASEMAPS: Basemap[] = [
   {
     id: "carto-positron",
     name: "Carto Positron (claro)",
-    url: "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+    url: cartoUrl("light_all"),
     attribution: "© OpenStreetMap · © CARTO",
     maxZoom: 19,
   },
   {
     id: "carto-voyager",
     name: "Carto Voyager",
-    url: "https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
+    url: cartoUrl("rastertiles/voyager"),
     attribution: "© OpenStreetMap · © CARTO",
     maxZoom: 19,
   },
   {
     id: "carto-dark-matter",
     name: "Carto Dark Matter (escuro)",
-    url: "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+    url: cartoUrl("dark_all"),
     attribution: "© OpenStreetMap · © CARTO",
     maxZoom: 19,
   },

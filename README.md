@@ -48,7 +48,9 @@ The logo in the croqui header points to `/oca_logan.svg` and is wrapped in a
 link back to the site's home page.
 
 The layers' GeoJSONs live in `public/data/` and are fetched at runtime. The
-optional export-registration config is in `.env.sample`, under the
+optional export-registration config and the Carto basemaps API key
+(`NEXT_PUBLIC_CROQUI_CARTO_API_KEY`; without it Carto tiles show an
+"API KEY REQUIRED" watermark) are in `.env.sample`, under the
 `NEXT_PUBLIC_CROQUI_` variables. These are `NEXT_PUBLIC_*`, so they only exist
 at build time; in production/beta they aren't read from `.env` but passed in
 as build-args by the deploy workflows
