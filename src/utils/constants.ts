@@ -12,73 +12,28 @@ export const REVALIDATE = process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW
 
 export const channels: IOCAChannel[] = [
   {
-    name: "GitHub",
-    href: "https://github.com/OCA-UFCG",
-    icon: "github",
-    size: 22,
-  },
-  {
-    name: "White instagram icon with a camera drawing",
-    href: "https://www.instagram.com/observatorio.caatinga/",
-    icon: "instagram",
-    size: 27,
+    name: "Instagram",
+    href: "https://www.instagram.com/oca.ufcg/",
+    icon: "/redesign/instagram.svg",
   },
 ];
 
+export const CONTACT_EMAIL = "obs.caatinga@gmail.com";
+
 export const sections: ISections = {
-  home: {
-    name: "Início",
-    path: "/",
+  home: { name: "Início", path: "/" },
+  projects: {
+    name: "Projetos",
+    path: "/projetos",
     children: {
-      news: {
-        name: "Quem somos",
-        path: "/#about",
-      },
-      maps: {
-        name: "Plataforma do OCA",
-        path: "/#maps-visu",
-      },
-      publications: {
-        name: "Publicações",
-        path: "/#publications",
-      },
-      partners: {
-        name: "Parceiros",
-        path: "/#sponsors",
-      },
-      FAQ: {
-        name: "Perguntas frequentes",
-        path: "/#FAQ",
-      },
+      all: { name: "Todos os projetos", path: "/projetos" },
+      map: { name: "Plataforma do OCA", path: "/map" },
+      croqui: { name: "Croqui", path: "/croqui" },
     },
   },
-  about: {
-    name: "Sobre nós",
-    children: {
-      team: {
-        name: "Equipe",
-        path: "/team",
-      },
-      collab: {
-        name: "Colaboradores",
-        path: "/collab",
-      },
-      history: {
-        name: "Nossa história",
-        path: "/about",
-      },
-      infra: {
-        name: "Infraestrutura",
-        path: "/infra",
-      },
-    },
-  },
-  map: { name: "Plataforma", path: "/map" },
-  croqui: {
-    name: "Croqui",
-    path: "/croqui",
-  },
-  contact: { name: "Fale conosco", path: "/contact-us" },
+  research: { name: "Pesquisa", path: "/pesquisa" },
+  about: { name: "Sobre", path: "/about" },
+  contact: { name: "Contato", path: "/contact-us" },
 };
 
 export const defaultEEInfo: IEEInfo = {

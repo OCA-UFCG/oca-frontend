@@ -1,57 +1,65 @@
 "use client";
 
+import Image from "next/image";
+import { CONTACT_EMAIL, channels, sections } from "@/utils/constants";
 import {
-  Wrapper,
+  Bottom,
   Divider,
-  LogoImage,
-  References,
-  Sections,
-  InnerSections,
-  SectionTitle,
-  SectionOptions,
-  SocialMedia,
-  SocialMediasContainer,
+  Logos,
+  NavLink,
+  NavList,
+  OcaLogo,
+  Social,
+  Top,
+  Wrapper,
 } from "./Footer.styles";
-import { Icon } from "../Icon/Icon";
-import { channels, sections } from "@/utils/constants";
 
-const Footer = () => {
-  return (
-    <Wrapper>
-      <LogoImage src="/oca_logan.svg" alt="OCA" width={148} height={75} />
-      <References>
-        <Sections>
-          {Object.entries(sections).map(([key, item]) => (
-            <InnerSections key={key}>
-              <SectionTitle>
-                {item.name}
-                <Divider />
-              </SectionTitle>
-              {item.children ? (
-                Object.entries(item.children).map(([innerKey, innerItem]) => (
-                  <SectionOptions key={innerKey} href={innerItem.path || ""}>
-                    {innerItem.name}
-                  </SectionOptions>
-                ))
-              ) : (
-                <SectionOptions href={item.path || ""}>
-                  {item.name}
-                </SectionOptions>
-              )}
-            </InnerSections>
-          ))}
-        </Sections>
+const Footer = () => (
+  <Wrapper>
+    <Top>
+      <Logos>
+        <Image
+          src="/redesign/logo-ufcg-branco.svg"
+          alt="Universidade Federal de Campina Grande"
+          width={162}
+          height={51}
+        />
+        <OcaLogo src="/oca_logan.svg" alt="OCA" width={96} height={49} />
+      </Logos>
 
-        <SocialMediasContainer>
-          {channels.map(({ href, icon, size }, index) => (
-            <SocialMedia target="_blank" key={index} title={href} href={href}>
-              <Icon id={icon} size={size} />
-            </SocialMedia>
-          ))}
-        </SocialMediasContainer>
-      </References>
-    </Wrapper>
-  );
-};
+      <NavList>
+        {Object.entries(sections).map(([key, { name, path }]) => (
+          <li key={key}>
+            <NavLink href={path ?? "#"}>{name}</NavLink>
+          </li>
+        ))}
+      </NavList>
+
+      <Social>
+        {channels.map(({ name, href, icon }) => (
+          <a
+            key={name}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={name}
+          >
+            <Image src={icon} alt={name} width={44} height={44} />
+          </a>
+        ))}
+      </Social>
+    </Top>
+
+    <Divider />
+
+    <Bottom>
+      <p>
+        © {new Date().getFullYear()} OCA — Observatório da Caatinga e
+        Desertificação · Universidade Federal de Campina Grande
+      </p>
+      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+    </Bottom>
+  </Wrapper>
+);
 
 export default Footer;
