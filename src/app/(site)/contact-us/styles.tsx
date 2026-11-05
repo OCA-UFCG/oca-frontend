@@ -160,7 +160,7 @@ export const Follow = styled.a`
   }
 `;
 
-export const Map = styled.iframe`
+export const MapFrame = styled.iframe`
   width: 100%;
   height: 200px;
   border: 0;

@@ -17,7 +17,7 @@ import {
   Hero,
   IconBadge,
   Label,
-  Map,
+  MapFrame,
   Posts,
   Title,
   Value,
@@ -131,7 +131,7 @@ const ContactUsPage = async () => {
             UFCG - Rua Aprígio Veloso, 882, Campina Grande (PB)
           </Value>
           <Label>Bloco BU - Laboratório de Hidráulica II</Label>
-          <Map
+          <MapFrame
             src={MAP_URL}
             title="Mapa da UFCG, campus Campina Grande"
             loading="lazy"
