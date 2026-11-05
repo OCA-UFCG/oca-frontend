@@ -2,7 +2,6 @@
 
 import {
   FormularyWrapper,
-  FormularyLabel,
   FormularyInput,
   FormularyTextArea,
   DinamicButton,
@@ -76,18 +75,29 @@ const ContactForm = () => {
       onSubmit={sendEmail}
       onInput={(e) => validateForm(e.currentTarget)}
     >
-      <FormularyLabel>
-        Nome:
-        <FormularyInput type="text" id="name" name="name" required />
-      </FormularyLabel>
-      <FormularyLabel>
-        Email:
-        <FormularyInput type="email" id="email" name="email" required />
-      </FormularyLabel>
-      <FormularyLabel>
-        Mensagem:
-        <FormularyTextArea id="message" name="message" required />
-      </FormularyLabel>
+      <FormularyInput
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Digite seu nome"
+        aria-label="Nome"
+        required
+      />
+      <FormularyInput
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Digite seu melhor e-mail"
+        aria-label="E-mail"
+        required
+      />
+      <FormularyTextArea
+        id="message"
+        name="message"
+        placeholder="Digite sua mensagem"
+        aria-label="Mensagem"
+        required
+      />
       <ReCAPTCHA
         sitekey={RECAPTCHA_SITE_KEY}
         ref={recaptchaRef}
