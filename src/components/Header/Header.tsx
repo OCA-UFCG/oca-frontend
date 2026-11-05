@@ -9,6 +9,9 @@ import { ISection } from "@/utils/interfaces";
 import {
   Bar,
   Lang,
+  LangItem,
+  LangMenu,
+  LangOption,
   LogoImage,
   MenuButton,
   NavItem,
@@ -74,10 +77,24 @@ const Header = () => {
             )}
           </NavItem>
         ))}
-        {/* ponytail: seletor de idioma só visual até existir i18n */}
-        <Lang aria-label="Idioma: português">
-          PT <MdKeyboardArrowDown size={16} aria-hidden />
-        </Lang>
+        {/* ponytail: só PT por enquanto; EN entra quando chegarem os textos em inglês */}
+        <LangItem>
+          <Lang type="button" aria-label="Idioma: português">
+            PT <MdKeyboardArrowDown size={16} aria-hidden />
+          </Lang>
+          <LangMenu>
+            <li>
+              <LangOption type="button" aria-current="true">
+                Português
+              </LangOption>
+            </li>
+            <li>
+              <LangOption type="button" disabled>
+                English (em breve)
+              </LangOption>
+            </li>
+          </LangMenu>
+        </LangItem>
       </NavList>
     </Bar>
   );

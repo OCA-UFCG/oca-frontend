@@ -157,14 +157,43 @@ export const SubmenuLink = styled(Link)`
   }
 `;
 
-export const Lang = styled.li`
-  ${item}
-  margin: 0;
-  color: ${({ theme }) => theme.colors["text-primary"]};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-
+export const LangItem = styled(NavItem)`
   @media (${MOBILE}) {
     align-self: flex-start;
     margin-top: 8px;
+  }
+`;
+
+export const Lang = styled.button`
+  ${item}
+  font-family: inherit;
+  color: ${({ theme }) => theme.colors["text-primary"]};
+  background: none;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  cursor: pointer;
+
+  svg {
+    transition: transform 0.2s;
+  }
+`;
+
+export const LangMenu = styled(Submenu)`
+  left: auto;
+  right: 0;
+  min-width: 160px;
+`;
+
+export const LangOption = styled.button`
+  ${item}
+  width: 100%;
+  font-family: inherit;
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.colors["text-primary"]};
+  cursor: pointer;
+
+  &:disabled {
+    color: ${({ theme }) => theme.colors["text-muted"]};
+    cursor: not-allowed;
   }
 `;
