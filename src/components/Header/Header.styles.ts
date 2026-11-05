@@ -4,12 +4,14 @@ import Image from "next/image";
 
 const MOBILE = "max-width: 1000px";
 
-// Na Home o header fica por cima da foto do hero: transparente, texto branco
+// Na Home o header fica por cima da foto do hero: faixa escura translúcida com
+// desfoque, texto branco
 // no desktop (no mobile o painel do menu é branco, então as cores não mudam).
 const overlay = css`
   position: absolute;
-  background-color: transparent;
-  border-bottom-color: transparent;
+  background-color: #1414157a;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #ffffff33;
 
   > a img {
     filter: brightness(0) invert(1);
@@ -26,7 +28,7 @@ const overlay = css`
     }
 
     > ul > li > button {
-      border-color: #ffffff66;
+      border-color: ${({ theme }) => theme.colors.border};
     }
   }
 `;
