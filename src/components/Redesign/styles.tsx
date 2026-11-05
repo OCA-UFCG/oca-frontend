@@ -306,3 +306,20 @@ export const CardFooter = styled.div`
     text-decoration: underline;
   }
 `;
+
+export const SectionTop = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  h2 {
+    margin: 0;
+  }
+
+  @media (${MOBILE}) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;

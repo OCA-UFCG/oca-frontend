@@ -20,6 +20,7 @@ import {
   Card,
   Heading,
   IconBadge,
+  SectionTop,
 } from "@/components/Redesign/styles";
 import { INSTAGRAM_URL } from "@/utils/constants";
 import { PLATFORMS, PROJECTS } from "@/utils/projects";
@@ -30,7 +31,6 @@ import {
   Hero,
   PlatformCards,
   Section,
-  SectionTop,
   Stats,
   Thumb,
   Who,

@@ -106,23 +106,6 @@ export const Section = styled(Band)<{ $tone: "surface" | "background" }>`
   background-color: ${({ theme, $tone }) => theme.colors[$tone]};
 `;
 
-export const SectionTop = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
-
-  h2 {
-    margin: 0;
-  }
-
-  @media (${MOBILE}) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-
 export const Eyebrow = styled.p`
   margin-bottom: 4px !important;
   font-size: 14px;

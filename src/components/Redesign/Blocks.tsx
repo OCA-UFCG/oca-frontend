@@ -32,13 +32,16 @@ export const InstagramGrid = ({ count }: { count: number }) => (
   </Posts>
 );
 
-export const PartnerLogos = () => (
+// Sem `names`, mostra todos os parceiros do OCA.
+export const PartnerLogos = ({ names }: { names?: string[] }) => (
   <Logos>
-    {PARTNERS.map(({ name, img, w, h }) => (
-      <li key={name}>
-        <Image src={img} alt={name} width={w} height={h} />
-      </li>
-    ))}
+    {PARTNERS.filter(({ name }) => !names || names.includes(name)).map(
+      ({ name, img, w, h }) => (
+        <li key={name}>
+          <Image src={img} alt={name} width={w} height={h} />
+        </li>
+      ),
+    )}
   </Logos>
 );
 

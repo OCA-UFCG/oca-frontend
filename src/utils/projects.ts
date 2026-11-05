@@ -8,9 +8,12 @@ export interface IProject {
   partner?: string;
   status?: string; // ex.: "Concluído"
   period?: string; // ex.: "2016–2020"
+  area?: string; // área de abrangência
+  studyArea?: string; // área de estudo
   description: string;
   image: string;
   url?: string;
+  screenshot?: string; // tela da plataforma, no bloco "Plataforma digital"
 }
 
 export const PROJECTS: IProject[] = [
@@ -31,6 +34,7 @@ export const PROJECTS: IProject[] = [
       "Portal público da Sudene com dados e indicadores do Nordeste, painéis interativos, publicações e conjuntos de dados abertos.",
     image: "/redesign/projeto-data-nordeste.jpg",
     url: "https://datanordeste.sudene.gov.br",
+    screenshot: "/redesign/plataforma-data-nordeste.jpg",
   },
   {
     slug: "atlas-da-desertificacao",
