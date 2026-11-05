@@ -6,6 +6,8 @@ export interface IProject {
   name: string;
   category: string;
   partner?: string;
+  status?: string; // ex.: "Concluído"
+  period?: string; // ex.: "2016–2020"
   description: string;
   image: string;
   url?: string;

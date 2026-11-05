@@ -1,21 +1,22 @@
 import Image from "next/image";
-import Link from "next/link";
 import {
   LuArrowRight,
   LuChartColumn,
   LuExternalLink,
   LuInstagram,
   LuMail,
-  LuTag,
 } from "react-icons/lu";
 import Template from "@/templates/hubTemplate";
 import {
   InstagramGrid,
   PartnerLogos,
+  ProjectCard,
   Sparkle,
 } from "@/components/Redesign/Blocks";
 import {
   ButtonLink,
+  CardBody,
+  Cards,
   Card,
   Heading,
   IconBadge,
@@ -23,10 +24,6 @@ import {
 import { INSTAGRAM_URL } from "@/utils/constants";
 import { PLATFORMS, PROJECTS } from "@/utils/projects";
 import {
-  CardBody,
-  CardFooter,
-  Cards,
-  Cover,
   Eyebrow,
   Follow,
   FollowCards,
@@ -95,36 +92,9 @@ export default function Home() {
           </ButtonLink>
         </SectionTop>
         <Cards>
-          {PROJECTS.map(
-            ({ slug, name, category, partner, description, image }) => (
-              <li key={slug}>
-                <Cover>
-                  <Image
-                    src={image}
-                    alt=""
-                    fill
-                    sizes="(max-width: 1000px) 300px, 320px"
-                  />
-                  <span>{category}</span>
-                  <h3>{name}</h3>
-                </Cover>
-                <CardBody>
-                  <p>{description}</p>
-                  <CardFooter>
-                    {partner && (
-                      <span>
-                        <LuTag size={16} aria-label="Parceiro" />
-                        <em>{partner}</em>
-                      </span>
-                    )}
-                    <Link href={`/projetos/${slug}`}>
-                      Saiba mais <LuArrowRight size={16} aria-hidden />
-                    </Link>
-                  </CardFooter>
-                </CardBody>
-              </li>
-            ),
-          )}
+          {PROJECTS.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
         </Cards>
       </Section>
 

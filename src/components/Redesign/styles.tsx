@@ -153,3 +153,156 @@ export const SparkleSvg = styled.svg<{ $size: number; $floating?: boolean }>`
   ${({ $floating }) =>
     $floating && "position: absolute; z-index: 1; left: 40px; bottom: 24px;"}
 `;
+
+// 4 cards lado a lado no desktop; no mobile vira faixa com rolagem horizontal.
+export const Cards = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 0;
+  list-style: none;
+
+  @media (${MOBILE}) {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(300px, 80%);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+  }
+
+  > li {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    overflow: hidden;
+    text-align: left;
+    border: 1px solid ${({ theme }) => theme.colors.border};
+    border-radius: 8px;
+    background-color: ${({ theme }) => theme.colors.surface};
+    box-shadow: 0 1px 2px #0000000d;
+    scroll-snap-align: start;
+  }
+`;
+
+export const Cover = styled.div`
+  position: relative;
+  aspect-ratio: 382 / 210;
+
+  img {
+    object-fit: cover;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #0000 40%, #000000cc 100%);
+  }
+
+  > div {
+    position: absolute;
+    z-index: 1;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    gap: 6px;
+  }
+
+  span {
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors["primary-foreground"]};
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  span[data-status] {
+    background-color: ${({ theme }) => theme.colors.surface};
+    color: #ae5331;
+  }
+
+  h3 {
+    position: absolute;
+    z-index: 1;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    color: ${({ theme }) => theme.colors.surface};
+  }
+`;
+
+export const CardBody = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 16px;
+
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    color: ${({ theme }) => theme.colors["text-primary"]};
+  }
+
+  small {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  p {
+    flex: 1;
+    font-size: 14px;
+    line-height: 24px;
+    color: ${({ theme }) => theme.colors["text-secondary"]};
+  }
+`;
+
+export const CardFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 24px;
+
+  > span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  > span em {
+    padding: 0 8px;
+    border: 1px solid ${({ theme }) => theme.colors.primary};
+    border-radius: 999px;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 18px;
+    text-transform: uppercase;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+`;
