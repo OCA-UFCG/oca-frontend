@@ -179,22 +179,6 @@ export interface Asset {
   width: number;
   height: number;
 }
-export interface IAbout {
-  ttulo: string;
-  conteudo: {
-    json: Document;
-    links: {
-      assets: { block: Asset[] };
-    };
-  };
-  cover: {
-    url: string;
-  };
-  picturesCollection: {
-    items: IImage[];
-  };
-}
-
 export interface IGallery {
   title: string;
   description: string;

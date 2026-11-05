@@ -8,20 +8,23 @@ import { getContent } from "@/utils/contentful";
 import { CONTACT_PAGE_QUERY, CONTACT_PAGES_ID } from "@/utils/queries";
 import {
   Address,
-  Card,
   Channels,
   Column,
   Follow,
   Grid,
+  Label,
+  Lead,
+  MapFrame,
+  Posts,
+  Value,
+} from "./styles";
+import {
+  Card,
   Heading,
   Hero,
   IconBadge,
-  Label,
-  MapFrame,
-  Posts,
   Title,
-  Value,
-} from "./styles";
+} from "@/components/Redesign/styles";
 
 export const revalidate = REVALIDATE;
 
@@ -58,9 +61,9 @@ const ContactUsPage = async () => {
 
   return (
     <Template>
-      <Hero>
+      <Hero $blob="/redesign/blob-rosa.svg">
         <Title>Contato</Title>
-        {header?.subtitle && <p>{header.subtitle}</p>}
+        {header?.subtitle && <Lead>{header.subtitle}</Lead>}
       </Hero>
 
       <Channels>
