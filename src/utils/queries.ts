@@ -204,3 +204,23 @@ export const TEAM_PAGE_QUERY = `
     }
   }
 `;
+
+export const FAQ_PAGE_QUERY = `
+  query FAQ_PAGE_QUERY($preview: Boolean) {
+    faqCollection(preview: $preview) {
+      items {
+        title
+        details {
+          json
+        }
+      }
+    }
+    sectionHeadCollection(limit: 1, where: { id_in: ["FAQ"] }, preview: $preview) {
+      items {
+        title
+        subtitle
+        id
+      }
+    }
+  }
+`;

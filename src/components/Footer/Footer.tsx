@@ -1,10 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { CONTACT_EMAIL, channels, sections } from "@/utils/constants";
+import {
+  CONTACT_EMAIL,
+  channels,
+  footerLinks,
+  sections,
+} from "@/utils/constants";
 import {
   Bottom,
   Divider,
+  Extra,
   Logos,
   NavLink,
   NavList,
@@ -49,6 +55,14 @@ const Footer = () => (
         ))}
       </Social>
     </Top>
+
+    <Extra aria-label="Mais páginas">
+      {footerLinks.map(({ name, path }) => (
+        <li key={path}>
+          <NavLink href={path}>{name}</NavLink>
+        </li>
+      ))}
+    </Extra>
 
     <Divider />
 

@@ -20,6 +20,14 @@ export const channels: IOCAChannel[] = [
 
 export const CONTACT_EMAIL = "obs.caatinga@gmail.com";
 
+// Páginas fora do menu principal, linkadas só no rodapé.
+export const footerLinks = [
+  { name: "Equipe", path: "/team" },
+  { name: "Colaboradores", path: "/collab" },
+  { name: "Infraestrutura", path: "/infra" },
+  { name: "FAQ", path: "/faq" },
+];
+
 export const sections: ISections = {
   home: { name: "Início", path: "/" },
   projects: {
