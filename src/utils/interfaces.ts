@@ -44,7 +44,7 @@ export interface ISections {
 export interface IPublication {
   title: string;
   type: string;
-  href: string;
+  href?: string | null; // pode vir vazio do Contentful
 }
 
 export interface IVisuMenuItems {

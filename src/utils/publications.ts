@@ -17,8 +17,8 @@ const decode = (text: string) =>
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'");
 
-export const doiOf = (href: string) =>
-  href.match(/doi\.org\/(10\.[^\s?#]+)/i)?.[1];
+export const doiOf = (href?: string | null) =>
+  href?.match(/doi\.org\/(10\.[^\s?#]+)/i)?.[1];
 
 // Completa ano, autores e revista pelo DOI (Crossref). Se falhar, fica só o
 // que veio do Contentful.

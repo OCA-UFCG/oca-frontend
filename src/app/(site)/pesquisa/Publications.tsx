@@ -98,7 +98,7 @@ const Publications = ({ items }: { items: IPublicationDetails[] }) => {
         </div>
         <ul>
           {shown.map(({ title, type, href, year, authors, journal }) => (
-            <li key={href}>
+            <li key={href ?? title}>
               <header>
                 <span>{type}</span>
                 {year && (
@@ -111,9 +111,11 @@ const Publications = ({ items }: { items: IPublicationDetails[] }) => {
               <h3>{title}</h3>
               {authors && <p>{authors}</p>}
               {journal && <p>{journal}</p>}
-              <a href={href} target="_blank" rel="noopener noreferrer">
-                Ler <LuArrowRight size={16} aria-hidden />
-              </a>
+              {href && (
+                <a href={href} target="_blank" rel="noopener noreferrer">
+                  Ler <LuArrowRight size={16} aria-hidden />
+                </a>
+              )}
             </li>
           ))}
         </ul>
