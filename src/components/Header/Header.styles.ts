@@ -4,7 +4,34 @@ import Image from "next/image";
 
 const MOBILE = "max-width: 1000px";
 
-export const Bar = styled.header`
+// Na Home o header fica por cima da foto do hero: transparente, texto branco
+// no desktop (no mobile o painel do menu é branco, então as cores não mudam).
+const overlay = css`
+  position: absolute;
+  background-color: transparent;
+  border-bottom-color: transparent;
+
+  > a img {
+    filter: brightness(0) invert(1);
+  }
+
+  @media (min-width: 1001px) {
+    > ul > li > a:not([aria-current]),
+    > ul > li > button {
+      color: ${({ theme }) => theme.colors.surface};
+    }
+
+    > ul > li > a:not([aria-current]):hover {
+      background-color: #ffffff26;
+    }
+
+    > ul > li > button {
+      border-color: #ffffff66;
+    }
+  }
+`;
+
+export const Bar = styled.header<{ $overlay: boolean }>`
   position: sticky;
   top: 0;
   z-index: 10;
@@ -20,6 +47,8 @@ export const Bar = styled.header`
   @media (${MOBILE}) {
     padding: 18px 24px;
   }
+
+  ${({ $overlay }) => $overlay && overlay}
 `;
 
 export const LogoImage = styled(Image)`

@@ -1,16 +1,15 @@
 import Image from "next/image";
 import { LuBookOpen, LuChartLine, LuUsers } from "react-icons/lu";
 import Template from "@/templates/hubTemplate";
+import { PartnerLogos, Sparkle } from "@/components/Redesign/Blocks";
 import { Heading, Hero, IconBadge, Title } from "@/components/Redesign/styles";
 import {
   Acting,
   ActingTop,
   Areas,
-  Logos,
   Partners,
   Photo,
   Pillars,
-  Sparkle,
   Territory,
   TerritoryPhoto,
   TerritoryText,
@@ -20,9 +19,6 @@ import {
 } from "./styles";
 
 // Conteúdo estático do design (Figma "Página OCA", tela Sobre).
-const STAR =
-  "M27.66 19.33 23.5 0l-4.17 19.33L0 23.5l19.33 4.16L23.5 47l4.16-19.34L47 23.5z";
-
 const PILLARS = [
   { name: "Ciência", Icon: LuBookOpen },
   { name: "Tecnologia", Icon: LuChartLine },
@@ -46,17 +42,6 @@ const AREAS = [
     title: "Indicadores e evidências para políticas públicas",
     img: "/redesign/area-indicadores.jpg",
   },
-];
-
-const PARTNERS = [
-  { name: "Sudene", img: "/redesign/parceiro-sudene.png", w: 744, h: 420 },
-  {
-    name: "Governo Federal",
-    img: "/redesign/parceiro-govbr.png",
-    w: 748,
-    h: 268,
-  },
-  { name: "UFCG", img: "/redesign/parceiro-ufcg.png", w: 156, h: 158 },
 ];
 
 export default function About() {
@@ -104,17 +89,13 @@ export default function About() {
             fill
             sizes="(max-width: 1000px) 100vw, 640px"
           />
-          <Sparkle $size={32} $floating viewBox="0 0 47 47" aria-hidden>
-            <path d={STAR} />
-          </Sparkle>
+          <Sparkle size={32} floating />
         </Photo>
       </Who>
 
       <Territory>
         <TerritoryText>
-          <Sparkle $size={48} viewBox="0 0 47 47" aria-hidden>
-            <path d={STAR} />
-          </Sparkle>
+          <Sparkle size={48} />
           <h2>
             Onde muitos veem apenas características naturais, enxergamos
             territórios, pessoas e modos de vida.
@@ -160,9 +141,7 @@ export default function About() {
               fill
               sizes="(max-width: 1000px) 100vw, 465px"
             />
-            <Sparkle $size={32} $floating viewBox="0 0 47 47" aria-hidden>
-              <path d={STAR} />
-            </Sparkle>
+            <Sparkle size={32} floating />
           </Photo>
         </ActingTop>
         <Pillars>
@@ -205,13 +184,7 @@ export default function About() {
 
       <Partners>
         <Heading>Parceiros</Heading>
-        <Logos>
-          {PARTNERS.map(({ name, img, w, h }) => (
-            <li key={name}>
-              <Image src={img} alt={name} width={w} height={h} />
-            </li>
-          ))}
-        </Logos>
+        <PartnerLogos />
       </Partners>
     </Template>
   );

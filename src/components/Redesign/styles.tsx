@@ -1,6 +1,7 @@
 "use client";
 
 // Blocos de layout do redesign 2026, compartilhados pelas páginas novas.
+import Link from "next/link";
 import styled from "styled-components";
 
 export const MOBILE = "max-width: 1000px";
@@ -77,4 +78,78 @@ export const IconBadge = styled.span`
   svg {
     color: inherit;
   }
+`;
+
+export const Posts = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+
+  a {
+    position: relative;
+    aspect-ratio: 1;
+  }
+
+  img {
+    object-fit: cover;
+  }
+`;
+
+export const Logos = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 48px;
+  margin: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+  }
+
+  img {
+    width: auto;
+    height: 80px;
+  }
+
+  @media (${MOBILE}) {
+    gap: 24px;
+
+    img {
+      height: 48px;
+    }
+  }
+`;
+
+export const ButtonLink = styled(Link)<{ $small?: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: ${({ $small }) => ($small ? "8px 12px" : "12px 16px")};
+  border-radius: 6px;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors["primary-foreground"]};
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+
+  svg {
+    color: inherit;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
+export const SparkleSvg = styled.svg<{ $size: number; $floating?: boolean }>`
+  flex-shrink: 0;
+  width: ${({ $size }) => $size}px;
+  height: ${({ $size }) => $size}px;
+  fill: ${({ $floating }) => ($floating ? "#fff" : "#e6eed9")};
+  ${({ $floating }) =>
+    $floating && "position: absolute; z-index: 1; left: 40px; bottom: 24px;"}
 `;

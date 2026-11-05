@@ -55,36 +55,6 @@ export const Value = styled.div`
   }
 `;
 
-export const Posts = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-
-  a {
-    position: relative;
-    aspect-ratio: 1;
-  }
-
-  img {
-    object-fit: cover;
-  }
-`;
-
-export const Follow = styled.a`
-  padding: 12px 16px;
-  border-radius: 6px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors["primary-foreground"]};
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  text-decoration: none;
-
-  &:hover {
-    opacity: 0.9;
-  }
-`;
-
 export const MapFrame = styled.iframe`
   width: 100%;
   height: 200px;

@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { LuInstagram, LuMail, LuMap } from "react-icons/lu";
 import Template from "@/templates/hubTemplate";
 import ContactForm from "@/components/ContactForm/ContactForm";
-import { CONTACT_EMAIL, REVALIDATE } from "@/utils/constants";
+import { CONTACT_EMAIL, INSTAGRAM_URL, REVALIDATE } from "@/utils/constants";
+import { InstagramGrid } from "@/components/Redesign/Blocks";
 import { ISectionHeader } from "@/utils/interfaces";
 import { getContent } from "@/utils/contentful";
 import { CONTACT_PAGE_QUERY, CONTACT_PAGES_ID } from "@/utils/queries";
@@ -10,15 +10,14 @@ import {
   Address,
   Channels,
   Column,
-  Follow,
   Grid,
   Label,
   Lead,
   MapFrame,
-  Posts,
   Value,
 } from "./styles";
 import {
+  ButtonLink,
   Card,
   Heading,
   Hero,
@@ -31,24 +30,6 @@ export const revalidate = REVALIDATE;
 interface IContactInterface {
   sectionHeadCollection: { items: ISectionHeader[] };
 }
-
-const INSTAGRAM_URL = "https://www.instagram.com/oca.ufcg/";
-
-// ponytail: posts fixos no repositório; trocar pelos 6 mais recentes quando a OCA mandar
-const POSTS = [
-  {
-    src: "/redesign/instagram-1.jpg",
-    alt: "Post: Grandes projetos se constroem no cotidiano",
-  },
-  {
-    src: "/redesign/instagram-2.jpg",
-    alt: "Post: agenda internacional do PPGECA com a Western University",
-  },
-  {
-    src: "/redesign/instagram-3.jpg",
-    alt: "Post: conhecendo a equipe de computação do OCA",
-  },
-];
 
 const MAP_URL =
   "https://maps.google.com/maps?q=Universidade+Federal+de+Campina+Grande,+Rua+Apr%C3%ADgio+Veloso,+882&z=16&output=embed";
@@ -100,25 +81,14 @@ const ContactUsPage = async () => {
                 @oca.ufcg
               </a>
             </Value>
-            <Posts>
-              {[...POSTS, ...POSTS].map(({ src, alt }, i) => (
-                <a
-                  key={i}
-                  href={INSTAGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image src={src} alt={alt} fill sizes="200px" />
-                </a>
-              ))}
-            </Posts>
-            <Follow
+            <InstagramGrid count={6} />
+            <ButtonLink
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
               Seguir
-            </Follow>
+            </ButtonLink>
           </Card>
         </Grid>
       </Channels>

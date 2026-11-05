@@ -10,15 +10,44 @@ export const REVALIDATE = process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW
   ? 60
   : 3600;
 
+export const INSTAGRAM_URL = "https://www.instagram.com/oca.ufcg/";
+
 export const channels: IOCAChannel[] = [
   {
     name: "Instagram",
-    href: "https://www.instagram.com/oca.ufcg/",
+    href: INSTAGRAM_URL,
     icon: "/redesign/instagram.svg",
   },
 ];
 
 export const CONTACT_EMAIL = "obs.caatinga@gmail.com";
+
+// ponytail: posts fixos no repositório; trocar pelos 6 mais recentes quando a OCA mandar
+export const INSTAGRAM_POSTS = [
+  {
+    src: "/redesign/instagram-1.jpg",
+    alt: "Post: Grandes projetos se constroem no cotidiano",
+  },
+  {
+    src: "/redesign/instagram-2.jpg",
+    alt: "Post: agenda internacional do PPGECA com a Western University",
+  },
+  {
+    src: "/redesign/instagram-3.jpg",
+    alt: "Post: conhecendo a equipe de computação do OCA",
+  },
+];
+
+export const PARTNERS = [
+  { name: "Sudene", img: "/redesign/parceiro-sudene.png", w: 744, h: 420 },
+  {
+    name: "Governo Federal",
+    img: "/redesign/parceiro-govbr.png",
+    w: 748,
+    h: 268,
+  },
+  { name: "UFCG", img: "/redesign/parceiro-ufcg.png", w: 156, h: 158 },
+];
 
 // Páginas fora do menu principal, linkadas só no rodapé.
 export const footerLinks = [

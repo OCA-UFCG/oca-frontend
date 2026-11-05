@@ -30,7 +30,7 @@ const Header = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <Bar>
+    <Bar $overlay={pathname === "/"}>
       <MenuButton
         type="button"
         aria-label={open ? "Fechar menu" : "Abrir menu"}
@@ -56,6 +56,7 @@ const Header = () => {
             <NavLink
               href={item.path ?? "#"}
               $active={isActive(pathname, item)}
+              aria-current={isActive(pathname, item) ? "page" : undefined}
               onClick={() => setOpen(false)}
             >
               {item.name}

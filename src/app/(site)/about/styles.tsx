@@ -50,15 +50,6 @@ export const Photo = styled.div<{ $ratio: string }>`
   }
 `;
 
-export const Sparkle = styled.svg<{ $size: number; $floating?: boolean }>`
-  flex-shrink: 0;
-  width: ${({ $size }) => $size}px;
-  height: ${({ $size }) => $size}px;
-  fill: ${({ $floating }) => ($floating ? "#fff" : "#e6eed9")};
-  ${({ $floating }) =>
-    $floating && "position: absolute; z-index: 1; left: 40px; bottom: 24px;"}
-`;
-
 export const Territory = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -225,22 +216,4 @@ export const Areas = styled.ol`
 
 export const Partners = styled(Band)`
   background-color: ${({ theme }) => theme.colors.surface};
-`;
-
-export const Logos = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 48px;
-  margin: 0;
-  list-style: none;
-
-  li {
-    margin: 0;
-  }
-
-  img {
-    width: auto;
-    height: 80px;
-  }
 `;

@@ -7,35 +7,6 @@ export interface IImage {
   title: string;
 }
 
-export interface IAboutSection {
-  title: string;
-  cover: {
-    url: string;
-  };
-  about: {
-    json: any;
-  };
-  albumCollection: {
-    items: {
-      url: string;
-      width: string;
-      height: string;
-      description: string;
-    }[];
-  };
-}
-
-export interface ISponsor {
-  name: string;
-  logo: {
-    url: string;
-    width: number;
-    height: number;
-  };
-  link: string;
-  tier?: string;
-}
-
 export interface ITeamMember {
   name: string;
   role: string;
