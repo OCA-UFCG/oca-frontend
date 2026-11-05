@@ -136,3 +136,15 @@ export const FAQ_PAGE_QUERY = `
     }
   }
 `;
+
+export const RESEARCH_PAGE_QUERY = `
+  query RESEARCH_PAGE_QUERY($preview: Boolean) {
+    publicationsCollection(preview: $preview) {
+      items {
+        title
+        type
+        href
+      }
+    }
+  }
+`;

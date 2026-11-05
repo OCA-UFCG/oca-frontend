@@ -1,8 +1,13 @@
 import Template from "@/templates/hubTemplate";
 import { ProjectCard } from "@/components/Redesign/Blocks";
-import { Heading, Title } from "@/components/Redesign/styles";
+import {
+  Heading,
+  HeroGrid,
+  Numbers,
+  Title,
+} from "@/components/Redesign/styles";
 import { PROJECTS } from "@/utils/projects";
-import { Grid, HeroGrid, List, Numbers } from "./styles";
+import { Grid, List } from "./styles";
 
 // ponytail: parceiros e municípios em aberto (o design tem placeholder); trocar `null`
 const NUMBERS: { value: string | null; label: string }[] = [
