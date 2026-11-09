@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { Band, Cards, MOBILE } from "@/components/Redesign/styles";
+import { Band, MOBILE } from "@/components/Redesign/styles";
 
 const text = `
   font-size: 14px;
@@ -112,12 +112,6 @@ export const Eyebrow = styled.p`
   line-height: 20px;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors["text-primary"]};
-`;
-
-export const PlatformCards = styled(Cards)`
-  @media (min-width: 1001px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
 `;
 
 export const Thumb = styled.div`

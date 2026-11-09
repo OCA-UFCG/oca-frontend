@@ -109,14 +109,17 @@ export const Logos = styled.ul`
 
   img {
     width: auto;
-    height: 80px;
+    height: auto;
+    max-width: 220px;
+    max-height: 80px;
   }
 
   @media (${MOBILE}) {
     gap: 24px;
 
     img {
-      height: 48px;
+      max-width: 140px;
+      max-height: 48px;
     }
   }
 `;

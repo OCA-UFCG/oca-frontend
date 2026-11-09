@@ -23,13 +23,12 @@ import {
   SectionTop,
 } from "@/components/Redesign/styles";
 import { INSTAGRAM_URL } from "@/utils/constants";
-import { PLATFORMS, PROJECTS } from "@/utils/projects";
+import { HOME_PROJECTS, PLATFORM_PROJECTS } from "@/utils/projects";
 import {
   Eyebrow,
   Follow,
   FollowCards,
   Hero,
-  PlatformCards,
   Section,
   Stats,
   Thumb,
@@ -38,15 +37,13 @@ import {
   WhoText,
 } from "./styles";
 
-// ponytail: números em aberto (o design tem placeholder "09+"); trocar `null` pelo valor
-const STATS: { value: string | null; label: string }[] = [
-  { value: null, label: "Projetos" },
-  { value: null, label: "Anos de atuação" },
-  { value: null, label: "Participantes" },
-  { value: null, label: "Parceiros institucionais" },
+// Números do Figma de 08/11/2026.
+const STATS = [
+  { value: "09+", label: "Projetos" },
+  { value: "15+", label: "Anos de atuação" },
+  { value: "50+", label: "Participantes" },
+  { value: "20+", label: "Parceiros institucionais" },
 ];
-
-const isExternal = (url: string) => url.startsWith("http");
 
 export default function Home() {
   return (
@@ -75,7 +72,7 @@ export default function Home() {
         {STATS.map(({ value, label }) => (
           <li key={label}>
             <LuChartColumn size={24} aria-hidden />
-            <strong>{value ?? "—"}</strong>
+            <strong>{value}</strong>
             {label}
           </li>
         ))}
@@ -92,7 +89,7 @@ export default function Home() {
           </ButtonLink>
         </SectionTop>
         <Cards>
-          {PROJECTS.map((project) => (
+          {HOME_PROJECTS.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
         </Cards>
@@ -105,33 +102,41 @@ export default function Home() {
             <Heading>Plataformas</Heading>
           </div>
         </SectionTop>
-        <PlatformCards>
-          {PLATFORMS.map(({ name, description, image, url }) => (
-            <li key={name}>
-              <Thumb>
-                <Image
-                  src={image}
-                  alt={`Tela da plataforma ${name}`}
-                  fill
-                  sizes="(max-width: 1000px) 300px, 420px"
-                />
-              </Thumb>
-              <CardBody>
-                <h3>{name}</h3>
-                <p>{description}</p>
-                <ButtonLink
-                  href={url}
-                  {...(isExternal(url) && {
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                  })}
-                >
-                  Acessar <LuExternalLink size={16} aria-hidden />
-                </ButtonLink>
-              </CardBody>
-            </li>
-          ))}
-        </PlatformCards>
+        <Cards>
+          {PLATFORM_PROJECTS.map(({ slug, platform }) => {
+            const { name, summary, screenshot, url } = platform!;
+
+            return (
+              <li key={slug}>
+                <Thumb>
+                  <Image
+                    src={screenshot}
+                    alt={`Tela da plataforma ${name}`}
+                    fill
+                    sizes="(max-width: 1000px) 300px, 420px"
+                  />
+                </Thumb>
+                <CardBody>
+                  <h3>{name}</h3>
+                  <p>{summary}</p>
+                  {url ? (
+                    <ButtonLink
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Acessar <LuExternalLink size={16} aria-hidden />
+                    </ButtonLink>
+                  ) : (
+                    <ButtonLink href={`/projetos/${slug}`}>
+                      Saiba mais <LuArrowRight size={16} aria-hidden />
+                    </ButtonLink>
+                  )}
+                </CardBody>
+              </li>
+            );
+          })}
+        </Cards>
       </Section>
 
       <Who>
@@ -148,9 +153,10 @@ export default function Home() {
           <p>QUEM SOMOS</p>
           <h2>Observatório da Caatinga e Desertificação</h2>
           <p>
-            Um grupo transdisciplinar de pesquisa, inovação e inteligência
-            territorial da UFCG, dedicado à produção de evidências para
-            políticas públicas no Nordeste, no Semiárido e na Caatinga.
+            O Observatório da Caatinga e Desertificação (OCA) é um grupo
+            transdisciplinar de pesquisa, inovação e inteligência territorial
+            dedicado à produção de evidências para políticas públicas no
+            Nordeste, no Semiárido e na Caatinga.
           </p>
           <ButtonLink href="/about" $small>
             Saiba mais

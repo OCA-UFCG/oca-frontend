@@ -1,107 +1,128 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
 import { notFound } from "next/navigation";
 import { LuArrowRight, LuExternalLink } from "react-icons/lu";
 import Template from "@/templates/hubTemplate";
 import { PartnerLogos } from "@/components/Redesign/Blocks";
 import { ButtonLink, Heading, SectionTop } from "@/components/Redesign/styles";
-import { PARTNERS } from "@/utils/constants";
 import { PROJECTS } from "@/utils/projects";
 import {
-  About,
   Banner,
-  Info,
+  Gallery,
   Intro,
   Light,
   Others,
   Platform,
   Screenshot,
   SubHeading,
+  Text,
 } from "./styles";
 
-// ponytail: galeria e "últimas atualizações" do design entram quando houver conteúdo
+// ponytail: "Últimas atualizações" do design entra quando houver fonte de notícias (Contentful)
 export const dynamicParams = false;
 export const generateStaticParams = () =>
   PROJECTS.map(({ slug }) => ({ slug }));
 
-export const generateMetadata = ({ params }: { params: { slug: string } }) => ({
-  title: PROJECTS.find(({ slug }) => slug === params.slug)?.name,
-});
+const findProject = (slug: string) => PROJECTS.find((p) => p.slug === slug);
+
+export const generateMetadata = ({ params }: { params: { slug: string } }) => {
+  const project = findProject(params.slug);
+
+  return { title: project?.title ?? project?.name };
+};
+
+const external = { target: "_blank", rel: "noopener noreferrer" };
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = PROJECTS.find(({ slug }) => slug === params.slug);
+  const project = findProject(params.slug);
   if (!project) notFound();
 
-  const { name, category, status, period, area, studyArea, partner } = project;
-  const info = [
-    ["Período", period],
-    ["Área de abrangência", area],
-    ["Área de estudo", studyArea],
-  ].filter(([, value]) => value);
-  const hasLogo = PARTNERS.some((p) => p.name === partner);
-  const others = PROJECTS.filter(({ slug }) => slug !== project.slug).slice(
-    0,
-    3,
-  );
+  const { name, title, status, partners, about, platform, gallery } = project;
+  const others = project.others.map((slug) => findProject(slug)!);
 
   return (
     <Template>
       <Banner>
-        <Image src={project.image} alt="" fill priority sizes="100vw" />
+        <Image src={project.banner} alt="" fill priority sizes="100vw" />
       </Banner>
 
       <Intro>
-        {status && <span>{status}</span>}
-        <h1>{name}</h1>
+        <span>{status}</span>
+        <h1>{title ?? name}</h1>
         <SubHeading>Sobre o projeto</SubHeading>
-        <About>
-          {info.length > 0 && (
-            <Info>
-              {info.map(([label, value]) => (
-                <Fragment key={label}>
-                  <dt>{label}:</dt>
-                  <dd>{value}</dd>
-                </Fragment>
-              ))}
-            </Info>
-          )}
-          <p>{project.description}</p>
-        </About>
+        <Text>
+          {about.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          {platform && <strong>{platform.intro}</strong>}
+        </Text>
       </Intro>
 
-      {partner && hasLogo && (
-        <Light>
-          <SubHeading>Parceiros</SubHeading>
-          <PartnerLogos names={[partner]} />
-        </Light>
-      )}
-
-      {project.url && (
-        <Platform>
-          <div>
-            <small>{category}</small>
-            <h2>{name}</h2>
-            <p>{project.description}</p>
-            <ButtonLink
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Acessar plataforma <LuExternalLink size={16} aria-hidden />
-            </ButtonLink>
-          </div>
-          {project.screenshot && (
+      {platform && (
+        <>
+          <Platform>
+            <div>
+              <Image
+                src={platform.logo}
+                alt={platform.name}
+                width={140}
+                height={64}
+              />
+              <h2>{platform.title}</h2>
+              <p>{platform.summary}</p>
+              {platform.url && (
+                <ButtonLink href={platform.url} {...external}>
+                  Acessar plataforma <LuExternalLink size={16} aria-hidden />
+                </ButtonLink>
+              )}
+            </div>
             <Screenshot>
               <Image
-                src={project.screenshot}
-                alt={`Tela da plataforma ${name}`}
+                src={platform.screenshot}
+                alt={`Tela da plataforma ${platform.name}`}
                 fill
                 sizes="(max-width: 1000px) 100vw, 640px"
               />
             </Screenshot>
-          )}
-        </Platform>
+          </Platform>
+
+          <Intro>
+            <SubHeading>Sobre a plataforma</SubHeading>
+            <Text>
+              {platform.about.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+              {platform.url && (
+                <a href={platform.url} {...external}>
+                  {platform.cta}
+                </a>
+              )}
+            </Text>
+          </Intro>
+        </>
+      )}
+
+      <Light>
+        <SubHeading>Parceiros</SubHeading>
+        <PartnerLogos names={[...partners, "UFCG"]} />
+      </Light>
+
+      {gallery && (
+        <Light>
+          <SubHeading>Galeria e registros</SubHeading>
+          <Gallery>
+            {gallery.map((src) => (
+              <li key={src}>
+                <Image
+                  src={src}
+                  alt=""
+                  fill
+                  sizes="(max-width: 1000px) 50vw, 640px"
+                />
+              </li>
+            ))}
+          </Gallery>
+        </Light>
       )}
 
       <Light>
@@ -112,7 +133,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           </ButtonLink>
         </SectionTop>
         <Others>
-          {others.map(({ slug, name, image }) => (
+          {others.map(({ slug, name, short, image }) => (
             <li key={slug}>
               <div>
                 <Image
@@ -123,7 +144,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 />
               </div>
               <div>
-                {name}
+                {short ?? name}
                 <Link href={`/projetos/${slug}`}>
                   Saiba mais <LuArrowRight size={16} aria-hidden />
                 </Link>

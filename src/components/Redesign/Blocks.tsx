@@ -59,16 +59,7 @@ export const Sparkle = ({
 );
 
 export const ProjectCard = ({
-  project: {
-    slug,
-    name,
-    category,
-    partner,
-    status,
-    period,
-    description,
-    image,
-  },
+  project: { slug, name, status, period, partners, summary, image, platform },
 }: {
   project: IProject;
 }) => (
@@ -76,13 +67,13 @@ export const ProjectCard = ({
     <Cover>
       <Image src={image} alt="" fill sizes="(max-width: 1000px) 300px, 420px" />
       <div>
-        {status && <span data-status>{status}</span>}
-        <span>{category}</span>
+        <span data-status>{status}</span>
+        {platform && <span>Plataforma</span>}
       </div>
       <h3>{name}</h3>
     </Cover>
     <CardBody>
-      <p>{description}</p>
+      <p>{summary}</p>
       {period && (
         <small>
           <LuCalendarDays size={18} aria-label="Período" />
@@ -90,12 +81,12 @@ export const ProjectCard = ({
         </small>
       )}
       <CardFooter>
-        {partner && (
-          <span>
-            <LuTag size={16} aria-label="Parceiro" />
-            <em>{partner}</em>
-          </span>
-        )}
+        <span>
+          <LuTag size={16} aria-label="Parceiros" />
+          {partners.map((partner) => (
+            <em key={partner}>{partner}</em>
+          ))}
+        </span>
         <Link href={`/projetos/${slug}`}>
           Saiba mais <LuArrowRight size={16} aria-hidden />
         </Link>

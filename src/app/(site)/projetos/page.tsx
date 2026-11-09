@@ -9,11 +9,11 @@ import {
 import { PROJECTS } from "@/utils/projects";
 import { Grid, List } from "./styles";
 
-// ponytail: parceiros e municípios em aberto (o design tem placeholder); trocar `null`
-const NUMBERS: { value: string | null; label: string }[] = [
-  { value: String(PROJECTS.length).padStart(2, "0"), label: "projetos" },
-  { value: null, label: "parceiros" },
-  { value: null, label: "municípios" },
+// Números do Figma de 08/11/2026.
+const NUMBERS = [
+  { value: "09+", label: "projetos" },
+  { value: "05+", label: "plataformas" },
+  { value: "50+", label: "parceiros" },
 ];
 
 export default function Projects() {
@@ -23,14 +23,15 @@ export default function Projects() {
         <div>
           <Title>Projetos</Title>
           <p>
-            Plataformas, estudos e ferramentas que o OCA desenvolve com
-            parceiros para apoiar a gestão do Semiárido e da Caatinga.
+            Nossos projetos integram ciência, dados e inovação para orientar
+            decisões públicas e apoiar ações de conservação ambiental,
+            convivência com a seca e desenvolvimento territorial.
           </p>
         </div>
         <Numbers aria-label="Projetos em números">
           {NUMBERS.map(({ value, label }) => (
             <li key={label}>
-              <strong>{value ?? "—"}</strong>
+              <strong>{value}</strong>
               {label}
             </li>
           ))}

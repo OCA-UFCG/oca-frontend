@@ -47,6 +47,9 @@ export const PARTNERS = [
     h: 268,
   },
   { name: "UFCG", img: "/redesign/parceiro-ufcg.png", w: 156, h: 158 },
+  { name: "MMA", img: "/redesign/parceiro-mma.png", w: 552, h: 122 },
+  { name: "FAO", img: "/redesign/parceiro-fao.png", w: 567, h: 158 },
+  { name: "SEMAS-PE", img: "/redesign/parceiro-semas-pe.png", w: 517, h: 114 },
 ];
 
 // Páginas fora do menu principal, linkadas só no rodapé.

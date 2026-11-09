@@ -45,43 +45,63 @@ export const SubHeading = styled.h2`
   color: ${({ theme }) => theme.colors["text-primary"]};
 `;
 
-export const About = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 24px;
-  align-items: start;
-
-  @media (${MOBILE}) {
-    grid-template-columns: 1fr;
-  }
+// O reset global justifica `p`; aqui o texto é alinhado à esquerda.
+export const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 14px;
+  line-height: 24px;
+  color: ${({ theme }) => theme.colors["text-primary"]};
 
   p {
-    font-size: 14px;
+    margin: 0;
+    text-align: left;
     line-height: 24px;
+  }
+
+  strong,
+  a {
+    font-size: 16px;
+    font-weight: 600;
     color: ${({ theme }) => theme.colors["text-primary"]};
   }
 `;
 
-export const Info = styled.dl`
+export const Gallery = styled.ul`
   display: grid;
-  grid-template-columns: auto auto;
-  gap: 12px 8px;
-  min-width: 260px;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 24px;
   margin: 0;
-  padding: 24px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.surface};
-  font-size: 14px;
+  list-style: none;
 
-  dt {
-    font-weight: 500;
-    color: ${({ theme }) => theme.colors["text-primary"]};
+  li {
+    position: relative;
+    aspect-ratio: 1;
+    margin: 0;
+    border-radius: 8px;
+    overflow: hidden;
   }
 
-  dd {
-    margin: 0;
-    color: ${({ theme }) => theme.colors["text-secondary"]};
+  li:first-child {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+
+  img {
+    object-fit: cover;
+  }
+
+  @media (${MOBILE}) {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    li:first-child {
+      grid-column: span 2;
+      grid-row: auto;
+      aspect-ratio: 1;
+    }
   }
 `;
 
@@ -107,9 +127,9 @@ export const Platform = styled(Band)`
     gap: 16px;
   }
 
-  small {
-    font-size: 14px;
-    color: ${({ theme }) => theme.colors["primary-disabled"]};
+  > div > img {
+    width: auto;
+    height: 64px;
   }
 
   h2 {
