@@ -44,8 +44,8 @@ const Header = () => {
         <LogoImage
           src="/oca_logan.svg"
           alt="OCA"
-          width={99}
-          height={50}
+          width={140}
+          height={71}
           priority
         />
       </Link>
