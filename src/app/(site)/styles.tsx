@@ -116,7 +116,7 @@ export const Eyebrow = styled.p`
 
 export const Thumb = styled.div`
   position: relative;
-  aspect-ratio: 382 / 185;
+  aspect-ratio: 382 / 191;
 
   img {
     object-fit: cover;

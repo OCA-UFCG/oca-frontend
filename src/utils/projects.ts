@@ -9,6 +9,7 @@ export interface IPlatform {
   cta: string; // linha final de "Sobre a plataforma"
   logo: string;
   screenshot: string;
+  card: string; // imagem do card na Home (frame exportado do Figma)
   url?: string; // sem URL pública confirmada, o botão "Acessar" some
 }
 
@@ -53,6 +54,7 @@ export const PROJECTS: IProject[] = [
       url: "https://datanordeste.sudene.gov.br",
       logo: "/redesign/logo-data-nordeste.png",
       screenshot: "/redesign/plataforma-data-nordeste.jpg",
+      card: "/redesign/plataforma-card-data-nordeste.png",
       intro:
         "Conheça o Data Nordeste, plataforma desenvolvida no âmbito do projeto.",
       summary:
@@ -93,6 +95,7 @@ export const PROJECTS: IProject[] = [
       url: "https://sedes.oca-portal.com",
       logo: "/redesign/logo-sedes.png",
       screenshot: "/redesign/plataforma-sedes.jpg",
+      card: "/redesign/plataforma-card-sedes.png",
       intro: "Conheça o SEDES, plataforma desenvolvida no âmbito do projeto.",
       summary:
         "Plataforma digital que reúne dados sobre secas, cobertura vegetal, degradação da terra e desertificação para todos os municípios brasileiros.",
@@ -130,6 +133,7 @@ export const PROJECTS: IProject[] = [
       title: "Conheça o Atlas das ASDs",
       logo: "/redesign/logo-atlas.png",
       screenshot: "/redesign/plataforma-atlas.jpg",
+      card: "/redesign/plataforma-card-atlas.png",
       intro: "Conheça a plataforma desenvolvida no âmbito do projeto.",
       summary:
         "Publicação técnico-científica que sistematiza mapas, análises e informações sobre as Áreas Suscetíveis à Desertificação (ASDs) no Brasil, subsidiando políticas públicas e processos decisórios.",
@@ -184,6 +188,7 @@ export const PROJECTS: IProject[] = [
       title: "Conheça a Caativar",
       logo: "/redesign/logo-caativar.png",
       screenshot: "/redesign/plataforma-caativar.jpg",
+      card: "/redesign/plataforma-card-caativar.png",
       intro:
         "Conheça a Caativar, plataforma desenvolvida no âmbito do projeto.",
       summary:

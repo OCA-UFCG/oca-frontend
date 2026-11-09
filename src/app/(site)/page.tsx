@@ -7,6 +7,7 @@ import {
   LuMail,
 } from "react-icons/lu";
 import Template from "@/templates/hubTemplate";
+import Carousel from "@/components/Redesign/Carousel";
 import {
   InstagramGrid,
   PartnerLogos,
@@ -88,11 +89,13 @@ export default function Home() {
             Ver todos os projetos <LuArrowRight size={16} aria-hidden />
           </ButtonLink>
         </SectionTop>
-        <Cards>
-          {HOME_PROJECTS.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </Cards>
+        <Carousel label="Projetos">
+          <Cards>
+            {HOME_PROJECTS.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </Cards>
+        </Carousel>
       </Section>
 
       <Section $tone="background">
@@ -102,41 +105,43 @@ export default function Home() {
             <Heading>Plataformas</Heading>
           </div>
         </SectionTop>
-        <Cards>
-          {PLATFORM_PROJECTS.map(({ slug, platform }) => {
-            const { name, summary, screenshot, url } = platform!;
+        <Carousel label="Plataformas">
+          <Cards>
+            {PLATFORM_PROJECTS.map(({ slug, platform }) => {
+              const { name, summary, card, url } = platform!;
 
-            return (
-              <li key={slug}>
-                <Thumb>
-                  <Image
-                    src={screenshot}
-                    alt={`Tela da plataforma ${name}`}
-                    fill
-                    sizes="(max-width: 1000px) 300px, 420px"
-                  />
-                </Thumb>
-                <CardBody>
-                  <h3>{name}</h3>
-                  <p>{summary}</p>
-                  {url ? (
-                    <ButtonLink
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Acessar <LuExternalLink size={16} aria-hidden />
-                    </ButtonLink>
-                  ) : (
-                    <ButtonLink href={`/projetos/${slug}`}>
-                      Saiba mais <LuArrowRight size={16} aria-hidden />
-                    </ButtonLink>
-                  )}
-                </CardBody>
-              </li>
-            );
-          })}
-        </Cards>
+              return (
+                <li key={slug}>
+                  <Thumb>
+                    <Image
+                      src={card}
+                      alt={`Tela da plataforma ${name}`}
+                      fill
+                      sizes="382px"
+                    />
+                  </Thumb>
+                  <CardBody>
+                    <h3>{name}</h3>
+                    <p>{summary}</p>
+                    {url ? (
+                      <ButtonLink
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Acessar <LuExternalLink size={16} aria-hidden />
+                      </ButtonLink>
+                    ) : (
+                      <ButtonLink href={`/projetos/${slug}`}>
+                        Saiba mais <LuArrowRight size={16} aria-hidden />
+                      </ButtonLink>
+                    )}
+                  </CardBody>
+                </li>
+              );
+            })}
+          </Cards>
+        </Carousel>
       </Section>
 
       <Who>
@@ -166,7 +171,9 @@ export default function Home() {
 
       <Section $tone="surface">
         <Heading>Parceiros</Heading>
-        <PartnerLogos />
+        <Carousel label="Parceiros">
+          <PartnerLogos />
+        </Carousel>
       </Section>
 
       <Follow>
