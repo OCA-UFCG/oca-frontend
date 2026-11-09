@@ -5,7 +5,14 @@ import { NextRequest, NextResponse } from "next/server";
 const USER = "oca";
 const PASSWORD_SHA256 =
   "1a2f4acceb13d748cb2e03c0b19ced2e2fd9dc093216224ce237c35de898b806";
-const NOINDEX = { "X-Robots-Tag": "noindex, nofollow" };
+
+// Fora dos buscadores e fora do cache do proxy: a página da prévia é estática e o
+// nginx na frente do site guardaria a resposta autenticada e a serviria a qualquer
+// um, sem passar por aqui. X-Accel-Expires: 0 desliga o cache do nginx.
+const PRIVATE = {
+  "X-Robots-Tag": "noindex, nofollow",
+  "X-Accel-Expires": "0",
+};
 
 const sha256 = async (text: string) =>
   Array.from(
@@ -33,7 +40,9 @@ export async function middleware(request: NextRequest) {
         (await sha256(password)) === PASSWORD_SHA256
       ) {
         const response = NextResponse.next();
-        response.headers.set("X-Robots-Tag", NOINDEX["X-Robots-Tag"]);
+        for (const [key, value] of Object.entries(PRIVATE)) {
+          response.headers.set(key, value);
+        }
 
         return response;
       }
@@ -44,7 +53,7 @@ export async function middleware(request: NextRequest) {
 
   return new NextResponse("Acesso restrito.", {
     status: 401,
-    headers: { "WWW-Authenticate": 'Basic realm="OCA preview"', ...NOINDEX },
+    headers: { "WWW-Authenticate": 'Basic realm="OCA preview"', ...PRIVATE },
   });
 }
 
