@@ -19,13 +19,37 @@ export const Wrapper = styled.footer`
   }
 `;
 
+// Menu no centro da página, alinhado com a linha de baixo. Em telas largas fica
+// entre os logos e o Instagram; em telas médias desce para uma linha própria.
 export const Top = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "logos social"
+    "nav nav";
   align-items: center;
-  justify-content: space-between;
   gap: 24px;
 
+  > :nth-child(1) {
+    grid-area: logos;
+  }
+
+  > :nth-child(2) {
+    grid-area: nav;
+  }
+
+  > :nth-child(3) {
+    grid-area: social;
+    justify-self: end;
+  }
+
+  @media (min-width: 1480px) {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: "logos nav social";
+  }
+
   @media (${MOBILE}) {
+    display: flex;
     flex-direction: column;
   }
 `;
