@@ -77,8 +77,6 @@ export const sections: ISections = {
           { name: menu ?? name, path: `/projetos/${slug}` },
         ]),
       ),
-      map: { name: "Plataforma do OCA", path: "/map" },
-      croqui: { name: "Croqui", path: "/croqui" },
     },
   },
   research: { name: "Pesquisa", path: "/pesquisa" },
