@@ -6,6 +6,7 @@ import {
   LuInstagram,
   LuMail,
 } from "react-icons/lu";
+import { FaWhatsapp } from "react-icons/fa";
 import Template from "@/templates/hubTemplate";
 import Carousel from "@/components/Redesign/Carousel";
 import {
@@ -15,6 +16,7 @@ import {
   Sparkle,
 } from "@/components/Redesign/Blocks";
 import {
+  Button,
   ButtonLink,
   CardBody,
   Cards,
@@ -23,12 +25,13 @@ import {
   IconBadge,
   SectionTop,
 } from "@/components/Redesign/styles";
-import { INSTAGRAM_URL } from "@/utils/constants";
+import { INSTAGRAM_URL, WHATSAPP_URL } from "@/utils/constants";
 import { HOME_PROJECTS, PLATFORM_PROJECTS } from "@/utils/projects";
 import {
   Eyebrow,
   Follow,
   FollowCards,
+  Newsletter,
   Hero,
   Section,
   Stats,
@@ -199,15 +202,49 @@ export default function Home() {
           <Card>
             <h3>
               <IconBadge>
-                <LuMail size={18} aria-hidden />
+                <FaWhatsapp size={18} aria-hidden />
               </IconBadge>
-              Fale com a gente
+              Canal no WhatsApp
             </h3>
             <p>
-              Dúvidas, parcerias ou sugestões: mande sua mensagem pelo
-              formulário de contato.
+              Entre no nosso canal no WhatsApp e receba novidades sobre o OCA
+              diretamente no celular.
             </p>
-            <ButtonLink href="/contact-us">Ir para o contato</ButtonLink>
+            {WHATSAPP_URL ? (
+              <ButtonLink
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Entrar no canal
+              </ButtonLink>
+            ) : (
+              <Button disabled>Entrar no canal</Button>
+            )}
+          </Card>
+          <Card>
+            <h3>
+              <IconBadge>
+                <LuMail size={18} aria-hidden />
+              </IconBadge>
+              Informativo por e-mail
+            </h3>
+            {/* ponytail: sem destino para os e-mails ainda; o envio fica desativado */}
+            <Newsletter>
+              <input
+                type="text"
+                placeholder="Digite seu nome"
+                aria-label="Nome"
+              />
+              <input
+                type="email"
+                placeholder="Digite seu melhor e-mail"
+                aria-label="E-mail"
+              />
+              <Button type="submit" disabled>
+                Inscrever-se
+              </Button>
+            </Newsletter>
           </Card>
         </FollowCards>
       </Follow>

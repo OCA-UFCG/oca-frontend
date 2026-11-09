@@ -2,7 +2,7 @@
 
 // Blocos de layout do redesign 2026, compartilhados pelas páginas novas.
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const MOBILE = "max-width: 1000px";
 
@@ -124,7 +124,7 @@ export const Logos = styled.ul`
   }
 `;
 
-export const ButtonLink = styled(Link)<{ $small?: boolean }>`
+const button = css<{ $small?: boolean }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -145,6 +145,21 @@ export const ButtonLink = styled(Link)<{ $small?: boolean }>`
 
   &:hover {
     opacity: 0.9;
+  }
+`;
+
+export const ButtonLink = styled(Link)<{ $small?: boolean }>`
+  ${button}
+`;
+
+export const Button = styled.button<{ $small?: boolean }>`
+  ${button}
+  border: 0;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 `;
 

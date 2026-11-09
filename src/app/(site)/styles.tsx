@@ -187,7 +187,7 @@ export const Follow = styled(Band)`
 
 export const FollowCards = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 400px));
+  grid-template-columns: 1fr 1fr 1.5fr;
   gap: 24px;
 
   @media (${MOBILE}) {
@@ -207,5 +207,24 @@ export const FollowCards = styled.div`
     flex: 1;
     ${text}
     color: ${({ theme }) => theme.colors["text-secondary"]};
+  }
+`;
+
+export const Newsletter = styled.form`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+
+  input {
+    padding: 10px 12px;
+    border: 1px solid ${({ theme }) => theme.colors.border};
+    border-radius: 6px;
+    font: inherit;
+    font-size: 14px;
+  }
+
+  button {
+    margin-top: auto;
   }
 `;
