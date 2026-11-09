@@ -137,6 +137,7 @@ export const PROJECTS: IProject[] = [
       logo: "/redesign/logo-atlas.png",
       screenshot: "/redesign/plataforma-atlas.jpg",
       card: "/redesign/plataforma-card-atlas.png",
+      url: "https://atlas.oca.ufcg.edu.br",
       intro: "Conheça a plataforma desenvolvida no âmbito do projeto.",
       summary:
         "Publicação técnico-científica que sistematiza mapas, análises e informações sobre as Áreas Suscetíveis à Desertificação (ASDs) no Brasil, subsidiando políticas públicas e processos decisórios.",
@@ -193,6 +194,7 @@ export const PROJECTS: IProject[] = [
       logo: "/redesign/logo-caativar.png",
       screenshot: "/redesign/plataforma-caativar.jpg",
       card: "/redesign/plataforma-card-caativar.png",
+      url: "https://caativar.oca.ufcg.edu.br",
       intro:
         "Conheça a Caativar, plataforma desenvolvida no âmbito do projeto.",
       summary:

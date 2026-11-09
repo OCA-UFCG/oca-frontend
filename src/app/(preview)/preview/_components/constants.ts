@@ -6,13 +6,14 @@ export const BASE = "/preview";
 
 export const INSTAGRAM_URL = "https://www.instagram.com/oca.ufcg/";
 
-// ponytail: canal ainda não existe; com o link, o botão da Home ativa
-export const WHATSAPP_URL = "";
+export const WHATSAPP_URL =
+  "https://whatsapp.com/channel/0029VbDuPJBBlHpjxtUs9B2W";
 
 export const CONTACT_EMAIL = "obs.caatinga@gmail.com";
 
 export const channels = [
   { name: "Instagram", href: INSTAGRAM_URL, icon: "/redesign/instagram.svg" },
+  { name: "WhatsApp", href: WHATSAPP_URL, icon: "/redesign/whatsapp.svg" },
 ];
 
 // ponytail: posts fixos no repositório; trocar pelos 6 mais recentes quando a OCA mandar

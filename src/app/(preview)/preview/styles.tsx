@@ -227,4 +227,14 @@ export const Newsletter = styled.form`
   button {
     margin-top: auto;
   }
+
+  [role="status"] {
+    min-height: 20px;
+    font-size: 14px;
+    color: ${({ theme }) => theme.colors["text-secondary"]};
+  }
+
+  [role="status"]:empty {
+    display: none;
+  }
 `;

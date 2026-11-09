@@ -35,7 +35,6 @@ import {
   Eyebrow,
   Follow,
   FollowCards,
-  Newsletter,
   Hero,
   Section,
   Stats,
@@ -44,6 +43,7 @@ import {
   WhoPhoto,
   WhoText,
 } from "./styles";
+import NewsletterForm from "./NewsletterForm";
 
 // Números do Figma de 08/11/2026.
 const STATS = [
@@ -234,22 +234,7 @@ export default function Home() {
               </IconBadge>
               Informativo por e-mail
             </h3>
-            {/* ponytail: sem destino para os e-mails ainda; o envio fica desativado */}
-            <Newsletter>
-              <input
-                type="text"
-                placeholder="Digite seu nome"
-                aria-label="Nome"
-              />
-              <input
-                type="email"
-                placeholder="Digite seu melhor e-mail"
-                aria-label="E-mail"
-              />
-              <Button type="submit" disabled>
-                Inscrever-se
-              </Button>
-            </Newsletter>
+            <NewsletterForm />
           </Card>
         </FollowCards>
       </Follow>
