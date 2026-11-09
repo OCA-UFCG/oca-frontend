@@ -13,14 +13,19 @@ export const REVALIDATE = process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW
 
 export const INSTAGRAM_URL = "https://www.instagram.com/oca.ufcg/";
 
-// ponytail: canal ainda não existe; com o link, o botão da Home ativa
-export const WHATSAPP_URL = "";
+export const WHATSAPP_URL =
+  "https://whatsapp.com/channel/0029VbDuPJBBlHpjxtUs9B2W";
 
 export const channels: IOCAChannel[] = [
   {
     name: "Instagram",
     href: INSTAGRAM_URL,
     icon: "/redesign/instagram.svg",
+  },
+  {
+    name: "WhatsApp",
+    href: WHATSAPP_URL,
+    icon: "/redesign/whatsapp.svg",
   },
 ];
 
