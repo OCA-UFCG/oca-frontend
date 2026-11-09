@@ -1,11 +1,8 @@
 import { LuInstagram, LuMail, LuMap } from "react-icons/lu";
 import Template from "@/templates/hubTemplate";
 import ContactForm from "@/components/ContactForm/ContactForm";
-import { CONTACT_EMAIL, INSTAGRAM_URL, REVALIDATE } from "@/utils/constants";
+import { CONTACT_EMAIL, INSTAGRAM_URL } from "@/utils/constants";
 import { InstagramGrid } from "@/components/Redesign/Blocks";
-import { ISectionHeader } from "@/utils/interfaces";
-import { getContent } from "@/utils/contentful";
-import { CONTACT_PAGE_QUERY, CONTACT_PAGES_ID } from "@/utils/queries";
 import {
   Address,
   Channels,
@@ -25,26 +22,19 @@ import {
   Title,
 } from "@/components/Redesign/styles";
 
-export const revalidate = REVALIDATE;
-
-interface IContactInterface {
-  sectionHeadCollection: { items: ISectionHeader[] };
-}
-
 const MAP_URL =
   "https://maps.google.com/maps?q=Universidade+Federal+de+Campina+Grande,+Rua+Apr%C3%ADgio+Veloso,+882&z=16&output=embed";
 
-const ContactUsPage = async () => {
-  const {
-    sectionHeadCollection: { items: sectionHead },
-  }: IContactInterface = await getContent(CONTACT_PAGE_QUERY);
-  const header = sectionHead?.find(({ id }) => id === CONTACT_PAGES_ID[0]);
-
+const ContactUsPage = () => {
   return (
     <Template>
       <Hero $blob="/redesign/blob-rosa.svg">
         <Title>Contato</Title>
-        {header?.subtitle && <Lead>{header.subtitle}</Lead>}
+        <Lead>
+          Entre em contato com nossa equipe para tirar dúvidas sobre os
+          projetos, pesquisas e plataformas do OCA. Você pode nos escrever pelo
+          formulário abaixo ou pelos nossos canais de comunicação.
+        </Lead>
       </Hero>
 
       <Channels>
@@ -95,6 +85,10 @@ const ContactUsPage = async () => {
 
       <Address>
         <Heading>Nosso endereço</Heading>
+        <Lead>
+          O OCA fica no campus sede da Universidade Federal de Campina Grande
+          (UFCG), em Campina Grande, na Paraíba.
+        </Lead>
         <Card>
           <Label>Localização</Label>
           <Value>

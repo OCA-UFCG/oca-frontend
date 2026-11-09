@@ -63,5 +63,5 @@ export const MapFrame = styled.iframe`
 `;
 
 export const Lead = styled.p`
-  max-width: 560px;
+  text-align: left;
 `;
