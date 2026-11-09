@@ -34,6 +34,17 @@ export const Logos = styled.div`
   display: flex;
   align-items: center;
   gap: 24px;
+
+  img {
+    width: auto;
+    height: 76px;
+  }
+
+  @media (${MOBILE}) {
+    img {
+      height: 56px;
+    }
+  }
 `;
 
 export const OcaLogo = styled(Image)`

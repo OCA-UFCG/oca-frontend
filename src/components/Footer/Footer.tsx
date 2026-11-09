@@ -27,10 +27,10 @@ const Footer = () => (
         <Image
           src="/redesign/logo-ufcg-branco.svg"
           alt="Universidade Federal de Campina Grande"
-          width={162}
-          height={51}
+          width={241}
+          height={76}
         />
-        <OcaLogo src="/oca_logan.svg" alt="OCA" width={96} height={49} />
+        <OcaLogo src="/oca_logan.svg" alt="OCA" width={149} height={76} />
       </Logos>
 
       <NavList>
