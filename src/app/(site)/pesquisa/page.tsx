@@ -9,20 +9,12 @@ import {
 import { REVALIDATE } from "@/utils/constants";
 import { getContent } from "@/utils/contentful";
 import { IPublication } from "@/utils/interfaces";
-import { PROJECTS } from "@/utils/projects";
 import { addDetails } from "@/utils/publications";
 import { RESEARCH_PAGE_QUERY } from "@/utils/queries";
 import Publications from "./Publications";
 import { Lines } from "./styles";
 
 export const revalidate = REVALIDATE;
-
-// ponytail: parceiros e municípios em aberto (o design tem placeholder); trocar `null`
-const NUMBERS: { value: string | null; label: string }[] = [
-  { value: String(PROJECTS.length).padStart(2, "0"), label: "projetos" },
-  { value: null, label: "parceiros" },
-  { value: null, label: "municípios" },
-];
 
 const LINES = [
   {
@@ -49,6 +41,13 @@ export default async function Research() {
   }: { publicationsCollection: { items: IPublication[] } } =
     await getContent(RESEARCH_PAGE_QUERY);
   const publications = await addDetails(items);
+  const numbers = [
+    {
+      value: String(publications.length).padStart(2, "0"),
+      label: "publicações",
+    },
+    { value: "30+", label: "pesquisadores" },
+  ];
 
   return (
     <Template>
@@ -56,15 +55,16 @@ export default async function Research() {
         <div>
           <Title>Pesquisas</Title>
           <p>
-            Pesquisa aplicada sobre a Caatinga e o Semiárido, publicada em
-            periódicos científicos e transformada em dados e ferramentas
-            abertas.
+            Desenvolvemos pesquisas em rede para compreender as dinâmicas
+            ambientais, climáticas e socioeconômicas da Caatinga e subsidiar
+            políticas públicas voltadas à conservação e ao uso sustentável dos
+            recursos naturais.
           </p>
         </div>
         <Numbers aria-label="Pesquisa em números">
-          {NUMBERS.map(({ value, label }) => (
+          {numbers.map(({ value, label }) => (
             <li key={label}>
-              <strong>{value ?? "—"}</strong>
+              <strong>{value}</strong>
               {label}
             </li>
           ))}
