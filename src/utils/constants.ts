@@ -5,6 +5,7 @@ import {
   INews,
   IContactStatus,
 } from "./interfaces";
+import { PROJECTS } from "./projects";
 
 export const REVALIDATE = process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW
   ? 60
@@ -70,6 +71,12 @@ export const sections: ISections = {
     path: "/projetos",
     children: {
       all: { name: "Todos os projetos", path: "/projetos" },
+      ...Object.fromEntries(
+        PROJECTS.map(({ slug, name, menu }) => [
+          slug,
+          { name: menu ?? name, path: `/projetos/${slug}` },
+        ]),
+      ),
       map: { name: "Plataforma do OCA", path: "/map" },
       croqui: { name: "Croqui", path: "/croqui" },
     },

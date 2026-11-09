@@ -18,6 +18,7 @@ export interface IProject {
   name: string; // título do card
   title?: string; // título da página, quando difere do card
   short?: string; // nome em "Conheça outros projetos"
+  menu?: string; // nome no menu Projetos, quando o do card é longo
   status: string;
   period?: string;
   partners: string[]; // nomes de PARTNERS (constants.ts)
@@ -73,6 +74,7 @@ export const PROJECTS: IProject[] = [
   {
     slug: "sedes",
     name: "Sistema Estratégico sobre Desertificação e Seca",
+    menu: "SEDES",
     title: "SEDES",
     short: "SEDES",
     status: "Em andamento",
@@ -112,6 +114,7 @@ export const PROJECTS: IProject[] = [
   {
     slug: "atlas",
     name: "Atlas de Áreas Suscetíveis à Desertificação",
+    menu: "Atlas (ASDs)",
     title: "Atlas das Áreas Suscetíveis à Desertificação no Brasil",
     short: "Atlas (ASDs)",
     status: "Em andamento",
@@ -166,6 +169,7 @@ export const PROJECTS: IProject[] = [
   {
     slug: "floresta-em-pe",
     name: "Projeto Floresta em Pé, Renda Justa",
+    menu: "Floresta em Pé, Renda Justa",
     short: "Caativar",
     status: "Em andamento",
     partners: ["Sudene"],
@@ -226,6 +230,7 @@ export const PROJECTS: IProject[] = [
   {
     slug: "cisternas",
     name: "Projeto Cisternas",
+    menu: "Cisternas",
     short: "Cisternas",
     status: "Em andamento",
     period: "2025 – atualmente",
