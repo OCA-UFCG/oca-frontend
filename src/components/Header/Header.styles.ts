@@ -42,12 +42,12 @@ export const Bar = styled.header<{ $overlay: boolean }>`
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
-  padding: 18px 80px;
+  padding: 12px 80px;
   background-color: ${({ theme }) => theme.colors.surface};
   border-bottom: 2px solid ${({ theme }) => theme.colors["primary-disabled"]};
 
   @media (${MOBILE}) {
-    padding: 18px 24px;
+    padding: 12px 24px;
   }
 
   ${({ $overlay }) => $overlay && overlay}
@@ -55,8 +55,12 @@ export const Bar = styled.header<{ $overlay: boolean }>`
 
 export const LogoImage = styled(Image)`
   display: block;
-  width: 99px;
+  width: 140px;
   height: auto;
+
+  @media (${MOBILE}) {
+    width: 112px;
+  }
 `;
 
 export const MenuButton = styled.button`
