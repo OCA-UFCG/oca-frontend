@@ -145,7 +145,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               </div>
               <div>
                 {short ?? name}
-                <Link href={`/projetos/${slug}`}>
+                <Link href={`/projetos/${slug}`} data-card>
                   Saiba mais <LuArrowRight size={16} aria-hidden />
                 </Link>
               </div>

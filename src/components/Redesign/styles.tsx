@@ -200,6 +200,20 @@ export const Cards = styled.ul`
     background-color: ${({ theme }) => theme.colors.surface};
     box-shadow: 0 1px 2px #0000000d;
     scroll-snap-align: start;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+
+  > li:has(a[data-card]):hover {
+    box-shadow: 0 6px 16px #0000001f;
+  }
+
+  /* O link marcado com data-card cobre o card inteiro. */
+  a[data-card]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
   }
 `;
 

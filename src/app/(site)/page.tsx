@@ -131,11 +131,12 @@ export default function Home() {
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        data-card
                       >
                         Acessar <LuExternalLink size={16} aria-hidden />
                       </ButtonLink>
                     ) : (
-                      <ButtonLink href={`/projetos/${slug}`}>
+                      <ButtonLink href={`/projetos/${slug}`} data-card>
                         Saiba mais <LuArrowRight size={16} aria-hidden />
                       </ButtonLink>
                     )}

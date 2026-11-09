@@ -87,7 +87,7 @@ export const ProjectCard = ({
             <em key={partner}>{partner}</em>
           ))}
         </span>
-        <Link href={`/projetos/${slug}`}>
+        <Link href={`/projetos/${slug}`} data-card>
           Saiba mais <LuArrowRight size={16} aria-hidden />
         </Link>
       </CardFooter>
