@@ -1,4 +1,4 @@
-import HeaderSection from "@/components/Header/Section/HeaderSection";
+import Header from "@/components/Header/Header";
 import { Main } from "@/app/globalStyles";
 import Footer from "@/components/Footer/Footer";
 import React, { ReactNode } from "react";
@@ -12,7 +12,7 @@ const HubTemplate = ({
 }) => {
   return (
     <>
-      <HeaderSection />
+      <Header />
       <Main id="root" $backThumb={backThumb.toString()}>
         {children}
       </Main>

@@ -5,80 +5,88 @@ import {
   INews,
   IContactStatus,
 } from "./interfaces";
+import { PROJECTS } from "./projects";
 
 export const REVALIDATE = process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW
   ? 60
   : 3600;
 
+export const INSTAGRAM_URL = "https://www.instagram.com/oca.ufcg/";
+
+export const WHATSAPP_URL =
+  "https://whatsapp.com/channel/0029VbDuPJBBlHpjxtUs9B2W";
+
 export const channels: IOCAChannel[] = [
   {
-    name: "GitHub",
-    href: "https://github.com/OCA-UFCG",
-    icon: "github",
-    size: 22,
+    name: "Instagram",
+    href: INSTAGRAM_URL,
+    icon: "/redesign/instagram.svg",
   },
   {
-    name: "White instagram icon with a camera drawing",
-    href: "https://www.instagram.com/observatorio.caatinga/",
-    icon: "instagram",
-    size: 27,
+    name: "WhatsApp",
+    href: WHATSAPP_URL,
+    icon: "/redesign/whatsapp.svg",
   },
 ];
 
+export const CONTACT_EMAIL = "obs.caatinga@gmail.com";
+
+// ponytail: posts fixos no repositório; trocar pelos 6 mais recentes quando a OCA mandar
+export const INSTAGRAM_POSTS = [
+  {
+    src: "/redesign/instagram-1.jpg",
+    alt: "Post: Grandes projetos se constroem no cotidiano",
+  },
+  {
+    src: "/redesign/instagram-2.jpg",
+    alt: "Post: agenda internacional do PPGECA com a Western University",
+  },
+  {
+    src: "/redesign/instagram-3.jpg",
+    alt: "Post: conhecendo a equipe de computação do OCA",
+  },
+];
+
+export const PARTNERS = [
+  { name: "Sudene", img: "/redesign/parceiro-sudene.png", w: 744, h: 420 },
+  {
+    name: "Governo Federal",
+    img: "/redesign/parceiro-govbr.png",
+    w: 748,
+    h: 268,
+  },
+  { name: "UFCG", img: "/redesign/parceiro-ufcg.png", w: 156, h: 158 },
+  { name: "MMA", img: "/redesign/parceiro-mma.png", w: 552, h: 122 },
+  { name: "FAO", img: "/redesign/parceiro-fao.png", w: 567, h: 158 },
+  { name: "SEMAS-PE", img: "/redesign/parceiro-semas-pe.png", w: 517, h: 114 },
+];
+
+// Páginas fora do menu principal, linkadas só no rodapé.
+export const footerLinks = [
+  { name: "Equipe", path: "/team" },
+  { name: "Colaboradores", path: "/collab" },
+  { name: "Infraestrutura", path: "/infra" },
+  { name: "FAQ", path: "/faq" },
+];
+
 export const sections: ISections = {
-  home: {
-    name: "Início",
-    path: "/",
+  home: { name: "Início", path: "/" },
+  projects: {
+    name: "Projetos",
+    path: "/projetos",
     children: {
-      news: {
-        name: "Quem somos",
-        path: "/#about",
-      },
-      maps: {
-        name: "Plataforma do OCA",
-        path: "/#maps-visu",
-      },
-      publications: {
-        name: "Publicações",
-        path: "/#publications",
-      },
-      partners: {
-        name: "Parceiros",
-        path: "/#sponsors",
-      },
-      FAQ: {
-        name: "Perguntas frequentes",
-        path: "/#FAQ",
-      },
+      all: { name: "Todos os projetos", path: "/projetos" },
+      ...Object.fromEntries(
+        PROJECTS.map(({ slug, name, menu }) => [
+          slug,
+          { name: menu ?? name, path: `/projetos/${slug}` },
+        ]),
+      ),
     },
   },
-  about: {
-    name: "Sobre nós",
-    children: {
-      team: {
-        name: "Equipe",
-        path: "/team",
-      },
-      collab: {
-        name: "Colaboradores",
-        path: "/collab",
-      },
-      history: {
-        name: "Nossa história",
-        path: "/about",
-      },
-      infra: {
-        name: "Infraestrutura",
-        path: "/infra",
-      },
-    },
-  },
-  map: { name: "Plataforma", path: "/map" },
-  croqui: {
-    name: "Croqui",
-    path: "/croqui",
-  },
-  contact: { name: "Fale conosco", path: "/contact-us" },
+  research: { name: "Pesquisa", path: "/pesquisa" },
+  about: { name: "Sobre", path: "/about" },
+  contact: { name: "Contato", path: "/contact-us" },
 };
 
 export const defaultEEInfo: IEEInfo = {

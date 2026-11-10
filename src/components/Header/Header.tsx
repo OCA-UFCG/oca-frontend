@@ -1,62 +1,103 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { MdKeyboardArrowDown, MdMenu, MdClose } from "react-icons/md";
+import { sections } from "@/utils/constants";
+import { ISection } from "@/utils/interfaces";
 import {
+  Bar,
+  Lang,
+  LangItem,
+  LangMenu,
+  LangOption,
   LogoImage,
-  MediaWrapper,
+  MenuButton,
+  NavItem,
+  NavLink,
   NavList,
-  Navbar,
-  SocialMedia,
-  Wrapper,
+  Submenu,
+  SubmenuLink,
 } from "./Header.styles";
-import { channels, sections } from "@/utils/constants";
-import { Dropdown } from "@/components/Dropdown/Dropdown";
-import { Icon } from "../Icon/Icon";
 
-const SocialMediaIem = ({
-  href,
-  icon,
-  size,
-}: {
-  href: string;
-  icon: string;
-  size: number;
-}) => {
-  return (
-    <MediaWrapper href={href} target="_blank" title={href}>
-      <Icon id={icon} size={size} />
-    </MediaWrapper>
-  );
-};
+const isActive = (pathname: string, { path, children }: ISection): boolean =>
+  (path === "/" ? pathname === "/" : !!path && pathname.startsWith(path)) ||
+  Object.values(children ?? {}).some((child) => isActive(pathname, child));
 
-const Header = (props?: any) => {
+const Header = () => {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
   return (
-    <Wrapper {...props}>
+    <Bar $overlay={pathname === "/"}>
+      <MenuButton
+        type="button"
+        aria-label={open ? "Fechar menu" : "Abrir menu"}
+        aria-expanded={open}
+        onClick={() => setOpen(!open)}
+      >
+        {open ? <MdClose size={20} /> : <MdMenu size={20} />}
+      </MenuButton>
+
       <Link href="/">
         <LogoImage
           src="/oca_logan.svg"
           alt="OCA"
-          width={148}
-          height={75}
+          width={140}
+          height={71}
           priority
         />
       </Link>
-      <Navbar>
-        <NavList>
-          {Object.entries(sections).map(([key, item]) => (
-            <Dropdown item={item} key={key} />
-          ))}
-        </NavList>
-      </Navbar>
-      <SocialMedia>
-        {channels.map(({ name, icon, href, size }) => (
-          <SocialMediaIem
-            key={name.toLocaleLowerCase().replace(" ", "-")}
-            icon={icon}
-            href={href}
-            size={size || 24}
-          />
+
+      <NavList $open={open}>
+        {Object.entries(sections).map(([key, item]) => (
+          <NavItem key={key}>
+            <NavLink
+              href={item.path ?? "#"}
+              $active={isActive(pathname, item)}
+              aria-current={isActive(pathname, item) ? "page" : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {item.name}
+              {item.children && <MdKeyboardArrowDown size={16} />}
+            </NavLink>
+            {item.children && (
+              <Submenu>
+                {Object.entries(item.children).map(([childKey, child]) => (
+                  <li key={childKey}>
+                    <SubmenuLink
+                      href={child.path ?? "#"}
+                      onClick={() => setOpen(false)}
+                    >
+                      {child.name}
+                    </SubmenuLink>
+                  </li>
+                ))}
+              </Submenu>
+            )}
+          </NavItem>
         ))}
-      </SocialMedia>
-    </Wrapper>
+        {/* ponytail: só PT por enquanto; EN entra quando chegarem os textos em inglês */}
+        <LangItem>
+          <Lang type="button" aria-label="Idioma: português">
+            PT <MdKeyboardArrowDown size={16} aria-hidden />
+          </Lang>
+          <LangMenu>
+            <li>
+              <LangOption type="button" aria-current="true">
+                Português
+              </LangOption>
+            </li>
+            <li>
+              <LangOption type="button" disabled>
+                English (em breve)
+              </LangOption>
+            </li>
+          </LangMenu>
+        </LangItem>
+      </NavList>
+    </Bar>
   );
 };
 

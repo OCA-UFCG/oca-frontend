@@ -2,131 +2,164 @@ import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
 
+const MOBILE = "max-width: 1000px";
+
 export const Wrapper = styled.footer`
   display: flex;
-  padding: 2rem;
-  margin-top: auto;
-  box-sizing: border-box;
-  justify-content: space-between;
-  background-color: ${({ theme }) => theme.colors.green};
-
-  gap: 1rem;
-  position: relative;
+  flex-direction: column;
+  gap: 24px;
   width: 100%;
-  align-items: start-flex;
+  margin-top: auto;
+  padding: 48px 80px;
+  box-sizing: border-box;
+  background-color: ${({ theme }) => theme.colors["v-950"]};
 
-  @media (max-width: 800px) {
-    align-items: center;
+  @media (${MOBILE}) {
+    padding: 40px 24px;
+  }
+`;
+
+// Menu no centro da página, alinhado com a linha de baixo. Em telas largas fica
+// entre os logos e o Instagram; em telas médias desce para uma linha própria.
+export const Top = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "logos social"
+    "nav nav";
+  align-items: center;
+  gap: 24px;
+
+  > :nth-child(1) {
+    grid-area: logos;
+  }
+
+  > :nth-child(2) {
+    grid-area: nav;
+  }
+
+  > :nth-child(3) {
+    grid-area: social;
+    justify-self: end;
+  }
+
+  @media (min-width: 1480px) {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: "logos nav social";
+  }
+
+  @media (${MOBILE}) {
+    display: flex;
     flex-direction: column;
   }
 `;
 
-export const Divider = styled.hr`
-  border: none;
-  height: 1px;
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.white};
-  margin-top: 0px;
+export const Logos = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  img {
+    width: auto;
+    height: 76px;
+  }
+
+  @media (${MOBILE}) {
+    img {
+      height: 56px;
+    }
+  }
 `;
 
-export const LogoImage = styled(Image)`
-  width: 11.5rem;
+export const OcaLogo = styled(Image)`
   height: auto;
   filter: brightness(0) invert(1);
 `;
 
-export const References = styled.div`
+export const NavList = styled.ul`
   display: flex;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  width: auto;
+  margin: 0;
+  list-style: none;
 
-  flex-direction: column;
-  justify-content: flex-end;
-
-  flex-grow: 2;
-
-  @media (max-width: 800px) {
-    align-items: center;
-    flex-direction: column;
-    gap: 2rem;
+  li {
+    margin: 0;
   }
 `;
 
-export const Sections = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 2.2rem;
-
-  @media (max-width: 800px) {
-    flex-direction: column;
-  }
-`;
-
-export const SectionTitle = styled.h3`
-  color: ${({ theme }) => theme.colors.white};
-  font-weight: bolder;
-
+export const NavLink = styled(Link)`
+  display: block;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
   text-decoration: none;
-  transition: 0.2s;
-  font-size: 1.1rem;
-  margin-bottom: 1px;
-
-  @media (max-width: 800px) {
-    text-align: center;
-    width: fit-content;
-    align-self: center;
-  }
-`;
-
-export const InnerSections = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  @media (max-width: 800px) {
-    text-align: center;
-  }
-`;
-
-export const SectionOptions = styled(Link)`
-  color: ${({ theme }) => theme.colors.white};
-  cursor: pointer;
-  text-decoration: none;
-  transition: 0.2s;
-  font-size: 0.9rem;
-  font-weight: lighter;
+  color: ${({ theme }) => theme.colors.surface};
 
   &:hover {
-    opacity: 0.6;
+    text-decoration: underline;
   }
 `;
 
-export const SocialMediasContainer = styled.div`
+export const Social = styled.div`
   display: flex;
-  gap: 1rem;
   align-items: center;
-  align-self: flex-end;
+  gap: 16px;
 
-  @media (max-width: 800px) {
-    align-self: center;
+  a {
+    display: flex;
+    transition: opacity 0.2s;
+  }
+
+  a:hover {
+    opacity: 0.8;
   }
 `;
 
-export const SocialMedia = styled(Link)`
-  display: flex;
-  gap: 0.5rem;
-  transition: 0.2s;
-  text-decoration: none;
-  color: ${({ theme }) => theme.colors.white};
+export const Extra = styled(NavList)`
+  justify-content: center;
+  gap: 8px 24px;
 
-  &:hover {
-    opacity: 0.6;
+  a {
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors["primary-disabled"]};
+  }
+`;
+
+export const Divider = styled.hr`
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  border: none;
+  background-color: ${({ theme }) => theme.colors["primary-disabled"]};
+`;
+
+export const Bottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+
+  p,
+  a {
+    margin: 0;
+    font-weight: 500;
+    line-height: inherit;
+    text-align: inherit;
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.surface};
   }
 
-  img {
-    cursor: pointer;
-    max-width: 1.75rem;
-    max-height: 1.75rem;
-    filter: brightness(0) invert(1);
+  @media (${MOBILE}) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: 20px;
   }
 `;

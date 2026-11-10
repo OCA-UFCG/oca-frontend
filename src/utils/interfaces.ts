@@ -7,35 +7,6 @@ export interface IImage {
   title: string;
 }
 
-export interface IAboutSection {
-  title: string;
-  cover: {
-    url: string;
-  };
-  about: {
-    json: any;
-  };
-  albumCollection: {
-    items: {
-      url: string;
-      width: string;
-      height: string;
-      description: string;
-    }[];
-  };
-}
-
-export interface ISponsor {
-  name: string;
-  logo: {
-    url: string;
-    width: number;
-    height: number;
-  };
-  link: string;
-  tier?: string;
-}
-
 export interface ITeamMember {
   name: string;
   role: string;
@@ -58,7 +29,6 @@ export interface IOCAChannel {
   name: string;
   href: string;
   icon: string;
-  size?: number;
 }
 
 export interface ISection {
@@ -74,7 +44,7 @@ export interface ISections {
 export interface IPublication {
   title: string;
   type: string;
-  href: string;
+  href?: string | null; // pode vir vazio do Contentful
 }
 
 export interface IVisuMenuItems {
@@ -180,22 +150,6 @@ export interface Asset {
   width: number;
   height: number;
 }
-export interface IAbout {
-  ttulo: string;
-  conteudo: {
-    json: Document;
-    links: {
-      assets: { block: Asset[] };
-    };
-  };
-  cover: {
-    url: string;
-  };
-  picturesCollection: {
-    items: IImage[];
-  };
-}
-
 export interface IGallery {
   title: string;
   description: string;
