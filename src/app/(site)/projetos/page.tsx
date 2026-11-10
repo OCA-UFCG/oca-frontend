@@ -9,9 +9,9 @@ import {
 import { PROJECTS } from "@/utils/projects";
 import { Grid, List } from "./styles";
 
-// Números do Figma de 08/11/2026.
+// Números do Figma de 08/11/2026; projetos contados de PROJECTS.
 const NUMBERS = [
-  { value: "09+", label: "projetos" },
+  { value: `${String(PROJECTS.length).padStart(2, "0")}+`, label: "projetos" },
   { value: "05+", label: "plataformas" },
   { value: "50+", label: "parceiros" },
 ];
