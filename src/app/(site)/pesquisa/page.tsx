@@ -23,11 +23,11 @@ const LINES = [
   },
   {
     name: "Modelagem ambiental e climática da Caatinga",
-    img: "/redesign/linha-arvore.jpg",
+    img: "/redesign/linha-modelagem.jpg",
   },
   {
     name: "Desenvolvimento de Plataformas Computacionais para Gestão Socioambiental",
-    img: "/redesign/linha-pedras.jpg",
+    img: "/redesign/linha-plataformas.jpg",
   },
   {
     name: "Monitoramento da desertificação",

@@ -154,6 +154,7 @@ export const PROJECTS: IProject[] = [
     slug: "pab-brasil",
     name: "PAB-Brasil",
     status: "Concluído",
+    period: "2025 – atualmente",
     partners: ["MMA"],
     summary:
       "O projeto contribuiu para a elaboração do Plano de Ação Brasileiro de Combate à Desertificação e Mitigação dos Efeitos da Seca (PAB-Brasil). Construído com a participação de diferentes setores da sociedade, o plano orienta ações de enfrentamento à desertificação e de redução dos impactos da seca.",
@@ -173,6 +174,7 @@ export const PROJECTS: IProject[] = [
     menu: "Floresta em Pé, Renda Justa",
     short: "Caativar",
     status: "Em andamento",
+    period: "2016–2020",
     partners: ["Sudene"],
     summary:
       "O projeto estrutura e disponibiliza informações sobre o mercado de carbono na Caatinga por meio da plataforma Caativar. A iniciativa busca apoiar decisões sobre projetos de carbono que conciliem a conservação da vegetação nativa e a geração de renda nos territórios.",
@@ -193,7 +195,7 @@ export const PROJECTS: IProject[] = [
       title: "Conheça a Caativar",
       logo: "/redesign/logo-caativar.png",
       screenshot: "/redesign/plataforma-caativar.jpg",
-      card: "/redesign/plataforma-card-caativar.png",
+      card: "/redesign/plataforma-card-caativar.jpg",
       url: "https://caativar.oca.ufcg.edu.br",
       intro:
         "Conheça a Caativar, plataforma desenvolvida no âmbito do projeto.",
@@ -215,6 +217,7 @@ export const PROJECTS: IProject[] = [
     slug: "pae-pe",
     name: "PAE-PE 2026–2046",
     status: "Concluído",
+    period: "2025 – atualmente",
     partners: ["SEMAS-PE"],
     summary:
       "O PAE-PE 2026–2046 orienta o planejamento e as ações de Pernambuco no combate à desertificação e aos efeitos da seca, com horizonte de 20 anos.",
