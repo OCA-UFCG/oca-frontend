@@ -60,9 +60,7 @@ export default function Home() {
           priority
           sizes="100vw"
         />
-        <h1>
-          Ciência de ponta para entender e proteger a Caatinga e o Nordeste
-        </h1>
+        <h1>Ciência para entender e proteger a Caatinga e o Nordeste</h1>
         <p>
           Do monitoramento aos dados abertos: conheça os projetos e as
           plataformas que o OCA desenvolve para o Semiárido brasileiro.

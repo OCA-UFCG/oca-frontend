@@ -43,7 +43,7 @@ export default async function Research() {
   const publications = await addDetails(items);
   const numbers = [
     {
-      value: String(publications.length).padStart(2, "0"),
+      value: `${String(publications.length).padStart(2, "0")}+`,
       label: "publicações",
     },
     { value: "30+", label: "pesquisadores" },
