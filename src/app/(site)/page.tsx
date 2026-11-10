@@ -26,7 +26,7 @@ import {
   SectionTop,
 } from "@/components/Redesign/styles";
 import { INSTAGRAM_URL, WHATSAPP_URL } from "@/utils/constants";
-import { HOME_PROJECTS, PLATFORM_PROJECTS } from "@/utils/projects";
+import { HOME_PROJECTS, PLATFORM_PROJECTS, PROJECTS } from "@/utils/projects";
 import {
   Eyebrow,
   Follow,
@@ -43,7 +43,7 @@ import NewsletterForm from "./NewsletterForm";
 
 // Números do Figma de 08/11/2026.
 const STATS = [
-  { value: "09+", label: "Projetos" },
+  { value: `${String(PROJECTS.length).padStart(2, "0")}+`, label: "Projetos" },
   { value: "15+", label: "Anos de atuação" },
   { value: "50+", label: "Participantes" },
   { value: "20+", label: "Parceiros institucionais" },
