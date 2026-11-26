@@ -205,8 +205,9 @@ export const Others = styled(Cards)`
 
 export const Video = styled.div`
   position: relative;
-  aspect-ratio: 9 / 16; /* vídeo gravado no celular */
-  max-width: 360px;
+  aspect-ratio: 16 / 9; /* quadro largo: o player do Drive escolhe a resolução pela largura */
+  max-width: 960px;
+  margin: 0 auto;
   border-radius: 8px;
   overflow: hidden;
 
