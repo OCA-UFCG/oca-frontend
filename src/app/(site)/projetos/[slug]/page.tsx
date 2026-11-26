@@ -16,6 +16,7 @@ import {
   Screenshot,
   SubHeading,
   Text,
+  Video,
 } from "./styles";
 
 // ponytail: "Últimas atualizações" do design entra quando houver fonte de notícias (Contentful)
@@ -37,7 +38,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   const project = findProject(params.slug);
   if (!project) notFound();
 
-  const { name, title, status, partners, about, platform, gallery } = project;
+  const { name, title, status, partners, about, platform, gallery, video } =
+    project;
   const others = project.others.map((slug) => findProject(slug)!);
 
   return (
@@ -106,6 +108,15 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         <SubHeading>Parceiros</SubHeading>
         <PartnerLogos names={[...partners, "UFCG"]} />
       </Light>
+
+      {video && (
+        <Light>
+          <SubHeading>Vídeo</SubHeading>
+          <Video>
+            <iframe src={video} title={`Vídeo — ${name}`} allowFullScreen />
+          </Video>
+        </Light>
+      )}
 
       {gallery && (
         <Light>

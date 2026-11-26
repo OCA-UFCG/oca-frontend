@@ -202,3 +202,19 @@ export const Others = styled(Cards)`
     color: ${({ theme }) => theme.colors.primary};
   }
 `;
+
+export const Video = styled.div`
+  position: relative;
+  aspect-ratio: 9 / 16; /* vídeo gravado no celular */
+  max-width: 360px;
+  border-radius: 8px;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+`;
