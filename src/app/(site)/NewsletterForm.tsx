@@ -5,7 +5,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from "@/components/Redesign/styles";
 import { Newsletter } from "./styles";
 
-const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
 const STATUS = {
@@ -32,7 +31,7 @@ const NewsletterForm = () => {
     const email = String(data.get("email")).trim();
 
     setStatus("sending");
-    const response = await fetch(`${HOST_URL}/api/mail`, {
+    const response = await fetch("/api/mail", {
       method: "POST",
       body: JSON.stringify({
         name,
