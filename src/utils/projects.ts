@@ -27,7 +27,7 @@ export interface IProject {
   banner: string;
   about: string[];
   gallery?: string[];
-  video?: string; // URL de embed (iframe)
+  video?: { src: string; poster: string }; // MP4 em /public; entra como 1º box (o grande) da galeria
   others: string[]; // slugs em "Conheça outros projetos"
   platform?: IPlatform;
 }
@@ -252,14 +252,15 @@ export const PROJECTS: IProject[] = [
       "Desenvolvido pelo OCA/UFCG, com financiamento da Sudene e colaboração de instituições e organizações parceiras, o projeto também fortalece o envolvimento das juventudes na pesquisa e na discussão dos desafios de seus territórios.",
       "Os conhecimentos produzidos buscam apoiar ações de segurança hídrica e oferecer subsídios para políticas públicas mais adequadas às necessidades das populações.",
     ],
-    video:
-      "https://drive.google.com/file/d/1mUwttc_G7GYDr9tIEncUx52onFgbSp2A/preview",
+    video: {
+      src: "/videos/cisternas.mp4",
+      poster: "/videos/cisternas-poster.jpg",
+    },
     gallery: [
       "/redesign/cisternas-1.jpg",
       "/redesign/cisternas-2.jpg",
       "/redesign/cisternas-3.jpg",
       "/redesign/cisternas-4.jpg",
-      "/redesign/cisternas-5.jpg",
     ],
     others: ["floresta-em-pe", "data-nordeste", "pab-brasil"],
   },

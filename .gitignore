@@ -2,3 +2,5 @@ node_modules/
 .next/
 .env
 *.tsbuildinfo
+# vídeos grandes moram no servidor (nginx), fora do repositório e da imagem
+public/videos/*.mp4

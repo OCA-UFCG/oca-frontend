@@ -16,7 +16,6 @@ import {
   Screenshot,
   SubHeading,
   Text,
-  Video,
 } from "./styles";
 
 // ponytail: "Últimas atualizações" do design entra quando houver fonte de notícias (Contentful)
@@ -109,19 +108,22 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         <PartnerLogos names={[...partners, "UFCG"]} />
       </Light>
 
-      {video && (
-        <Light>
-          <SubHeading>Vídeo</SubHeading>
-          <Video>
-            <iframe src={video} title={`Vídeo — ${name}`} allowFullScreen />
-          </Video>
-        </Light>
-      )}
-
       {gallery && (
         <Light>
           <SubHeading>Galeria e registros</SubHeading>
           <Gallery>
+            {video && (
+              <li>
+                <video
+                  src={video.src}
+                  poster={video.poster}
+                  title={`Vídeo — ${name}`}
+                  controls
+                  playsInline
+                  preload="none"
+                />
+              </li>
+            )}
             {gallery.map((src) => (
               <li key={src}>
                 <Image

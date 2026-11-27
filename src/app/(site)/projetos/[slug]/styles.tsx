@@ -93,8 +93,18 @@ export const Gallery = styled.ul`
     object-fit: cover;
   }
 
+  video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* vídeo vertical: não cortar as legendas */
+    background: #000;
+  }
+
   @media (${MOBILE}) {
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
     gap: 12px;
 
     li:first-child {
@@ -200,22 +210,5 @@ export const Others = styled(Cards)`
     font-weight: 500;
     text-decoration: none;
     color: ${({ theme }) => theme.colors.primary};
-  }
-`;
-
-export const Video = styled.div`
-  position: relative;
-  aspect-ratio: 16 / 9; /* quadro largo: o player do Drive escolhe a resolução pela largura */
-  max-width: 960px;
-  margin: 0 auto;
-  border-radius: 8px;
-  overflow: hidden;
-
-  iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
   }
 `;

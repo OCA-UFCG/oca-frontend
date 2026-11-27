@@ -13,7 +13,6 @@ import { contactStatus } from "@/utils/constants";
 import { sleep } from "@/utils/functions";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
 const ContactForm = () => {
@@ -51,7 +50,7 @@ const ContactForm = () => {
       captchaToken: token,
     };
 
-    const response = await fetch(`${HOST_URL}/api/mail`, {
+    const response = await fetch("/api/mail", {
       method: "POST",
       body: JSON.stringify(data),
     });

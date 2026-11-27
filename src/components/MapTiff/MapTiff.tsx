@@ -10,8 +10,6 @@ import MapPopup from "../MapPopup/MapPopup";
 import { MapTiffContext } from "@/contexts/MapContext";
 import { fetchMapURL } from "@/services/mapServices";
 
-const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
-
 const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
   const {
     currentVisu,
@@ -101,7 +99,7 @@ const MapTiff = ({ isReduced = false, ...props }: { isReduced?: boolean }) => {
       // === Add Brazil states source
       map.addSource("brazil-states", {
         type: "vector",
-        tiles: [`${HOST_URL}/api/tiles/{z}/{x}/{y}`],
+        tiles: [`${location.origin}/api/tiles/{z}/{x}/{y}`],
       });
 
       map.addLayer({
