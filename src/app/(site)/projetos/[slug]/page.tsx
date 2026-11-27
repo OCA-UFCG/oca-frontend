@@ -17,6 +17,7 @@ import {
   SubHeading,
   Text,
 } from "./styles";
+import VideoBox from "./VideoBox";
 
 // ponytail: "Últimas atualizações" do design entra quando houver fonte de notícias (Contentful)
 export const dynamicParams = false;
@@ -114,14 +115,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           <Gallery>
             {video && (
               <li>
-                <video
-                  src={video.src}
-                  poster={video.poster}
-                  title={`Vídeo — ${name}`}
-                  controls
-                  playsInline
-                  preload="none"
-                />
+                <VideoBox {...video} title={`Vídeo — ${name}`} />
               </li>
             )}
             {gallery.map((src) => (
