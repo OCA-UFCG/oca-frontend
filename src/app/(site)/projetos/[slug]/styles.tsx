@@ -93,15 +93,6 @@ export const Gallery = styled.ul`
     object-fit: cover;
   }
 
-  video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* vídeo vertical: não cortar as legendas */
-    background: #000;
-  }
-
   @media (${MOBILE}) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: none;
@@ -112,6 +103,64 @@ export const Gallery = styled.ul`
       grid-row: auto;
       aspect-ratio: 1;
     }
+  }
+`;
+
+export const PlayButton = styled.button`
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: #000;
+
+  svg {
+    position: relative;
+    box-sizing: content-box;
+    padding: 20px 18px 20px 22px;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+    transition: transform 0.2s;
+  }
+
+  &:hover svg,
+  &:focus-visible svg {
+    transform: scale(1.1);
+  }
+`;
+
+export const VideoDialog = styled.dialog`
+  width: min(92vw, 1280px, 150vh); /* 16:9 ⇒ altura ≤ 84vh */
+  max-width: none;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: #000;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+  }
+
+  button {
+    position: absolute;
+    top: -44px;
+    right: 0;
+    display: flex;
+    padding: 8px;
+    border: 0;
+    color: #fff;
+    background: none;
+    cursor: pointer;
   }
 `;
 

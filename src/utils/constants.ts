@@ -11,6 +11,8 @@ export const REVALIDATE = process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW
   ? 60
   : 3600;
 
+export const SITE_URL = "https://oca.ufcg.edu.br"; // domínio oficial (oca.lsd redireciona pra cá)
+
 export const INSTAGRAM_URL = "https://www.instagram.com/oca.ufcg/";
 
 export const WHATSAPP_URL =

@@ -27,7 +27,7 @@ export interface IProject {
   banner: string;
   about: string[];
   gallery?: string[];
-  video?: { src: string; poster: string }; // MP4 em /public; entra como 1º box (o grande) da galeria
+  video?: { src: string; poster: string }; // src = embed do YouTube; capa em /public; 1º box (o grande) da galeria
   others: string[]; // slugs em "Conheça outros projetos"
   platform?: IPlatform;
 }
@@ -253,8 +253,8 @@ export const PROJECTS: IProject[] = [
       "Os conhecimentos produzidos buscam apoiar ações de segurança hídrica e oferecer subsídios para políticas públicas mais adequadas às necessidades das populações.",
     ],
     video: {
-      src: "/videos/cisternas.mp4",
-      poster: "/videos/cisternas-poster.jpg",
+      src: "https://www.youtube-nocookie.com/embed/Nck8aGedYRs?autoplay=1&rel=0&playsinline=1",
+      poster: "/redesign/cisternas-video.jpg",
     },
     gallery: [
       "/redesign/cisternas-1.jpg",
@@ -271,9 +271,11 @@ const bySlug = (slugs: string[]) =>
 
 // Seções da Home, na ordem do design.
 export const HOME_PROJECTS = bySlug([
+  "sedes", // destaques: os 3 primeiros
+  "atlas",
+  "floresta-em-pe",
   "pab-brasil",
   "cisternas",
-  "floresta-em-pe",
   "pae-pe",
 ]);
 export const PLATFORM_PROJECTS = bySlug([
